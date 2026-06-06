@@ -1,62 +1,454 @@
-## wordanatomy
+# Word Anatomy
 
-### Instructions
+## Objective
 
-Write a function `WordAnatomy` that takes a string and returns a struct containing analysis of the words in the string.
+Create a Go program that analyzes words and identifies known **prefixes** and **suffixes**.
 
-The struct should contain:
-- `WordCount`: number of words (delimited by spaces)
-- `VowelCount`: total number of vowels (a, e, i, o, u, case-insensitive)
-- `ConsonantCount`: total number of consonants (letters that are not vowels)
-- `LongestWord`: the longest word (first one if tie)
-- `ShortestWord`: the shortest word (first one if tie)
+The challenge is split into two files:
 
-### Expected function
-
-```go
-type WordStats struct {
-	WordCount      int
-	VowelCount     int
-	ConsonantCount int
-	LongestWord    string
-	ShortestWord   string
-}
-
-func WordAnatomy(s string) WordStats {
-
-}
+```text
+main.go
+wordanatomy.go
 ```
 
-### Usage
+Your task is to implement the solution inside `wordanatomy.go`.
 
-Here is a possible program to test your function:
+The correction program will use `main.go` to validate your implementation.
+
+---
+
+# Project Structure
+
+## wordanatomy.go
+
+This file must contain:
+
+```go
+package piscine
+```
+
+and the function:
+
+```go
+func WordAnatomy(word string) (string, string, string)
+```
+
+The function must return:
+
+```text
+(prefix, root, suffix)
+```
+
+---
+
+## main.go
+
+The testing file is provided by the checker.
+
+You must **NOT modify it**.
+
+The file contains all validation cases used during evaluation.
+
+No additional files are required.
+
+---
+
+# Allowed Packages
+
+None.
+
+```text
+No imports are allowed.
+```
+
+The entire solution must be implemented using only:
+
+* string indexing
+* loops
+* conditionals
+* functions
+
+---
+
+# Prefixes
+
+The function must recognize the following prefixes:
+
+```text
+un
+re
+pre
+mis
+dis
+over
+under
+anti
+inter
+sub
+```
+
+---
+
+# Suffixes
+
+The function must recognize the following suffixes:
+
+```text
+ing
+ed
+er
+est
+ly
+ness
+ment
+tion
+able
+ful
+```
+
+---
+
+# Expected Function
+
+```go
+func WordAnatomy(word string) (string, string, string)
+```
+
+### Return Values
+
+| Position | Meaning         |
+| -------- | --------------- |
+| 1        | detected prefix |
+| 2        | root word       |
+| 3        | detected suffix |
+
+---
+
+# Detection Rules
+
+## Prefix Only
+
+Input:
+
+```text
+unhappy
+```
+
+Return:
+
+```go
+"un", "happy", ""
+```
+
+---
+
+## Suffix Only
+
+Input:
+
+```text
+runner
+```
+
+Return:
+
+```go
+"", "runn", "er"
+```
+
+---
+
+## Prefix and Suffix
+
+Input:
+
+```text
+redoing
+```
+
+Return:
+
+```go
+"re", "do", "ing"
+```
+
+---
+
+## No Match
+
+Input:
+
+```text
+planet
+```
+
+Return:
+
+```go
+"", "planet", ""
+```
+
+---
+
+# Matching Rules
+
+### Prefix
+
+A prefix must appear at the beginning of the word.
+
+Example:
+
+```text
+misunderstand
+```
+
+returns:
+
+```go
+"mis", "understand", ""
+```
+
+---
+
+### Suffix
+
+A suffix must appear at the end of the word.
+
+Example:
+
+```text
+careful
+```
+
+returns:
+
+```go
+"", "care", "ful"
+```
+
+---
+
+### Prefix + Suffix
+
+Both may exist simultaneously.
+
+Example:
+
+```text
+misunderstanding
+```
+
+returns:
+
+```go
+"mis", "understand", "ing"
+```
+
+---
+
+# Longest Match Rule
+
+If multiple prefixes could match, use the longest one.
+
+Example:
+
+```text
+underpaid
+```
+
+returns:
+
+```go
+"under", "paid", ""
+```
+
+not
+
+```go
+"un", "derpaid", ""
+```
+
+---
+
+Likewise for suffixes.
+
+Example:
+
+```text
+greatest
+```
+
+returns:
+
+```go
+"", "great", "est"
+```
+
+not
+
+```go
+"", "greatest", ""
+```
+
+---
+
+# main.go (Checker)
+
+The correction system will use a file similar to the following:
 
 ```go
 package main
 
 import (
 	"fmt"
+	"piscine"
 )
 
 func main() {
-	stats := WordAnatomy("Hello World")
-	fmt.Printf("Words: %d, Vowels: %d, Consonants: %d, Longest: %s, Shortest: %s\n",
-		stats.WordCount, stats.VowelCount, stats.ConsonantCount, stats.LongestWord, stats.ShortestWord)
+	tests := []string{
+		"unhappy",
+		"runner",
+		"redoing",
+		"kindness",
+		"planet",
+		"careful",
+		"misunderstanding",
+		"greatest",
+		"underpaid",
+	}
 
-	stats = WordAnatomy("The quick brown fox")
-	fmt.Printf("Words: %d, Vowels: %d, Consonants: %d, Longest: %s, Shortest: %s\n",
-		stats.WordCount, stats.VowelCount, stats.ConsonantCount, stats.LongestWord, stats.ShortestWord)
+	for _, word := range tests {
+		prefix, root, suffix := piscine.WordAnatomy(word)
 
-	stats = WordAnatomy("")
-	fmt.Printf("Words: %d, Vowels: %d, Consonants: %d, Longest: %s, Shortest: %s\n",
-		stats.WordCount, stats.VowelCount, stats.ConsonantCount, stats.LongestWord, stats.ShortestWord)
+		fmt.Printf(
+			"%s -> Prefix:%q Root:%q Suffix:%q\n",
+			word,
+			prefix,
+			root,
+			suffix,
+		)
+	}
 }
 ```
 
-And its output:
+---
 
-```console
-$ go run .
-Words: 2, Vowels: 3, Consonants: 7, Longest: Hello, Shortest: Hello
-Words: 4, Vowels: 5, Consonants: 11, Longest: quick, Shortest: The
-Words: 0, Vowels: 0, Consonants: 0, Longest: , Shortest: 
+# Expected Output
+
+```text
+unhappy -> Prefix:"un" Root:"happy" Suffix:""
+runner -> Prefix:"" Root:"runn" Suffix:"er"
+redoing -> Prefix:"re" Root:"do" Suffix:"ing"
+kindness -> Prefix:"" Root:"kind" Suffix:"ness"
+planet -> Prefix:"" Root:"planet" Suffix:""
+careful -> Prefix:"" Root:"care" Suffix:"ful"
+misunderstanding -> Prefix:"mis" Root:"understand" Suffix:"ing"
+greatest -> Prefix:"" Root:"great" Suffix:"est"
+underpaid -> Prefix:"under" Root:"paid" Suffix:""
+```
+
+---
+
+# Examples
+
+### Example 1
+
+Input:
+
+```go
+WordAnatomy("unhappy")
+```
+
+Output:
+
+```go
+"un", "happy", ""
+```
+
+---
+
+### Example 2
+
+Input:
+
+```go
+WordAnatomy("redoing")
+```
+
+Output:
+
+```go
+"re", "do", "ing"
+```
+
+---
+
+### Example 3
+
+Input:
+
+```go
+WordAnatomy("planet")
+```
+
+Output:
+
+```go
+"", "planet", ""
+```
+
+---
+
+# Bonus
+
+### Level 1
+
+Support multiple prefixes.
+
+```text
+antidisestablishment
+```
+
+returns:
+
+```go
+"anti-dis", "establishment", ""
+```
+
+---
+
+### Level 2
+
+Support multiple suffixes.
+
+```text
+carefulness
+```
+
+returns:
+
+```go
+"", "care", "ful-ness"
+```
+
+---
+
+### Level 3
+
+Return the anatomy visually.
+
+```text
+redoing
+```
+
+becomes:
+
+```text
+[re][do][ing]
+```
+
+---
+
+A good linguist can identify words.
+
+A great programmer can dissect them.
