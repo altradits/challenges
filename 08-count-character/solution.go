@@ -1,8 +1,23 @@
 package main
 
-// TODO: Write your solution here
-// Follow the instructions in README.md
+import "fmt"
+
+func CountChar(str string, c rune) int {
+
+	count := 0
+
+	for _, char := range str {
+
+		if char == c {
+			count++
+		}
+	}
+	return count
+}
 
 func main() {
-	// Your code here
+	fmt.Println(CountChar("Hello World", 'l'))
+	fmt.Println(CountChar("5  balloons", 5))
+	fmt.Println(CountChar("   ", ' '))
+	fmt.Println(CountChar("The 7 deadly sins", '7'))
 }
