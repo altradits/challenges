@@ -1,10 +1,31 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func ZipString(s string) string {
-	// TODO: Implement this function
-	return ""
+	if len(s) == 0 {
+		return ""
+	}
+
+	var result []byte
+	count := 1
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			count++
+		} else {
+			result = append(result, []byte(strconv.Itoa(count))...)
+			result = append(result, s[i-1])
+			count = 1
+		}
+	}
+	// Add the last group
+	result = append(result, []byte(strconv.Itoa(count))...)
+	result = append(result, s[len(s)-1])
+
+	return string(result)
 }
 
 func main() {

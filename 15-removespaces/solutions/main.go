@@ -3,10 +3,13 @@ package main
 import "fmt"
 
 func RemoveSpaces(s string) string {
-	// TODO: Implement this function
-	// Hint: Iterate through the string and build a new string
-	// that only includes characters that are NOT spaces.
-	return ""
+	result := ""
+	for _, c := range s {
+		if c != ' ' {
+			result += string(c)
+		}
+	}
+	return result
 }
 
 func main() {

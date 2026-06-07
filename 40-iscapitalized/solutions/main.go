@@ -3,8 +3,22 @@ package main
 import "fmt"
 
 func IsCapitalized(s string) bool {
-	// TODO: Implement this function
-	return false
+	if len(s) == 0 {
+		return false
+	}
+
+	inWord := false
+	for _, c := range s {
+		if c == ' ' {
+			inWord = false
+		} else if !inWord {
+			inWord = true
+			if c >= 'a' && c <= 'z' {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 func main() {

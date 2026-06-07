@@ -3,13 +3,29 @@ package main
 import "fmt"
 
 func TitleCase(s string) string {
-	// TODO: Implement this function
-	// Hint: Track whether the next character should be uppercase.
-	// 1. Iterate through the string.
-	// 2. If the current character is a letter and the previous character was a space (or it's the first character), make it uppercase.
-	// 3. Otherwise, make it lowercase.
-	// 4. Keep non-letter characters unchanged.
-	return ""
+	if len(s) == 0 {
+		return ""
+	}
+
+	runes := []rune(s)
+	capitalizeNext := true
+
+	for i, c := range runes {
+		if c == ' ' {
+			capitalizeNext = true
+		} else if capitalizeNext {
+			if c >= 'a' && c <= 'z' {
+				runes[i] = c - 'a' + 'A'
+			}
+			capitalizeNext = false
+		} else {
+			if c >= 'A' && c <= 'Z' {
+				runes[i] = c - 'A' + 'a'
+			}
+		}
+	}
+
+	return string(runes)
 }
 
 func main() {

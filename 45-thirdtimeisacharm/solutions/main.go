@@ -3,8 +3,19 @@ package main
 import "fmt"
 
 func ThirdTimeIsACharm(str string) string {
-	// TODO: Implement this function
-	return ""
+	if len(str) == 0 {
+		return "\n"
+	}
+
+	result := ""
+	for i := 2; i < len(str); i += 3 {
+		result += string(str[i])
+	}
+
+	if len(result) == 0 {
+		return "\n"
+	}
+	return result + "\n"
 }
 
 func main() {

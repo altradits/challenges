@@ -3,12 +3,11 @@ package main
 import "fmt"
 
 func ReverseString(s string) string {
-	// TODO: Implement this function
-	// Hint: Go strings are UTF-8 encoded. Use for...range to iterate by runes.
-	// 1. Convert the string to a slice of runes.
-	// 2. Swap elements from the start and end of the slice.
-	// 3. Convert the rune slice back to a string.
-	return ""
+	runes := []rune(s)
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	return string(runes)
 }
 
 func main() {

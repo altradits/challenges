@@ -3,10 +3,14 @@ package main
 import "fmt"
 
 func CountVowels(s string) int {
-	// TODO: Implement this function
-	// Hint: Define what a vowel is (a, e, i, o, u - both cases).
-	// Iterate through the string and count how many characters are vowels.
-	return 0
+	count := 0
+	for _, c := range s {
+		switch c {
+		case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
+			count++
+		}
+	}
+	return count
 }
 
 func main() {

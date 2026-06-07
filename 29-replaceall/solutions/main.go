@@ -3,11 +3,22 @@ package main
 import "fmt"
 
 func ReplaceAll(text, old, new string) string {
-	// TODO: Implement this function
-	// Hint: Use a loop to scan through text.
-	// When you find old at the current position, append new to the result.
-	// Otherwise, append the current character.
-	return ""
+	if len(old) == 0 {
+		return text
+	}
+
+	var result []byte
+	i := 0
+	for i < len(text) {
+		if i <= len(text)-len(old) && text[i:i+len(old)] == old {
+			result = append(result, new...)
+			i += len(old)
+		} else {
+			result = append(result, text[i])
+			i++
+		}
+	}
+	return string(result)
 }
 
 func main() {

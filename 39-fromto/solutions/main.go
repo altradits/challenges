@@ -3,8 +3,32 @@ package main
 import "fmt"
 
 func FromTo(from int, to int) string {
-	// TODO: Implement this function
-	return ""
+	if from < 0 || from > 99 || to < 0 || to > 99 {
+		return "Invalid\n"
+	}
+
+	if from == to {
+		return fmt.Sprintf("%02d\n", from)
+	}
+
+	result := ""
+	if from < to {
+		for i := from; i <= to; i++ {
+			if i > from {
+				result += ", "
+			}
+			result += fmt.Sprintf("%02d", i)
+		}
+	} else {
+		for i := from; i >= to; i-- {
+			if i < from {
+				result += ", "
+			}
+			result += fmt.Sprintf("%02d", i)
+		}
+	}
+	result += "\n"
+	return result
 }
 
 func main() {
