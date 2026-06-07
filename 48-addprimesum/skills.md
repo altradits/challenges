@@ -1,79 +1,23 @@
-# Skills for addprimesum
+# Skills for 48-addprimesum
 
 ## What You'll Learn
 
-This exercise is part of the **Expert Checkpoints** series. By completing it, you'll master the logic needed to solve this type of problem and be prepared for similar challenges.
+**Previous:** [47-zipstring](../47-zipstring/skills.md)
+
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
 **Challenge:** Write a program that takes a positive integer as argument and displays the sum of all prime numbers inferior or equal to it followed by a newline (`'\n'`).
-- If the number of arguments is different from 1, or if the argument is not a positive number, the program displays `0` followed by a newline.
-### Usage
-```console
-$ go run . 5
-10
-$ go run . 7
-17
-$ go run . -2
-0
-$ go run . 0
-0
-$ go run .
-0
-$ go run . 5 7
-0
-$
 
-## Prerequisites
+## New Concept
 
-Before starting this exercise, review these fundamental concepts:
-
-### 1. Go Function Basics
-```go
-func MyFunction(parameter string) int {
-    // Your code here
-    return 0
-}
-```
-
-### 2. String Iteration
-```go
-for i, c := range s {
-    // i is index, c is rune
-}
-```
-
-### 3. Conditional Logic
-```go
-if condition {
-    // do something
-} else {
-    // do something else
-}
-```
-
-## Core Concepts to Master
-
-### The Problem Pattern
-Understanding the pattern behind this challenge:
-
-1. **Input Analysis** - What type of data are you receiving?
-2. **Transformation Logic** - What operation needs to be performed?
-3. **Edge Cases** - What happens with empty input, single elements, or boundary values?
-4. **Output Format** - What should the function return?
-
-### Key Techniques
-- **Iteration**: Processing each element systematically
-- **State Tracking**: Remembering previous values or flags
-- **Early Returns**: Handling edge cases immediately
-- **String Building**: Constructing results character by character
+Prime number summation with mathematical accumulation
 
 ## Skills You'll Learn
 
 After completing this exercise, you'll be able to:
-
-1. **Analyze problem patterns** - Recognize similar challenges
-2. **Implement core algorithms** - Write the logic from scratch
-3. **Handle edge cases** - Deal with empty, single, or boundary inputs
-4. **Optimize solutions** - Write efficient, readable code
+1. **Apply this new concept** to solve the challenge
+2. **Build on previous skills** without repeating them
+3. **Progress to the next challenge** with confidence
 
 ## How This Helps Your Capstone
 
@@ -85,8 +29,8 @@ This skill is used in:
 
 ## Step-by-Step Approach
 
-1. **Understand the requirements** - What exactly is being asked?
-2. **Identify the pattern** - What algorithm or technique applies?
+1. **Review previous skills** if needed - click the link above
+2. **Understand the challenge** - Read the README carefully
 3. **Plan your solution** - Sketch the logic before coding
 4. **Implement incrementally** - Build and test piece by piece
 5. **Verify edge cases** - Test with empty, single, and boundary inputs
@@ -95,7 +39,7 @@ This skill is used in:
 
 | Mistake | Why It's Wrong | Correct Approach |
 |---------|---------------|------------------|
-| Skipping edge cases | Empty/single inputs break | Always test boundaries first |
+| Skipping prerequisites | You'll miss foundational concepts | Review previous skills.md first |
 | Overcomplicating | Simple problems have simple solutions | Start with the simplest approach |
 | Off-by-one errors | Index math is tricky | Draw it out on paper |
 | Wrong return type | Type mismatch errors | Check function signature |
@@ -105,79 +49,31 @@ This skill is used in:
 - **Draw it out**: Visualize the problem with diagrams
 - **Trace manually**: Follow your code step by step with sample input
 - **Test boundaries**: Empty string, single char, max values
-- **Refactor**: Can you make it simpler or more efficient?
+- **Review previous**: If stuck, go back to the previous skills.md
 
 ## The Challenge
 
-Write a program that takes a positive integer as argument and displays the sum of all prime numbers inferior or equal to it followed by a newline (`'\n'`).
-- If the number of arguments is different from 1, or if the argument is not a positive number, the program displays `0` followed by a newline.
-### Usage
-```console
-$ go run . 5
-10
-$ go run . 7
-17
-$ go run . -2
-0
-$ go run . 0
-0
-$ go run .
-0
-$ go run . 5 7
-0
-$
-
-### Expected Function
-```go
-
-```
-
-### Test Cases
-
-| Input | Expected Output | Why |
-|-------|-----------------|-----|
-| *(See README.md for specific test cases)* | | |
-
-### Usage Example
-```go
-// See README.md for usage examples
-```
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
 ## Knowledge Check
 
 Before coding, make sure you can answer:
-1. What is the core algorithm needed?
-2. What edge cases must be handled?
-3. How would you explain this solution to someone else?
+1. What new concept does this exercise introduce?
+2. Which previous skill does this build on? (Click the link above)
+3. What edge cases should I test?
 
 ## Next Steps
 
-After completing this, you'll be ready for:
-- **Next in sequence**: Check the LEARNING_PATH.md for progression
-- **Similar patterns**: Look for exercises with the same technique
-- **Advanced variations**: Try modifying the challenge constraints
+**Next:** [49-canjump](../49-canjump/skills.md) - Canjump
 
 ---
 
-## Mastering This Pattern
+## Need Help?
 
-### Similar Challenges
-Look for these related patterns in other exercises:
-- String iteration and manipulation
-- Conditional logic and early returns
-- State tracking across iterations
-- Building results incrementally
+If you're stuck:
+1. **Review previous skills** - Click the "Previous" link above
+2. **Re-read the README** - It contains all the theory you need
+3. **Draw the logic** on paper - trace through examples manually
+4. **Test with simple input** first, then edge cases
 
-### Transferable Skills
-The techniques you learn here apply to:
-- Text processing and validation
-- Data parsing and transformation
-- Algorithmic problem solving
-- Writing clean, maintainable code
-
-### Real-World Applications
-This pattern is used in:
-- Form validation (checking input formats)
-- Data cleaning (removing/transforming characters)
-- Text analysis (counting, finding, replacing)
-- File processing (parsing line by line)
+**Remember:** Every expert was once a beginner. Take your time, understand each concept, and don't skip ahead!
