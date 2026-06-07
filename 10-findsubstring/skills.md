@@ -2,22 +2,107 @@
 
 ## What You'll Learn
 
-**Previous:** [09-countvowels](../09-countvowels/skills.md)
+**Previous:** [08-count-character](../08-count-character/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
-**Challenge:** Write a function that takes two strings as arguments: a `text` and a `substring`. The function should return the index of the first occurrence of `substring` in `text`.
+**Challenge:** Findsubstring
 
-## New Concept
+## Prerequisite Knowledge
 
-Substring search using nested loops and returning index positions
+Before starting, you should understand:
+- Basic Go syntax and program structure
+- How to define and call functions
+- String manipulation basics in Go
+- Control flow (if/else, loops)
+
+## New Concepts Explained
+
+### 1. String manipulation and processing
+
+In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+
+```go
+for _, char := range myString {
+    // char is a rune (int32)
+}
+```
+
+To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+
+### 2. Go function definition and usage
+
+Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+
+```go
+func FunctionName(param1 type1, param2 type2) returnType {
+    // function body
+    return result
+}
+```
+
+The `main()` function is special - it's where program execution begins.
+
+### 3. Conditional logic and boolean returns
+
+Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+
+```go
+if condition {
+    // do something
+} else if otherCondition {
+    // do something else
+} else {
+    // default case
+}
+```
+
+Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+
+### 4. Numeric operations and type conversion
+
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
+
+## Complete Solution Example
+
+```go
+package main
+
+import "fmt"
+
+FindSubstring implementation here
+
+func main() {
+    // Test your function
+    fmt.Println(FindSubstring())
+}
+```
+
+### Line-by-Line Explanation
+
+1. `package main` - Declares this as an executable program
+2. `import "fmt"` - Imports the formatting package
+3. Function implementation follows the expected signature
+4. `main()` - Tests the function with sample inputs
+
+## How to Run Your Program
+
+1. Save the file as `main.go`
+2. Open a terminal in the same directory
+3. Run: `go run main.go`
+4. Verify the output matches expected results
 
 ## Skills You'll Learn
 
 After completing this exercise, you'll be able to:
-1. **Apply this new concept** to solve the challenge
-2. **Build on previous skills** without repeating them
-3. **Progress to the next challenge** with confidence
+1. Apply string manipulation and processing to solve challenges
+2. Build on previous skills without repeating them
+3. Progress to the next challenge with confidence
 
 ## How This Helps Your Capstone
 
@@ -62,9 +147,19 @@ Before coding, make sure you can answer:
 2. Which previous skill does this build on? (Click the link above)
 3. What edge cases should I test?
 
-## Next Steps
+## Reference Links
 
-**Next:** [11-ispalindrome](../11-ispalindrome/skills.md) - Ispalindrome
+For continued learning, explore these resources:
+
+- [Go Documentation](https://go.dev/doc/)
+- [Go Package Documentation](https://pkg.go.dev/)
+- [Go Tour](https://tour.golang.org/)
+- [Effective Go](https://go.dev/doc/effective_go)
+- [fmt package](https://pkg.go.dev/fmt)
+- [strings package](https://pkg.go.dev/strings)
+- [regexp package](https://pkg.go.dev/regexp)
+
+**Next:** [12-printif](../12-printif/skills.md) - 12 Printif
 
 ---
 

@@ -6,18 +6,93 @@
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
-**Challenge:** Write a program that takes one or more arguments and that, for each argument, puts the last letter of each word in uppercase and the rest in lowercase. It displays the result followed by a newline (`'\n'`).
+**Challenge:** Reversestrcap
 
-## New Concept
+## Prerequisite Knowledge
 
-Selective case transformation with conditional logic
+Before starting, you should understand:
+- Basic Go syntax and program structure
+- How to define and call functions
+- String manipulation basics in Go
+- Control flow (if/else, loops)
+
+## New Concepts Explained
+
+### 1. String manipulation and processing
+
+In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+
+```go
+for _, char := range myString {
+    // char is a rune (int32)
+}
+```
+
+To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+
+### 2. Looping constructs (for, range)
+
+Go has only one looping construct: the `for` loop. It can be used in several ways:
+
+```go
+// Traditional for loop
+for i := 0; i < 10; i++ { }
+
+// While-style loop
+for condition { }
+
+// Range loop (for collections)
+for index, value := range collection { }
+```
+
+For strings, `for...range` iterates over runes, making it safe for UTF-8.
+
+### 3. Conditional logic and boolean returns
+
+Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+
+```go
+if condition {
+    // do something
+} else if otherCondition {
+    // do something else
+} else {
+    // default case
+}
+```
+
+Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+
+### 4. Command-line argument handling
+
+Access command-line arguments via `os.Args`:
+
+```go
+import "os"
+
+func main() {
+    args := os.Args[1:]  // Skip program name
+    for _, arg := range args {
+        fmt.Println(arg)
+    }
+}
+```
+
+Or use the `flag` package for more complex argument parsing.
+
+## How to Run Your Program
+
+1. Save the file as `main.go`
+2. Open a terminal in the same directory
+3. Run: `go run main.go`
+4. Verify the output matches expected results
 
 ## Skills You'll Learn
 
 After completing this exercise, you'll be able to:
-1. **Apply this new concept** to solve the challenge
-2. **Build on previous skills** without repeating them
-3. **Progress to the next challenge** with confidence
+1. Apply string manipulation and processing to solve challenges
+2. Build on previous skills without repeating them
+3. Progress to the next challenge with confidence
 
 ## How This Helps Your Capstone
 
@@ -62,9 +137,16 @@ Before coding, make sure you can answer:
 2. Which previous skill does this build on? (Click the link above)
 3. What edge cases should I test?
 
-## Next Steps
+## Reference Links
 
-**Next:** [57-saveandmiss](../57-saveandmiss/skills.md) - Saveandmiss
+For continued learning, explore these resources:
+
+- [Go Documentation](https://go.dev/doc/)
+- [Go Package Documentation](https://pkg.go.dev/)
+- [Go Tour](https://tour.golang.org/)
+- [Effective Go](https://go.dev/doc/effective_go)
+
+**Next:** [57-saveandmiss](../57-saveandmiss/skills.md) - 57 Saveandmiss
 
 ---
 
