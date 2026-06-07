@@ -4,11 +4,13 @@
 
 **Previous:** [74-brainfuck](../74-brainfuck/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Grouping
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,9 +20,45 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Looping constructs (for, range)
+### 2. String searching and indexing
+
+Go provides several ways to search within strings:
+- `strings.Index()` - find first occurrence
+- `strings.LastIndex()` - find last occurrence
+- Manual iteration with `for...range` for custom search logic
+- Compare runes or bytes directly
+
+```go
+// Manual search example
+for i, c := range s {
+    if c == target {
+        return i
+    }
+}
+return -1
+```
+
+### 3. Stack data structure for LIFO operations
+
+A stack is a Last-In-First-Out (LIFO) data structure. In Go, you can implement a stack using a slice:
+
+```go
+// Push
+stack = append(stack, item)
+
+// Pop
+item := stack[len(stack)-1]
+stack = stack[:len(stack)-1]
+
+// Peek
+item := stack[len(stack)-1]
+```
+
+Stacks are useful for bracket matching, RPN evaluation, and backtracking algorithms.
+
+### 4. Looping constructs (for, range)
 
 Go has only one looping construct: the `for` loop. It can be used in several ways:
 
@@ -37,29 +75,8 @@ for index, value := range collection { }
 
 For strings, `for...range` iterates over runes, making it safe for UTF-8.
 
-### 3. Conditional logic and boolean returns
+## The Challenge
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Numeric operations and type conversion
-
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-**Next:** [76-stringlength](../76-stringlength/skills.md) - 76 Stringlength
+**Next:** [76-stringlength](../76-stringlength/skills.md) - Stringlength

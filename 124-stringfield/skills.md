@@ -4,11 +4,13 @@
 
 **Previous:** [123-stringsuffix](../123-stringsuffix/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Stringfield
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,38 +20,30 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Go function definition and usage
+### 2. String splitting and joining
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Go's `strings` package provides split and join functions:
+- `strings.Split(s, sep)` - split string into slice
+- `strings.Join(slice, sep)` - join slice into string
+- Manual implementation helps understand the logic
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+// Manual split example
+parts := []string{}
+current := ""
+for _, c := range s {
+    if c == sep {
+        parts = append(parts, current)
+        current = ""
+    } else {
+        current += string(c)
+    }
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Slice manipulation and operations
+### 3. Slice manipulation and operations
 
 Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
 
@@ -66,4 +60,21 @@ numbers = append(numbers, 6)
 
 Slices have length (current elements) and capacity (max elements without reallocation).
 
-**Next:** [125-stringmap](../125-stringmap/skills.md) - 125 Stringmap
+### 4. Go function definition and usage
+
+Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+
+```go
+func FunctionName(param1 type1, param2 type2) returnType {
+    // function body
+    return result
+}
+```
+
+The `main()` function is special - it's where program execution begins.
+
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [125-stringmap](../125-stringmap/skills.md) - Stringmap

@@ -4,21 +4,20 @@
 
 **Previous:** [63-slice](../63-slice/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Findpairs
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. Numeric operations and type conversion
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
 
 ### 2. Looping constructs (for, range)
 
@@ -53,13 +52,23 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 4. Numeric operations and type conversion
+### 4. Error handling and validation
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+Go handles errors explicitly. Functions often return `(value, error)`:
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
+```go
+result, err := someFunction()
+if err != nil {
+    // handle error
+    return
+}
+// use result
+```
 
-**Next:** [65-revwstr](../65-revwstr/skills.md) - 65 Revwstr
+Always check errors - Go doesn't have exceptions!
+
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [65-revwstr](../65-revwstr/skills.md) - Revwstr

@@ -4,23 +4,39 @@
 
 **Previous:** [61-notdecimal](../61-notdecimal/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Revconcatalternate
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. Numeric operations and type conversion
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
+
+### 2. Slice manipulation and operations
+
+Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+// Create a slice
+numbers := []int{1, 2, 3, 4, 5}
+
+// Slice an existing slice
+subset := numbers[1:4]  // [2, 3, 4]
+
+// Append to a slice
+numbers = append(numbers, 6)
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+Slices have length (current elements) and capacity (max elements without reallocation).
 
-### 2. Go function definition and usage
+### 3. Go function definition and usage
 
 Functions in Go are defined using the `func` keyword. They can take parameters and return values:
 
@@ -33,7 +49,7 @@ func FunctionName(param1 type1, param2 type2) returnType {
 
 The `main()` function is special - it's where program execution begins.
 
-### 3. Looping constructs (for, range)
+### 4. Looping constructs (for, range)
 
 Go has only one looping construct: the `for` loop. It can be used in several ways:
 
@@ -50,24 +66,8 @@ for index, value := range collection { }
 
 For strings, `for...range` iterates over runes, making it safe for UTF-8.
 
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [63-slice](../63-slice/skills.md) - 63 Slice
+**Next:** [63-slice](../63-slice/skills.md) - Slice

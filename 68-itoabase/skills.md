@@ -4,11 +4,13 @@
 
 **Previous:** [67-wordflip](../67-wordflip/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Itoabase
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,9 +20,25 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Go function definition and usage
+### 2. String transformation and case conversion
+
+Go's `unicode` package provides case conversion functions:
+- `unicode.ToUpper(r)` - convert rune to uppercase
+- `unicode.ToLower(r)` - convert rune to lowercase
+- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
+
+You can also use ASCII math: uppercase and lowercase letters differ by 32.
+
+```go
+// ASCII conversion
+if c >= 'a' && c <= 'z' {
+    c = c - 32  // to uppercase
+}
+```
+
+### 3. Go function definition and usage
 
 Functions in Go are defined using the `func` keyword. They can take parameters and return values:
 
@@ -33,7 +51,7 @@ func FunctionName(param1 type1, param2 type2) returnType {
 
 The `main()` function is special - it's where program execution begins.
 
-### 3. Looping constructs (for, range)
+### 4. Looping constructs (for, range)
 
 Go has only one looping construct: the `for` loop. It can be used in several ways:
 
@@ -50,24 +68,8 @@ for index, value := range collection { }
 
 For strings, `for...range` iterates over runes, making it safe for UTF-8.
 
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [69-options](../69-options/skills.md) - 69 Options
+**Next:** [69-options](../69-options/skills.md) - Options

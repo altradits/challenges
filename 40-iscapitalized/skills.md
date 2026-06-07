@@ -4,11 +4,13 @@
 
 **Previous:** [39-fromto](../39-fromto/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Iscapitalized
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,9 +20,25 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Go function definition and usage
+### 2. String transformation and case conversion
+
+Go's `unicode` package provides case conversion functions:
+- `unicode.ToUpper(r)` - convert rune to uppercase
+- `unicode.ToLower(r)` - convert rune to lowercase
+- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
+
+You can also use ASCII math: uppercase and lowercase letters differ by 32.
+
+```go
+// ASCII conversion
+if c >= 'a' && c <= 'z' {
+    c = c - 32  // to uppercase
+}
+```
+
+### 3. Go function definition and usage
 
 Functions in Go are defined using the `func` keyword. They can take parameters and return values:
 
@@ -33,7 +51,7 @@ func FunctionName(param1 type1, param2 type2) returnType {
 
 The `main()` function is special - it's where program execution begins.
 
-### 3. Conditional logic and boolean returns
+### 4. Conditional logic and boolean returns
 
 Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
 
@@ -49,17 +67,8 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 4. Numeric operations and type conversion
-
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [41-itoa-35](../41-itoa-35/skills.md) - 41 Itoa 35
+**Next:** [41-itoa-35](../41-itoa-35/skills.md) - Itoa 35

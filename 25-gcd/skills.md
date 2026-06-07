@@ -4,21 +4,20 @@
 
 **Previous:** [23-firstword](../23-firstword/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Gcd
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. Numeric operations and type conversion
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
 
 ### 2. Go function definition and usage
 
@@ -49,17 +48,20 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 4. Numeric operations and type conversion
+### 4. Formatted output with fmt package
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+The `fmt` package provides formatted I/O:
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
+```go
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
+```
+
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
 
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [26-hashcode](../26-hashcode/skills.md) - 26 Hashcode
+**Next:** [26-hashcode](../26-hashcode/skills.md) - Hashcode

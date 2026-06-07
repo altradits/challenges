@@ -4,21 +4,20 @@
 
 **Previous:** [43-printmemory](../43-printmemory/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Printrevcomb
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. Numeric operations and type conversion
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
 
 ### 2. Conditional logic and boolean returns
 
@@ -36,25 +35,20 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 3. Numeric operations and type conversion
+### 3. Formatted output with fmt package
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-### 4. Pointer basics and memory addresses
-
-Pointers hold memory addresses. Use `&` to get address, `*` to dereference:
+The `fmt` package provides formatted I/O:
 
 ```go
-x := 42
-ptr := &x    // ptr points to x
-fmt.Println(*ptr)  // Prints 42 (dereferenced)
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
 ```
 
-In Go, pointers are rarely needed for basic tasks due to pass-by-value semantics for most types.
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
 
-**Next:** [45-thirdtimeisacharm](../45-thirdtimeisacharm/skills.md) - 45 Thirdtimeisacharm
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [45-thirdtimeisacharm](../45-thirdtimeisacharm/skills.md) - Thirdtimeisacharm

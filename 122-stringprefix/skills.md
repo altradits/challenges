@@ -4,11 +4,13 @@
 
 **Previous:** [121-stringcount](../121-stringcount/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Stringprefix
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,7 +20,7 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
 ### 2. Go function definition and usage
 
@@ -49,13 +51,8 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 4. Numeric operations and type conversion
+## The Challenge
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-**Next:** [123-stringsuffix](../123-stringsuffix/skills.md) - 123 Stringsuffix
+**Next:** [123-stringsuffix](../123-stringsuffix/skills.md) - Stringsuffix

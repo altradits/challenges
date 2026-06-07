@@ -4,11 +4,13 @@
 
 **Previous:** [62-revconcatalternate](../62-revconcatalternate/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Slice
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,38 +20,25 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Go function definition and usage
+### 2. String transformation and case conversion
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Go's `unicode` package provides case conversion functions:
+- `unicode.ToUpper(r)` - convert rune to uppercase
+- `unicode.ToLower(r)` - convert rune to lowercase
+- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
+
+You can also use ASCII math: uppercase and lowercase letters differ by 32.
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+// ASCII conversion
+if c >= 'a' && c <= 'z' {
+    c = c - 32  // to uppercase
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Slice manipulation and operations
+### 3. Slice manipulation and operations
 
 Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
 
@@ -66,8 +55,21 @@ numbers = append(numbers, 6)
 
 Slices have length (current elements) and capacity (max elements without reallocation).
 
+### 4. Go function definition and usage
+
+Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+
+```go
+func FunctionName(param1 type1, param2 type2) returnType {
+    // function body
+    return result
+}
+```
+
+The `main()` function is special - it's where program execution begins.
+
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [64-findpairs](../64-findpairs/skills.md) - 64 Findpairs
+**Next:** [64-findpairs](../64-findpairs/skills.md) - Findpairs

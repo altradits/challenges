@@ -4,11 +4,13 @@
 
 **Previous:** [98-searchreplace](../98-searchreplace/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Cleanlist
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,56 +20,63 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Go function definition and usage
+### 2. String filtering and cleaning
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Filtering strings involves:
+- Iterating through characters
+- Checking conditions (is space? is digit? etc.)
+- Building a new string with only wanted characters
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+var result strings.Builder
+for _, c := range s {
+    if condition(c) {
+        result.WriteRune(c)
+    }
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### 3. Slice manipulation and operations
 
-### 3. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
+// Create a slice
+numbers := []int{1, 2, 3, 4, 5}
 
-// While-style loop
-for condition { }
+// Slice an existing slice
+subset := numbers[1:4]  // [2, 3, 4]
 
-// Range loop (for collections)
-for index, value := range collection { }
+// Append to a slice
+numbers = append(numbers, 6)
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
+Slices have length (current elements) and capacity (max elements without reallocation).
 
-### 4. Conditional logic and boolean returns
+### 4. Map data structures for lookups
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+Maps are Go's built-in associative data type (hash tables):
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+// Create a map
+seen := make(map[rune]bool)
+seen['a'] = true
+
+// Check if key exists
+if seen['b'] {
+    // key exists
 }
+
+// Delete a key
+delete(seen, 'a')
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Maps are reference types - when you pass them to functions, modifications affect the original.
 
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [100-countwords](../100-countwords/skills.md) - 100 Countwords
+**Next:** [100-countwords](../100-countwords/skills.md) - Countwords

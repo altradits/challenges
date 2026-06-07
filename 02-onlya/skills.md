@@ -4,11 +4,13 @@
 
 **Previous:** [01-only1](../01-only1/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Onlya
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,6 +20,10 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-**Next:** [03-onlyb](../03-onlyb/skills.md) - 03 Onlyb
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [03-onlyb](../03-onlyb/skills.md) - Onlyb

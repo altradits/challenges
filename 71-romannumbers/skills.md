@@ -4,21 +4,20 @@
 
 **Previous:** [70-piglatin](../70-piglatin/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Romannumbers
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. Numeric operations and type conversion
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
 
 ### 2. Looping constructs (for, range)
 
@@ -37,30 +36,35 @@ for index, value := range collection { }
 
 For strings, `for...range` iterates over runes, making it safe for UTF-8.
 
-### 3. Numeric operations and type conversion
+### 3. Formatted output with fmt package
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-### 4. Command-line argument handling
-
-Access command-line arguments via `os.Args`:
+The `fmt` package provides formatted I/O:
 
 ```go
-import "os"
-
-func main() {
-    args := os.Args[1:]  // Skip program name
-    for _, arg := range args {
-        fmt.Println(arg)
-    }
-}
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
 ```
 
-Or use the `flag` package for more complex argument parsing.
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
 
-**Next:** [72-brackets](../72-brackets/skills.md) - 72 Brackets
+### 4. Error handling and validation
+
+Go handles errors explicitly. Functions often return `(value, error)`:
+
+```go
+result, err := someFunction()
+if err != nil {
+    // handle error
+    return
+}
+// use result
+```
+
+Always check errors - Go doesn't have exceptions!
+
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [72-brackets](../72-brackets/skills.md) - Brackets

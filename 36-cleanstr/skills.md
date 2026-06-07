@@ -4,11 +4,13 @@
 
 **Previous:** [35-clean-the-list](../35-clean-the-list/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Cleanstr
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,9 +20,25 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Conditional logic and boolean returns
+### 2. String filtering and cleaning
+
+Filtering strings involves:
+- Iterating through characters
+- Checking conditions (is space? is digit? etc.)
+- Building a new string with only wanted characters
+
+```go
+var result strings.Builder
+for _, c := range s {
+    if condition(c) {
+        result.WriteRune(c)
+    }
+}
+```
+
+### 3. Conditional logic and boolean returns
 
 Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
 
@@ -36,25 +54,8 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 3. Numeric operations and type conversion
+## The Challenge
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-### 4. Pointer basics and memory addresses
-
-Pointers hold memory addresses. Use `&` to get address, `*` to dereference:
-
-```go
-x := 42
-ptr := &x    // ptr points to x
-fmt.Println(*ptr)  // Prints 42 (dereferenced)
-```
-
-In Go, pointers are rarely needed for basic tasks due to pass-by-value semantics for most types.
-
-**Next:** [37-expandstr](../37-expandstr/skills.md) - 37 Expandstr
+**Next:** [37-expandstr](../37-expandstr/skills.md) - Expandstr

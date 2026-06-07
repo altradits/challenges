@@ -4,21 +4,20 @@
 
 **Previous:** [52-concatslice](../52-concatslice/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Fprime
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. Numeric operations and type conversion
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+Common operations:
+- `%` (modulo) for remainders
+- `/` for division (integer division truncates)
+- Type conversion: `int(x)`, `float64(x)`
 
 ### 2. Conditional logic and boolean returns
 
@@ -36,25 +35,23 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 3. Numeric operations and type conversion
+### 3. Error handling and validation
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-### 4. Pointer basics and memory addresses
-
-Pointers hold memory addresses. Use `&` to get address, `*` to dereference:
+Go handles errors explicitly. Functions often return `(value, error)`:
 
 ```go
-x := 42
-ptr := &x    // ptr points to x
-fmt.Println(*ptr)  // Prints 42 (dereferenced)
+result, err := someFunction()
+if err != nil {
+    // handle error
+    return
+}
+// use result
 ```
 
-In Go, pointers are rarely needed for basic tasks due to pass-by-value semantics for most types.
+Always check errors - Go doesn't have exceptions!
 
-**Next:** [54-hiddenp](../54-hiddenp/skills.md) - 54 Hiddenp
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [54-hiddenp](../54-hiddenp/skills.md) - Hiddenp

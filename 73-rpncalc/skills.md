@@ -4,11 +4,13 @@
 
 **Previous:** [72-brackets](../72-brackets/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Rpncalc
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,48 +20,60 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Looping constructs (for, range)
+### 2. String searching and indexing
 
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+Go provides several ways to search within strings:
+- `strings.Index()` - find first occurrence
+- `strings.LastIndex()` - find last occurrence
+- Manual iteration with `for...range` for custom search logic
+- Compare runes or bytes directly
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
+// Manual search example
+for i, c := range s {
+    if c == target {
+        return i
+    }
+}
+return -1
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
+### 3. String transformation and case conversion
 
-### 3. Conditional logic and boolean returns
+Go's `unicode` package provides case conversion functions:
+- `unicode.ToUpper(r)` - convert rune to uppercase
+- `unicode.ToLower(r)` - convert rune to lowercase
+- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+You can also use ASCII math: uppercase and lowercase letters differ by 32.
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+// ASCII conversion
+if c >= 'a' && c <= 'z' {
+    c = c - 32  // to uppercase
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### 4. String filtering and cleaning
 
-### 4. Numeric operations and type conversion
+Filtering strings involves:
+- Iterating through characters
+- Checking conditions (is space? is digit? etc.)
+- Building a new string with only wanted characters
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+```go
+var result strings.Builder
+for _, c := range s {
+    if condition(c) {
+        result.WriteRune(c)
+    }
+}
+```
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
+## The Challenge
 
-**Next:** [74-brainfuck](../74-brainfuck/skills.md) - 74 Brainfuck
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [74-brainfuck](../74-brainfuck/skills.md) - Brainfuck

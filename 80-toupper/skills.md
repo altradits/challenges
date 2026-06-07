@@ -4,11 +4,13 @@
 
 **Previous:** [79-isempty](../79-isempty/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Toupper
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,7 +20,7 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
 ### 2. Go function definition and usage
 
@@ -33,41 +35,20 @@ func FunctionName(param1 type1, param2 type2) returnType {
 
 The `main()` function is special - it's where program execution begins.
 
-### 3. Looping constructs (for, range)
+### 3. Formatted output with fmt package
 
-Go has only one looping construct: the `for` loop. It can be used in several ways:
-
-```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
-```
-
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+The `fmt` package provides formatted I/O:
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
 
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [81-tolower](../81-tolower/skills.md) - 81 Tolower
+**Next:** [81-tolower](../81-tolower/skills.md) - Tolower

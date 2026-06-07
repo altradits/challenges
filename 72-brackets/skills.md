@@ -4,11 +4,13 @@
 
 **Previous:** [71-romannumbers](../71-romannumbers/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Brackets
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,9 +20,27 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Looping constructs (for, range)
+### 2. Stack data structure for LIFO operations
+
+A stack is a Last-In-First-Out (LIFO) data structure. In Go, you can implement a stack using a slice:
+
+```go
+// Push
+stack = append(stack, item)
+
+// Pop
+item := stack[len(stack)-1]
+stack = stack[:len(stack)-1]
+
+// Peek
+item := stack[len(stack)-1]
+```
+
+Stacks are useful for bracket matching, RPN evaluation, and backtracking algorithms.
+
+### 3. Looping constructs (for, range)
 
 Go has only one looping construct: the `for` loop. It can be used in several ways:
 
@@ -37,7 +57,7 @@ for index, value := range collection { }
 
 For strings, `for...range` iterates over runes, making it safe for UTF-8.
 
-### 3. Conditional logic and boolean returns
+### 4. Conditional logic and boolean returns
 
 Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
 
@@ -53,13 +73,8 @@ if condition {
 
 Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
-### 4. Numeric operations and type conversion
+## The Challenge
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-**Next:** [73-rpncalc](../73-rpncalc/skills.md) - 73 Rpncalc
+**Next:** [73-rpncalc](../73-rpncalc/skills.md) - Rpncalc

@@ -4,11 +4,13 @@
 
 **Previous:** [112-inter](../112-inter/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Stringbuilder
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,52 +20,61 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Go function definition and usage
+### 2. String building and concatenation
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+In Go, strings are immutable, so building strings character by character requires care. You can:
+- Use `+` for simple concatenation
+- Use `strings.Builder` for efficient string building in loops
+- Convert runes to strings with `string(rune)`
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+// Simple concatenation
+result := "Hello" + " " + "World"
+
+// Using strings.Builder for efficiency
+var b strings.Builder
+for _, c := range input {
+    b.WriteRune(c)
+}
+result := b.String()
+```
+
+### 3. String transformation and case conversion
+
+Go's `unicode` package provides case conversion functions:
+- `unicode.ToUpper(r)` - convert rune to uppercase
+- `unicode.ToLower(r)` - convert rune to lowercase
+- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
+
+You can also use ASCII math: uppercase and lowercase letters differ by 32.
+
+```go
+// ASCII conversion
+if c >= 'a' && c <= 'z' {
+    c = c - 32  // to uppercase
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### 4. String filtering and cleaning
 
-### 3. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
-
-```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
-```
-
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+Filtering strings involves:
+- Iterating through characters
+- Checking conditions (is space? is digit? etc.)
+- Building a new string with only wanted characters
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+var result strings.Builder
+for _, c := range s {
+    if condition(c) {
+        result.WriteRune(c)
+    }
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+## The Challenge
 
-**Next:** [114-stringsplit](../114-stringsplit/skills.md) - 114 Stringsplit
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [114-stringsplit](../114-stringsplit/skills.md) - Stringsplit

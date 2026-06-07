@@ -4,11 +4,13 @@
 
 **Previous:** [68-itoabase](../68-itoabase/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Options
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,30 +20,31 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
-### 2. Numeric operations and type conversion
+### 2. Bit manipulation and binary operations
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-### 3. Pointer basics and memory addresses
-
-Pointers hold memory addresses. Use `&` to get address, `*` to dereference:
+Go supports bitwise operations on integers:
+- `&` (AND) - both bits set
+- `|` (OR) - either bit set
+- `^` (XOR) - exactly one bit set
+- `&^` (AND NOT) - clear bits
+- `<<` / `>>` - shift left/right
 
 ```go
-x := 42
-ptr := &x    // ptr points to x
-fmt.Println(*ptr)  // Prints 42 (dereferenced)
+// Check if a bit is set
+if flags&(1<<i) != 0 {
+    // bit i is set
+}
+
+// Set a bit
+flags |= 1 << i
+
+// Clear a bit
+flags &^= 1 << i
 ```
 
-In Go, pointers are rarely needed for basic tasks due to pass-by-value semantics for most types.
-
-### 4. Command-line argument handling
+### 3. Command-line argument handling
 
 Access command-line arguments via `os.Args`:
 
@@ -58,4 +61,20 @@ func main() {
 
 Or use the `flag` package for more complex argument parsing.
 
-**Next:** [70-piglatin](../70-piglatin/skills.md) - 70 Piglatin
+### 4. Formatted output with fmt package
+
+The `fmt` package provides formatted I/O:
+
+```go
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
+```
+
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [70-piglatin](../70-piglatin/skills.md) - Piglatin

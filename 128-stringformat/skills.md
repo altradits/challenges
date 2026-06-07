@@ -4,11 +4,13 @@
 
 **Previous:** [127-stringreduce](../127-stringreduce/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Stringformat
 
 ## New Concepts Explained
 
-### 1. String manipulation and processing
+### 1. String iteration and character access
 
 In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
 
@@ -18,7 +20,7 @@ for _, char := range myString {
 }
 ```
 
-To build new strings, concatenate using `+` or use `strings.Builder` for efficiency.
+To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
 
 ### 2. Go function definition and usage
 
@@ -50,20 +52,20 @@ for index, value := range collection { }
 
 For strings, `for...range` iterates over runes, making it safe for UTF-8.
 
-### 4. Conditional logic and boolean returns
+### 4. Formatted output with fmt package
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+The `fmt` package provides formatted I/O:
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
 
-**Next:** [129-financial-freedom-api](../129-financial-freedom-api/skills.md) - 129 Financial Freedom Api
+## The Challenge
+
+See [README.md](README.md) for the full challenge description, expected function, and test cases.
+
+**Next:** [129-financial-freedom-api](../129-financial-freedom-api/skills.md) - Financial Freedom Api

@@ -4,6 +4,8 @@
 
 **Previous:** [48-addprimesum](../48-addprimesum/skills.md)
 
+If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+
 **Challenge:** Canjump
 
 ## New Concepts Explained
@@ -21,58 +23,20 @@ func FunctionName(param1 type1, param2 type2) returnType {
 
 The `main()` function is special - it's where program execution begins.
 
-### 2. Looping constructs (for, range)
+### 2. Formatted output with fmt package
 
-Go has only one looping construct: the `for` loop. It can be used in several ways:
-
-```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
-```
-
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+The `fmt` package provides formatted I/O:
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+fmt.Println("Hello")     // Print with newline
+fmt.Printf("Value: %d", x)  // Formatted print
+fmt.Scan(&x)             // Read input
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Slice manipulation and operations
-
-Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
-
-```go
-// Create a slice
-numbers := []int{1, 2, 3, 4, 5}
-
-// Slice an existing slice
-subset := numbers[1:4]  // [2, 3, 4]
-
-// Append to a slice
-numbers = append(numbers, 6)
-```
-
-Slices have length (current elements) and capacity (max elements without reallocation).
+Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
 
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [50-chunk](../50-chunk/skills.md) - 50 Chunk
+**Next:** [50-chunk](../50-chunk/skills.md) - Chunk
