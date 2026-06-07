@@ -2,76 +2,75 @@
 
 ## What You'll Learn
 
-**This is your first exercise!** Start here to build your foundation.
+**Previous:** This is your first exercise! Start here to build your foundation.
 
 **Challenge:** Write a program that displays a `1` character on the standard output and nothing else.
 
 ## New Concept
 
-Basic Go program structure (package main, import fmt, func main) and using fmt.Println() to output text
+### 📋 Basic Go Program Structure
 
-## Skills You'll Learn
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Go Program Flow                          │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│   ┌───────────┐     ┌───────────┐     ┌───────────┐        │
+│   │ package   │────▶│  import   │────▶│  func     │        │
+│   │   main    │     │   fmt     │     │   main    │        │
+│   └───────────┘     └───────────┘     └───────────┘        │
+│         │                 │                 │              │
+│         ▼                 ▼                 ▼              │
+│   ┌───────────┐     ┌───────────┐     ┌───────────┐        │
+│   │ Entry     │     │ Import    │     │ Execution │        │
+│   │ Point     │     │ Packages  │     │ Point     │        │
+│   └───────────┘     └───────────┘     └───────────┘        │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
 
-After completing this exercise, you'll be able to:
-1. **Apply this new concept** to solve the challenge
-2. **Build on previous skills** without repeating them
-3. **Progress to the next challenge** with confidence
+### 🔧 Key Components Summary
 
-## How This Helps Your Capstone
+| Component | Purpose | Visual |
+|-----------|---------|--------|
+| `package main` | Declares this as an executable program | 📦 |
+| `import "fmt"` | Imports the Format package for I/O | 🔌 |
+| `func main()` | Entry point where execution begins | ▶️ |
+| `fmt.Println()` | Prints output with newline | 🖨️ |
 
-This skill is used in:
-- **Budget Planner** - Text processing and validation
-- **Savings Calculator** - Input handling and formatting
-- **Investment Tracker** - Data parsing and analysis
-- **Net Worth Tracker** - String manipulation for reports
+### 💡 Code Structure Visualization
 
-## Step-by-Step Approach
+```
+package main          // 🏠 Program declaration
+     │
+     ▼
+import "fmt"          // 🔧 Load formatting tools
+     │
+     ▼
+func main() {         // 🚪 Start here
+    fmt.Println("1")  // 📤 Output: 1
+}                     // 🔚 End
+```
 
-1. **Review previous skills** if needed - click the link above
-2. **Understand the challenge** - Read the README carefully
-3. **Plan your solution** - Sketch the logic before coding
-4. **Implement incrementally** - Build and test piece by piece
-5. **Verify edge cases** - Test with empty, single, and boundary inputs
+### 🎯 Output Flow
 
-## Common Pitfalls
-
-| Mistake | Why It's Wrong | Correct Approach |
-|---------|---------------|------------------|
-| Skipping prerequisites | You'll miss foundational concepts | Review previous skills.md first |
-| Overcomplicating | Simple problems have simple solutions | Start with the simplest approach |
-| Off-by-one errors | Index math is tricky | Draw it out on paper |
-| Wrong return type | Type mismatch errors | Check function signature |
-
-## Practice Tips
-
-- **Draw it out**: Visualize the problem with diagrams
-- **Trace manually**: Follow your code step by step with sample input
-- **Test boundaries**: Empty string, single char, max values
-- **Review previous**: If stuck, go back to the previous skills.md
+```
+Input: (none)
+    │
+    ▼
+┌───────────────┐
+│   Program     │
+│   Executes    │
+└───────────────┘
+    │
+    ▼
+Output: 1
+```
 
 ## The Challenge
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-## Knowledge Check
-
-Before coding, make sure you can answer:
-1. What new concept does this exercise introduce?
-2. Which previous skill does this build on? (Click the link above)
-3. What edge cases should I test?
-
 ## Next Steps
 
 **Next:** [02-onlya](../02-onlya/skills.md) - Onlya
-
----
-
-## Need Help?
-
-If you're stuck:
-1. **Review previous skills** - Click the "Previous" link above
-2. **Re-read the README** - It contains all the theory you need
-3. **Draw the logic** on paper - trace through examples manually
-4. **Test with simple input** first, then edge cases
-
-**Remember:** Every expert was once a beginner. Take your time, understand each concept, and don't skip ahead!
