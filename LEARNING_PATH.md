@@ -2,213 +2,212 @@
 
 This document outlines the recommended order for tackling all challenges in this repository, from beginner to advanced.
 
-## Phase 1: Checkpoint Challenges (5% - 100%)
+## Phase 1: Checkpoint Challenges (01-75)
 
 ### 5% Checkpoint - Absolute Basics
-1. `54-checkpoint-tiers/5_percent/only1` - Print a single character
-2. `54-checkpoint-tiers/5_percent/onlya` - Print a single character
-3. `54-checkpoint-tiers/5_percent/onlyb` - Print a single character
-4. `54-checkpoint-tiers/5_percent/onlyf` - Print a single character
-5. `54-checkpoint-tiers/5_percent/onlyz` - Print a single character
+1. `01-only1` - Print a single character
+2. `02-onlya` - Print a single character
+3. `03-onlyb` - Print a single character
+4. `04-onlyf` - Print a single character
+5. `05-onlyz` - Print a single character
 
 ### 10% Checkpoint - Basic String Operations
-6. `54-checkpoint-tiers/10_percent/checknumber` - Check if string contains only numbers
-7. `54-checkpoint-tiers/10_percent/countalpha` - Count alphabetic characters
-8. `54-checkpoint-tiers/10_percent/count-character` - Count specific character occurrences
-9. `54-checkpoint-tiers/10_percent/countvowels` - Count vowels in a string
-10. `54-checkpoint-tiers/10_percent/findsubstring` - Find substring index
-11. `54-checkpoint-tiers/10_percent/ispalindrome` - Check if string is palindrome
-12. `54-checkpoint-tiers/10_percent/printif` - Conditional printing
-13. `54-checkpoint-tiers/10_percent/printifnot` - Inverse conditional printing
-14. `54-checkpoint-tiers/10_percent/rectperimeter` - Calculate rectangle perimeter
-15. `54-checkpoint-tiers/10_percent/removespaces` - Remove spaces from string
-16. `54-checkpoint-tiers/10_percent/retainfirsthalf` - Keep first half of string
-17. `54-checkpoint-tiers/10_percent/reversestring` - Reverse a string
-18. `54-checkpoint-tiers/10_percent/titlecase` - Convert to title case
-19. `54-checkpoint-tiers/10_percent/wordcount` - Count words in string
+6. `06-checknumber` - Check if string contains only numbers
+7. `07-countalpha` - Count alphabetic characters
+8. `08-count-character` - Count specific character occurrences
+9. `09-countvowels` - Count vowels in a string
+10. `10-findsubstring` - Find substring index
+11. `11-ispalindrome` - Check if string is palindrome
+12. `12-printif` - Conditional printing
+13. `13-printifnot` - Inverse conditional printing
+14. `14-rectperimeter` - Calculate rectangle perimeter
+15. `15-removespaces` - Remove spaces from string
+16. `16-retainfirsthalf` - Keep first half of string
+17. `17-reversestring` - Reverse a string
+18. `18-titlecase` - Convert to title case
+19. `19-wordcount` - Count words in string
 
 ### 20% Checkpoint - Intermediate String Processing
-20. `54-checkpoint-tiers/20_percent/cameltosnakecase` - Convert camelCase to snake_case
-21. `54-checkpoint-tiers/20_percent/countrepeats` - Count repeated characters
-22. `54-checkpoint-tiers/20_percent/digitlen` - Count digits in string
-23. `54-checkpoint-tiers/20_percent/firstword` - Extract first word
-24. `54-checkpoint-tiers/20_percent/fishandchips` - String processing challenge
-25. `54-checkpoint-tiers/20_percent/gcd` - Calculate Greatest Common Divisor
-26. `54-checkpoint-tiers/20_percent/hashcode` - Generate hash code
-27. `54-checkpoint-tiers/20_percent/lastword` - Extract last word
-28. `54-checkpoint-tiers/20_percent/longestword` - Find longest word
-29. `54-checkpoint-tiers/20_percent/repeatalpha` - Repeat alphabetic characters
-30. `54-checkpoint-tiers/20_percent/replaceall` - Replace all occurrences
-31. `54-checkpoint-tiers/20_percent/searchreplace` - Search and replace
-32. `54-checkpoint-tiers/20_percent/splitjoin` - Split and join strings
-33. `54-checkpoint-tiers/20_percent/wordanatomy` - Analyze word structure
-34. `54-checkpoint-tiers/20_percent/wordanatomy2` - Advanced word analysis
+20. `20-cameltosnakecase` - Convert camelCase to snake_case
+21. `21-countrepeats` - Count repeated characters
+22. `22-digitlen` - Count digits in string
+23. `23-firstword` - Extract first word
+24. `24-fishandchips` - String processing challenge
+25. `25-gcd` - Calculate Greatest Common Divisor
+26. `26-hashcode` - Generate hash code
+27. `27-lastword` - Extract last word
+28. `28-longestword` - Find longest word
+29. `29-replaceall` - Replace all occurrences
+30. `30-searchreplace` - Search and replace
+31. `31-splitjoin` - Split and join strings
+32. `32-wordanatomy` - Analyze word structure
+33. `33-wordanatomy2` - Advanced word analysis
 
 ### 35% Checkpoint - Advanced String Manipulation
-35. `54-checkpoint-tiers/35_percent/cameltosnakecase` - Advanced camelCase conversion
-36. `54-checkpoint-tiers/35_percent/clean_the_list` - Clean and format list items
-37. `54-checkpoint-tiers/35_percent/cleanstr` - Clean whitespace from strings
-38. `54-checkpoint-tiers/35_percent/expandstr` - Expand spaces between words
-39. `54-checkpoint-tiers/35_percent/findprevprime` - Find previous prime number
-40. `54-checkpoint-tiers/35_percent/fromto` - Generate number range strings
-41. `54-checkpoint-tiers/35_percent/iscapitalized` - Check if words are capitalized
-42. `54-checkpoint-tiers/35_percent/itoa` - Integer to string conversion
-43. `54-checkpoint-tiers/35_percent/passwordentropy` - Calculate password entropy
-44. `54-checkpoint-tiers/35_percent/printmemory` - Display memory as hex and ASCII
-45. `54-checkpoint-tiers/35_percent/printrevcomb` - Print reversed digit combinations
-46. `54-checkpoint-tiers/35_percent/thirdtimeisacharm` - Extract every third character
-47. `54-checkpoint-tiers/35_percent/weareunique` - Count unique characters
-48. `54-checkpoint-tiers/35_percent/zipstring` - Run-length encode strings
+34. `34-cameltosnakecase-35` - Advanced camelCase conversion
+35. `35-clean-the-list` - Clean and format list items
+36. `36-cleanstr` - Clean whitespace from strings
+37. `37-expandstr` - Expand spaces between words
+38. `38-findprevprime` - Find previous prime number
+39. `39-fromto` - Generate number range strings
+40. `40-iscapitalized` - Check if words are capitalized
+41. `41-itoa-35` - Integer to string conversion
+42. `42-passwordentropy` - Calculate password entropy
+43. `43-printmemory` - Display memory as hex and ASCII
+44. `44-printrevcomb` - Print reversed digit combinations
+45. `45-thirdtimeisacharm` - Extract every third character
+46. `46-weareunique` - Count unique characters
+47. `47-zipstring` - Run-length encode strings
 
 ### 50% Checkpoint - Expert Level
-49. `54-checkpoint-tiers/50_percent/addprimesum` - Sum of primes up to n
-50. `54-checkpoint-tiers/50_percent/canjump` - Jump game array problem
-51. `54-checkpoint-tiers/50_percent/chunk` - Chunk slice into sub-slices
-52. `54-checkpoint-tiers/50_percent/concatalternate` - Alternate concatenation
-53. `54-checkpoint-tiers/50_percent/concatslice` - Concatenate two slices
-54. `54-checkpoint-tiers/50_percent/fprime` - Prime factorization
-55. `54-checkpoint-tiers/50_percent/hiddenp` - Check if string is hidden in another
-56. `54-checkpoint-tiers/50_percent/inter` - Intersection of characters
-57. `54-checkpoint-tiers/50_percent/reversestrcap` - Reverse capitalization
-58. `54-checkpoint-tiers/50_percent/saveandmiss` - Periodic save/skip pattern
-59. `54-checkpoint-tiers/50_percent/union` - Union of characters
-60. `54-checkpoint-tiers/50_percent/wdmatch` - Word match checker
+48. `48-addprimesum` - Sum of primes up to n
+49. `49-canjump` - Jump game array problem
+50. `50-chunk` - Chunk slice into sub-slices
+51. `51-concatalternate` - Alternate concatenation
+52. `52-concatslice` - Concatenate two slices
+53. `53-fprime` - Prime factorization
+54. `54-hiddenp` - Check if string is hidden in another
+55. `55-inter` - Intersection of characters
+56. `56-reversestrcap` - Reverse capitalization
+57. `57-saveandmiss` - Periodic save/skip pattern
+58. `58-union` - Union of characters
+59. `59-wdmatch` - Word match checker
 
 ### 65% Checkpoint - Advanced Algorithms
-61. `54-checkpoint-tiers/65_percent/fifthandskip` - Extract every 5th character
-62. `54-checkpoint-tiers/65_percent/notdecimal` - Check if not a decimal number
-63. `54-checkpoint-tiers/65_percent/revconcatalternate` - Reverse alternate concatenation
-64. `54-checkpoint-tiers/65_percent/slice` - Slice manipulation
+60. `60-fifthandskip` - Extract every 5th character
+61. `61-notdecimal` - Check if not a decimal number
+62. `62-revconcatalternate` - Reverse alternate concatenation
+63. `63-slice` - Slice manipulation
 
 ### 75% Checkpoint - Mastery Level
-65. `54-checkpoint-tiers/75_percent/findpairs` - Find pairs in array
-66. `54-checkpoint-tiers/75_percent/revwstr` - Reverse words in string
-67. `54-checkpoint-tiers/75_percent/rostring` - Rotate string
-68. `54-checkpoint-tiers/75_percent/wordflip` - Flip words in string
+64. `64-findpairs` - Find pairs in array
+65. `65-revwstr` - Reverse words in string
+66. `66-rostring` - Rotate string
+67. `67-wordflip` - Flip words in string
 
 ### 85% Checkpoint - Expert Algorithms
-69. `54-checkpoint-tiers/85_percent/itoabase` - Integer to any base conversion
-70. `54-checkpoint-tiers/85_percent/options` - Parse command-line options
-71. `54-checkpoint-tiers/85_percent/piglatin` - Convert to Pig Latin
-72. `54-checkpoint-tiers/85_percent/romannumbers` - Roman numeral conversion
+68. `68-itoabase` - Integer to any base conversion
+69. `69-options` - Parse command-line options
+70. `70-piglatin` - Convert to Pig Latin
+71. `71-romannumbers` - Roman numeral conversion
 
 ### 95% Checkpoint - Near Mastery
-73. `54-checkpoint-tiers/95_percent/brackets` - Bracket validation
-74. `54-checkpoint-tiers/95_percent/rpncalc` - Reverse Polish notation calculator
+72. `72-brackets` - Bracket validation
+73. `73-rpncalc` - Reverse Polish notation calculator
 
 ### 100% Checkpoint - Mastery
-75. `54-checkpoint-tiers/100_percent/brainfuck` - Brainfuck interpreter
-76. `54-checkpoint-tiers/100_percent/grouping` - Regex-like grouping
+74. `74-brainfuck` - Brainfuck interpreter
+75. `75-grouping` - Regex-like grouping
 
 ---
 
-## Phase 2: Main Course Exercises (01-53)
+## Phase 2: Main Course Exercises (76-128)
 
-### Beginner Level (01-08) - Foundations
-77. `01-stringlength` - String length calculation
-78. `02-firstchar` - First character extraction
-79. `03-lastchar` - Last character extraction
-80. `04-isempty` - Check if string is empty
-81. `05-toupper` - Convert to uppercase
-82. `06-tolower` - Convert to lowercase
-83. `07-countalpha` - Count alphabetic characters
-84. `08-checknumber` - Check if string is a number
+### Beginner Level (76-83) - Foundations
+76. `76-stringlength` - String length calculation
+77. `77-firstchar` - First character extraction
+78. `78-lastchar` - Last character extraction
+79. `79-isempty` - Check if string is empty
+80. `80-toupper` - Convert to uppercase
+81. `81-tolower` - Convert to lowercase
+82. `82-countalpha` - Count alphabetic characters
+83. `83-checknumber` - Check if string is a number
 
-### Beginner-Intermediate Level (09-14) - Building Patterns
-85. `09-countvowels` - Count vowels
-86. `10-reversestring` - Reverse string
-87. `11-ispalindrome` - Check palindrome
-88. `12-removespaces` - Remove spaces
-89. `13-countrepeats` - Count repeated characters
-90. `14-retainfirsthalf` - Retain first half of string
+### Beginner-Intermediate Level (84-89) - Building Patterns
+84. `84-countvowels` - Count vowels
+85. `85-reversestring` - Reverse string
+86. `86-ispalindrome` - Check palindrome
+87. `87-removespaces` - Remove spaces
+88. `88-countrepeats` - Count repeated characters
+89. `89-retainfirsthalf` - Retain first half of string
 
-### Intermediate Level (15-22) - Real-World Processing
-91. `15-wordcount` - Count words
-92. `16-findchar` - Find character index
-93. `17-countchar` - Count specific character
-94. `18-findlastchar` - Find last character
-95. `19-replacechar` - Replace character
-96. `20-printif` - Conditional printing
-97. `21-printifnot` - Inverse conditional printing
-98. `22-longestword` - Find longest word
+### Intermediate Level (90-97) - Real-World Processing
+90. `90-wordcount` - Count words
+91. `91-findchar` - Find character index
+92. `92-countchar` - Count specific character
+93. `93-findlastchar` - Find last character
+94. `94-replacechar` - Replace character
+95. `95-printif` - Conditional printing
+96. `96-printifnot` - Inverse conditional printing
+97. `97-longestword` - Find longest word
 
-### Advanced Level (23-30) - Expert Techniques
-99. `23-searchreplace` - Search and replace
-100. `24-cleanlist` - Clean list items
-101. `25-countwords` - Advanced word counting
-102. `26-findsubstring` - Find substring
-103. `27-replaceall` - Replace all occurrences
-104. `28-split` - Split string
-105. `29-join` - Join strings
-106. `30-cameltosnakecase` - Camel to snake case
+### Advanced Level (98-105) - Expert Techniques
+98. `98-searchreplace` - Search and replace
+99. `99-cleanlist` - Clean list items
+100. `100-countwords` - Advanced word counting
+101. `101-findsubstring` - Find substring
+102. `102-replaceall` - Replace all occurrences
+103. `103-split` - Split string
+104. `104-join` - Join strings
+105. `105-cameltosnakecase` - Camel to snake case
 
-### Expert Level (31-37) - Mastery
-107. `31-itoa` - Integer to string
-108. `32-thirdchar` - Every third character
-109. `33-zipstring` - Zip string (RLE)
-110. `34-saveandmiss` - Save and miss pattern
-111. `35-reversestrcap` - Reverse string capitalization
-112. `36-union` - Set union
-113. `37-inter` - Set intersection
+### Expert Level (106-112) - Mastery
+106. `106-itoa` - Integer to string
+107. `107 thirdchar` - Every third character
+108. `108-zipstring` - Zip string (RLE)
+109. `109-saveandmiss` - Save and miss pattern
+110. `110-reversestrcap` - Reverse string capitalization
+111. `111-union` - Set union
+112. `112-inter` - Set intersection
 
-### String Utilities Level (38-53) - Practical Tools
-114. `38-stringbuilder` - String builder
-115. `39-stringsplit` - String split
-116. `40-stringjoin` - String join
-117. `41-stringrepeat` - String repeat
-118. `42-stringreplace` - String replace
-119. `43-stringtrim` - String trim
-120. `44-stringcontains` - String contains
-121. `45-stringindex` - String index
-122. `46-stringcount` - String count
-123. `47-stringprefix` - String prefix
-124. `48-stringsuffix` - String suffix
-125. `49-stringfield` - String field
-126. `50-stringmap` - String map
-127. `51-stringfilter` - String filter
-128. `52-stringreduce` - String reduce
-129. `53-stringformat` - String format
+### String Utilities Level (113-128) - Practical Tools
+113. `113-stringbuilder` - String builder
+114. `114-stringsplit` - String split
+115. `115-stringjoin` - String join
+116. `116-stringrepeat` - String repeat
+117. `117-stringreplace` - String replace
+118. `118-stringtrim` - String trim
+119. `119-stringcontains` - String contains
+120. `120-stringindex` - String index
+121. `121-stringcount` - String count
+122. `122-stringprefix` - String prefix
+123. `123-stringsuffix` - String suffix
+124. `124-stringfield` - String field
+125. `125-stringmap` - String map
+126. `126-stringfilter` - String filter
+127. `127-stringreduce` - String reduce
+128. `128-stringformat` - String format
 
 ---
 
-## Phase 3: Capstone Projects
+## Phase 3: Capstone Projects (129-138)
 
 ### Backend Capstones
-130. `55-financial-freedom-api` - Financial Freedom API Engine
-131. `56-index-fund-tracker` - Index Fund Tracker
-132. `57-savings-runway-calculator` - Savings Runway Calculator
+129. `129-financial-freedom-api` - Financial Freedom API Engine
+130. `130-index-fund-tracker` - Index Fund Tracker
+131. `131-savings-runway-calculator` - Savings Runway Calculator
 
 ### Additional Projects
-133. `58-portfolio-website` - Portfolio Website
-134. `59-professional` - Professional project
-135. `60-python-data` - Python data project
+132. `132-portfolio-website` - Portfolio Website
+133. `133-professional` - Professional project
+134. `134-python-data` - Python data project
 
 ### Course Materials
-136. `61-api-lesson` - API lessons
-137. `62-capstone` - Main capstone project
-138. `63-js-database` - JavaScript database course
-139. `64-js-frontend` - JavaScript frontend course
+135. `135-api-lesson` - API lessons
+136. `136-capstone` - Main capstone project
+137. `137-js-database` - JavaScript database course
+138. `138-js-frontend` - JavaScript frontend course
 
 ---
 
 ## Learning Path Summary
 
 ```
-Beginner Checkpoints (5-10%)
+Beginner Checkpoints (01-19)
     ↓
-Intermediate Checkpoints (20%)
+Intermediate Checkpoints (20-33)
     ↓
-Advanced Checkpoints (35%)
+Advanced Checkpoints (34-47)
     ↓
-Expert Checkpoints (50%)
+Expert Checkpoints (48-59)
     ↓
-Advanced Algorithms (65-75%)
+Advanced Algorithms (60-67)
     ↓
-Expert Algorithms (85-100%)
+Expert Algorithms (68-75)
     ↓
-Main Course Exercises (01-53)
+Main Course Exercises (76-128)
     ↓
-Capstone Projects (54-64)
+Capstone Projects (129-138)
 ```
 
-**Total challenges: 139**
+**Total challenges: 138**
