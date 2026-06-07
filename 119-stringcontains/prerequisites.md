@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [45-stringindex](../45-stringindex/README.md) - Find position
-- [46-stringcount](../46-stringcount/README.md) - Count occurrences
+- [120-stringindex](../120-stringindex/README.md) - Stringindex
+- [121-stringcount](../121-stringcount/README.md) - Stringcount

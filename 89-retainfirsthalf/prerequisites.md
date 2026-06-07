@@ -41,5 +41,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [15-wordcount](../15-wordcount/README.md) - Count words
-- [16-findchar](../16-findchar/README.md) - Find character
+- [90-wordcount](../90-wordcount/README.md) - Wordcount
+- [91-findchar](../91-findchar/README.md) - Findchar

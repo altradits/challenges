@@ -51,5 +51,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [43-stringtrim](../43-stringtrim/README.md) - Trim whitespace
-- [44-stringcontains](../44-stringcontains/README.md) - Check substring
+- [118-stringtrim](../118-stringtrim/README.md) - Stringtrim
+- [119-stringcontains](../119-stringcontains/README.md) - Stringcontains

@@ -111,5 +111,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **22-longestword**: Finding maximum values
-- **23-firstword**: Extracting substrings
+- [97-longestword](../97-longestword/README.md) - Longestword
+- [98-searchreplace](../98-searchreplace/README.md) - Searchreplace

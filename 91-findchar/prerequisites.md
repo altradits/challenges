@@ -46,5 +46,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [17-countchar](../17-countchar/README.md) - Count occurrences
-- [18-findlastchar](../18-findlastchar/README.md) - Find last occurrence
+- [92-countchar](../92-countchar/README.md) - Countchar
+- [93-findlastchar](../93-findlastchar/README.md) - Findlastchar

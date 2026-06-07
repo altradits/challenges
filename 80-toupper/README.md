@@ -117,5 +117,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **06-tolower**: The reverse operation
-- **07-countalpha**: Counting specific character types
+- [81-tolower](../81-tolower/README.md) - Tolower
+- [82-countalpha](../82-countalpha/README.md) - Countalpha

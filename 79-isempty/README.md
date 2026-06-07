@@ -124,5 +124,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **05-toupper**: Converting character cases
-- **06-tolower**: More case conversion practice
+- [80-toupper](../80-toupper/README.md) - Toupper
+- [81-tolower](../81-tolower/README.md) - Tolower

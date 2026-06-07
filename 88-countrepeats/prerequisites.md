@@ -50,5 +50,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [14-retainfirsthalf](../14-retainfirsthalf/README.md) - String slicing
-- [15-wordcount](../15-wordcount/README.md) - Word counting
+- [89-retainfirsthalf](../89-retainfirsthalf/README.md) - Retainfirsthalf
+- [90-wordcount](../90-wordcount/README.md) - Wordcount

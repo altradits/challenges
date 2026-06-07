@@ -45,5 +45,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [37-inter](../37-inter/README.md) - Intersection
-- [38-stringbuilder](../38-stringbuilder/README.md) - Efficient building
+- [112-inter](../112-inter/README.md) - Inter
+- [113-stringbuilder](../113-stringbuilder/README.md) - Stringbuilder

@@ -108,5 +108,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **18-findlastchar**: Searching from the end
-- **19-replacechar**: Character replacement
+- [93-findlastchar](../93-findlastchar/README.md) - Findlastchar
+- [94-replacechar](../94-replacechar/README.md) - Replacechar

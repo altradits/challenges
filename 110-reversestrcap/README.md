@@ -57,5 +57,5 @@ func ReverseStrCap(s string) string {
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **36-printrevcomb**: Combination generation
-- **37-union**: Set operations on strings
+- [111-union](../111-union/README.md) - Union
+- [112-inter](../112-inter/README.md) - Inter

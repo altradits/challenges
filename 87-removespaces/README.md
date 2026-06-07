@@ -115,5 +115,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **13-countrepeats**: Detecting consecutive patterns
-- **14-retainfirsthalf**: String slicing
+- [88-countrepeats](../88-countrepeats/README.md) - Countrepeats
+- [89-retainfirsthalf](../89-retainfirsthalf/README.md) - Retainfirsthalf

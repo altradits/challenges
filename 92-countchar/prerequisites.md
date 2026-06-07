@@ -50,5 +50,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [18-findlastchar](../18-findlastchar/README.md) - Find last occurrence
-- [19-replacechar](../19-replacechar/README.md) - Character replacement
+- [93-findlastchar](../93-findlastchar/README.md) - Findlastchar
+- [94-replacechar](../94-replacechar/README.md) - Replacechar

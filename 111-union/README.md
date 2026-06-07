@@ -69,5 +69,5 @@ func Union(s1, s2 string) string {
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **37-inter**: Character set intersection
-- **38-hiddenp**: Subsequence matching
+- [112-inter](../112-inter/README.md) - Inter
+- [113-stringbuilder](../113-stringbuilder/README.md) - Stringbuilder

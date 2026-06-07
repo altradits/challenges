@@ -43,5 +43,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [24-cleanlist](../24-cleanlist/README.md) - Clean lists
-- [25-countwords](../25-countwords/README.md) - Advanced word count
+- [99-cleanlist](../99-cleanlist/README.md) - Cleanlist
+- [100-countwords](../100-countwords/README.md) - Countwords

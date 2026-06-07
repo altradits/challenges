@@ -45,5 +45,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [29-join](../29-join/README.md) - Join strings
-- [30-cameltosnakecase](../30-cameltosnakecase/README.md) - Naming conversion
+- [104-join](../104-join/README.md) - Join
+- [105-cameltosnakecase](../105-cameltosnakecase/README.md) - Cameltosnakecase

@@ -57,5 +57,5 @@ func Intersection(s1, s2 string) string {
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **38-hiddenp**: Subsequence matching
-- **39-wdmatch**: Word matching
+- [113-stringbuilder](../113-stringbuilder/README.md) - Stringbuilder
+- [114-stringsplit](../114-stringsplit/README.md) - Stringsplit

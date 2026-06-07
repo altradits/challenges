@@ -47,5 +47,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [42-stringreplace](../42-stringreplace/README.md) - Replace substring
-- [43-stringtrim](../43-stringtrim/README.md) - Trim whitespace
+- [117-stringreplace](../117-stringreplace/README.md) - Stringreplace
+- [118-stringtrim](../118-stringtrim/README.md) - Stringtrim

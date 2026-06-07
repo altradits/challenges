@@ -80,8 +80,5 @@ Capstone:     FinTech Database Integration
 
 ## Next Steps
 
-After completing this course, you'll be able to:
-- Design and implement database schemas for FinTech applications
-- Build secure, performant database queries
-- Integrate databases with your Go and JavaScript APIs
-- Deploy production-ready database solutions
+After completing this, you'll be ready for:
+- [138-js-frontend](../138-js-frontend/README.md) - Js Frontend

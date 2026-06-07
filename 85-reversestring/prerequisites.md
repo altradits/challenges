@@ -41,5 +41,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [11-ispalindrome](../11-ispalindrome/README.md) - String normalization
-- [12-removespaces](../12-removespaces/README.md) - String filtering
+- [86-ispalindrome](../86-ispalindrome/README.md) - Ispalindrome
+- [87-removespaces](../87-removespaces/README.md) - Removespaces

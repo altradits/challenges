@@ -106,5 +106,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **21-printifnot**: Inverse conditions
-- **22-longestword**: Finding maximum length
+- [96-printifnot](../96-printifnot/README.md) - Printifnot
+- [97-longestword](../97-longestword/README.md) - Longestword

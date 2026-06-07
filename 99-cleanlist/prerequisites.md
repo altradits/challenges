@@ -52,5 +52,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [25-countwords](../25-countwords/README.md) - Advanced word count
-- [26-findsubstring](../26-findsubstring/README.md) - Find substring
+- [100-countwords](../100-countwords/README.md) - Countwords
+- [101-findsubstring](../101-findsubstring/README.md) - Findsubstring

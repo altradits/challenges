@@ -54,5 +54,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [27-replaceall](../27-replaceall/README.md) - Replace all
-- [28-split](../28-split/README.md) - Split strings
+- [102-replaceall](../102-replaceall/README.md) - Replaceall
+- [103-split](../103-split/README.md) - Split

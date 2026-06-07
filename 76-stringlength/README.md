@@ -127,5 +127,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **02-firstchar**: Extracting specific characters
-- **03-lastchar**: Working with string positions
+- [77-firstchar](../77-firstchar/README.md) - Firstchar
+- [78-lastchar](../78-lastchar/README.md) - Lastchar

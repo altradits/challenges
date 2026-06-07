@@ -43,5 +43,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [50-stringmap](../50-stringmap/README.md) - Transform strings
-- [51-stringfilter](../51-stringfilter/README.md) - Filter strings
+- [125-stringmap](../125-stringmap/README.md) - Stringmap
+- [126-stringfilter](../126-stringfilter/README.md) - Stringfilter

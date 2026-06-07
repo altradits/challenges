@@ -51,5 +51,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [13-countrepeats](../13-countrepeats/README.md) - Consecutive pattern detection
-- [14-retainfirsthalf](../14-retainfirsthalf/README.md) - String slicing
+- [88-countrepeats](../88-countrepeats/README.md) - Countrepeats
+- [89-retainfirsthalf](../89-retainfirsthalf/README.md) - Retainfirsthalf

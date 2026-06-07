@@ -113,5 +113,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **24-cleanlist**: Cleaning lists of strings
-- **25-countwords**: Advanced word counting
+- [99-cleanlist](../99-cleanlist/README.md) - Cleanlist
+- [100-countwords](../100-countwords/README.md) - Countwords

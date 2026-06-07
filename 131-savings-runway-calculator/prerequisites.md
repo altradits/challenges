@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [02-firstchar](../02-firstchar/README.md) - Extract specific characters
-- [03-lastchar](../03-lastchar/README.md) - Work with string positions
+- [132-portfolio-website](../132-portfolio-website/README.md) - Portfolio Website
+- [133-professional](../133-professional/README.md) - Professional

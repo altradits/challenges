@@ -38,9 +38,6 @@ This skill is used in:
 
 ## Next Steps
 
-After completing this exercise, you've completed all string exercises!
-Now you can build your capstone projects:
-- [Financial Freedom API Engine](../financial-freedom-api/README.md)
-- [Index Fund Tracker](../index-fund-tracker/README.md)
-- [Savings Runway Calculator](../savings-runway-calculator/README.md)
-- [Portfolio Website](../portfolio-website/README.md)
+After completing this exercise, move to:
+- [129-financial-freedom-api](../129-financial-freedom-api/README.md) - Financial Freedom Api
+- [130-index-fund-tracker](../130-index-fund-tracker/README.md) - Index Fund Tracker

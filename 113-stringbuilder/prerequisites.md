@@ -49,5 +49,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [39-stringsplit](../39-stringsplit/README.md) - Split words
-- [40-stringjoin](../40-stringjoin/README.md) - Join strings
+- [114-stringsplit](../114-stringsplit/README.md) - Stringsplit
+- [115-stringjoin](../115-stringjoin/README.md) - Stringjoin

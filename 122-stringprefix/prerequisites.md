@@ -43,5 +43,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [48-stringsuffix](../48-stringsuffix/README.md) - Check suffix
-- [49-stringfield](../49-stringfield/README.md) - Split by delimiter
+- [123-stringsuffix](../123-stringsuffix/README.md) - Stringsuffix
+- [124-stringfield](../124-stringfield/README.md) - Stringfield

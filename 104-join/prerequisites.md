@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [30-cameltosnakecase](../30-cameltosnakecase/README.md) - Naming conversion
-- [31-itoa](../31-itoa/README.md) - Number to string
+- [105-cameltosnakecase](../105-cameltosnakecase/README.md) - Cameltosnakecase
+- [106-itoa](../106-itoa/README.md) - Itoa

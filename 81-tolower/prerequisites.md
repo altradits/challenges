@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [07-countalpha](../07-countalpha/README.md) - Count letters
-- [08-checknumber](../08-checknumber/README.md) - Check digits
+- [82-countalpha](../82-countalpha/README.md) - Countalpha
+- [83-checknumber](../83-checknumber/README.md) - Checknumber

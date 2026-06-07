@@ -50,5 +50,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [38-stringbuilder](../38-stringbuilder/README.md) - Efficient building
-- [39-stringsplit](../39-stringsplit/README.md) - Split words
+- [113-stringbuilder](../113-stringbuilder/README.md) - Stringbuilder
+- [114-stringsplit](../114-stringsplit/README.md) - Stringsplit

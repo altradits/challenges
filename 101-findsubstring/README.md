@@ -127,5 +127,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **27-replaceall**: Global string replacement
-- **28-split**: Splitting strings
+- [102-replaceall](../102-replaceall/README.md) - Replaceall
+- [103-split](../103-split/README.md) - Split

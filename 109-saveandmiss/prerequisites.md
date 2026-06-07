@@ -53,5 +53,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [35-reversestrcap](../35-reversestrcap/README.md) - Reverse capitalization
-- [36-union](../36-union/README.md) - String union
+- [110-reversestrcap](../110-reversestrcap/README.md) - Reversestrcap
+- [111-union](../111-union/README.md) - Union

@@ -113,5 +113,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **03-lastchar**: Working with the end of strings
-- **04-isempty**: Boolean checks on strings
+- [78-lastchar](../78-lastchar/README.md) - Lastchar
+- [79-isempty](../79-isempty/README.md) - Isempty

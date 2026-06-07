@@ -84,7 +84,6 @@ Before coding, make sure you can answer:
 
 ## Next Steps
 
-After completing this, you've mastered string manipulation! You can now:
-- Tackle the existing challenges in your workspace
-- Build your own string utility library
-- Approach any text processing problem with confidence
+After completing this, you'll be ready for:
+- [106-itoa](../106-itoa/README.md) - Itoa
+- [107-thirdchar](../107-thirdchar/README.md) - Thirdchar

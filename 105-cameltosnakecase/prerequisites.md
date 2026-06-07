@@ -51,5 +51,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [31-itoa](../31-itoa/README.md) - Number to string
-- [32-thirdchar](../32-thirdchar/README.md) - Every 3rd character
+- [106-itoa](../106-itoa/README.md) - Itoa
+- [107-thirdchar](../107-thirdchar/README.md) - Thirdchar

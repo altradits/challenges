@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [22-longestword](../22-longestword/README.md) - Find maximum
-- [23-searchreplace](../23-searchreplace/README.md) - Search and replace
+- [97-longestword](../97-longestword/README.md) - Longestword
+- [98-searchreplace](../98-searchreplace/README.md) - Searchreplace

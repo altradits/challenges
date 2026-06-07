@@ -83,5 +83,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **29-join**: Joining strings
-- **30-cameltosnakecase**: Advanced transformation
+- [104-join](../104-join/README.md) - Join
+- [105-cameltosnakecase](../105-cameltosnakecase/README.md) - Cameltosnakecase

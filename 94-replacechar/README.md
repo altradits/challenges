@@ -112,5 +112,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **20-printif**: Conditional string output
-- **21-printifnot**: Inverse conditions
+- [95-printif](../95-printif/README.md) - Printif
+- [96-printifnot](../96-printifnot/README.md) - Printifnot

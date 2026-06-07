@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [09-countvowels](../09-countvowels/README.md) - Count vowels
-- [10-reversestring](../10-reversestring/README.md) - Reverse strings
+- [84-countvowels](../84-countvowels/README.md) - Countvowels
+- [85-reversestring](../85-reversestring/README.md) - Reversestring

@@ -131,5 +131,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **16-findchar**: Finding character positions
-- **17-countchar**: Counting specific characters
+- [91-findchar](../91-findchar/README.md) - Findchar
+- [92-countchar](../92-countchar/README.md) - Countchar

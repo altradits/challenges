@@ -45,5 +45,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [19-replacechar](../19-replacechar/README.md) - Replace characters
-- [20-printif](../20-printif/README.md) - Conditional printing
+- [94-replacechar](../94-replacechar/README.md) - Replacechar
+- [95-printif](../95-printif/README.md) - Printif

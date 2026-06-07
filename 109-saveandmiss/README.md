@@ -81,5 +81,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **35-reversestrcap**: Case transformation with patterns
-- **36-printrevcomb**: Combination generation
+- [110-reversestrcap](../110-reversestrcap/README.md) - Reversestrcap
+- [111-union](../111-union/README.md) - Union

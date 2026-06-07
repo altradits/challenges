@@ -46,5 +46,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [05-toupper](../05-toupper/README.md) - Case conversion
-- [06-tolower](../06-tolower/README.md) - Lowercase conversion
+- [80-toupper](../80-toupper/README.md) - Toupper
+- [81-tolower](../81-tolower/README.md) - Tolower

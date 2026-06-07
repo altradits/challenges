@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [02-firstchar](../02-firstchar/README.md) - Extract specific characters
-- [03-lastchar](../03-lastchar/README.md) - Work with string positions
+- [66-rostring](../66-rostring/README.md) - Rostring
+- [67-wordflip](../67-wordflip/README.md) - Wordflip

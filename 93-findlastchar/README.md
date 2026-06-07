@@ -109,5 +109,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **19-replacechar**: Replacing characters
-- **20-printif**: Conditional output
+- [94-replacechar](../94-replacechar/README.md) - Replacechar
+- [95-printif](../95-printif/README.md) - Printif

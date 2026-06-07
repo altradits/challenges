@@ -50,5 +50,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [34-saveandmiss](../34-saveandmiss/README.md) - Periodic selection
-- [35-reversestrcap](../35-reversestrcap/README.md) - Reverse capitalization
+- [109-saveandmiss](../109-saveandmiss/README.md) - Saveandmiss
+- [110-reversestrcap](../110-reversestrcap/README.md) - Reversestrcap

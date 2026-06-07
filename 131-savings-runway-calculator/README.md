@@ -94,8 +94,6 @@ https://savings-runway-calculator.yourname.com
 
 ## Next Steps
 
-1. Implement expense parsing
-2. Add runway calculation logic
-3. Create milestone detection
-4. Build web interface
-5. Deploy and track user savings
+After completing this, you'll be ready for:
+- [132-portfolio-website](../132-portfolio-website/README.md) - Portfolio Website
+- [133-professional](../133-professional/README.md) - Professional

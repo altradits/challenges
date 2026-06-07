@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [46-stringcount](../46-stringcount/README.md) - Count occurrences
-- [47-stringprefix](../47-stringprefix/README.md) - Check prefix
+- [121-stringcount](../121-stringcount/README.md) - Stringcount
+- [122-stringprefix](../122-stringprefix/README.md) - Stringprefix

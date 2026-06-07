@@ -110,5 +110,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **17-countchar**: Counting all occurrences
-- **18-findlastchar**: Finding from the end
+- [92-countchar](../92-countchar/README.md) - Countchar
+- [93-findlastchar](../93-findlastchar/README.md) - Findlastchar

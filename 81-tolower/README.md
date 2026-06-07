@@ -105,5 +105,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **07-countalpha**: Counting alphabetic characters
-- **08-checknumber**: Detecting digits in strings
+- [82-countalpha](../82-countalpha/README.md) - Countalpha
+- [83-checknumber](../83-checknumber/README.md) - Checknumber

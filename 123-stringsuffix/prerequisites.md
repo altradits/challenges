@@ -43,5 +43,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [49-stringfield](../49-stringfield/README.md) - Split by delimiter
-- [50-stringmap](../50-stringmap/README.md) - Transform strings
+- [124-stringfield](../124-stringfield/README.md) - Stringfield
+- [125-stringmap](../125-stringmap/README.md) - Stringmap

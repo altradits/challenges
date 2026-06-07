@@ -218,8 +218,6 @@ Best regards,
 
 ## Next Steps
 
-1. Optimize your GitHub profile
-2. Update your LinkedIn
-3. Deploy your portfolio
-4. Start contributing to open source
-5. Apply to FinTech companies
+After completing this, you'll be ready for:
+- [134-python-data](../134-python-data/README.md) - Python Data
+- [135-api-lesson](../135-api-lesson/README.md) - Api Lesson

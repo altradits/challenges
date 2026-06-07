@@ -42,5 +42,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [40-stringjoin](../40-stringjoin/README.md) - Join strings
-- [41-stringrepeat](../41-stringrepeat/README.md) - Repeat strings
+- [115-stringjoin](../115-stringjoin/README.md) - Stringjoin
+- [116-stringrepeat](../116-stringrepeat/README.md) - Stringrepeat

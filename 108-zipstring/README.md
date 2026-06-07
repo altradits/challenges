@@ -77,5 +77,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **34-saveandmiss**: Periodic character selection
-- **35-reversestrcap**: Case transformation
+- [109-saveandmiss](../109-saveandmiss/README.md) - Saveandmiss
+- [110-reversestrcap](../110-reversestrcap/README.md) - Reversestrcap

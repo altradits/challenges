@@ -81,5 +81,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **26-findsubstring**: Advanced pattern matching
-- **27-replaceall**: Global replacement
+- [101-findsubstring](../101-findsubstring/README.md) - Findsubstring
+- [102-replaceall](../102-replaceall/README.md) - Replaceall

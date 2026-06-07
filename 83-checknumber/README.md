@@ -113,5 +113,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **09-countvowels**: Counting specific characters
-- **10-reversestring**: Building strings in reverse
+- [84-countvowels](../84-countvowels/README.md) - Countvowels
+- [85-reversestring](../85-reversestring/README.md) - Reversestring

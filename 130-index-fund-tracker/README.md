@@ -95,8 +95,6 @@ https://index-fund-tracker.yourname.com
 
 ## Next Steps
 
-1. Integrate with financial data API
-2. Implement ticker parsing
-3. Add performance comparison logic
-4. Create web dashboard
-5. Deploy and share with investors
+After completing this, you'll be ready for:
+- [131-savings-runway-calculator](../131-savings-runway-calculator/README.md) - Savings Runway Calculator
+- [132-portfolio-website](../132-portfolio-website/README.md) - Portfolio Website

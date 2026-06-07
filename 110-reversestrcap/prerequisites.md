@@ -41,5 +41,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [36-union](../36-union/README.md) - String union
-- [37-inter](../37-inter/README.md) - String intersection
+- [111-union](../111-union/README.md) - Union
+- [112-inter](../112-inter/README.md) - Inter

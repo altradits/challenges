@@ -83,8 +83,6 @@ Capstone:     FinTech Data Services
 
 ## Next Steps
 
-After completing this course, you'll be able to:
-- Process and analyze financial data
-- Build data-driven features for your portfolio
-- Create predictive models for investments
-- Deploy Python APIs for data services
+After completing this, you'll be ready for:
+- [135-api-lesson](../135-api-lesson/README.md) - Api Lesson
+- [136-capstone](../136-capstone/README.md) - Capstone

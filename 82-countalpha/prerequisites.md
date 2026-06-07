@@ -49,5 +49,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [08-checknumber](../08-checknumber/README.md) - Digit detection
-- [09-countvowels](../09-countvowels/README.md) - Vowel counting
+- [83-checknumber](../83-checknumber/README.md) - Checknumber
+- [84-countvowels](../84-countvowels/README.md) - Countvowels

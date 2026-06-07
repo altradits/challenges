@@ -45,5 +45,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [51-stringfilter](../51-stringfilter/README.md) - Filter strings
-- [52-stringreduce](../52-stringreduce/README.md) - Reduce strings
+- [126-stringfilter](../126-stringfilter/README.md) - Stringfilter
+- [127-stringreduce](../127-stringreduce/README.md) - Stringreduce

@@ -131,5 +131,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **11-ispalindrome**: Using reversal for comparison
-- **12-removespaces**: Filtering characters
+- [86-ispalindrome](../86-ispalindrome/README.md) - Ispalindrome
+- [87-removespaces](../87-removespaces/README.md) - Removespaces

@@ -55,5 +55,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [20-printif](../20-printif/README.md) - Conditional printing
-- [21-printifnot](../21-printifnot/README.md) - Inverse condition
+- [95-printif](../95-printif/README.md) - Printif
+- [96-printifnot](../96-printifnot/README.md) - Printifnot

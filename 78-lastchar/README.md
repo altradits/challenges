@@ -115,5 +115,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **04-isempty**: Checking if strings have content
-- **05-toupper**: Character case conversion
+- [79-isempty](../79-isempty/README.md) - Isempty
+- [80-toupper](../80-toupper/README.md) - Toupper

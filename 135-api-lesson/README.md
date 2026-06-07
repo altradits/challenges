@@ -173,11 +173,6 @@ After completing all exercises, you will be able to:
 
 ## Next Steps
 
-After completing this course:
-1. Build your own API project from scratch
-2. Explore popular Go frameworks (Gin, Echo, Fiber)
-3. Learn about microservices patterns
-4. Study distributed systems concepts
-5. Contribute to open-source Go API projects
-
-**Happy coding! Start with `01-httpserver` and work your way up.**
+After completing this, you'll be ready for:
+- [136-capstone](../136-capstone/README.md) - Capstone
+- [137-js-database](../137-js-database/README.md) - Js Database

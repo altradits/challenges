@@ -51,5 +51,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [28-split](../28-split/README.md) - Split strings
-- [29-join](../29-join/README.md) - Join strings
+- [103-split](../103-split/README.md) - Split
+- [104-join](../104-join/README.md) - Join

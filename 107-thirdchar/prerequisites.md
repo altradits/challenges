@@ -50,5 +50,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [33-zipstring](../33-zipstring/README.md) - Run-length encoding
-- [34-saveandmiss](../34-saveandmiss/README.md) - Save/skip pattern
+- [108-zipstring](../108-zipstring/README.md) - Zipstring
+- [109-saveandmiss](../109-saveandmiss/README.md) - Saveandmiss

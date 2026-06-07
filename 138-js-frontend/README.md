@@ -91,8 +91,5 @@ Capstone:     FinTech Portfolio Website
 
 ## Next Steps
 
-After completing this course, you'll be able to:
-- Build responsive, accessible web interfaces
-- Create interactive financial dashboards
-- Deploy production-ready frontend applications
-- Integrate with your Go and JavaScript APIs
+After completing this, you'll be ready for:
+- Continue to the next challenge in the learning path

@@ -45,5 +45,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [44-stringcontains](../44-stringcontains/README.md) - Check substring
-- [45-stringindex](../45-stringindex/README.md) - Find index
+- [119-stringcontains](../119-stringcontains/README.md) - Stringcontains
+- [120-stringindex](../120-stringindex/README.md) - Stringindex

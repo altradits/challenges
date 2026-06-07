@@ -51,5 +51,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [26-findsubstring](../26-findsubstring/README.md) - Pattern matching
-- [27-replaceall](../27-replaceall/README.md) - Global replacement
+- [101-findsubstring](../101-findsubstring/README.md) - Findsubstring
+- [102-replaceall](../102-replaceall/README.md) - Replaceall

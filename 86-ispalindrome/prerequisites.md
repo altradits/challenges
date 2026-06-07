@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [12-removespaces](../12-removespaces/README.md) - Space removal
-- [13-countrepeats](../13-countrepeats/README.md) - Pattern detection
+- [87-removespaces](../87-removespaces/README.md) - Removespaces
+- [88-countrepeats](../88-countrepeats/README.md) - Countrepeats

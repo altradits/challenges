@@ -95,8 +95,6 @@ https://financial-freedom-api.yourname.com
 
 ## Next Steps
 
-1. Implement core financial calculations
-2. Add string validation for inputs
-3. Create report formatting functions
-4. Deploy to cloud platform
-5. Share with users for feedback
+After completing this, you'll be ready for:
+- [130-index-fund-tracker](../130-index-fund-tracker/README.md) - Index Fund Tracker
+- [131-savings-runway-calculator](../131-savings-runway-calculator/README.md) - Savings Runway Calculator

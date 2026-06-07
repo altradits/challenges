@@ -45,5 +45,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [52-stringreduce](../52-stringreduce/README.md) - Reduce strings
-- [53-stringformat](../53-stringformat/README.md) - Format strings
+- [127-stringreduce](../127-stringreduce/README.md) - Stringreduce
+- [128-stringformat](../128-stringformat/README.md) - Stringformat

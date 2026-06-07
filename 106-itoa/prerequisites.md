@@ -42,5 +42,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [32-thirdchar](../32-thirdchar/README.md) - Periodic extraction
-- [33-zipstring](../33-zipstring/README.md) - Run-length encoding
+- [107-thirdchar](../107-thirdchar/README.md) - Thirdchar
+- [108-zipstring](../108-zipstring/README.md) - Zipstring

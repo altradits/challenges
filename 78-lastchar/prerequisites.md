@@ -41,5 +41,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [04-isempty](../04-isempty/README.md) - Check emptiness
-- [05-toupper](../05-toupper/README.md) - Case conversion
+- [79-isempty](../79-isempty/README.md) - Isempty
+- [80-toupper](../80-toupper/README.md) - Toupper

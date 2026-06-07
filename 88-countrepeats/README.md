@@ -127,5 +127,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **14-retainfirsthalf**: String slicing
-- **15-wordcount**: Word boundary detection
+- [89-retainfirsthalf](../89-retainfirsthalf/README.md) - Retainfirsthalf
+- [90-wordcount](../90-wordcount/README.md) - Wordcount

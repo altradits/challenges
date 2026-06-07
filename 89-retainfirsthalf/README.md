@@ -120,5 +120,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **15-wordcount**: Counting words in a string
-- **16-findchar**: Finding character positions
+- [90-wordcount](../90-wordcount/README.md) - Wordcount
+- [91-findchar](../91-findchar/README.md) - Findchar

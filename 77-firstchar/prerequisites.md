@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [03-lastchar](../03-lastchar/README.md) - Get last character
-- [04-isempty](../04-isempty/README.md) - Check emptiness
+- [78-lastchar](../78-lastchar/README.md) - Lastchar
+- [79-isempty](../79-isempty/README.md) - Isempty

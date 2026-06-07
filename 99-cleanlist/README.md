@@ -98,5 +98,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **25-countwords**: Advanced word counting
-- **26-findsubstring**: Substring search
+- [100-countwords](../100-countwords/README.md) - Countwords
+- [101-findsubstring](../101-findsubstring/README.md) - Findsubstring

@@ -48,5 +48,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [06-tolower](../06-tolower/README.md) - Lowercase conversion
-- [07-countalpha](../07-countalpha/README.md) - Count letters
+- [81-tolower](../81-tolower/README.md) - Tolower
+- [82-countalpha](../82-countalpha/README.md) - Countalpha

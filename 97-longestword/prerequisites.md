@@ -57,5 +57,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [23-searchreplace](../23-searchreplace/README.md) - Search and replace
-- [24-cleanlist](../24-cleanlist/README.md) - Clean lists
+- [98-searchreplace](../98-searchreplace/README.md) - Searchreplace
+- [99-cleanlist](../99-cleanlist/README.md) - Cleanlist

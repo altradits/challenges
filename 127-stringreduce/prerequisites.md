@@ -46,5 +46,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [53-stringformat](../53-stringformat/README.md) - Format strings
-- Review all string exercises for the capstone
+- [128-stringformat](../128-stringformat/README.md) - Stringformat
+- [129-financial-freedom-api](../129-financial-freedom-api/README.md) - Financial Freedom Api

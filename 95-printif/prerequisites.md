@@ -46,5 +46,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [21-printifnot](../21-printifnot/README.md) - Inverse validation
-- [22-longestword](../22-longestword/README.md) - Find maximum
+- [96-printifnot](../96-printifnot/README.md) - Printifnot
+- [97-longestword](../97-longestword/README.md) - Longestword

@@ -105,5 +105,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **28-split**: Splitting strings into parts
-- **29-join**: Joining strings together
+- [103-split](../103-split/README.md) - Split
+- [104-join](../104-join/README.md) - Join

@@ -52,5 +52,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [10-reversestring](../10-reversestring/README.md) - String reversal
-- [11-ispalindrome](../11-ispalindrome/README.md) - Palindrome detection
+- [85-reversestring](../85-reversestring/README.md) - Reversestring
+- [86-ispalindrome](../86-ispalindrome/README.md) - Ispalindrome

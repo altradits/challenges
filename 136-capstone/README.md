@@ -169,8 +169,6 @@ func (a *Analytics) TrackToolUse(toolName, input, output string) {
 
 ## Next Steps
 
-After completing this capstone:
-1. Deploy to a cloud platform (Heroku, Railway, or Render)
-2. Share your dashboard link with users
-3. Collect real usage data
-4. Iterate on the most popular features
+After completing this, you'll be ready for:
+- [137-js-database](../137-js-database/README.md) - Js Database
+- [138-js-frontend](../138-js-frontend/README.md) - Js Frontend

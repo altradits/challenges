@@ -96,5 +96,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **32-thirdchar**: Extracting every nth character
-- **33-zipstring**: Run-length encoding
+- [107-thirdchar](../107-thirdchar/README.md) - Thirdchar
+- [108-zipstring](../108-zipstring/README.md) - Zipstring

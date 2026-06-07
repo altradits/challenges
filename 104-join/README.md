@@ -90,4 +90,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **30-cameltosnakecase**: Advanced string transformation
+- [105-cameltosnakecase](../105-cameltosnakecase/README.md) - Cameltosnakecase
+- [106-itoa](../106-itoa/README.md) - Itoa

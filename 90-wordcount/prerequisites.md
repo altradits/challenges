@@ -49,5 +49,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [16-findchar](../16-findchar/README.md) - Find character
-- [17-countchar](../17-countchar/README.md) - Count character
+- [91-findchar](../91-findchar/README.md) - Findchar
+- [92-countchar](../92-countchar/README.md) - Countchar

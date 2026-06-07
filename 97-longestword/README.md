@@ -100,5 +100,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **23-searchreplace**: Search and replace strings
-- **24-cleanlist**: Cleaning string lists
+- [98-searchreplace](../98-searchreplace/README.md) - Searchreplace
+- [99-cleanlist](../99-cleanlist/README.md) - Cleanlist

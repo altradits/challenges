@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [02-firstchar](../02-firstchar/README.md) - Extract specific characters
-- [03-lastchar](../03-lastchar/README.md) - Work with string positions
+- [135-api-lesson](../135-api-lesson/README.md) - Api Lesson
+- [136-capstone](../136-capstone/README.md) - Capstone

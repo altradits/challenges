@@ -76,5 +76,5 @@ Before coding, make sure you can answer:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- **33-zipstring**: Run-length encoding
-- **34-saveandmiss**: Periodic skipping
+- [108-zipstring](../108-zipstring/README.md) - Zipstring
+- [109-saveandmiss](../109-saveandmiss/README.md) - Saveandmiss

@@ -49,5 +49,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [47-stringprefix](../47-stringprefix/README.md) - Check prefix
-- [48-stringsuffix](../48-stringsuffix/README.md) - Check suffix
+- [122-stringprefix](../122-stringprefix/README.md) - Stringprefix
+- [123-stringsuffix](../123-stringsuffix/README.md) - Stringsuffix
