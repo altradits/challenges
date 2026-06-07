@@ -18,14 +18,14 @@ These exercises teach you the absolute fundamentals of string handling in Go.
 
 | # | Exercise | Folder | Key Concepts |
 |---|----------|--------|--------------|
-| 01 | [String Length](01-stringlength/README.md) | `01-stringlength/` | `for...range` loops, counting, UTF-8 basics |
-| 02 | [First Character](02-firstchar/README.md) | `02-firstchar/` | String indexing, rune vs byte, type conversion |
-| 03 | [Last Character](03-lastchar/README.md) | `03-lastchar/` | Index calculation, `len()-1`, boundary checks |
-| 04 | [Is Empty](04-isempty/README.md) | `04-isempty/` | Boolean returns, early return pattern, iteration |
-| 05 | [To Upper](05-toupper/README.md) | `05-toupper/` | ASCII math, case conversion, character ranges |
-| 06 | [To Lower](06-tolower/README.md) | `06-tolower/` | Reverse case conversion, symmetry of operations |
-| 07 | [Count Alpha](07-countalpha/README.md) | `07-countalpha/` | Character classification, OR conditions |
-| 08 | [Check Number](08-checknumber/README.md) | `08-checknumber/` | Digit detection, early return for efficiency |
+| 01 | [String Length](76-stringlength/README.md) | `76-stringlength/` | `for...range` loops, counting, UTF-8 basics |
+| 02 | [First Character](77-firstchar/README.md) | `77-firstchar/` | String indexing, rune vs byte, type conversion |
+| 03 | [Last Character](78-lastchar/README.md) | `78-lastchar/` | Index calculation, `len()-1`, boundary checks |
+| 04 | [Is Empty](79-isempty/README.md) | `79-isempty/` | Boolean returns, early return pattern, iteration |
+| 05 | [To Upper](80-toupper/README.md) | `80-toupper/` | ASCII math, case conversion, character ranges |
+| 06 | [To Lower](81-tolower/README.md) | `81-tolower/` | Reverse case conversion, symmetry of operations |
+| 07 | [Count Alpha](82-countalpha/README.md) | `82-countalpha/` | Character classification, OR conditions |
+| 08 | [Check Number](83-checknumber/README.md) | `83-checknumber/` | Digit detection, early return for efficiency |
 
 **Beginner Tips:**
 - Use `for...range` to iterate over strings (it handles UTF-8 correctly)
@@ -41,12 +41,12 @@ These exercises build on basics and introduce more complex logic patterns.
 
 | # | Exercise | Folder | Key Concepts |
 |---|----------|--------|--------------|
-| 09 | [Count Vowels](09-countvowels/README.md) | `09-countvowels/` | Multi-condition logic, case-insensitive matching |
-| 10 | [Reverse String](10-reversestring/README.md) | `10-reversestring/` | `[]rune` conversion, two-pointer swap technique |
-| 11 | [Is Palindrome](11-ispalindrome/README.md) | `11-ispalindrome/` | String normalization, two-pointer comparison |
-| 12 | [Remove Spaces](12-removespaces/README.md) | `12-removespaces/` | String filtering, selective character removal |
-| 13 | [Count Repeats](13-countrepeats/README.md) | `13-countrepeats/` | State tracking, consecutive pattern detection |
-| 14 | [Retain First Half](14-retainfirsthalf/README.md) | `14-retainfirsthalf/` | String slicing, integer division, edge cases |
+| 09 | [Count Vowels](84-countvowels/README.md) | `84-countvowels/` | Multi-condition logic, case-insensitive matching |
+| 10 | [Reverse String](85-reversestring/README.md) | `85-reversestring/` | `[]rune` conversion, two-pointer swap technique |
+| 11 | [Is Palindrome](86-ispalindrome/README.md) | `86-ispalindrome/` | String normalization, two-pointer comparison |
+| 12 | [Remove Spaces](87-removespaces/README.md) | `87-removespaces/` | String filtering, selective character removal |
+| 13 | [Count Repeats](88-countrepeats/README.md) | `88-countrepeats/` | State tracking, consecutive pattern detection |
+| 14 | [Retain First Half](89-retainfirsthalf/README.md) | `89-retainfirsthalf/` | String slicing, integer division, edge cases |
 
 **Beginner-Intermediate Tips:**
 - Convert strings to `[]rune` when you need to modify or reverse them
@@ -62,14 +62,14 @@ These exercises simulate real-world text processing tasks.
 
 | # | Exercise | Folder | Key Concepts |
 |---|----------|--------|--------------|
-| 15 | [Word Count](15-wordcount/README.md) | `15-wordcount/` | Word boundary detection, state tracking |
-| 16 | [Find Char](16-findchar/README.md) | `16-findchar/` | Character search, index return, not-found handling |
-| 17 | [Count Char](17-countchar/README.md) | `17-countchar/` | Accumulator pattern, counting specific values |
-| 18 | [Find Last Char](18-findlastchar/README.md) | `18-findlastchar/` | Reverse search, tracking last occurrence |
-| 19 | [Replace Char](19-replacechar/README.md) | `19-replacechar/` | Character substitution, building with replacements |
-| 20 | [Print If](20-printif/README.md) | `20-printif/` | Conditional output, length-based logic |
-| 21 | [Print If Not](21-printifnot/README.md) | `21-printifnot/` | Inverse conditions, logical inversion |
-| 22 | [Longest Word](22-longestword/README.md) | `22-longestword/` | Finding maximums, word extraction |
+| 15 | [Word Count](90-wordcount/README.md) | `90-wordcount/` | Word boundary detection, state tracking |
+| 16 | [Find Char](91-findchar/README.md) | `91-findchar/` | Character search, index return, not-found handling |
+| 17 | [Count Char](92-countchar/README.md) | `92-countchar/` | Accumulator pattern, counting specific values |
+| 18 | [Find Last Char](93-findlastchar/README.md) | `93-findlastchar/` | Reverse search, tracking last occurrence |
+| 19 | [Replace Char](94-replacechar/README.md) | `94-replacechar/` | Character substitution, building with replacements |
+| 20 | [Print If](95-printif/README.md) | `95-printif/` | Conditional output, length-based logic |
+| 21 | [Print If Not](96-printifnot/README.md) | `96-printifnot/` | Inverse conditions, logical inversion |
+| 22 | [Longest Word](97-longestword/README.md) | `97-longestword/` | Finding maximums, word extraction |
 
 **Intermediate Tips:**
 - Use a "state" variable to track whether you're inside a word or between words
@@ -85,14 +85,14 @@ These exercises combine multiple concepts for complex string operations.
 
 | # | Exercise | Folder | Key Concepts |
 |---|----------|--------|--------------|
-| 23 | [Search Replace](23-searchreplace/README.md) | `23-searchreplace/` | Substring search and replacement, slicing |
-| 24 | [Clean List](24-cleanlist/README.md) | `24-cleanlist/` | Processing collections, map-filter pattern |
-| 25 | [Count Words Advanced](25-countwords/README.md) | `25-countwords/` | Advanced word boundaries, punctuation handling |
-| 26 | [Find Substring](26-findsubstring/README.md) | `26-findsubstring/` | Pattern matching, sliding window, nested loops |
-| 27 | [Replace All](27-replaceall/README.md) | `27-replaceall/` | Global replacement, scan-and-build pattern |
-| 28 | [Split](28-split/README.md) | `28-split/` | Tokenizing strings, slice manipulation |
-| 29 | [Join](29-join/README.md) | `29-join/` | Combining strings, separator handling |
-| 30 | [Camel to Snake](30-cameltosnakecase/README.md) | `30-cameltosnakecase/` | Validation, transformation, naming conventions |
+| 23 | [Search Replace](98-searchreplace/README.md) | `98-searchreplace/` | Substring search and replacement, slicing |
+| 24 | [Clean List](99-cleanlist/README.md) | `99-cleanlist/` | Processing collections, map-filter pattern |
+| 25 | [Count Words Advanced](100-countwords/README.md) | `100-countwords/` | Advanced word boundaries, punctuation handling |
+| 26 | [Find Substring](101-findsubstring/README.md) | `101-findsubstring/` | Pattern matching, sliding window, nested loops |
+| 27 | [Replace All](102-replaceall/README.md) | `102-replaceall/` | Global replacement, scan-and-build pattern |
+| 28 | [Split](103-split/README.md) | `103-split/` | Tokenizing strings, slice manipulation |
+| 29 | [Join](104-join/README.md) | `104-join/` | Combining strings, separator handling |
+| 30 | [Camel to Snake](105-cameltosnakecase/README.md) | `105-cameltosnakecase/` | Validation, transformation, naming conventions |
 
 ### Expert Level (31-37) - Mastery
 
@@ -100,13 +100,13 @@ These exercises integrate all previous concepts for advanced string mastery.
 
 | # | Exercise | Folder | Key Concepts |
 |---|----------|--------|--------------|
-| 31 | [Integer to String](31-itoa/README.md) | `31-itoa/` | Number-to-string conversion, digit extraction |
+| 31 | [Integer to String](106-itoa/README.md) | `106-itoa/` | Number-to-string conversion, digit extraction |
 | 32 | [Every Third Char](32-thirdchar/README.md) | `32-thirdchar/` | Modular indexing, periodic extraction |
-| 33 | [Zip String](33-zipstring/README.md) | `33-zipstring/` | Run-length encoding, pattern compression |
-| 34 | [Save and Miss](34-saveandmiss/README.md) | `34-saveandmiss/` | Periodic selection, chunk processing |
-| 35 | [Reverse Str Cap](35-reversestrcap/README.md) | `35-reversestrcap/` | Selective case transformation |
-| 36 | [Union](36-union/README.md) | `36-union/` | Set union, duplicate removal, order preservation |
-| 37 | [Intersection](37-inter/README.md) | `37-inter/` | Set intersection, common character finding |
+| 33 | [Zip String](108-zipstring/README.md) | `108-zipstring/` | Run-length encoding, pattern compression |
+| 34 | [Save and Miss](109-saveandmiss/README.md) | `109-saveandmiss/` | Periodic selection, chunk processing |
+| 35 | [Reverse Str Cap](110-reversestrcap/README.md) | `110-reversestrcap/` | Selective case transformation |
+| 36 | [Union](111-union/README.md) | `111-union/` | Set union, duplicate removal, order preservation |
+| 37 | [Intersection](112-inter/README.md) | `112-inter/` | Set intersection, common character finding |
 
 **Advanced Tips:**
 - Combine multiple operations: validate → transform → return
@@ -122,22 +122,22 @@ These exercises teach practical string utility functions you'll use in real proj
 
 | # | Exercise | Folder | Key Concepts |
 |---|----------|--------|--------------|
-| 38 | [String Builder](38-stringbuilder/README.md) | `38-stringbuilder/` | `strings.Builder`, efficient concatenation |
-| 39 | [String Split](39-stringsplit/README.md) | `39-stringsplit/` | Word splitting, whitespace handling |
-| 40 | [String Join](40-stringjoin/README.md) | `40-stringjoin/` | Joining slices, separator logic |
-| 41 | [String Repeat](41-stringrepeat/README.md) | `41-stringrepeat/` | Repetition patterns, loop-based building |
-| 42 | [String Replace](42-stringreplace/README.md) | `42-stringreplace/` | Substring replacement, incremental building |
-| 43 | [String Trim](43-stringtrim/README.md) | `43-stringtrim/` | Whitespace removal, boundary detection |
-| 44 | [String Contains](44-stringcontains/README.md) | `44-stringcontains/` | Substring search, boolean logic |
-| 45 | [String Index](45-stringindex/README.md) | `45-stringindex/` | Finding positions, index return |
-| 46 | [String Count](46-stringcount/README.md) | `46-stringcount/` | Counting occurrences, loop patterns |
-| 47 | [String Prefix](47-stringprefix/README.md) | `47-stringprefix/` | Prefix checking, slice comparison |
-| 48 | [String Suffix](48-stringsuffix/README.md) | `48-stringsuffix/` | Suffix checking, end-of-string logic |
-| 49 | [String Field](49-stringfield/README.md) | `49-stringfield/` | Delimiter splitting, field extraction |
-| 50 | [String Map](50-stringmap/README.md) | `50-stringmap/` | Functional mapping, rune transformation |
-| 51 | [String Filter](51-stringfilter/README.md) | `51-stringfilter/` | Predicate filtering, character selection |
-| 52 | [String Reduce](52-stringreduce/README.md) | `52-stringreduce/` | Cumulative reduction, fold operation |
-| 53 | [String Format](53-stringformat/README.md) | `53-stringformat/` | Template formatting, placeholder replacement |
+| 38 | [String Builder](113-stringbuilder/README.md) | `113-stringbuilder/` | `strings.Builder`, efficient concatenation |
+| 39 | [String Split](114-stringsplit/README.md) | `114-stringsplit/` | Word splitting, whitespace handling |
+| 40 | [String Join](115-stringjoin/README.md) | `115-stringjoin/` | Joining slices, separator logic |
+| 41 | [String Repeat](116-stringrepeat/README.md) | `116-stringrepeat/` | Repetition patterns, loop-based building |
+| 42 | [String Replace](117-stringreplace/README.md) | `117-stringreplace/` | Substring replacement, incremental building |
+| 43 | [String Trim](118-stringtrim/README.md) | `118-stringtrim/` | Whitespace removal, boundary detection |
+| 44 | [String Contains](119-stringcontains/README.md) | `119-stringcontains/` | Substring search, boolean logic |
+| 45 | [String Index](120-stringindex/README.md) | `120-stringindex/` | Finding positions, index return |
+| 46 | [String Count](121-stringcount/README.md) | `121-stringcount/` | Counting occurrences, loop patterns |
+| 47 | [String Prefix](122-stringprefix/README.md) | `122-stringprefix/` | Prefix checking, slice comparison |
+| 48 | [String Suffix](123-stringsuffix/README.md) | `123-stringsuffix/` | Suffix checking, end-of-string logic |
+| 49 | [String Field](124-stringfield/README.md) | `124-stringfield/` | Delimiter splitting, field extraction |
+| 50 | [String Map](125-stringmap/README.md) | `125-stringmap/` | Functional mapping, rune transformation |
+| 51 | [String Filter](126-stringfilter/README.md) | `126-stringfilter/` | Predicate filtering, character selection |
+| 52 | [String Reduce](127-stringreduce/README.md) | `127-stringreduce/` | Cumulative reduction, fold operation |
+| 53 | [String Format](128-stringformat/README.md) | `128-stringformat/` | Template formatting, placeholder replacement |
 
 **Utility Tips:**
 - `strings.Builder` is more efficient than `+=` for building strings
@@ -352,4 +352,4 @@ After completing this course:
 4. Explore the `strings` package standard library
 5. Start the backend capstone projects
 
-**Happy coding! Start with `01-stringlength` and work your way up.**
+**Happy coding! Start with `76-stringlength` and work your way up.**
