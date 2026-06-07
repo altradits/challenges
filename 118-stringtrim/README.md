@@ -1,4 +1,4 @@
-# 43-stringtrim
+# 43. String Trim
 
 ## Instructions
 

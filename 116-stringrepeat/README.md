@@ -1,4 +1,4 @@
-# 41-stringrepeat
+# 41. String Repeat
 
 ## Instructions
 

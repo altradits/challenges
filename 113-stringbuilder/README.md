@@ -1,4 +1,4 @@
-# 38-stringbuilder
+# 38. String Builder
 
 ## Instructions
 

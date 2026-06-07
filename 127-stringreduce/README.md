@@ -1,4 +1,4 @@
-# 52-stringreduce
+# 52. String Reduce
 
 ## Instructions
 

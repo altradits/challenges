@@ -1,4 +1,4 @@
-# 47-stringprefix
+# 47. String Prefix
 
 ## Instructions
 

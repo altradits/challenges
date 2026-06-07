@@ -1,4 +1,4 @@
-## countvowels
+# 09. Count Vowels
 
 ### Instructions
 

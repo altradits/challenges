@@ -1,4 +1,4 @@
-# 44-stringcontains
+# 44. String Contains
 
 ## Instructions
 

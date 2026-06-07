@@ -1,4 +1,4 @@
-# 42-stringreplace
+# 42. String Replace
 
 ## Instructions
 

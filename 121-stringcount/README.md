@@ -1,4 +1,4 @@
-# 46-stringcount
+# 46. String Count
 
 ## Instructions
 

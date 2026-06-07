@@ -1,4 +1,4 @@
-# 45-stringindex
+# 45. String Index
 
 ## Instructions
 

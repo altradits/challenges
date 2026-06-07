@@ -1,4 +1,4 @@
-# 50-stringmap
+# 50. String Map
 
 ## Instructions
 

@@ -1,4 +1,4 @@
-# 48-stringsuffix
+# 48. String Suffix
 
 ## Instructions
 

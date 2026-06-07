@@ -1,4 +1,4 @@
-# 39-stringsplit
+# 39. String Split
 
 ## Instructions
 

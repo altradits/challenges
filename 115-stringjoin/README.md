@@ -1,4 +1,4 @@
-# 40-stringjoin
+# 40. String Join
 
 ## Instructions
 

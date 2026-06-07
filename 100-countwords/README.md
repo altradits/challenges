@@ -1,4 +1,4 @@
-# 25. Count Words (Advanced)
+# 25. Count Words
 
 ## What You'll Learn
 

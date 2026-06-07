@@ -1,4 +1,4 @@
-# 53-stringformat
+# 53. String Format
 
 ## Instructions
 

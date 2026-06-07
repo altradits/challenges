@@ -1,4 +1,4 @@
-## countalpha
+# 07. Count Alpha
 
 ### Instructions
 
