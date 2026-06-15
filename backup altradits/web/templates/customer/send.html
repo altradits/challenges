@@ -1,0 +1,174 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Send money — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/customer/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Wallet</div>
+  <a href="/customer/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/customer/deposit" class="nav-item">&#8595; Add money</a>
+  <a href="/customer/withdraw" class="nav-item">&#8593; Withdraw</a>
+  <a href="/customer/send" class="nav-item active">&#10148; Send money</a>
+  <a href="/customer/receive" class="nav-item">&#9889; Receive</a>
+  <a href="/customer/transactions" class="nav-item">&#8801; Transactions</a>
+  <div class="nav-section-label">Savings</div>
+  <a href="/customer/investments" class="nav-item">&#128274; Locked savings</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Send money</h2><p>Pay any Lightning invoice or Altradits address</p></div>
+  {{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+  <div style="max-width:480px;">
+    <div class="kpi-card" style="margin-bottom:16px;"><div class="kpi-label">Available</div><div class="kpi-value mono">{{.BalanceSats}} sats</div></div>
+
+    <div class="card" id="send-form-card">
+      <form method="POST" action="/customer/send" id="send-form">
+        <div class="form-group">
+          <label class="form-label" for="invoice">Lightning invoice or address</label>
+          <div class="input-row">
+            <input class="form-input" type="text" id="invoice" name="invoice" placeholder="lnbc... or user@altradits.com" required>
+            <button type="button" class="qr-scan-btn" onclick="openQrScanner()" title="Scan QR code" aria-label="Scan QR code">&#128247;</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="sats_amount">Amount (sats)</label>
+          <input class="form-input" type="number" id="sats_amount" name="sats_amount" placeholder="5000" min="1" max="{{.BalanceSats}}" required>
+          <div class="form-hint" id="kes-preview"></div>
+        </div>
+        <button type="button" class="btn btn-primary btn-full" onclick="reviewPayment()">Review payment</button>
+      </form>
+    </div>
+
+    <div class="card" id="send-review-card" style="display:none;">
+      <div class="kpi-label" style="margin-bottom:14px;">Confirm payment</div>
+      <div class="review-row"><span class="review-label">Paying</span><span class="review-value mono" id="review-dest"></span></div>
+      <div class="review-row"><span class="review-label">Amount</span><span class="review-value mono" id="review-amount"></span></div>
+      <div class="review-row"><span class="review-label">&#8776; in KES</span><span class="review-value mono" id="review-kes"></span></div>
+      <div class="form-hint" style="margin:14px 0;">Lightning integration coming — payment will be queued for manual processing.</div>
+      <div style="display:flex; gap:10px;">
+        <button type="button" class="btn btn-ghost" style="flex:1;" onclick="editPayment()">Edit</button>
+        <button type="button" class="btn btn-primary" style="flex:1;" onclick="document.getElementById('send-form').submit()">Confirm &amp; send</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="qr-scan-overlay" id="qr-scan-overlay">
+    <div class="qr-scan-modal">
+      <h3>Scan QR code</h3>
+      <div class="qr-scan-video-wrap">
+        <video id="qr-scan-video" autoplay playsinline muted></video>
+        <div class="qr-scan-frame"></div>
+      </div>
+      <div class="qr-scan-status" id="qr-scan-status"></div>
+      <button type="button" class="btn btn-ghost btn-full" onclick="closeQrScanner()">Cancel</button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var rate = parseFloat("{{.KesPerSat}}")||0.0028;
+      var inp = document.getElementById('sats_amount');
+      var hint = document.getElementById('kes-preview');
+      if(inp) inp.addEventListener('input',function(){
+        var sats=parseFloat(this.value)||0;
+        hint.textContent = sats>0 ? '&#8776; KES '+parseFloat((sats*rate).toFixed(2)).toLocaleString() : '';
+      });
+    })();
+
+    function reviewPayment() {
+      var form = document.getElementById('send-form');
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      var dest = document.getElementById('invoice').value.trim();
+      var sats = parseFloat(document.getElementById('sats_amount').value) || 0;
+      var rate = parseFloat("{{.KesPerSat}}")||0.0028;
+
+      document.getElementById('review-dest').textContent = dest;
+      document.getElementById('review-amount').textContent = sats.toLocaleString() + ' sats';
+      document.getElementById('review-kes').textContent = 'KES ' + (sats*rate).toFixed(2);
+
+      document.getElementById('send-form-card').style.display = 'none';
+      document.getElementById('send-review-card').style.display = 'block';
+    }
+
+    function editPayment() {
+      document.getElementById('send-review-card').style.display = 'none';
+      document.getElementById('send-form-card').style.display = 'block';
+    }
+
+    var qrStream = null;
+    var qrScanning = false;
+
+    function openQrScanner() {
+      var overlay = document.getElementById('qr-scan-overlay');
+      var status = document.getElementById('qr-scan-status');
+      overlay.classList.add('active');
+      status.textContent = 'Starting camera…';
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        status.textContent = 'Camera access is not supported in this browser. Paste the code instead.';
+        return;
+      }
+
+      navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then(function(stream) {
+        qrStream = stream;
+        var video = document.getElementById('qr-scan-video');
+        video.srcObject = stream;
+        video.play();
+
+        if (!('BarcodeDetector' in window)) {
+          status.textContent = "QR scanning isn't supported in this browser — paste the code instead.";
+          return;
+        }
+
+        var detector = new BarcodeDetector({ formats: ['qr_code'] });
+        qrScanning = true;
+        status.textContent = 'Point your camera at a QR code';
+
+        var scanFrame = function() {
+          if (!qrScanning) return;
+          detector.detect(video).then(function(codes) {
+            if (codes.length > 0) {
+              applyScannedValue(codes[0].rawValue);
+            } else if (qrScanning) {
+              requestAnimationFrame(scanFrame);
+            }
+          }).catch(function() {
+            if (qrScanning) requestAnimationFrame(scanFrame);
+          });
+        };
+        requestAnimationFrame(scanFrame);
+      }).catch(function(err) {
+        status.textContent = 'Could not access camera: ' + err.message;
+      });
+    }
+
+    function applyScannedValue(value) {
+      value = value.trim();
+      if (value.toLowerCase().indexOf('lightning:') === 0) {
+        value = value.slice(10);
+      }
+      document.getElementById('invoice').value = value;
+      closeQrScanner();
+    }
+
+    function closeQrScanner() {
+      qrScanning = false;
+      document.getElementById('qr-scan-overlay').classList.remove('active');
+      if (qrStream) {
+        qrStream.getTracks().forEach(function(track) { track.stop(); });
+        qrStream = null;
+      }
+    }
+  </script>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

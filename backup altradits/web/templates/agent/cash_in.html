@@ -1,0 +1,84 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Load a wallet — Altradits Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/agent/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#b8a832;">A</div> Altradits <span style="font-size:10px;background:rgba(184,168,50,0.3);color:#e8e0a0;padding:2px 8px;border-radius:10px;margin-left:6px;">AGENT</span></a><div class="dash-nav-right"><span class="dash-nav-user">{{if .Data}}{{if .Data.User}}{{.Data.User.Identifier}}{{end}}{{end}}</span><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Agent</div>
+  <a href="/agent/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/agent/load" class="nav-item active">&#8595; Cash in &middot; load wallet</a>
+  <a href="/agent/cashout" class="nav-item">&#8593; Cash out &middot; dispense cash</a>
+  <a href="/agent/transactions" class="nav-item">&#8801; Activity</a>
+  <div class="nav-section-label">Account</div>
+  <a href="/logout" class="nav-item">&#10148; Sign out</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Cash &rarr; Bitcoin</h2><p>Accept cash or M-Pesa from a customer and credit their Altradits wallet with sats instantly</p></div>
+  {{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+  {{if .Success}}<div class="alert alert-success">{{.Success}}</div>{{end}}
+
+  <div style="max-width:480px;">
+    <div class="card">
+      <form method="POST" action="/agent/load" id="cashin-form">
+        <div class="form-group">
+          <label class="form-label" for="identifier">Customer email or phone</label>
+          <input class="form-input" type="text" id="identifier" name="identifier" placeholder="customer@example.com or 0712345678" required>
+          <div class="form-hint">Must be a registered Altradits customer.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="kes_amount">Amount received (KES)</label>
+          <input class="form-input" type="number" id="kes_amount" name="kes_amount" placeholder="1000" min="1" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="method">Payment method</label>
+          <select class="form-select" id="method" name="method">
+            <option value="cash">Cash</option>
+            <option value="mpesa">M-Pesa</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reference">M-Pesa code / reference (optional)</label>
+          <input class="form-input" type="text" id="reference" name="reference" placeholder="QFL7XXXXXX">
+        </div>
+        <div class="review-row"><span class="review-label">Customer receives</span><span class="review-value mono" id="preview-net">&mdash;</span></div>
+        <div class="review-row"><span class="review-label">Your commission ({{printf "%.2f" .AgentFeePct}}%)</span><span class="review-value mono" id="preview-fee">&mdash;</span></div>
+        <div style="height:14px;"></div>
+        <button type="submit" class="btn btn-primary btn-full">Credit wallet</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var kesPerSat = parseFloat("{{.KesPerSat}}") || 0.0028;
+      var feePct = parseFloat("{{.AgentFeePct}}") / 100 || 0;
+      var amountInput = document.getElementById('kes_amount');
+      var net = document.getElementById('preview-net');
+      var fee = document.getElementById('preview-fee');
+
+      function formatSats(s) {
+        return Math.round(s).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " sats";
+      }
+
+      function update() {
+        var kes = parseFloat(amountInput.value) || 0;
+        if (kes <= 0) { net.textContent = '—'; fee.textContent = '—'; return; }
+        var commissionKES = kes * feePct;
+        var netKES = kes - commissionKES;
+        net.textContent = formatSats(netKES / kesPerSat) + " (KES " + netKES.toFixed(2) + ")";
+        fee.textContent = formatSats(commissionKES / kesPerSat) + " (KES " + commissionKES.toFixed(2) + ")";
+      }
+      amountInput.addEventListener('input', update);
+      update();
+    })();
+  </script>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

@@ -1,0 +1,171 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav class="dash-nav">
+  <a class="nav-logo" href="/customer/dashboard" style="color:#fff;text-decoration:none;">
+    <div class="nav-mark" style="background:#c4622d;">A</div> Altradits
+  </a>
+  <div class="dash-nav-right">
+    <span class="dash-nav-user">{{if .Data}}{{if .Data.User}}{{.Data.User.Identifier}}{{end}}{{end}}</span>
+    <a href="/logout" class="dash-nav-logout">Sign out</a>
+  </div>
+</nav>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar">{{if .Data}}{{if .Data.User}}{{slice .Data.User.Identifier 0 2}}{{end}}{{end}}</div>
+      <div><div class="sidebar-name">{{if .Data}}{{if .Data.User}}{{.Data.User.Identifier}}{{end}}{{end}}</div><div class="sidebar-role">Member</div></div>
+    </div>
+    <div class="nav-section-label">Wallet</div>
+    <a href="/customer/dashboard" class="nav-item active">&#9632; Dashboard</a>
+    <a href="/customer/deposit" class="nav-item">&#8595; Add money</a>
+    <a href="/customer/withdraw" class="nav-item">&#8593; Withdraw</a>
+    <a href="/customer/send" class="nav-item">&#10148; Send money</a>
+    <a href="/customer/receive" class="nav-item">&#9889; Receive</a>
+    <a href="/customer/transactions" class="nav-item">&#8801; Transactions</a>
+    <div class="nav-section-label">Savings</div>
+    <a href="/customer/investments" class="nav-item">&#128274; Locked savings</a>
+    <a href="/customer/interest" class="nav-item">&#9733; My interest</a>
+    <div class="nav-section-label">Account</div>
+    <a href="/customer/settings" class="nav-item">&#9881; Settings</a>
+    <a href="/logout" class="nav-item">&#10148; Sign out</a>
+  </aside>
+  <main class="main-content">
+    {{with .Data}}
+    <div class="page-header"><h2>Dashboard</h2><p>Your community bank — everything at a glance</p></div>
+    <div class="balance-card">
+      <div class="balance-label">Total savings balance</div>
+      <div class="currency-toggle">
+        <button class="currency-btn active" id="toggle-btc" onclick="setCurrency('btc')">
+          <span class="currency-icon">&#8383;</span>
+          <span class="currency-label">Bitcoin</span>
+        </button>
+        <button class="currency-btn inactive" id="toggle-sats" onclick="setCurrency('sats')">
+          <span class="currency-icon">&#128274;</span>
+          <span class="currency-label">Sats</span>
+        </button>
+      </div>
+      <div class="currency-toggle">
+        <button class="currency-btn inactive" id="toggle-kes" onclick="setCurrency('kes')">
+          <span class="currency-icon">KES</span>
+          <span class="currency-label">Kenyan Shillings</span>
+        </button>
+        <button class="currency-btn inactive" id="toggle-sats2" onclick="setCurrency('sats')">
+          <span class="currency-icon">&#128274;</span>
+          <span class="currency-label">Sats</span>
+        </button>
+      </div>
+      <div class="balance-amount mono" id="balance-display">{{.BalanceSats}}</div>
+      <div class="balance-sub" id="balance-sub">&#8776; {{.BalanceKES}}</div>
+      {{if .LightningAddr}}<div class="balance-growth">&#9889; {{.LightningAddr}}</div>{{end}}
+      <div class="balance-actions">
+        <a href="/customer/deposit" class="bal-action primary">Add money</a>
+        <a href="/customer/withdraw" class="bal-action">Withdraw</a>
+        <a href="/customer/send" class="bal-action">Send</a>
+        <a href="/customer/investments/new" class="bal-action">Lock savings</a>
+      </div>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Interest this month</div>
+        <div class="kpi-value green mono">+{{.InterestThisMonth}}</div>
+        <div class="kpi-sub">sats credited</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Yearly interest rate</div>
+        <div class="kpi-value gold mono">5.2%</div>
+        <div class="kpi-sub">paid monthly in sats</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Community pool</div>
+        <div class="kpi-value forest mono" style="font-size:1rem;">Low-risk</div>
+        <div class="kpi-sub">VOO &middot; BND &middot; Money market</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Recent transactions</span>
+        <a href="/customer/transactions" style="font-size:12px;color:#2d6b4a;">View all &rarr;</a>
+      </div>
+      {{if .Transactions}}
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Type</th><th>Amount</th><th>Status</th><th>When</th></tr></thead>
+          <tbody>
+          {{range .Transactions}}
+          <tr>
+            <td style="font-weight:600;">{{.Type}}</td>
+            <td class="td-mono">
+              {{if eq .Direction "in"}}<span style="color:#2a7a4a;">+{{.AmountSats}} sats</span>
+              {{else}}<span style="color:#c0392b;">-{{.AmountSats}} sats</span>{{end}}
+            </td>
+            <td><span class="badge badge-{{.Status}}">{{.Status}}</span></td>
+            <td style="font-size:12px;">{{.TimeAgo}}</td>
+          </tr>
+          {{end}}
+          </tbody>
+        </table>
+      </div>
+      {{else}}
+      <div class="empty"><div class="empty-icon">&#9889;</div><div class="empty-text">No transactions yet. <a href="/customer/deposit">Add money to get started &rarr;</a></div></div>
+      {{end}}
+    </div>
+    {{end}}
+  </main>
+</div>
+<script>
+// Currency toggle functionality
+const balanceSats = {{if .Data}}{{.Data.BalanceSats}}{{else}}0{{end}};
+const kesPerSat = {{if .Data}}{{.Data.KesPerSat}}{{else}}0.0028{{end}};
+const btcPerSat = 0.00000001;
+
+function formatSats(s) {
+  return s.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function formatKES(k) {
+  return "KES " + k.toFixed(2);
+}
+
+function formatBTC(b) {
+  return "&#8383; " + b.toFixed(8).replace(/\.?0+$/, '');
+}
+
+function setCurrency(currency) {
+  // Reset all buttons
+  document.querySelectorAll('.currency-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.classList.add('inactive');
+  });
+  
+  // Set active button
+  if (currency === 'btc') {
+    document.getElementById('toggle-btc').classList.add('active');
+    document.getElementById('toggle-btc').classList.remove('inactive');
+    document.getElementById('toggle-sats2').classList.add('active');
+    document.getElementById('toggle-sats2').classList.remove('inactive');
+    document.getElementById('balance-display').innerHTML = formatBTC(balanceSats * btcPerSat);
+    document.getElementById('balance-sub').innerHTML = "&#8776; " + formatSats(balanceSats) + " sats";
+  } else if (currency === 'sats') {
+    document.getElementById('toggle-sats').classList.add('active');
+    document.getElementById('toggle-sats').classList.remove('inactive');
+    document.getElementById('toggle-sats2').classList.add('active');
+    document.getElementById('toggle-sats2').classList.remove('inactive');
+    document.getElementById('balance-display').innerHTML = formatSats(balanceSats);
+    document.getElementById('balance-sub').innerHTML = "&#8776; " + formatKES(balanceSats * kesPerSat) + " &middot; " + formatBTC(balanceSats * btcPerSat);
+  } else if (currency === 'kes') {
+    document.getElementById('toggle-kes').classList.add('active');
+    document.getElementById('toggle-kes').classList.remove('inactive');
+    document.getElementById('balance-display').innerHTML = formatKES(balanceSats * kesPerSat);
+    document.getElementById('balance-sub').innerHTML = "&#8776; " + formatSats(balanceSats) + " sats &middot; " + formatBTC(balanceSats * btcPerSat);
+  }
+}
+</script>
+</body></html>
+{{end}}

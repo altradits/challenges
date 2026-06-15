@@ -1,0 +1,52 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Activity — Altradits Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/agent/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#b8a832;">A</div> Altradits <span style="font-size:10px;background:rgba(184,168,50,0.3);color:#e8e0a0;padding:2px 8px;border-radius:10px;margin-left:6px;">AGENT</span></a><div class="dash-nav-right"><span class="dash-nav-user">{{if .Data}}{{if .Data.User}}{{.Data.User.Identifier}}{{end}}{{end}}</span><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Agent</div>
+  <a href="/agent/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/agent/load" class="nav-item">&#8595; Cash in &middot; load wallet</a>
+  <a href="/agent/cashout" class="nav-item">&#8593; Cash out &middot; dispense cash</a>
+  <a href="/agent/transactions" class="nav-item active">&#8801; Activity</a>
+  <div class="nav-section-label">Account</div>
+  <a href="/logout" class="nav-item">&#10148; Sign out</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Activity</h2><p>Cash-ins, cash-outs, and commissions processed through your agent account</p></div>
+  <div class="card">
+    {{if .Transactions}}
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Type</th><th>Customer</th><th>Amount</th><th>Status</th><th>Note</th><th>When</th></tr></thead>
+        <tbody>
+        {{range .Transactions}}
+        <tr>
+          <td style="font-weight:600;">{{.Type}}</td>
+          <td style="font-size:12px;">{{.Identifier}}</td>
+          <td class="td-mono">
+            {{if eq .Direction "in"}}<span style="color:#2a7a4a;">+{{.AmountSats}}</span>
+            {{else}}<span style="color:#c0392b;">-{{.AmountSats}}</span>{{end}}
+          </td>
+          <td><span class="badge badge-{{.Status}}">{{.Status}}</span></td>
+          <td style="font-size:12px;color:#4a6a5a;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{.Note}}</td>
+          <td style="font-size:12px;white-space:nowrap;">{{.TimeAgo}}</td>
+        </tr>
+        {{end}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <div class="empty"><div class="empty-icon">&#9889;</div><div class="empty-text">No activity yet — <a href="/agent/load">process your first cash-in</a></div></div>
+    {{end}}
+  </div>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

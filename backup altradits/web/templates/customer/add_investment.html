@@ -1,0 +1,50 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lock sats — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/customer/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Savings</div>
+  <a href="/customer/investments" class="nav-item">&#128274; Locked savings</a>
+  <a href="/customer/investments/new" class="nav-item active">+ Lock sats</a>
+  <a href="/customer/interest" class="nav-item">&#9733; My interest</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Lock sats</h2><p>Patience is work. The longer you wait, the more you earn.</p></div>
+  {{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+  <div style="max-width:480px;">
+    <div class="kpi-card" style="margin-bottom:14px;"><div class="kpi-label">Available balance</div><div class="kpi-value mono">{{.BalanceSats}} sats</div></div>
+    <div class="alert alert-gold" style="margin-bottom:16px;">
+      <strong>Minimum lock: 5 years</strong><br>
+      Early exit penalty: 100% of profit (year 1) &rarr; 10% (year 5)<br>
+      Yield: 5.2% APY paid monthly &middot; Your principal is never touched
+    </div>
+    <div class="card">
+      <form method="POST" action="/customer/investments/new">
+        <div class="form-group">
+          <label class="form-label" for="sats_amount">Amount to lock (sats)</label>
+          <input class="form-input" type="number" id="sats_amount" name="sats_amount" placeholder="100000" min="1000" max="{{.BalanceSats}}" required>
+          <div class="form-hint">Minimum: 1,000 sats</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="lock_years">Lock period</label>
+          <select class="form-select" id="lock_years" name="lock_years">
+            <option value="5">5 years (minimum)</option>
+            <option value="7">7 years</option>
+            <option value="10">10 years</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Lock sats</button>
+      </form>
+    </div>
+  </div>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

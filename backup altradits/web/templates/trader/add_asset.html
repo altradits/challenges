@@ -1,0 +1,31 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add asset — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/trader/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#2d6b4a;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="/trader/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/trader/assets/new" class="nav-item active">+ Add asset</a>
+  <a href="/trader/profit" class="nav-item">&#9733; Log profit</a>
+</aside>
+<main class="main-content">
+  <div class="page-header"><h2>Add asset</h2><p>Add a new asset to the community pool</p></div>
+  <div style="max-width:480px;"><div class="card">
+    <form method="POST" action="/trader/assets/new">
+      <div class="form-group"><label class="form-label" for="ticker">Ticker symbol</label><input class="form-input mono" type="text" id="ticker" name="ticker" placeholder="VOO" required></div>
+      <div class="form-group"><label class="form-label" for="name">Full name</label><input class="form-input" type="text" id="name" name="name" placeholder="Vanguard S&amp;P 500 ETF" required></div>
+      <div class="form-group"><label class="form-label" for="category">Category</label><select class="form-select" id="category" name="category"><option value="equities">Equities</option><option value="bonds">Bonds</option><option value="money_market">Money Market</option><option value="cash">Cash / BTC</option></select></div>
+      <div class="form-group"><label class="form-label" for="allocation_pct">Allocation (%)</label><input class="form-input mono" type="number" id="allocation_pct" name="allocation_pct" placeholder="20" min="0" max="100" step="0.01" required></div>
+      <div class="form-group"><label class="form-label" for="yield_pct">Yield (% annual)</label><input class="form-input mono" type="number" id="yield_pct" name="yield_pct" placeholder="5.3" min="0" step="0.01" required></div>
+      <button type="submit" class="btn btn-primary">Add asset</button>
+      <a href="/trader/dashboard" class="btn btn-ghost" style="margin-left:8px;">Cancel</a>
+    </form>
+  </div></div>
+</main>
+</div>
+</body></html>
+{{end}}

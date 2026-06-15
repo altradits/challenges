@@ -1,0 +1,30 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Log profit — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/trader/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#2d6b4a;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <a href="/trader/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/trader/assets/new" class="nav-item">+ Add asset</a>
+  <a href="/trader/profit" class="nav-item active">&#9733; Log profit</a>
+</aside>
+<main class="main-content">
+  <div class="page-header"><h2>Log profit</h2><p>Record pool profit for distribution to members</p></div>
+  <div style="max-width:480px;">
+    <div class="alert alert-info" style="margin-bottom:16px;">Manual profit entry — log sats earned from pool assets this period. Admin distributes to members.</div>
+    <div class="card">
+      <form method="POST" action="/trader/profit">
+        <div class="form-group"><label class="form-label" for="amount_sats">Profit amount (sats)</label><input class="form-input mono" type="number" id="amount_sats" name="amount_sats" placeholder="500000" min="1" required></div>
+        <div class="form-group"><label class="form-label" for="note">Note</label><input class="form-input" type="text" id="note" name="note" placeholder="June 2025 — VOO dividends + BND interest"></div>
+        <button type="submit" class="btn btn-primary">Record profit</button>
+      </form>
+    </div>
+  </div>
+</main>
+</div>
+</body></html>
+{{end}}

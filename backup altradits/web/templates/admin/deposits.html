@@ -1,0 +1,65 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Deposits — Admin — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/admin/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits <span style="font-size:10px;background:rgba(196,98,45,0.3);color:#f4a87c;padding:2px 8px;border-radius:10px;margin-left:6px;">ADMIN</span></a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Overview</div>
+  <a href="/admin/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <div class="nav-section-label">Operations</div>
+  <a href="/admin/deposits" class="nav-item active">&#8595; Deposits</a>
+  <a href="/admin/withdrawals" class="nav-item">&#8593; Withdrawals</a>
+  <a href="/admin/customers" class="nav-item">&#128100; Customers</a>
+  <div class="nav-section-label">Config</div>
+  <a href="/admin/settings" class="nav-item">&#9881; Settings</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Deposits</h2><p>Approve M-Pesa deposits — credit sats to member wallet</p></div>
+  <div class="card">
+    {{if .Transactions}}
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Member</th><th>Sats</th><th>BTC</th><th>KES</th><th>M-Pesa ref</th><th>Status</th><th>When</th><th>Actions</th></tr></thead>
+        <tbody>
+        {{range .Transactions}}
+        <tr>
+          <td style="font-size:12px;">{{.Identifier}}</td>
+          <td class="td-mono">{{.AmountSats}}</td>
+          <td class="td-mono">{{.AmountBTC}}</td>
+          <td class="td-mono">{{.AmountKES}}</td>
+          <td style="font-size:11px;color:#4a6a5a;">{{.Reference}}</td>
+          <td><span class="badge badge-{{.Status}}">{{.Status}}</span></td>
+          <td style="font-size:12px;">{{.TimeAgo}}</td>
+          <td>
+            {{if eq .Status "pending"}}
+            <form method="POST" action="/admin/deposits" style="display:inline;">
+              <input type="hidden" name="tx_id" value="{{.ID}}">
+              <input type="hidden" name="action" value="approve">
+              <button type="submit" class="btn btn-success btn-sm">&#10003; Approve</button>
+            </form>
+            <form method="POST" action="/admin/deposits" style="display:inline;margin-left:4px;">
+              <input type="hidden" name="tx_id" value="{{.ID}}">
+              <input type="hidden" name="action" value="reject">
+              <button type="submit" class="btn btn-danger btn-sm">&#10007; Reject</button>
+            </form>
+            {{else}}<span style="font-size:11px;color:#8aaa9a;">Done</span>{{end}}
+          </td>
+        </tr>
+        {{end}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <div class="empty"><div class="empty-icon">&#10003;</div><div class="empty-text">No deposits to review.</div></div>
+    {{end}}
+  </div>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

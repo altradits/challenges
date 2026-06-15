@@ -1,0 +1,88 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Receive — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+<script src="/static/js/qrcode.min.js"></script></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/customer/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Wallet</div>
+  <a href="/customer/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/customer/deposit" class="nav-item">&#8595; Add money</a>
+  <a href="/customer/withdraw" class="nav-item">&#8593; Withdraw</a>
+  <a href="/customer/send" class="nav-item">&#10148; Send money</a>
+  <a href="/customer/receive" class="nav-item active">&#9889; Receive</a>
+  <a href="/customer/transactions" class="nav-item">&#8801; Transactions</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Receive sats</h2><p>Share your Lightning address for any amount, or generate an invoice for a specific amount</p></div>
+  {{if .Error}}<div class="alert alert-error">{{.Error}}</div>{{end}}
+  <div style="max-width:480px;">
+    {{if .LightningAddr}}
+    <div class="card" style="margin-bottom:16px;text-align:center;">
+      <div class="kpi-label">Your Lightning address</div>
+      <div class="mono" style="font-size:1.1rem;color:#2d6b4a;margin:10px 0 16px;">{{.LightningAddr}}</div>
+      <div class="qr-box" id="qr-address"></div>
+      <div class="form-hint" style="margin:14px 0;">Scan this with any Lightning wallet to pay you — the sender chooses the amount.</div>
+      <button onclick="copyText('{{.LightningAddr}}', this)" class="btn btn-ghost btn-sm">Copy address</button>
+    </div>
+    {{end}}
+
+    <div class="card" style="margin-bottom:16px;">
+      <div class="kpi-label" style="margin-bottom:10px;">Request a specific amount</div>
+      <form method="GET" action="/customer/receive">
+        <div class="form-group" style="margin-bottom:14px;">
+          <label class="form-label" for="amount">Amount (sats)</label>
+          <input class="form-input" type="number" id="amount" name="amount" placeholder="50000" min="1" {{if .InvoiceAmount}}value="{{.InvoiceAmount}}"{{end}}>
+          <div class="form-hint">We'll generate a Lightning invoice for this exact amount.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Generate invoice</button>
+      </form>
+    </div>
+
+    {{if .Invoice}}
+    <div class="card" style="text-align:center;">
+      <div class="kpi-label">Invoice for {{.InvoiceAmount}} sats</div>
+      <div class="qr-box" id="qr-invoice" style="margin:14px 0;"></div>
+      <div class="mono" style="font-size:11px;word-break:break-all;color:#4a6a5a;background:var(--surface-2);padding:12px;border-radius:8px;margin-bottom:10px;">{{.Invoice}}</div>
+      <div class="form-hint" style="margin-bottom:10px;">Scan with any Lightning wallet to pay exactly {{.InvoiceAmount}} sats. Invoice expires in 10 minutes.</div>
+      <button onclick="copyText('{{.Invoice}}', this)" class="btn btn-ghost btn-sm">Copy invoice</button>
+    </div>
+    {{end}}
+  </div>
+  {{end}}
+</main>
+</div>
+<script>
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(function(){
+    var label = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(function(){ btn.textContent = label; }, 1500);
+  });
+}
+{{with .Data}}
+{{if .LightningAddr}}
+new QRCode(document.getElementById("qr-address"), {
+  text: "lightning:{{.LightningAddr}}",
+  width: 200, height: 200,
+  colorDark: "#1a3a2a", colorLight: "#ffffff",
+  correctLevel: QRCode.CorrectLevel.M
+});
+{{end}}
+{{if .Invoice}}
+new QRCode(document.getElementById("qr-invoice"), {
+  text: "{{.Invoice}}",
+  width: 220, height: 220,
+  colorDark: "#1a3a2a", colorLight: "#ffffff",
+  correctLevel: QRCode.CorrectLevel.M
+});
+{{end}}
+{{end}}
+</script>
+</body></html>
+{{end}}

@@ -1,0 +1,72 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Members — Admin — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/admin/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits <span style="font-size:10px;background:rgba(196,98,45,0.3);color:#f4a87c;padding:2px 8px;border-radius:10px;margin-left:6px;">ADMIN</span></a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Overview</div>
+  <a href="/admin/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <div class="nav-section-label">Operations</div>
+  <a href="/admin/deposits" class="nav-item">&#8595; Deposits</a>
+  <a href="/admin/withdrawals" class="nav-item">&#8593; Withdrawals</a>
+  <a href="/admin/customers" class="nav-item active">&#128100; Customers</a>
+  <div class="nav-section-label">Config</div>
+  <a href="/admin/settings" class="nav-item">&#9881; Settings</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Members</h2><p>All registered community members</p></div>
+  <form method="GET" action="/admin/customers" style="margin-bottom:18px;">
+    <div style="display:flex;gap:10px;">
+      <input class="form-input" type="text" name="q" value="{{.Search}}" placeholder="Search by email or phone..." style="max-width:320px;">
+      <button type="submit" class="btn btn-ghost">Search</button>
+    </div>
+  </form>
+  <div class="card">
+    {{if .Customers}}
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Identifier</th><th>Role</th><th>Sats</th><th>BTC</th><th>KES</th><th>Last seen</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody>
+        {{range .Customers}}
+        <tr>
+          <td style="font-size:13px;font-weight:600;">{{.Identifier}}</td>
+          <td><span class="badge badge-active">{{.Role}}</span></td>
+          <td class="td-mono">{{.BalanceSats}}</td>
+          <td class="td-mono">{{.BalanceBTC}}</td>
+          <td class="td-mono">{{.BalanceKES}}</td>
+          <td style="font-size:11px;color:#4a6a5a;">{{.LastSeen}}</td>
+          <td>{{if .IsBlocked}}<span class="badge badge-failed">Blocked</span>{{else}}<span class="badge badge-confirmed">Active</span>{{end}}</td>
+          <td>
+            {{if .IsBlocked}}
+            <form method="POST" action="/admin/users/block" style="display:inline;">
+              <input type="hidden" name="user_id" value="{{.ID}}">
+              <input type="hidden" name="action" value="unblock">
+              <button type="submit" class="btn btn-ghost btn-sm">Unblock</button>
+            </form>
+            {{else}}
+            <form method="POST" action="/admin/users/block" style="display:inline;">
+              <input type="hidden" name="user_id" value="{{.ID}}">
+              <input type="hidden" name="action" value="block">
+              <button type="submit" class="btn btn-danger btn-sm">Block</button>
+            </form>
+            {{end}}
+          </td>
+        </tr>
+        {{end}}
+        </tbody>
+      </table>
+    </div>
+    {{else}}
+    <div class="empty"><div class="empty-icon">&#128100;</div><div class="empty-text">No members found.</div></div>
+    {{end}}
+  </div>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

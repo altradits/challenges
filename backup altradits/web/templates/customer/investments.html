@@ -1,0 +1,66 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Locked savings — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/customer/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Wallet</div>
+  <a href="/customer/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/customer/deposit" class="nav-item">&#8595; Add money</a>
+  <a href="/customer/transactions" class="nav-item">&#8801; Transactions</a>
+  <div class="nav-section-label">Savings</div>
+  <a href="/customer/investments" class="nav-item active">&#128274; Locked savings</a>
+  <a href="/customer/investments/new" class="nav-item">+ Lock sats</a>
+  <a href="/customer/interest" class="nav-item">&#9733; My interest</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div><h2>Locked savings</h2><p>Patience is rewarded — your sats earning every month</p></div>
+    <a href="/customer/investments/new" class="btn btn-primary">+ Lock sats</a>
+  </div>
+  {{if .Message}}<div class="alert alert-success">{{.Message}}</div>{{end}}
+  <div class="kpi-grid" style="margin-bottom:20px;">
+    <div class="kpi-card"><div class="kpi-label">Available to lock</div><div class="kpi-value mono">{{.BalanceSats}}</div><div class="kpi-sub">sats in wallet</div></div>
+    <div class="kpi-card"><div class="kpi-label">Active locks</div><div class="kpi-value mono">{{len .Locks}}</div><div class="kpi-sub">positions</div></div>
+  </div>
+  {{if .Locks}}
+  <div style="display:grid;gap:14px;">
+    {{range .Locks}}
+    <div class="card">
+       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+         <div>
+           <div class="kpi-label">Locked amount</div>
+           <div class="mono" style="font-size:1.5rem;color:#1a3a2a;" id="lock-amount-{{.ID}}">{{.AmountSats}} sats</div>
+           <div style="font-size:13px;color:#4a6a5a;margin-top:4px;">Profit earned: <span style="color:#2a7a4a;">+{{.ProfitSats}} sats</span></div>
+         </div>
+        <div style="text-align:right;">
+          <span class="badge badge-{{.Status}}">{{.Status}}</span>
+          <div style="font-size:12px;color:#4a6a5a;margin-top:6px;">{{.LockYears}}-year lock</div>
+        </div>
+      </div>
+      <hr>
+      <div style="display:flex;gap:28px;flex-wrap:wrap;">
+        <div><div class="kpi-label">Locked</div><div style="font-size:13px;">{{.TimeAgo}}</div></div>
+        <div><div class="kpi-label">Matures in</div><div style="font-size:13px;color:#b8a832;">{{.DaysLeft}} days</div></div>
+        <div><div class="kpi-label">Early exit penalty</div><div style="font-size:13px;color:#c0392b;">{{.PenaltyPct}}% of profit</div></div>
+      </div>
+    </div>
+    {{end}}
+  </div>
+  {{else}}
+  <div class="empty" style="border:1px solid #e2ddd4;border-radius:14px;">
+    <div class="empty-icon">&#128274;</div>
+    <div class="empty-text" style="margin-bottom:14px;">No locked savings yet. Lock sats to start earning.</div>
+    <a href="/customer/investments/new" class="btn btn-primary">Lock sats now</a>
+  </div>
+  {{end}}
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

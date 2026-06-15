@@ -1,0 +1,48 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/customer/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits</a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Wallet</div>
+  <a href="/customer/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <a href="/customer/transactions" class="nav-item">&#8801; Transactions</a>
+  <div class="nav-section-label">Account</div>
+  <a href="/customer/settings" class="nav-item active">&#9881; Settings</a>
+  <a href="/logout" class="nav-item">&#10148; Sign out</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Settings</h2><p>Manage your account preferences</p></div>
+  {{if .Message}}<div class="alert alert-success">{{.Message}}</div>{{end}}
+  <div style="max-width:480px;">
+    <div class="card" style="margin-bottom:16px;">
+      <form method="POST" action="/customer/settings">
+        <div class="form-group">
+          <label class="form-label">Email / Phone</label>
+          <input class="form-input" type="text" value="{{if .User}}{{.User.Identifier}}{{end}}" disabled style="opacity:0.5;cursor:not-allowed;">
+          <div class="form-hint">Your identifier cannot be changed.</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="full_name">Display name (optional)</label>
+          <input class="form-input" type="text" id="full_name" name="full_name" value="{{if .User}}{{.User.FullName}}{{end}}" placeholder="Anonymous member">
+          <div class="form-hint">Only shown in your own dashboard.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Save settings</button>
+      </form>
+    </div>
+    <div class="card" style="border-color:rgba(192,57,43,0.2);">
+      <h3 style="font-size:14px;margin-bottom:8px;color:#c0392b;">Danger zone</h3>
+      <p style="font-size:13px;color:#4a6a5a;margin-bottom:12px;">To delete your account, contact support at altradits@gmail.com</p>
+      <button class="btn btn-danger btn-sm" onclick="alert('Contact altradits@gmail.com to delete your account.')">Request account deletion</button>
+    </div>
+  </div>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}

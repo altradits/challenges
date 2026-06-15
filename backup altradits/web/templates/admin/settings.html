@@ -1,0 +1,49 @@
+{{define "page"}}<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Settings — Admin — Altradits</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<nav class="dash-nav"><a class="nav-logo" href="/admin/dashboard" style="color:#fff;text-decoration:none;"><div class="nav-mark" style="background:#c4622d;">A</div> Altradits <span style="font-size:10px;background:rgba(196,98,45,0.3);color:#f4a87c;padding:2px 8px;border-radius:10px;margin-left:6px;">ADMIN</span></a><div class="dash-nav-right"><a href="/logout" class="dash-nav-logout">Sign out</a></div></nav>
+<div class="app-shell">
+<aside class="sidebar">
+  <div class="nav-section-label">Overview</div>
+  <a href="/admin/dashboard" class="nav-item">&#9632; Dashboard</a>
+  <div class="nav-section-label">Operations</div>
+  <a href="/admin/deposits" class="nav-item">&#8595; Deposits</a>
+  <a href="/admin/withdrawals" class="nav-item">&#8593; Withdrawals</a>
+  <a href="/admin/customers" class="nav-item">&#128100; Customers</a>
+  <div class="nav-section-label">Config</div>
+  <a href="/admin/settings" class="nav-item active">&#9881; Settings</a>
+</aside>
+<main class="main-content">
+  {{with .Data}}
+  <div class="page-header"><h2>Settings</h2><p>Pool configuration and conversion rates</p></div>
+  {{if .Message}}<div class="alert alert-success">{{.Message}}</div>{{end}}
+  <div style="max-width:480px;">
+    <div class="card">
+      <form method="POST" action="/admin/settings">
+        <div class="form-group">
+          <label class="form-label" for="kes_per_sat">KES per sat</label>
+          <input class="form-input mono" type="number" id="kes_per_sat" name="kes_per_sat" value="{{.KesPerSat}}" step="0.00001" min="0" required>
+          <div class="form-hint">Current BTC/KES rate divided by 100,000,000</div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="target_yield">Target yield (%)</label>
+          <input class="form-input mono" type="number" id="target_yield" name="target_yield" value="{{printf "%.2f" .TargetYield}}" step="0.01" min="0" max="100" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="admin_fee">Admin fee (%)</label>
+          <input class="form-input mono" type="number" id="admin_fee" name="admin_fee" value="{{printf "%.2f" .AdminFee}}" step="0.01" min="0" max="100" required>
+          <div class="form-hint">Taken only from pool profit, never from principal</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update settings</button>
+      </form>
+    </div>
+  </div>
+  {{end}}
+</main>
+</div>
+</body></html>
+{{end}}
