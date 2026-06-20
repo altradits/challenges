@@ -28,4 +28,20 @@ func main() {
 	last := string(text[len(text)-1])
 
 	fmt.Println(last)
+
+	// Third attempt: More of trial and creative approach from my understanding
+
+	sample := "Bitcoin"
+
+	// The string for refence
+	fmt.Println(sample)
+
+	// length of the string
+	fmt.Println(len(sample)-1)
+
+	// Byte value of the last character
+	fmt.Println(sample[len(sample)-1])
+
+	// String value of the last character
+	fmt.Println(string(sample[len(sample)-1]))
 }
