@@ -14,4 +14,18 @@ func main() {
 	text := "stano"
 
 	fmt.Printf("The last character is: %c\n", text[4])
+
+	// Second Attempt
+
+	// index of the last element
+	// len(text)-1
+
+	// the byte
+	// text[index]
+	
+	// string(rune)
+
+	last := string(text[len(text)-1])
+
+	fmt.Println(last)
 }
