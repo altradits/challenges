@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [143-brainfuck](../143-brainfuck/skills.md) | **Next:** [145-financial-freedom-api](../145-financial-freedom-api/skills.md)
+**Previous:** [143-brainfuck](../143-brainfuck/skills.md) | **Next:** [145-time](../145-time/skills.md)
 
 **Challenge:** Given a regex-like group pattern (e.g. `(a)` or `(e|n)`) and a string, print each word that contains the pattern, numbered in order of appearance.
 
@@ -184,4 +184,4 @@ The two alternatives are processed separately, so one word can appear multiple t
 
 See [README.md](README.md) for full description and test cases.
 
-**Next:** [145-financial-freedom-api](../145-financial-freedom-api/README.md)
+**Next:** [145-time](../145-time/README.md)

@@ -127,4 +127,37 @@ func (p Person) IsAdult() bool {
 }
 ```
 
+### Struct Embedding — Composition Over Inheritance
+
+Go has no inheritance. Instead, embed one struct inside another to promote its fields and methods:
+
+```go
+type Animal struct {
+    Name string
+}
+
+func (a Animal) Speak() string { return a.Name + " makes a sound" }
+
+type Dog struct {
+    Animal        // embedded — anonymous field, no field name
+    Breed string
+}
+
+d := Dog{Animal: Animal{Name: "Rex"}, Breed: "Husky"}
+fmt.Println(d.Name)    // Rex  — promoted field from Animal
+fmt.Println(d.Speak()) // Rex makes a sound  — promoted method
+fmt.Println(d.Breed)   // Husky
+```
+
+All exported fields and methods of the embedded type are promoted to the outer type.
+If the outer type defines the same method, it shadows the embedded one:
+
+```go
+func (d Dog) Speak() string { return d.Name + " barks" }
+```
+
+This is how the standard library builds types — `http.ResponseWriter`, `sync.Mutex`
+embedded in structs, `bufio.Writer` wrapping `io.Writer`. You will see it everywhere
+in real Go code.
+
 **Next:** [14-pointers](../14-pointers/README.md)
