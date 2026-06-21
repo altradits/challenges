@@ -46,4 +46,4 @@ fmt.Println('z')   // wrong: prints 122 (the rune value of z)
 ## Next Steps
 
 After completing this exercise, move to:
-- [06-checknumber](../06-checknumber/README.md) — your first challenge with real logic
+- [06-functions](../06-functions/README.md)

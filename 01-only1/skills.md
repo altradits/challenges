@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** This is your first exercise — start here.  | **Next:** [02-onlya](../02-onlya/skills.md)
+**Previous:** Start of course | **Next:** [02-onlya](../02-onlya/skills.md)
 
 **Challenge:** Write a program that prints the character `1` and nothing else.
 

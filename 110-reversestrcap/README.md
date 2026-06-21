@@ -1,61 +1,20 @@
-# 35. Reverse String Capitalization
+## reversestrcap
 
-## What You'll Learn
+### Instructions
 
-This exercise teaches you **selective case transformation**. By the end, you'll understand:
-- How to transform only specific characters in a string
-- Word boundary detection
-- Combining multiple string operations
-- Processing command-line arguments
+Write a program that takes one or more arguments and that, for each argument, puts the last letter of each word in uppercase and the rest in lowercase. It displays the result followed by a newline (`'\n'`).
 
-## Theory: Selective Case Changes
+If there are no argument, the program displays nothing.
 
-### The Pattern
+### Usage
 
-Transform each word by:
-1. Converting all characters to lowercase
-2. Uppercasing only the LAST character
-
+```console
+$ go run . "First SMALL TesT" | cat -e
+firsT smalL tesT$
+$ go run . "SEconD Test IS a LItTLE EasIEr" "bEwaRe IT'S NoT HARd WhEN " " Go a dernier 0123456789 for the road e" | cat -e
+seconD tesT iS A littlE easieR$
+bewarE it'S noT harD wheN $
+ gO A dernieR 0123456789 foR thE roaD E$
+$ go run .
+$
 ```
-"Hello" → "hellO"
-"SMALL" → "smalL"
-```
-
-### Word Detection
-
-Words are separated by spaces. Use `strings.Fields` or manual splitting.
-
-## Step-by-Step Approach
-
-1. **Split** input into words
-2. **For each word**:
-   - Convert to lowercase
-   - Uppercase last character
-3. **Join** words with spaces
-4. **Return** result
-
-## The Challenge
-
-Write a function that uppercases the last letter of each word.
-
-### Expected Function
-
-```go
-func ReverseStrCap(s string) string {
-    // Your code here
-}
-```
-
-### Test Cases
-
-| Input | Expected Output |
-|-------|-----------------|
-| `"First SMALL TesT"` | `"firsT smalL tesT"` |
-| `"Hello"` | `"hellO"` |
-| `""` | `""` |
-
-## Next Steps
-
-After completing this, you'll be ready for:
-- [111-union](../111-union/README.md) - Union
-- [112-inter](../112-inter/README.md) - Inter

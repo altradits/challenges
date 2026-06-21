@@ -1,114 +1,99 @@
-# Skills for 110-reversestrcap
+# Skills for reversestrcap
 
-**Previous:** [109-saveandmiss](../109-saveandmiss/README.md) | **Next:** [111-union](../111-union/README.md)
+## What You'll Learn
 
-**Challenge:** For each word in the input string, lowercase all letters then uppercase the last letter. Return the transformed words joined by spaces.
+**Previous:** [109-inter](../109-inter/skills.md) | **Next:** [111-saveandmiss](../111-saveandmiss/skills.md)
 
-## Core Concept: Word-Level Transformation with Rune Slice Manipulation
+**Challenge:** For each argument, put the last letter of each word in uppercase and all other letters in lowercase. Print the result followed by a newline.
+
+## Core Concept: Per-Word Capitalization Rules
 
 ### What Is It?
 
-This challenge combines two skills: **splitting into words** and **transforming each word**. The per-word transformation — lowercase everything, then uppercase the last character — requires treating each word as a `[]rune` so you can modify the last element by index.
+This challenge requires you to identify word boundaries and apply different case rules depending on whether a letter is the last in its word. A "word" here is defined by spacing — the last letter before a space (or end of string) gets uppercased; all other letters get lowercased.
 
-### Step 1: Split into Words
+### How It Works
 
-`strings.Fields(s)` splits on any whitespace and handles multiple consecutive spaces:
+**Key insight:** You can only tell if a letter is the "last" of a word by looking at what comes AFTER it. The trick: lowercase every letter as you go, and uppercase the letter just before you find a space.
+
+**Two-pass approach — build a byte slice, then fix the last letters:**
 
 ```go
-words := strings.Fields("First SMALL TesT")
-// ["First", "SMALL", "TesT"]
+func transformArg(arg string) string {
+    // Step 1: convert everything to lowercase into a byte slice
+    result := []byte(strings.ToLower(arg))
+
+    // Step 2: uppercase the last letter of each word
+    for i := 0; i < len(result); i++ {
+        ch := result[i]
+        // Is this a letter followed by a non-letter (or end)?
+        isLetter := (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')
+        nextIsNonLetter := i+1 >= len(result) || !(result[i+1] >= 'a' && result[i+1] <= 'z')
+        if isLetter && nextIsNonLetter {
+            // Uppercase it: lowercase letter + 'A' - 'a' = uppercase
+            if ch >= 'a' && ch <= 'z' {
+                result[i] = ch - 32
+            }
+        }
+    }
+    return string(result)
+}
 ```
 
-### Step 2: Transform Each Word
-
-For each word:
-1. Convert to `[]rune` (to enable index-based modification)
-2. Lowercase all characters with `unicode.ToLower`
-3. Uppercase the last character with `unicode.ToUpper`
+**Alternative single-pass — look ahead one position:**
 
 ```go
-func transformWord(word string) string {
-    if len(word) == 0 {
-        return ""
+func transformArg(arg string) string {
+    runes := []rune(strings.ToLower(arg))
+    for i, r := range runes {
+        isLetter := unicode.IsLetter(r)
+        isLastInWord := i+1 >= len(runes) || !unicode.IsLetter(runes[i+1])
+        if isLetter && isLastInWord {
+            runes[i] = unicode.ToUpper(r)
+        }
     }
-    runes := []rune(word)
-
-    // Step 1: lowercase everything
-    for i, c := range runes {
-        runes[i] = unicode.ToLower(c)
-    }
-
-    // Step 2: uppercase the last character
-    last := len(runes) - 1
-    runes[last] = unicode.ToUpper(runes[last])
-
     return string(runes)
 }
 ```
 
-### Step 3: Rejoin with Spaces
-
-After transforming all words, join them back with a single space:
+**Main function — handle multiple arguments:**
 
 ```go
-func ReverseStrCap(s string) string {
-    words := strings.Fields(s)
-    for i, word := range words {
-        words[i] = transformWord(word)
+func main() {
+    if len(os.Args) < 2 {
+        return
     }
-    return strings.Join(words, " ")
+    for _, arg := range os.Args[1:] {
+        fmt.Println(transformArg(arg))
+    }
 }
 ```
 
-### Why `[]rune` Instead of Indexing the String?
-
-Strings in Go are immutable. You cannot do `s[0] = 'x'`. You must convert to a mutable type first. `[]rune` lets you assign to individual positions:
-
-```go
-runes := []rune("Hello")
-runes[0] = unicode.ToLower(runes[0])  // works!
-// string[0] = ... would be a compile error
-```
-
-### Tracing Through `"First SMALL TesT"`
-
-After `strings.Fields`: `["First", "SMALL", "TesT"]`
-
-| Word | After lowercase | After uppercase last | Result |
-|------|----------------|---------------------|--------|
-| "First" | "first" | "firsT" | "firsT" |
-| "SMALL" | "small" | "smalL" | "smalL" |
-| "TesT"  | "test"  | "tesT"  | "tesT" |
-
-Joined: `"firsT smalL tesT"` — correct.
-
-### Edge Cases
-
-- Empty string: `strings.Fields("")` returns `[]` (empty slice). `strings.Join([], " ")` returns `""`. Handled automatically.
-- Single-character word: lowercased then uppercased → uppercase. `"a"` → `"A"`.
+**Trace `"First SMALL TesT"`:**
+1. Lowercase: `"first small test"`
+2. Walk: `t` (pos 4) — next char is ` ` (non-letter) → uppercase → `T`
+3. Walk: `l` (pos 10) — next char is ` ` (non-letter) → uppercase → `L`
+4. Walk: `t` (pos 15) — end of string → uppercase → `T`
+5. Output: `firsT smalL tesT`
 
 ### Common Mistakes
 
 | Mistake | Problem | Fix |
 |---------|---------|-----|
-| Trying to modify `s[i]` directly | Compile error — strings are immutable | Convert to `[]rune` first |
-| Using `strings.Split(s, " ")` | Fails with multiple spaces | Use `strings.Fields` instead |
-| Uppercasing before lowercasing | First char gets lowercased then uppercased redundantly | Lowercase all first, then uppercase only last |
+| Uppercasing chars that aren't letters (e.g. digits, apostrophes) | `"it'S"` instead of `"it'S"` — apostrophe already ignored, but digits should stay as-is | Only uppercase if `unicode.IsLetter(r)` |
+| Not handling digits at end of "word" | Digits like `0123456789` are not letters, so the letter before them should be uppercased | Check `!unicode.IsLetter(next)` — a digit counts as non-letter |
+| Using `strings.ToUpper` on the whole string first | All letters become upper, then you can't tell original caps | Always lowercase first, then apply the rule |
 
-## Algorithm
+## Solving This Challenge
 
-1. If `s == ""`, return `""`
-2. Split `s` into words with `strings.Fields`
-3. For each word:
-   a. Convert to `[]rune`
-   b. Lowercase all runes
-   c. Uppercase last rune
-   d. Convert back to string
-4. Join transformed words with `" "`
-5. Return result
+### Algorithm
+1. If no args, return.
+2. For each argument:
+   a. Convert to lowercase (all letters).
+   b. Walk character by character; if a letter is followed by a non-letter (or end of string), uppercase it.
+   c. Print the result followed by a newline.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md).
-
-**Next:** [111-union](../111-union/README.md)
+**Next:** [111-saveandmiss](../111-saveandmiss/README.md)

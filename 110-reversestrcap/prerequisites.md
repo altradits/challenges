@@ -1,73 +1,72 @@
-# Prerequisites for 110-reversestrcap
+# Prerequisites for reversestrcap
 
 ## Before You Start
 
-### 1. `strings.Fields` — Split on Any Whitespace
+To solve this challenge you need to understand:
 
-`strings.Fields(s)` splits a string on any whitespace (spaces, tabs, newlines) and handles multiple consecutive spaces automatically:
-
-```go
-import "strings"
-
-words := strings.Fields("  Hello   World  ")
-fmt.Println(words)      // ["Hello" "World"]
-fmt.Println(len(words)) // 2
-```
-
-### 2. `strings.Join` — Rejoin Words
-
-`strings.Join(words, sep)` concatenates a slice of strings with `sep` between each:
-
-```go
-words := []string{"hello", "world"}
-fmt.Println(strings.Join(words, " "))   // "hello world"
-fmt.Println(strings.Join(words, ", "))  // "hello, world"
-```
-
-### 3. Converting a String to a Mutable Rune Slice
-
-Strings are immutable in Go — you cannot modify individual characters. Convert to `[]rune` to get a mutable slice:
-
-```go
-word := "Hello"
-runes := []rune(word)
-runes[0] = 'h'          // modify the first character
-fmt.Println(string(runes))  // "hello"
-```
-
-### 4. `unicode.ToLower` and `unicode.ToUpper`
+### 1. Case Conversion with `unicode` Package
+`unicode.ToUpper(r)` and `unicode.ToLower(r)` convert a rune's case. `unicode.IsLetter(r)` checks if it's a letter.
 
 ```go
 import "unicode"
 
-fmt.Println(string(unicode.ToLower('H')))  // "h"
-fmt.Println(string(unicode.ToUpper('a')))  // "A"
-fmt.Println(string(unicode.ToLower('!')))  // "!" — non-letters unchanged
+fmt.Println(unicode.ToLower('A'))   // 97 ('a')
+fmt.Println(unicode.ToUpper('a'))   // 65 ('A')
+fmt.Println(unicode.IsLetter('3'))  // false
+fmt.Println(unicode.IsLetter('x'))  // true
 ```
 
-### 5. Accessing the Last Element of a Slice
+### 2. Converting a String to a `[]rune` for Mutation
+Strings are immutable in Go. To modify individual characters, convert to a `[]rune` first.
 
 ```go
-runes := []rune("Hello")
-last := len(runes) - 1
-fmt.Println(string(runes[last]))  // "o"
-runes[last] = unicode.ToUpper(runes[last])
-fmt.Println(string(runes))        // "HellO"
+s := "hello"
+runes := []rune(s)
+runes[0] = unicode.ToUpper(runes[0])
+result := string(runes)  // "Hello"
+```
+
+### 3. Look-Ahead — Checking the Next Element
+To know if a character is "last in a word," look at the character at `i+1`. Always check bounds first.
+
+```go
+for i, r := range runes {
+    isLastInWord := i+1 >= len(runes) || !unicode.IsLetter(runes[i+1])
+    if unicode.IsLetter(r) && isLastInWord {
+        runes[i] = unicode.ToUpper(r)
+    }
+}
+```
+
+### 4. `strings.ToLower` — Lowercase an Entire String
+Before applying the "last letter uppercase" rule, lowercase the whole string.
+
+```go
+import "strings"
+
+s := "First SMALL TesT"
+s = strings.ToLower(s)  // "first small test"
+```
+
+### 5. Multiple Arguments with `os.Args[1:]`
+The program takes one or more arguments. Loop over all of them.
+
+```go
+for _, arg := range os.Args[1:] {
+    fmt.Println(process(arg))
+}
 ```
 
 ## Review If Stuck
-
-- [105-cameltosnakecase](../105-cameltosnakecase/skills.md) — covers `unicode.IsUpper`, `unicode.IsLower` and case detection
-- [104-join](../104-join/skills.md) — covers joining strings
+- [109-inter](../109-inter/skills.md) — covers iterating over strings with `for range`
+- Prior unicode challenges — covers `unicode.IsLetter`, `unicode.ToUpper`, `unicode.ToLower`
 
 ## You're Ready When You Can...
-
-- [ ] Use `strings.Fields` to split a string into words on any whitespace
-- [ ] Convert a string to `[]rune` and modify individual characters
-- [ ] Apply `unicode.ToLower` and `unicode.ToUpper` to individual runes
-- [ ] Access the last element of a slice with `slice[len(slice)-1]`
-- [ ] Rejoin words with `strings.Join`
+- [ ] Convert a string to `[]rune` and modify individual runes
+- [ ] Use `unicode.IsLetter`, `unicode.ToUpper`, `unicode.ToLower`
+- [ ] Check `i+1 >= len(runes)` before accessing `runes[i+1]`
+- [ ] Use `strings.ToLower` to normalize case before processing
+- [ ] Loop over `os.Args[1:]` to process multiple arguments
 
 ## Next Steps
-
-- [111-union](../111-union/README.md)
+- [111-saveandmiss](../111-saveandmiss/README.md)

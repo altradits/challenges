@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [04-onlyf](../04-onlyf/skills.md) | **Next:** [07-functions](../07-functions/skills.md)
+**Previous:** [04-onlyf](../04-onlyf/skills.md) | **Next:** [06-functions](../06-functions/skills.md)
 
 **Challenge:** Write a program that prints the character `z` and nothing else.
 
@@ -81,4 +81,4 @@ The simple skeleton you have practiced five times is the foundation for all of t
 
 See [README.md](README.md) for full description and test cases.
 
-**Next:** [07-functions](../07-functions/README.md)
+**Next:** [06-functions](../06-functions/README.md)
