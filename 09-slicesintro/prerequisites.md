@@ -29,7 +29,7 @@ if seen[42] {
 }
 ```
 
-See [../78-countrepeats/skills.md](../78-countrepeats/skills.md) for a full introduction to maps.
+See [../93-countrepeats/skills.md](../93-countrepeats/skills.md) for a full introduction to maps.
 
 ### 3. Defining Functions
 The challenge asks you to write a named function that accepts a `[]int` parameter and returns a `[]int`.
@@ -52,4 +52,4 @@ See [../06-functions/skills.md](../06-functions/skills.md) for function syntax.
 
 ## Next Steps
 
-- [11-arrays](../11-arrays/README.md)
+- [10-mapsintro](../10-mapsintro/README.md)

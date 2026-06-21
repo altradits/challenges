@@ -30,7 +30,7 @@ fmt.Println(sum)  // 15
 See [../07-forloops/skills.md](../07-forloops/skills.md) for a full introduction.
 
 ### 3. `fmt.Printf` with Format Verbs
-The next challenge (`97-printmemory`) uses `fmt.Printf` to format byte values in hexadecimal and as characters. Get comfortable with the basic format verbs now.
+The next challenge (`112-printmemory`) uses `fmt.Printf` to format byte values in hexadecimal and as characters. Get comfortable with the basic format verbs now.
 ```go
 fmt.Printf("%d\n", 65)    // "65"   — decimal integer
 fmt.Printf("%c\n", 65)    // "A"    — character (rune value)

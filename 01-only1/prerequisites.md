@@ -51,5 +51,4 @@ fmt.Println("hello")  // prints: hello
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [02-onlya](../02-onlya/README.md)

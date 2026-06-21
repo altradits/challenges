@@ -93,7 +93,7 @@ fmt.Println(a)  // [99, 2, 3]  — a IS changed
 
 ### The `[10]byte` Type
 
-This is exactly what `97-printmemory` uses. A byte (`uint8`) holds a single ASCII/UTF-8 code point value from 0 to 255.
+This is exactly what `112-printmemory` uses. A byte (`uint8`) holds a single ASCII/UTF-8 code point value from 0 to 255.
 
 ```go
 var mem [10]byte          // 10 bytes, all zero
@@ -106,7 +106,7 @@ fmt.Printf("%c", mem[0])     // "h"  — character representation
 fmt.Printf("%d", mem[0])     // "104" — decimal value
 ```
 
-**Printing printable vs non-printable bytes (as in 97-printmemory):**
+**Printing printable vs non-printable bytes (as in 112-printmemory):**
 ```go
 arr := [10]byte{'h', 'e', 'l', 'l', 'o'}
 for i := 0; i < len(arr); i++ {

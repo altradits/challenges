@@ -77,5 +77,4 @@ fmt.Println(len(words))  // 2
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [09-slicesintro](../09-slicesintro/README.md)

@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [11-arrays](../11-arrays/skills.md) | **Next:** [13-stringlength](../13-stringlength/skills.md)
+**Previous:** [11-arrays](../11-arrays/skills.md) | **Next:** [13-structs](../13-structs/skills.md)
 
 **Challenge:** Write `Factorial(n uint) uint` that returns `n!` using recursion.
 
@@ -160,4 +160,4 @@ Always verify your base case catches every terminating condition before calling 
 
 See [README.md](README.md) for full description and test cases.
 
-**Next:** [13-stringlength](../13-stringlength/README.md)
+**Next:** [13-structs](../13-structs/README.md)

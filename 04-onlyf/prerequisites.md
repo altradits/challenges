@@ -47,5 +47,4 @@ fmt.Println("F")   // wrong output
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [05-onlyz](../05-onlyz/README.md)

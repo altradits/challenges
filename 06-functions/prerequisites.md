@@ -80,5 +80,4 @@ func Greet(name string) string {
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [07-forloops](../07-forloops/README.md)

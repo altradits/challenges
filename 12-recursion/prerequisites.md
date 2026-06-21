@@ -56,7 +56,7 @@ fmt.Println(n * 2)  // 10
 ## Review If Stuck
 
 - [06-functions](../06-functions/skills.md) — covers defining functions with parameters and return values
-- [70-printif](../70-printif/skills.md) — covers `if/else` conditionals
+- [85-printif](../85-printif/skills.md) — covers `if/else` conditionals
 
 ## You're Ready When You Can...
 
@@ -67,5 +67,4 @@ fmt.Println(n * 2)  // 10
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [13-stringlength](../13-stringlength/README.md)
+- [13-structs](../13-structs/README.md)

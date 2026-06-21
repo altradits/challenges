@@ -38,5 +38,4 @@ fmt.Println('a')   // prints: 97  (NOT what you want here)
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [03-onlyb](../03-onlyb/README.md)

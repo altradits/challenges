@@ -40,5 +40,4 @@ fmt.println("B")  // compile error: println is not exported
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [04-onlyf](../04-onlyf/README.md)

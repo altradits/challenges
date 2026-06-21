@@ -34,7 +34,7 @@ i == 0   // true only when i equals 0
 
 When the condition becomes false, the loop stops.
 
-### 3. Conditionals (`if/else`) from 66-checknumber or 09
+### 3. Conditionals (`if/else`) from 81-checknumber or 09
 
 You have already used `if` to make decisions. Inside a loop you can use `if` to skip iterations or exit early:
 
@@ -74,7 +74,7 @@ fmt.Println(0)    // prints: 0
 ## Review If Stuck
 
 - [06-functions](../06-functions/skills.md) — covers function syntax and `package piscine`
-- [66-checknumber](../66-checknumber/skills.md) — covers `for...range` on strings (related loop pattern)
+- [81-checknumber](../81-checknumber/skills.md) — covers `for...range` on strings (related loop pattern)
 
 ## You're Ready When You Can...
 
@@ -86,5 +86,4 @@ fmt.Println(0)    // prints: 0
 
 ## Next Steps
 
-After completing this exercise, move to:
 - [08-stringspackage](../08-stringspackage/README.md)
