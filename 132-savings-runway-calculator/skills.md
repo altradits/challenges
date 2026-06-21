@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [131-index-fund-tracker](../131-index-fund-tracker/skills.md) | **Next:** [133-portfolio-website](../133-portfolio-website/skills.md)
+**Previous:** [131-index-fund-tracker](../131-index-fund-tracker/skills.md) | **Next:** [133-api-lesson](../133-api-lesson/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
@@ -71,4 +71,4 @@ Always check errors - Go doesn't have exceptions!
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [133-portfolio-website](../133-portfolio-website/README.md)
+**Next:** [133-api-lesson](../133-api-lesson/README.md)

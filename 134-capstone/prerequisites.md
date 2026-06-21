@@ -1,4 +1,4 @@
-# Prerequisites for 132-savings-runway-calculator
+# Prerequisites for 134-capstone
 
 ## Basic Skills Needed
 
@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [133-api-lesson](../133-api-lesson/README.md)
-- [133-api-lesson](../133-api-lesson/README.md) - Professional
+- [135-bitcoin-oss](../135-bitcoin-oss/README.md)
+- [135-bitcoin-oss](../135-bitcoin-oss/README.md) - Js Frontend

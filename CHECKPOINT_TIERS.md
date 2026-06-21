@@ -280,87 +280,89 @@ CHECKPOINT_TIERS/
 
 ## Challenge Tiers
 
+> Each item links to the `skills.md` for that challenge — read it to understand the concepts before you attempt the problem.
+
 ### 5% Checkpoint
-- only1
-- onlya
-- onlyb
-- onlyf
-- onlyz
+- [only1](01-only1/skills.md)
+- [onlya](02-onlya/skills.md)
+- [onlyb](03-onlyb/skills.md)
+- [onlyf](04-onlyf/skills.md)
+- [onlyz](05-onlyz/skills.md)
 
 ### 10% Checkpoint
-- checknumber
-- countalpha
-- countcharacter
-- printif
-- printifnot
-- rectperimeter
-- retainfirsthalf
+- [checknumber](66-checknumber/skills.md)
+- [countalpha](19-countalpha/skills.md)
+- [countcharacter](67-count-character/skills.md)
+- [printif](70-printif/skills.md)
+- [printifnot](71-printifnot/skills.md)
+- rectperimeter *(not yet in curriculum)*
+- [retainfirsthalf](73-retainfirsthalf/skills.md)
 
 ### 20% Checkpoint
-- cameltosnakecase
-- countrepeats
-- digitlen
-- firstword
-- fishandchips
-- gcd
-- hashcode
-- lastword
-- longestword
-- repeatalpha
-- searchreplace
-- wordanatomy
+- [cameltosnakecase](42-cameltosnakecase/skills.md)
+- [countrepeats](78-countrepeats/skills.md)
+- [digitlen](79-digitlen/skills.md)
+- [firstword](80-firstword/skills.md)
+- fishandchips *(not yet in curriculum)*
+- [gcd](81-gcd/skills.md)
+- [hashcode](82-hashcode/skills.md)
+- [lastword](83-lastword/skills.md)
+- [longestword](84-longestword/skills.md)
+- repeatalpha *(not yet in curriculum)*
+- [searchreplace](86-searchreplace/skills.md)
+- [wordanatomy](88-wordanatomy/skills.md)
 
 ### 35% Checkpoint
-- cameltosnakecase
-- cleanstr
-- expandstr
-- findprevprime
-- fromto
-- iscapitalized
-- itoa
-- passwordentropy
-- printmemory
-- printrevcomb
-- thirdtimeisacharm
-- weareunique
-- zipstring
+- [cameltosnakecase](77-cameltosnakecase/skills.md)
+- [cleanstr](91-cleanstr/skills.md)
+- [expandstr](92-expandstr/skills.md)
+- [findprevprime](93-findprevprime/skills.md)
+- [fromto](94-fromto/skills.md)
+- [iscapitalized](95-iscapitalized/skills.md)
+- [itoa](43-itoa/skills.md)
+- passwordentropy *(not yet in curriculum)*
+- [printmemory](97-printmemory/skills.md)
+- [printrevcomb](98-printrevcomb/skills.md)
+- [thirdtimeisacharm](99-thirdtimeisacharm/skills.md)
+- [weareunique](100-weareunique/skills.md)
+- [zipstring](101-zipstring/skills.md)
 
 ### 50% Checkpoint
-- addprimesum
-- canjump
-- chunk
-- concatalternate
-- concatslice
-- fprime
-- hiddenp
-- inter
-- reversestrcap
-- saveandmiss
-- union
-- wdmatch
+- [addprimesum](102-addprimesum/skills.md)
+- [canjump](103-canjump/skills.md)
+- [chunk](104-chunk/skills.md)
+- [concatalternate](105-concatalternate/skills.md)
+- [concatslice](106-concatslice/skills.md)
+- [fprime](107-fprime/skills.md)
+- [hiddenp](108-hiddenp/skills.md)
+- [inter](109-inter/skills.md)
+- [reversestrcap](110-reversestrcap/skills.md)
+- [saveandmiss](111-saveandmiss/skills.md)
+- [union](112-union/skills.md)
+- [wdmatch](113-wdmatch/skills.md)
 
 ### 65% Checkpoint
-- fifthandskip
-- notdecimal
-- revconcatalternate
-- slice
+- [fifthandskip](114-fifthandskip/skills.md)
+- [notdecimal](115-notdecimal/skills.md)
+- [revconcatalternate](116-revconcatalternate/skills.md)
+- [slice](117-slice/skills.md)
 
 ### 75% Checkpoint
-- findpairs
-- revwstr
-- rostring
-- wordflip
+- [findpairs](118-findpairs/skills.md)
+- [revwstr](119-revwstr/skills.md)
+- [rostring](120-rostring/skills.md)
+- [wordflip](121-wordflip/skills.md)
 
 ### 85% Checkpoint
-- itoabase
-- options
-- piglatin
-- romannumbers
+- [itoabase](122-itoabase/skills.md)
+- [options](123-options/skills.md)
+- [piglatin](124-piglatin/skills.md)
+- [romannumbers](125-romannumbers/skills.md)
 
 ### 95% Checkpoint
-- brackets
-- rpncalc
+- [brackets](126-brackets/skills.md)
+- [rpncalc](127-rpncalc/skills.md)
 
 ### 100% Checkpoint
-- brainfuck
-- grouping
+- [brainfuck](128-brainfuck/skills.md)
+- [grouping](129-grouping/skills.md)

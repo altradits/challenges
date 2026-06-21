@@ -8,7 +8,7 @@ Phase 2  (06–12):  Go Foundations — language building blocks
 Phase 3  (13–36):  Beginner Practice — apply the basics one concept at a time
 Phase 4  (37–65):  Strings Package Mastery — the full strings toolkit
 Phase 5  (66–129): Challenge Problems — combine everything, harder problems
-Phase 6  (130–139): Capstone Projects — real-world applications
+Phase 6  (130–135): Capstone Projects — real-world Go applications + open source
 ```
 
 ---
@@ -189,7 +189,7 @@ Each one is harder than the Phase 3/4 equivalents. Some require multiple concept
 
 ---
 
-## Phase 6: Capstone Projects (130–139)
+## Phase 6: Capstone Projects (130–135)
 
 Apply everything in real projects.
 
@@ -198,13 +198,9 @@ Apply everything in real projects.
 | 130 | `130-financial-freedom-api` | REST API: financial freedom calculator |
 | 131 | `131-index-fund-tracker` | Index fund portfolio tracker |
 | 132 | `132-savings-runway-calculator` | Savings runway calculator |
-| 133 | `133-portfolio-website` | Personal portfolio website |
-| 134 | `134-professional` | Professional Go project + Bitcoin OSS contribution path |
-| 135 | `135-python-data` | Python data analysis course |
-| 136 | `136-api-lesson` | API design lessons |
-| 137 | `137-capstone` | Main capstone project |
-| 138 | `138-js-database` | JavaScript + database course |
-| 139 | `139-js-frontend` | JavaScript frontend course |
+| 133 | `133-api-lesson` | Go API development — HTTP, routing, REST, JSON, auth, testing |
+| 134 | `134-capstone` | String tools analytics dashboard (integrates all 53 exercises) |
+| 135 | `135-bitcoin-oss` | Contributing to Bitcoin open source in Go (btcd, LND) |
 
 ---
 
@@ -216,7 +212,7 @@ Apply everything in real projects.
 13-36   Beginner practice     →  One skill per exercise, guided by README + skills.md
 37-65   Strings mastery       →  Every strings/fmt/strconv function with examples
 66-129  Challenge problems    →  Hard piscine-style challenges, combine multiple concepts
-130-139 Capstone projects     →  Full applications
+130-135 Capstone projects     →  Full Go applications + Bitcoin open source contribution
 ```
 
 **Always read `skills.md` before you attempt the challenge in `README.md`.**

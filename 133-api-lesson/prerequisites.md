@@ -1,4 +1,4 @@
-# Prerequisites for 132-savings-runway-calculator
+# Prerequisites for 133-api-lesson
 
 ## Basic Skills Needed
 
@@ -44,5 +44,5 @@ This skill is used in:
 ## Next Steps
 
 After completing this exercise, move to:
-- [133-api-lesson](../133-api-lesson/README.md)
-- [133-api-lesson](../133-api-lesson/README.md) - Professional
+- [134-capstone](../134-capstone/README.md)
+- [134-capstone](../134-capstone/README.md) - Js Database
