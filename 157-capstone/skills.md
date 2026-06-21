@@ -1,8 +1,8 @@
-# Skills for 156-capstone
+# Skills for 157-capstone
 
 ## What You'll Learn
 
-**Previous:** [155-api-lesson](../155-api-lesson/skills.md) | **Next:** [157-bitcoin-oss](../157-bitcoin-oss/skills.md)
+**Previous:** [156-api-lesson](../156-api-lesson/skills.md) | **Next:** [158-bitcoin-oss](../158-bitcoin-oss/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
@@ -56,4 +56,4 @@ The `main()` function is special - it's where program execution begins.
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [157-bitcoin-oss](../157-bitcoin-oss/README.md)
+**Next:** [158-bitcoin-oss](../158-bitcoin-oss/README.md)

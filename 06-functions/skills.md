@@ -173,6 +173,52 @@ Named returns are useful in longer functions but can reduce readability in short
 | `return "Hello " + name` (no comma) | Wrong output format | Match the required format exactly |
 | Calling `Greet("World")` without package prefix | Works inside `piscine` but fails from `main` | Use `piscine.Greet("World")` from outside |
 
+### Constants — `const`
+
+A constant is a value fixed at compile time. Use `const` instead of `var` when a value never changes:
+
+```go
+const Pi    = 3.14159
+const AppName = "BursaryHub"
+const MaxRetries = 3
+```
+
+**Typed vs. untyped constants:**
+
+```go
+const TypedHour   time.Duration = time.Hour   // typed — has a specific type
+const UntypedHour = 60 * 60                   // untyped — adapts to context
+```
+
+**`iota` — auto-incrementing constants:**
+
+```go
+type Direction int
+
+const (
+    North Direction = iota  // 0
+    East                    // 1
+    South                   // 2
+    West                    // 3
+)
+```
+
+`iota` resets to 0 at each `const` block. This is how Go creates enumerations.
+
+**Why use `const` over `var`?** The compiler rejects any code that tries to assign to a constant, making accidental mutation impossible.
+
+### Variable Swap — Tuple Assignment
+
+Go allows assigning to multiple variables in a single statement:
+
+```go
+a, b := 10, 20
+a, b = b, a        // swap — no temporary variable needed
+fmt.Println(a, b)  // 20 10
+```
+
+This works for any types and is the idiomatic Go way to swap two values.
+
 ## Solving This Challenge
 
 ### Algorithm

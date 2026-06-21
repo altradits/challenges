@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [150-logging](../150-logging/skills.md) | **Next:** [152-financial-freedom-api](../152-financial-freedom-api/skills.md)
+**Previous:** [150-logging](../150-logging/skills.md) | **Next:** [152-graceful-shutdown](../152-graceful-shutdown/skills.md)
 
 **Challenge:** Write generic functions that work with any type.
 
@@ -201,4 +201,4 @@ func Contains[T comparable](s []T, target T) bool {
 }
 ```
 
-**Next:** [152-financial-freedom-api](../152-financial-freedom-api/README.md)
+**Next:** [152-graceful-shutdown](../152-graceful-shutdown/README.md)

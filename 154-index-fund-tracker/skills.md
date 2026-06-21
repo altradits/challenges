@@ -1,8 +1,8 @@
-# Skills for 153-index-fund-tracker
+# Skills for 154-index-fund-tracker
 
 ## What You'll Learn
 
-**Previous:** [152-financial-freedom-api](../152-financial-freedom-api/skills.md) | **Next:** [154-savings-runway-calculator](../154-savings-runway-calculator/skills.md)
+**Previous:** [153-financial-freedom-api](../153-financial-freedom-api/skills.md) | **Next:** [155-savings-runway-calculator](../155-savings-runway-calculator/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
@@ -71,4 +71,4 @@ Always check errors - Go doesn't have exceptions!
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [154-savings-runway-calculator](../154-savings-runway-calculator/README.md)
+**Next:** [155-savings-runway-calculator](../155-savings-runway-calculator/README.md)

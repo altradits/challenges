@@ -1,4 +1,4 @@
-# Prerequisites for 154-savings-runway-calculator
+# Prerequisites for 157-capstone
 
 ## Basic Skills Needed
 
@@ -43,4 +43,4 @@ This skill is used in:
 
 ## Next Steps
 
-- [155-api-lesson](../155-api-lesson/README.md)
+- [158-bitcoin-oss](../158-bitcoin-oss/README.md)

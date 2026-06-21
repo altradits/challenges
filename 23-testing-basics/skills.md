@@ -91,24 +91,51 @@ go test -count=1 ./...     # disable result caching
 
 ## Benchmarks
 
+Benchmarks measure how fast a function runs. The framework runs it repeatedly, adjusting `b.N` until results are stable.
+
 ```go
-func BenchmarkAbs(b *testing.B) {
-    for i := 0; i < b.N; i++ {  // b.N is adjusted by the framework
-        Abs(-42)
+func BenchmarkFibonacci(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        Fibonacci(30)
     }
 }
 ```
 
 Run with: `go test -bench=. ./...`
 
-Output: `BenchmarkAbs-8   500000000   2.34 ns/op`
+```
+BenchmarkFibonacci-8    45678    26345 ns/op    0 B/op    0 allocs/op
+```
 
-- `500000000` — iterations run
-- `2.34 ns/op` — time per operation
+| Column | Meaning |
+|--------|---------|
+| `45678` | Number of iterations run |
+| `26345 ns/op` | Nanoseconds per operation |
+| `0 B/op` | Bytes allocated per op (with `-benchmem`) |
+| `0 allocs/op` | Heap allocations per op (with `-benchmem`) |
 
 ```bash
-go test -bench=. -benchmem ./...  # also report memory allocations
+go test -bench=. -benchmem ./...   # include memory stats
+go test -bench=BenchmarkFib ./...  # run a specific benchmark
+go test -bench=. -benchtime=5s     # run for 5 seconds instead of 1
+go test -bench=. -count=3          # run each benchmark 3 times
 ```
+
+**Resetting the timer** — exclude setup time from the benchmark:
+
+```go
+func BenchmarkSort(b *testing.B) {
+    data := make([]int, 10000)
+    for i := range data { data[i] = rand.Intn(1000) }
+
+    b.ResetTimer()  // don't count setup time above
+    for i := 0; i < b.N; i++ {
+        sort.Ints(data)
+    }
+}
+```
+
+**Why benchmarks matter for Go/Bitcoin:** LND runs on nodes that process many Lightning payments per second. Understanding how to measure and reduce `ns/op` and `allocs/op` is the same skill used to optimize the LND payment pathfinding code.
 
 ## Test Helpers
 

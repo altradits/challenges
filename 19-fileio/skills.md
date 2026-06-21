@@ -109,6 +109,68 @@ defer dst.Close()
 io.Copy(dst, src)
 ```
 
+## Appending to a File
+
+Use `os.OpenFile` when you need more control than `os.Create` or `os.Open` give you:
+
+```go
+f, err := os.OpenFile("log.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+if err != nil {
+    return err
+}
+defer f.Close()
+fmt.Fprintln(f, "new log entry")
+```
+
+| Flag | Meaning |
+|------|---------|
+| `os.O_RDONLY` | read only |
+| `os.O_WRONLY` | write only |
+| `os.O_RDWR` | read + write |
+| `os.O_CREATE` | create if not exists |
+| `os.O_APPEND` | append to end of file |
+| `os.O_TRUNC` | truncate on open |
+
+## `bufio.Scanner` — Controlling the Buffer
+
+By default, `bufio.Scanner` splits on newlines and has a 64KB line limit. For larger lines:
+
+```go
+scanner := bufio.NewScanner(f)
+scanner.Buffer(make([]byte, 1024*1024), 1024*1024)  // 1MB buffer
+
+// Split by words instead of lines:
+scanner.Split(bufio.ScanWords)
+
+// Split by bytes:
+scanner.Split(bufio.ScanBytes)
+```
+
+Always check `scanner.Err()` after the loop — it distinguishes EOF (normal) from real errors.
+
+## Working with `strings.Reader` and `bytes.Buffer`
+
+Any `io.Reader` works wherever a file does — useful for tests:
+
+```go
+import (
+    "strings"
+    "bytes"
+)
+
+// Read from an in-memory string
+r := strings.NewReader("line1\nline2\n")
+scanner := bufio.NewScanner(r)
+
+// Write to an in-memory buffer
+var buf bytes.Buffer
+fmt.Fprintln(&buf, "hello")
+fmt.Fprintln(&buf, "world")
+fmt.Println(buf.String())  // hello\nworld\n
+```
+
+This is the pattern used in tests: pass a `bytes.Buffer` instead of a real file.
+
 ## Solving the Challenge
 
 ```go

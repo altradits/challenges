@@ -1,8 +1,8 @@
-# Skills for 152-financial-freedom-api
+# Skills for 153-financial-freedom-api
 
 ## What You'll Learn
 
-**Previous:** [151-generics](../151-generics/skills.md) | **Next:** [153-index-fund-tracker](../153-index-fund-tracker/skills.md)
+**Previous:** [152-graceful-shutdown](../152-graceful-shutdown/skills.md) | **Next:** [154-index-fund-tracker](../154-index-fund-tracker/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
@@ -55,4 +55,4 @@ Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [153-index-fund-tracker](../153-index-fund-tracker/README.md)
+**Next:** [154-index-fund-tracker](../154-index-fund-tracker/README.md)

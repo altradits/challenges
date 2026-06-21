@@ -1,4 +1,4 @@
-# Prerequisites for 152-financial-freedom-api
+# Prerequisites for 156-api-lesson
 
 ## Basic Skills Needed
 
@@ -43,4 +43,4 @@ This skill is used in:
 
 ## Next Steps
 
-- [153-index-fund-tracker](../153-index-fund-tracker/README.md)
+- [157-capstone](../157-capstone/README.md)

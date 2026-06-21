@@ -8,7 +8,7 @@ Phase 2  (06–27):  Go Foundations — every core language concept
 Phase 3  (28–51):  Beginner Practice — apply the basics one concept at a time
 Phase 4  (52–80):  Strings Package Mastery — the full strings/fmt/strconv toolkit
 Phase 5  (81–144): Challenge Problems — combine everything, harder piscine-style problems
-Phase 6  (145–157): Backend Bridge + Capstone Projects — backend packages, then real-world Go apps
+Phase 6  (145–158): Backend Bridge + Capstone Projects — backend packages, then real-world Go apps
 ```
 
 ---
@@ -205,34 +205,35 @@ Harder than Phase 3/4. Most require combining multiple concepts.
 
 ---
 
-## Phase 6: Backend Bridge + Capstone Projects (145–157)
+## Phase 6: Backend Bridge + Capstone Projects (145–158)
 
-Backend-essential packages first (145–151), then real-world projects (152–157).
+Backend-essential packages first (145–152), then real-world projects (153–158).
 
-### Backend Bridge Lessons (145–151)
+### Backend Bridge Lessons (145–152)
 
 | # | Directory | What You Learn |
 |---|-----------|----------------|
 | 145 | `145-time` | `time.Time`, `time.Duration`, Parse/Format, Since/Until, weekday logic |
 | 146 | `146-encoding-json` | `json.Marshal/Unmarshal`, struct tags, `omitempty`, Encoder/Decoder |
 | 147 | `147-http-basics` | `net/http` handlers, `ServeMux`, `http.Client`, request/response cycle |
-| 148 | `148-database-sql` | `database/sql`, SQLite driver, QueryRow, transactions, connection pool |
+| 148 | `148-database-sql` | `database/sql`, SQLite, QueryRow, transactions, JOINs, migrations |
 | 149 | `149-environment-and-config` | `os.Getenv`/`LookupEnv`, `flag` package, 12-factor config struct pattern |
 | 150 | `150-logging` | `log` package, `slog` structured logging, middleware wrapper |
 | 151 | `151-generics` | Type parameters `[T any]`, `comparable`, union constraints, `~T` |
+| 152 | `152-graceful-shutdown` | `os/signal`, `signal.Notify`, `http.Server.Shutdown` with context deadline |
 
-### Capstone Projects (152–157)
+### Capstone Projects (153–158)
 
 Apply everything in real Go projects. Each one builds on all prior phases.
 
 | # | Directory | Project |
 |---|-----------|---------|
-| 152 | `152-financial-freedom-api` | REST API: financial freedom calculator |
-| 153 | `153-index-fund-tracker` | Index fund portfolio tracker |
-| 154 | `154-savings-runway-calculator` | Savings runway calculator |
-| 155 | `155-api-lesson` | Go API development: HTTP, routing, REST, JSON, auth, testing (10 exercises) |
-| 156 | `156-capstone` | String tools analytics dashboard — integrates all your tools |
-| 157 | `157-bitcoin-oss` | Your first merged PR in btcd or LND (Go Bitcoin open source) |
+| 153 | `153-financial-freedom-api` | REST API: financial freedom calculator |
+| 154 | `154-index-fund-tracker` | Index fund portfolio tracker |
+| 155 | `155-savings-runway-calculator` | Savings runway calculator |
+| 156 | `156-api-lesson` | Go API development: HTTP, routing, REST, JSON, auth, testing (10 exercises) |
+| 157 | `157-capstone` | String tools analytics dashboard — integrates all your tools |
+| 158 | `158-bitcoin-oss` | Your first merged PR in btcd or LND (Go Bitcoin open source) |
 
 ---
 
@@ -247,8 +248,8 @@ Apply everything in real Go projects. Each one builds on all prior phases.
 28-51   Beginner practice    →  One skill per exercise — build speed and confidence
 52-80   Strings mastery      →  Every strings/fmt/strconv function with examples
 81-144  Challenge problems   →  Hard piscine-style challenges, combine multiple concepts
-145-151 Backend bridge       →  time, json, http, sql, config, logging, generics
-152-157 Capstone projects    →  Real Go applications and Bitcoin open source contribution
+145-152 Backend bridge       →  time, json, http, sql, config, logging, generics, graceful shutdown
+153-158 Capstone projects    →  Real Go applications and Bitcoin open source contribution
 ```
 
 **Always read `skills.md` before you attempt the challenge in `README.md`.**

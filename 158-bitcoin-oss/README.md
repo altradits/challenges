@@ -1,4 +1,4 @@
-# 157-bitcoin-oss — Contributing to Bitcoin Open Source in Go
+# 158-bitcoin-oss — Contributing to Bitcoin Open Source in Go
 
 ## Objective
 

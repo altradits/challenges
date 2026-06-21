@@ -1,4 +1,4 @@
-# Prerequisites for 156-capstone
+# Prerequisites for 154-index-fund-tracker
 
 ## Basic Skills Needed
 
@@ -43,4 +43,4 @@ This skill is used in:
 
 ## Next Steps
 
-- [157-bitcoin-oss](../157-bitcoin-oss/README.md)
+- [155-savings-runway-calculator](../155-savings-runway-calculator/README.md)

@@ -1,8 +1,8 @@
-# Skills for 155-api-lesson
+# Skills for 156-api-lesson
 
 ## What You'll Learn
 
-**Previous:** [154-savings-runway-calculator](../154-savings-runway-calculator/skills.md) | **Next:** [156-capstone](../156-capstone/skills.md)
+**Previous:** [155-savings-runway-calculator](../155-savings-runway-calculator/skills.md) | **Next:** [157-capstone](../157-capstone/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
@@ -27,4 +27,4 @@ The `main()` function is special - it's where program execution begins.
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [156-capstone](../156-capstone/README.md)
+**Next:** [157-capstone](../157-capstone/README.md)

@@ -1,6 +1,6 @@
 # Go Mastery — From Hello World to Bitcoin Open Source
 
-A complete, Go-only learning path: **157 numbered directories**, each one building on the last.
+A complete, Go-only learning path: **158 numbered directories**, each one building on the last.
 
 Follow the numbers. Read `skills.md` first, then solve the challenge in `README.md`.
 
@@ -25,7 +25,7 @@ cat 01-only1/README.md
 | 3 | 28–51 | Beginner practice — one concept per exercise, build speed |
 | 4 | 52–80 | Strings package mastery — every `strings`/`fmt`/`strconv` function |
 | 5 | 81–144 | Challenge problems — piscine-style, multiple concepts combined |
-| 6 | 145–157 | Backend bridge (time, json, http, sql, config, logging, generics) + Capstone projects |
+| 6 | 145–158 | Backend bridge (time, json, http, sql, config, logging, generics, graceful shutdown) + Capstones |
 
 See [LEARNING_PATH.md](LEARNING_PATH.md) for the full table with every directory listed.
 
@@ -43,19 +43,20 @@ Work the pattern: `skills.md` → attempt the challenge → check `prerequisites
 
 ---
 
-## What's New in Phase 6 (145–151): Backend Bridge
+## What's New in Phase 6 (145–152): Backend Bridge
 
-These 7 lessons teach every backend-essential package before the capstone projects:
+These 8 lessons teach every backend-essential package before the capstone projects:
 
 | Directory | Teaches |
 |-----------|---------|
 | `145-time` | `time.Time`, `Duration`, Parse/Format, Since/Until, weekday logic |
 | `146-encoding-json` | `json.Marshal/Unmarshal`, struct tags, `omitempty`, Encoder/Decoder |
 | `147-http-basics` | `net/http` handlers, `ServeMux`, request/response, `http.Client` |
-| `148-database-sql` | `database/sql`, SQLite, QueryRow/Query, transactions, connection pool |
+| `148-database-sql` | `database/sql`, SQLite, QueryRow/Query, transactions, JOINs, migrations |
 | `149-environment-and-config` | `os.Getenv`, `flag` package, 12-factor config struct pattern |
 | `150-logging` | `log` package, `slog` structured logging (Go 1.21+), middleware |
 | `151-generics` | Type parameters `[T any]`, `comparable`, union constraints `~T` |
+| `152-graceful-shutdown` | `os/signal`, `signal.Notify`, `http.Server.Shutdown` with context deadline |
 
 ---
 
@@ -98,7 +99,7 @@ See [CHECKPOINT_TIERS.md](CHECKPOINT_TIERS.md) for which challenges test you at 
 
 ---
 
-**Start at `01-only1`. Follow the numbers to `157-bitcoin-oss`.**
+**Start at `01-only1`. Follow the numbers to `158-bitcoin-oss`.**
 
 ```
 01–05   Hello World     →  The four-line Go skeleton
@@ -106,6 +107,6 @@ See [CHECKPOINT_TIERS.md](CHECKPOINT_TIERS.md) for which challenges test you at 
 28–51   Beginner        →  One skill per exercise
 52–80   Strings         →  Every strings/fmt/strconv function
 81–144  Challenges      →  Hard piscine-style problems
-145–151 Backend bridge  →  time, json, http, sql, config, logging, generics
-152–157 Capstones       →  Real Go APIs + Bitcoin open source
+145–152 Backend bridge  →  time, json, http, sql, config, logging, generics, graceful shutdown
+153–158 Capstones       →  Real Go APIs + Bitcoin open source
 ```

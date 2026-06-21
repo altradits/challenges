@@ -96,5 +96,5 @@ https://financial-freedom-api.yourname.com
 ## Next Steps
 
 After completing this, you'll be ready for:
-- [153-index-fund-tracker](../153-index-fund-tracker/README.md) - Index Fund Tracker
-- [154-savings-runway-calculator](../154-savings-runway-calculator/README.md) - Savings Runway Calculator
+- [154-index-fund-tracker](../154-index-fund-tracker/README.md) - Index Fund Tracker
+- [155-savings-runway-calculator](../155-savings-runway-calculator/README.md) - Savings Runway Calculator

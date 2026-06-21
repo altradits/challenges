@@ -1,8 +1,8 @@
-# Skills for 157-bitcoin-oss
+# Skills for 158-bitcoin-oss
 
 ## What You'll Learn
 
-**Previous:** [156-capstone](../156-capstone/skills.md) | **Next:** End of course
+**Previous:** [157-capstone](../157-capstone/skills.md) | **Next:** End of course
 
 How to navigate a large production Go codebase, find a good first issue, write a patch that passes review, and get it merged into a real Bitcoin project.
 

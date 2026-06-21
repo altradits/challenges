@@ -114,6 +114,78 @@ var (
 
 Callers check with `errors.Is(err, ErrNotFound)`.
 
+### `defer` — Guaranteed Cleanup
+
+`defer` schedules a function call to run when the surrounding function returns — no matter how it returns (normal, error, panic).
+
+```go
+func readFile(path string) error {
+    f, err := os.Open(path)
+    if err != nil {
+        return err
+    }
+    defer f.Close()   // runs when readFile returns, even on error
+
+    // read the file...
+    return nil
+}
+```
+
+**Key rules:**
+1. Deferred calls run in **LIFO** order (last-in, first-out — like a stack)
+2. Arguments are evaluated **immediately** at the `defer` statement, not when the function runs
+3. `defer` works with any function call, including anonymous functions
+
+**LIFO order:**
+```go
+func audit() {
+    defer fmt.Println("third")  // runs last
+    defer fmt.Println("second")
+    defer fmt.Println("first")  // runs first
+}
+// Output: first, second, third
+```
+
+**Common patterns you will see everywhere in Go:**
+
+```go
+// Close a file
+defer f.Close()
+
+// Close an HTTP response body
+defer resp.Body.Close()
+
+// Release a database connection
+defer rows.Close()
+
+// Cancel a context
+ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+defer cancel()
+
+// Unlock a mutex
+mu.Lock()
+defer mu.Unlock()
+
+// Rollback a transaction if not committed
+tx, _ := db.Begin()
+defer tx.Rollback()   // no-op after tx.Commit()
+```
+
+**Defer with a named return value** (captures the return value after the `return`):
+```go
+func divide(a, b float64) (result float64, err error) {
+    defer func() {
+        if err != nil {
+            err = fmt.Errorf("divide: %w", err)  // wraps the error before returning
+        }
+    }()
+    if b == 0 {
+        return 0, errors.New("division by zero")
+    }
+    return a / b, nil
+}
+```
+
 ### panic and recover
 
 `panic` stops normal execution. `recover` catches a panic inside a `defer`.

@@ -209,4 +209,129 @@ func DeleteUser(db *sql.DB, id int64) error {
 }
 ```
 
+### SQL JOINs — Querying Across Tables
+
+Real schemas have related tables. Use JOINs to combine them:
+
+```sql
+-- INNER JOIN: only rows that match in both tables
+SELECT u.id, u.name, p.title, p.amount
+FROM   users u
+INNER JOIN payments p ON p.user_id = u.id
+WHERE  u.id = ?
+
+-- LEFT JOIN: all users, even those with no payments
+SELECT u.name, COUNT(p.id) AS payment_count
+FROM   users u
+LEFT JOIN payments p ON p.user_id = u.id
+GROUP BY u.id
+ORDER BY payment_count DESC
+```
+
+In Go, scan multiple tables' columns into a combined struct:
+
+```go
+type UserPayment struct {
+    UserName      string
+    PaymentTitle  string
+    Amount        float64
+}
+
+rows, err := db.Query(`
+    SELECT u.name, p.title, p.amount
+    FROM users u
+    INNER JOIN payments p ON p.user_id = u.id
+    WHERE u.id = ?`, userID)
+if err != nil {
+    return nil, err
+}
+defer rows.Close()
+
+var results []UserPayment
+for rows.Next() {
+    var up UserPayment
+    rows.Scan(&up.UserName, &up.PaymentTitle, &up.Amount)
+    results = append(results, up)
+}
+return results, rows.Err()
+```
+
+### Database Migrations — Evolving Your Schema
+
+Migrations are numbered SQL files that evolve your schema over time without losing data.
+
+**File naming convention:**
+```
+migrations/
+  001_create_users.up.sql
+  001_create_users.down.sql
+  002_add_payments.up.sql
+  002_add_payments.down.sql
+```
+
+**`001_create_users.up.sql`:**
+```sql
+CREATE TABLE users (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    name       TEXT    NOT NULL,
+    email      TEXT    NOT NULL UNIQUE,
+    created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+);
+```
+
+**`002_add_payments.up.sql`:**
+```sql
+CREATE TABLE payments (
+    id         INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id    INTEGER NOT NULL REFERENCES users(id),
+    title      TEXT    NOT NULL,
+    amount     REAL    NOT NULL,
+    created_at TEXT    NOT NULL DEFAULT (datetime('now'))
+);
+```
+
+**Applying migrations in Go** (without an external library):
+
+```go
+func applyMigrations(db *sql.DB) error {
+    _, err := db.Exec(`CREATE TABLE IF NOT EXISTS schema_migrations (
+        version INTEGER PRIMARY KEY,
+        applied_at TEXT NOT NULL
+    )`)
+    if err != nil {
+        return err
+    }
+
+    migrations := []struct {
+        version int
+        sql     string
+    }{
+        {1, `CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL, email TEXT NOT NULL UNIQUE
+        )`},
+        {2, `CREATE TABLE IF NOT EXISTS payments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL REFERENCES users(id),
+            title TEXT NOT NULL, amount REAL NOT NULL
+        )`},
+    }
+
+    for _, m := range migrations {
+        var exists int
+        db.QueryRow("SELECT COUNT(*) FROM schema_migrations WHERE version=?", m.version).Scan(&exists)
+        if exists > 0 {
+            continue  // already applied
+        }
+        if _, err := db.Exec(m.sql); err != nil {
+            return fmt.Errorf("migration %d: %w", m.version, err)
+        }
+        db.Exec("INSERT INTO schema_migrations (version, applied_at) VALUES (?, datetime('now'))", m.version)
+    }
+    return nil
+}
+```
+
+For production use, `golang-migrate/migrate` automates this with file-based migrations, rollback support, and locking.
+
 **Next:** [149-environment-and-config](../149-environment-and-config/README.md)

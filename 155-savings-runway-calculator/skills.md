@@ -1,8 +1,8 @@
-# Skills for 154-savings-runway-calculator
+# Skills for 155-savings-runway-calculator
 
 ## What You'll Learn
 
-**Previous:** [153-index-fund-tracker](../153-index-fund-tracker/skills.md) | **Next:** [155-api-lesson](../155-api-lesson/skills.md)
+**Previous:** [154-index-fund-tracker](../154-index-fund-tracker/skills.md) | **Next:** [156-api-lesson](../156-api-lesson/skills.md)
 
 If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
 
@@ -71,4 +71,4 @@ Always check errors - Go doesn't have exceptions!
 
 See [README.md](README.md) for the full challenge description, expected function, and test cases.
 
-**Next:** [155-api-lesson](../155-api-lesson/README.md)
+**Next:** [156-api-lesson](../156-api-lesson/README.md)
