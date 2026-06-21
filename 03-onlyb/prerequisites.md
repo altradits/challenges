@@ -1,48 +1,44 @@
 # Prerequisites for 03-onlyb
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand the basic Go program structure and how to pass a string to `fmt.Println`.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Basic Go program structure
+You must have the three required parts: `package main`, `import "fmt"`, and `func main()`.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+package main
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+import "fmt"
 
-## Skills You'll Learn
+func main() {
+    fmt.Println("B")
+}
+```
 
-After completing this exercise, you'll be able to:
+### 2. Go is case-sensitive
+`"B"` and `"b"` are different strings. `fmt.Println` and `fmt.println` are different identifiers (only the uppercase form is accessible).
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+fmt.Println("B")  // correct: prints B
+fmt.Println("b")  // wrong output: prints b
+fmt.println("B")  // compile error: println is not exported
+```
 
-## How This Helps Your Capstone
+## Review If Stuck
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+- [01-only1](../01-only1/skills.md) — covers `package main`, `import "fmt"`, `func main()`, `fmt.Println()`
+- [02-onlya](../02-onlya/skills.md) — covers string literals and double quotes
+
+## You're Ready When You Can...
+
+- [ ] Write a complete Go program with the three required parts
+- [ ] Pass any string to `fmt.Println()` and predict the output
+- [ ] Distinguish between uppercase and lowercase in string literals
+- [ ] Explain why `fmt.Println` uses a capital `P`
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [04-onlyf](../04-onlyf/README.md) - Onlyf
-- [05-onlyz](../05-onlyz/README.md) - Onlyz
+- [04-onlyf](../04-onlyf/README.md)

@@ -1,50 +1,56 @@
-# Prerequisites for PrintIf
+# Prerequisites for 95-printif
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `len()` on strings
 
-1. **How to check string length**
-   ```go
-   if len(str) == 0 || len(str) >= 3 {
-       // String is empty or long enough
-   }
-   ```
+`len(s)` returns the number of bytes in a string. For ASCII text this equals character count.
 
-2. **How to return strings**
-   ```go
-   func MyFunction(s string) string {
-       return s  // Return the string itself
-   }
-   ```
+```go
+len("abc")  // 3
+len("ab")   // 2
+len("")     // 0
+```
 
-3. **How to use conditional logic**
-   ```go
-   if condition {
-       return "valid"
-   }
-   return "invalid"
-   ```
+Review: [76-stringlength](../76-stringlength/skills.md)
 
-## Skills You'll Learn
+### 2. `if/else` conditional branching
 
-After completing this exercise, you'll be able to:
+```go
+if condition {
+    return "yes"
+}
+return "no"
+```
 
-1. **Validate input length**
-2. **Return appropriate values**
-3. **Handle edge cases**
-4. **Build input validation**
+Review: [12-printif](../12-printif/skills.md)
 
-## How This Helps Your Capstone
+### 3. The `||` (OR) operator
 
-This skill is used in:
-- **Budget Planner** - Validate expense input
-- **Savings Calculator** - Check for minimum input
-- **Investment Tracker** - Validate ticker length
-- **Net Worth Tracker** - Check account format
+`A || B` is true when either A or B is true:
+
+```go
+if len(s) == 0 || len(s) >= 3 {
+    // either empty OR 3+ chars
+}
+```
+
+Review: [13-printifnot](../13-printifnot/skills.md)
+
+### 4. Returning a string from a function
+
+```go
+func Check(s string) string {
+    return "result"
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Get the length of a string with `len()`
+- [ ] Write an `if` with an `||` compound condition
+- [ ] Return different string values from a function
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [96-printifnot](../96-printifnot/README.md) - Printifnot
-- [97-longestword](../97-longestword/README.md) - Longestword
+- [96-printifnot](../96-printifnot/README.md) — the inverse of this challenge

@@ -1,48 +1,70 @@
 # Prerequisites for 74-brainfuck
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Arrays (`[n]byte`) from 42-arrays
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+Brainfuck needs a fixed-size memory: `[2048]byte{}`. This is a Go ARRAY (fixed size, value type), not a slice.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+memory := [2048]byte{}  // 2048 bytes, all zero
+memory[0] = 65          // store byte value 65 ('A')
+memory[0]++             // increment in-place
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+Review: [42-arrays](../42-arrays/skills.md)
 
-## Skills You'll Learn
+### 2. `switch` statement from 73-rpncalc
 
-After completing this exercise, you'll be able to:
+```go
+switch code[ip] {
+case '>': ptr++
+case '<': ptr--
+case '+': memory[ptr]++
+default:  // ignore
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+Review: [73-rpncalc](../73-rpncalc/skills.md)
 
-## How This Helps Your Capstone
+### 3. Index-based for loop (not range)
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+The instruction pointer `ip` needs to be modified inside the loop (jump forward/backward), so you can't use `for...range`. Use an index-based loop:
+
+```go
+for ip := 0; ip < len(code); ip++ {
+    // ip can be modified inside the loop body
+}
+```
+
+Review: [11-forloops](../11-forloops/skills.md)
+
+### 4. Nested loops for bracket matching depth
+
+```go
+depth := 1
+for depth > 0 {
+    ip++
+    if code[ip] == '[' { depth++ }
+    if code[ip] == ']' { depth-- }
+}
+```
+
+Review: [72-brackets](../72-brackets/skills.md) — same nesting logic.
+
+### 5. `fmt.Printf("%c", byte)` for character output
+
+```go
+fmt.Printf("%c", memory[ptr])  // prints byte as ASCII char
+```
+
+## You're Ready When You Can...
+
+- [ ] Declare and use a `[2048]byte` array
+- [ ] Modify an index variable inside a for loop
+- [ ] Use a depth counter to match opening/closing brackets
+- [ ] Use `fmt.Printf("%c", b)` to print a byte as a character
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [75-grouping](../75-grouping/README.md) - Grouping
-- [76-stringlength](../76-stringlength/README.md) - Stringlength
+- [75-grouping](../75-grouping/README.md)

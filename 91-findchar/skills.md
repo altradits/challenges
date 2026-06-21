@@ -2,71 +2,101 @@
 
 ## What You'll Learn
 
-**Previous:** [90-wordcount](../90-wordcount/skills.md)
+**Previous:** [90-wordcount](../90-wordcount/skills.md) | **Next:** [92-countchar](../92-countchar/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `FindChar(s string, c rune) int` that returns the byte index of the first occurrence of `c` in `s`, or `-1` if not found.
 
-**Challenge:** Findchar
+## Core Concept: Returning an Index — Using Both Values from `for...range`
 
-## New Concepts Explained
+### Two Values from `for...range`
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Until now most loops used only the character (`_, c`). This challenge also needs the **position** (byte index):
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
-
-```go
-// Manual search example
 for i, c := range s {
-    if c == target {
-        return i
+    // i = byte index of this character in the string
+    // c = the rune (character) at that position
+}
+```
+
+Both `i` and `c` are available simultaneously.
+
+### The Search Pattern
+
+```go
+func FindChar(s string, c rune) int {
+    for i, ch := range s {
+        if ch == c {
+            return i   // found — return index immediately
+        }
     }
-}
-return -1
-```
-
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+    return -1   // not found after checking everything
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+This is early-return from [83-checknumber](../83-checknumber/skills.md), but now you return the **index** instead of `true`.
 
-### 4. Formatted output with fmt package
+### Why `-1` for "Not Found"?
 
-The `fmt` package provides formatted I/O:
+Valid indices are `0` and above. Using `-1` as a sentinel is a universal convention in Go (and most languages) for "the element was not found". The caller can check:
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+idx := FindChar("Hello", 'z')
+if idx == -1 {
+    fmt.Println("not found")
+}
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+Using `0` would be ambiguous (index 0 is the first character).
+
+### The Function Signature Takes a `rune` Parameter
+
+This challenge introduces a function with two parameters:
+
+```go
+func FindChar(s string, c rune) int
+```
+
+- `s string` — the string to search
+- `c rune` — the character to find
+- Returns `int` — the index, or `-1`
+
+When calling it, pass a rune literal:
+
+```go
+FindChar("Hello", 'l')   // 'l' is a rune literal
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `for _, ch` (discarding index) | Cannot return the position | Use `for i, ch` |
+| Returning `0` for "not found" | Ambiguous — 0 is a valid index | Return `-1` |
+| Continuing after finding match | Returns last match, not first | `return i` immediately |
+| `return i` outside the loop | Compile error if nothing was found | Add `return -1` after the loop |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. For each `i, ch` in `s`:
+   - If `ch == c`: return `i`
+2. Return `-1`
+
+### Trace Through an Example
+
+Input: `FindChar("banana", 'a')`
+
+| i | ch | ch=='a'? | Action |
+|---|----|---------|--------|
+| 0 | b | No | continue |
+| 1 | a | Yes | return 1 |
+
+Result: `1` (first `'a'` is at index 1)
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [92-countchar](../92-countchar/skills.md) - Countchar
+**Next:** [92-countchar](../92-countchar/skills.md)

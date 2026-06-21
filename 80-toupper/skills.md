@@ -2,53 +2,118 @@
 
 ## What You'll Learn
 
-**Previous:** [79-isempty](../79-isempty/skills.md)
+**Previous:** [79-isempty](../79-isempty/skills.md) | **Next:** [81-tolower](../81-tolower/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `ToUpper(s string) string` that converts all lowercase letters to uppercase, leaving all other characters unchanged.
 
-**Challenge:** Toupper
+## Core Concept: ASCII Math for Case Conversion
 
-## New Concepts Explained
+### What Is ASCII?
 
-### 1. String iteration and character access
+Every character on a standard keyboard has a numeric code called its ASCII value. The letters form two neat ranges:
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+```
+'A' = 65   'B' = 66   ...   'Z' = 90
+'a' = 97   'b' = 98   ...   'z' = 122
+```
+
+The gap between any lowercase letter and its uppercase pair is exactly **32**:
+
+```
+'a' - 'A' = 97 - 65 = 32
+'z' - 'Z' = 122 - 90 = 32
+```
+
+### The Conversion Formula
+
+To convert a lowercase letter to uppercase, **subtract 32**:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+'a' - 32 = 65   which is 'A'
+'z' - 32 = 90   which is 'Z'
+```
+
+### Detecting Lowercase Letters
+
+You must only apply the formula to lowercase letters. Other characters (digits, spaces, uppercase letters) must pass through unchanged:
+
+```go
+if c >= 'a' && c <= 'z' {
+    // c is a lowercase letter
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### Building a New String
 
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Because Go strings are immutable, you cannot change them in place. Build a new string by accumulating characters:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func ToUpper(s string) string {
+    result := ""
+    for _, c := range s {
+        if c >= 'a' && c <= 'z' {
+            result += string(c - 32)   // convert to uppercase
+        } else {
+            result += string(c)        // keep as-is
+        }
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+Step by step:
+1. Start with an empty `result`
+2. For each rune `c` in `s`:
+   - If `c` is a lowercase letter, subtract 32 and add to `result`
+   - Otherwise add `c` unchanged
+3. Return `result`
 
-### 3. Formatted output with fmt package
+### Why This Works
 
-The `fmt` package provides formatted I/O:
+In Go, runes are integers (`int32`). Arithmetic on runes is legal:
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+var c rune = 'a'   // c = 97
+c - 32             // = 65
+string(c - 32)     // = "A"
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Subtracting 32 from ALL characters | Corrupts digits, spaces, uppercase | Check `c >= 'a' && c <= 'z'` first |
+| Adding 32 instead of subtracting | Converts to lowercase, not uppercase | Use `c - 32` for uppercase |
+| Forgetting `string()` when appending | Type mismatch | `result += string(c - 32)` |
+| Modifying `s` directly | Strings are immutable, won't compile | Build separate `result` string |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `result := ""`
+2. For each rune `c` in `s`:
+   - If `'a' <= c <= 'z'`: append `string(c - 32)` to result
+   - Else: append `string(c)` to result
+3. Return `result`
+
+### Trace Through an Example
+
+Input: `"Hello!"`
+
+| Char | In range 'a'-'z'? | Output char |
+|------|------------------|-------------|
+| `H` | No (uppercase already) | `H` |
+| `e` | Yes | `E` |
+| `l` | Yes | `L` |
+| `l` | Yes | `L` |
+| `o` | Yes | `O` |
+| `!` | No (punctuation) | `!` |
+
+Result: `"HELLO!"`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [81-tolower](../81-tolower/skills.md) - Tolower
+**Next:** [81-tolower](../81-tolower/skills.md)

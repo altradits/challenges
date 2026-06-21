@@ -1,48 +1,57 @@
-# Prerequisites for 23-firstword
+# Prerequisites for firstword
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. strings.Fields
+Splits a string by any whitespace and returns only the non-empty parts. Handles multiple spaces and leading/trailing spaces automatically.
+```go
+import "strings"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+words := strings.Fields("hello   world")
+// words == []string{"hello", "world"}
+fmt.Println(len(words)) // 2
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+words2 := strings.Fields("   ")
+// words2 == []string{}  (empty slice)
+```
 
-## Skills You'll Learn
+### 2. Slice Indexing
+Access elements of a slice by position. Index 0 is the first element.
+```go
+words := []string{"hello", "world"}
+fmt.Println(words[0]) // "hello"
+fmt.Println(words[1]) // "world"
+```
 
-After completing this exercise, you'll be able to:
+### 3. Checking Slice Length Before Indexing
+Accessing an index on an empty slice causes a panic. Always check `len` first.
+```go
+if len(words) == 0 {
+    return "\n"
+}
+fmt.Println(words[0]) // safe now
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 4. String Concatenation
+Use `+` to join strings. Use `"\n"` to represent a newline character.
+```go
+word := "hello"
+result := word + "\n" // "hello\n"
+```
 
-## How This Helps Your Capstone
+## Review If Stuck
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+- [../22-digitlen/skills.md](../22-digitlen/skills.md) — covers loops and counters; the slice-length check pattern is similar to guarding a counter
+
+## You're Ready When You Can...
+
+- [ ] Call `strings.Fields` on a string and know what it returns
+- [ ] Access `words[0]` safely by checking `len(words) > 0` first
+- [ ] Return a string that ends with `"\n"`
+- [ ] Handle the empty-string input case (return just `"\n"`)
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [24-fishandchips](../24-fishandchips/README.md) - Fishandchips
-- [25-gcd](../25-gcd/README.md) - Gcd
+- [Next challenge](../25-gcd/README.md)

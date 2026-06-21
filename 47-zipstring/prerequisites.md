@@ -1,48 +1,70 @@
-# Prerequisites for 47-zipstring
+# Prerequisites for zipstring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Comparing Adjacent Characters
+Access consecutive positions in a string by index to detect where runs change.
+```go
+s := "aabb"
+for i := 1; i < len(s); i++ {
+    if s[i] != s[i-1] {
+        fmt.Println("change at", i)
+    }
+}
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Tracking a Run Counter
+Increment a counter while characters repeat, reset it when they change.
+```go
+count := 1
+for i := 1; i < len(s); i++ {
+    if s[i] == s[i-1] {
+        count++
+    } else {
+        // emit count and s[i-1]
+        count = 1
+    }
+}
+// emit final run after loop
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. fmt.Sprintf With %d and %c
+`%d` for integers, `%c` for a character (rune or byte). Use these together to format `"3u"`:
+```go
+result += fmt.Sprintf("%d%c", 3, 'u') // "3u"
+result += fmt.Sprintf("%d%c", 1, 'Y') // "1Y"
+```
 
-## Skills You'll Learn
+### 4. The Final Flush Pattern
+When iterating and comparing to the previous element, the last run is never "closed" inside the loop. Always emit it after the loop ends.
+```go
+// inside loop: emit when s[i] != s[i-1]
+// after loop: emit the remaining run
+result += fmt.Sprintf("%d%c", count, s[len(s)-1])
+```
 
-After completing this exercise, you'll be able to:
+### 5. Empty String Guard
+Check for empty string before accessing `s[len(s)-1]` to avoid a panic.
+```go
+if len(s) == 0 {
+    return ""
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../21-countrepeats/skills.md](../21-countrepeats/skills.md) — covers the same "compare to previous, track state" pattern; this challenge adds counting each run's length
+- [../41-itoa-35/skills.md](../41-itoa-35/skills.md) — covers converting integers to their character representation
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Compare `s[i]` to `s[i-1]` to detect run boundaries
+- [ ] Maintain a run counter that increments on match and resets on change
+- [ ] Use `fmt.Sprintf("%d%c", count, char)` to format each run
+- [ ] Remember to flush the final run after the loop
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [48-addprimesum](../48-addprimesum/README.md) - Addprimesum
-- [49-canjump](../49-canjump/README.md) - Canjump
+- [Next challenge](../48-addprimesum/README.md)

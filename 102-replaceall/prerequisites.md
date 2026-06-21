@@ -1,55 +1,78 @@
-# Prerequisites for ReplaceAll
+# Prerequisites for 102-replaceall
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.HasPrefix`
 
-1. **How to find all occurrences**
-   ```go
-   start := 0
-   for {
-       idx := strings.Index(s[start:], old)
-       if idx == -1 {
-           break
-       }
-       // Found at position start + idx
-       start += idx + len(old)
-   }
-   ```
+`strings.HasPrefix(s, prefix)` returns `true` if string `s` starts with `prefix`. You'll use this to check whether `old` appears at the current scan position.
 
-2. **How to build strings incrementally**
-   ```go
-   var b strings.Builder
-   b.WriteString(s[:idx])
-   b.WriteString(new)
-   ```
+```go
+import "strings"
 
-3. **How to handle empty old string**
-   ```go
-   if old == "" {
-       return s  // Nothing to replace
-   }
-   ```
+fmt.Println(strings.HasPrefix("banana", "ban"))  // true
+fmt.Println(strings.HasPrefix("banana", "ana"))  // false
+fmt.Println(strings.HasPrefix("nana", "na"))     // true
+```
 
-## Skills You'll Learn
+Combined: `strings.HasPrefix(text[i:], old)` checks if `old` starts at position `i`.
 
-After completing this exercise, you'll be able to:
+### 2. String Slicing from an Index: `s[i:]`
 
-1. **Replace all occurrences**
-2. **Build strings efficiently**
-3. **Handle multiple replacements**
-4. **Create text substitution tools**
+`s[i:]` gives the substring from index `i` to the end of the string.
 
-## How This Helps Your Capstone
+```go
+s := "Hello World"
+fmt.Println(s[6:])  // "World"
+fmt.Println(s[0:])  // "Hello World"
+```
 
-This skill is used in:
-- **Budget Planner** - Replace category names
-- **Savings Calculator** - Update values
-- **Investment Tracker** - Update tickers
-- **Net Worth Tracker** - Update account names
+### 3. Manual Index Loop
+
+For scan-and-build you control the index yourself so you can jump ahead by more than 1:
+
+```go
+i := 0
+for i < len(s) {
+    // process s[i]
+    i++        // advance by 1 (normal case)
+    // or: i += skip   // advance by skip (after a match)
+}
+```
+
+This is different from `for...range` because you can jump ahead by an arbitrary amount.
+
+### 4. Converting a Byte to a String
+
+`s[i]` returns a `byte`, not a string. To concatenate it to a string result, wrap it:
+
+```go
+s := "Hello"
+b := s[0]              // b is type byte (uint8), value 72
+fmt.Println(string(b)) // "H"
+```
+
+### 5. String Concatenation with `+=`
+
+```go
+result := ""
+result += "Hello"
+result += " World"
+fmt.Println(result)  // "Hello World"
+```
+
+Note: For large strings this is O(n²). You'll learn the efficient alternative in 113-stringbuilder.
+
+## Review If Stuck
+
+- [101-findsubstring](../101-findsubstring/skills.md) — covers locating a pattern at a given index within a string
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.HasPrefix` to test if a string starts with a prefix
+- [ ] Write a manual index loop `i := 0; for i < len(s) { ... }`
+- [ ] Advance the index by a variable amount (`i += len(old)`)
+- [ ] Convert a byte `s[i]` to string with `string(s[i])`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [103-split](../103-split/README.md) - Split
-- [104-join](../104-join/README.md) - Join
+- [103-split](../103-split/README.md)

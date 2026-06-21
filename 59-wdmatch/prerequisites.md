@@ -1,48 +1,62 @@
-# Prerequisites for 59-wdmatch
+# Prerequisites for wdmatch
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Subsequence Matching — Single Pointer Technique
+Move a pointer through `word` forward-only as you scan `s`. Only advance the pointer when you find the next expected character.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+i := 0
+for _, c := range s {
+    if i < len(word) && c == rune(word[i]) {
+        i++
+    }
+}
+// i == len(word) means full match
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. `rune(word[i])` — Comparing a Byte from Indexing to a Rune from Range
+`word[i]` returns a `byte`; ranging over `s` gives `rune` values. Convert with `rune(word[i])` to compare them.
 
-## Skills You'll Learn
+```go
+word := "abc"
+fmt.Println(word[0])        // 97 (byte)
+fmt.Println(rune(word[0]))  // 97 (rune) — same value, compatible type
+```
 
-After completing this exercise, you'll be able to:
+### 3. Printing Nothing on Failure
+If the match fails, the program outputs nothing — not even a newline.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+if i == len(word) {
+    fmt.Println(word)
+}
+// no else — silence on failure
+```
 
-## How This Helps Your Capstone
+### 4. `os.Args` Validation
+Exactly two string arguments are required.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+if len(os.Args) != 3 {
+    return
+}
+word := os.Args[1]
+s    := os.Args[2]
+```
+
+## Review If Stuck
+- [54-hiddenp](../54-hiddenp/skills.md) — teaches exactly this subsequence matching algorithm
+- [58-union](../58-union/skills.md) — covers `for range` string iteration and `os.Args`
+
+## You're Ready When You Can...
+- [ ] Use a single integer pointer that advances only on a match
+- [ ] Compare `rune(word[i])` with a rune obtained from `for _, c := range s`
+- [ ] Check `i == len(word)` to confirm a complete match
+- [ ] Print the word on success and nothing on failure
+- [ ] Validate `len(os.Args) != 3` and return early
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [60-fifthandskip](../60-fifthandskip/README.md) - Fifthandskip
-- [61-notdecimal](../61-notdecimal/README.md) - Notdecimal
+- [60-fifthandskip](../60-fifthandskip/README.md)

@@ -1,74 +1,133 @@
-# Skills for 64-findpairs
+# Skills for findpairs
 
 ## What You'll Learn
 
-**Previous:** [63-slice](../63-slice/skills.md)
+**Previous:** [63-slice](../63-slice/skills.md) | **Next:** [65-revwstr](../65-revwstr/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Parse an array and a target from JSON-like strings, then find all index pairs whose values sum to the target.
 
-**Challenge:** Findpairs
+## Core Concept: Hash Map for Pair Finding + Input Parsing
 
-## New Concepts Explained
+### What Is It?
 
-### 1. Numeric operations and type conversion
+Finding pairs that sum to a target can be done in O(n) time using a map: for each element, check if its "complement" (target - element) was seen earlier. This challenge adds input parsing, making it a complete real-world exercise.
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
+### How It Works
 
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
+**Part 1 — Parsing the input:**
 
-### 2. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+Input format: `"[1, 2, 3, 4, 5]"` and `"6"`.
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
+import (
+    "fmt"
+    "os"
+    "strconv"
+    "strings"
+)
 
-// While-style loop
-for condition { }
+func main() {
+    if len(os.Args) != 3 {
+        fmt.Println("Invalid input.")
+        return
+    }
+    arrStr := os.Args[1]
+    targetStr := os.Args[2]
 
-// Range loop (for collections)
-for index, value := range collection { }
+    // Validate array format: must start with [ and end with ]
+    if len(arrStr) < 2 || arrStr[0] != '[' || arrStr[len(arrStr)-1] != ']' {
+        fmt.Println("Invalid input.")
+        return
+    }
+
+    // Validate target (must be a single integer)
+    target, err := strconv.Atoi(strings.TrimSpace(targetStr))
+    if err != nil {
+        fmt.Println("Invalid target sum.")
+        return
+    }
+
+    // Parse the array contents
+    inner := arrStr[1 : len(arrStr)-1]
+    parts := strings.Split(inner, ",")
+    nums := []int{}
+    for _, p := range parts {
+        p = strings.TrimSpace(p)
+        n, err := strconv.Atoi(p)
+        if err != nil {
+            fmt.Printf("Invalid number: %s\n", p)
+            return
+        }
+        nums = append(nums, n)
+    }
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+**Part 2 — Finding pairs with a hash map:**
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+    type pair struct{ i, j int }
+    pairs := []pair{}
+
+    // For each element, record its index in a map
+    // Then for each new element, check if complement was seen
+    seen := make(map[int][]int)  // value → list of indices
+
+    for j, v := range nums {
+        complement := target - v
+        for _, i := range seen[complement] {
+            pairs = append(pairs, pair{i, j})
+        }
+        seen[v] = append(seen[v], j)
+    }
+
+    if len(pairs) == 0 {
+        fmt.Println("No pairs found.")
+        return
+    }
+    fmt.Printf("Pairs with sum %d: [", target)
+    for i, p := range pairs {
+        if i > 0 {
+            fmt.Print(" ")
+        }
+        fmt.Printf("[%d %d]", p.i, p.j)
+    }
+    fmt.Println("]")
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+**Trace `[1, 2, 3, 4, 5]` with target `6`:**
 
-### 4. Error handling and validation
+| j | v | complement | seen[complement] | pairs |
+|---|---|-----------|-----------------|-------|
+| 0 | 1 | 5 | [] | [] |
+| 1 | 2 | 4 | [] | [] |
+| 2 | 3 | 3 | [] | [] |
+| 3 | 4 | 2 | [1] | [{1,3}] |
+| 4 | 5 | 1 | [0] | [{1,3},{0,4}] |
 
-Go handles errors explicitly. Functions often return `(value, error)`:
+Output: `Pairs with sum 6: [[0 4] [1 3]]`
 
-```go
-result, err := someFunction()
-if err != nil {
-    // handle error
-    return
-}
-// use result
-```
+Wait — the expected output is `[[0 4] [1 3]]`. Let me check: `nums[0]=1, nums[4]=5 → sum=6` → pair `{0,4}`. `nums[1]=2, nums[3]=4 → sum=6` → pair `{1,3}`. The expected output sorts them: `[0 4]` then `[1 3]`. The map approach gives them in the order found, which depends on iteration order. Sort if needed.
 
-Always check errors - Go doesn't have exceptions!
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `strings.Contains(targetStr, " ")` check omitted | `"2 5"` passes as valid | Check that `strconv.Atoi(targetStr)` succeeds with no spaces |
+| Validating array without checking `[` and `]` | `"1, 2, 3, 4"` passes | Check first and last chars |
+| Using `strconv.ParseFloat` | Floats are not valid here | Use `strconv.Atoi` and handle errors |
+
+## Solving This Challenge
+
+### Algorithm
+1. Validate arg count (must be 2).
+2. Validate `arrStr` starts with `[` and ends with `]`.
+3. Parse `targetStr` with `strconv.Atoi`; error → "Invalid target sum."
+4. Split `arrStr[1:len-1]` by `,`, trim spaces, parse each with `strconv.Atoi`; error → "Invalid number: X".
+5. Use a map `seen[value] → []int{indices}` to find pairs in O(n).
+6. Print pairs or "No pairs found."
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [65-revwstr](../65-revwstr/skills.md) - Revwstr
+**Next:** [65-revwstr](../65-revwstr/README.md)

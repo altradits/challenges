@@ -1,76 +1,112 @@
 # Skills for 119-stringcontains
 
-## What You'll Learn
+**Previous:** [118-stringtrim](../118-stringtrim/README.md) | **Next:** [120-stringindex](../120-stringindex/README.md)
 
-**Previous:** [118-stringtrim](../118-stringtrim/skills.md)
+**Challenge:** Implement `Contains(s, substr string) bool` that returns true if `substr` is found anywhere in `s`, without using `strings.Contains`.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: Contains is Just Index != -1
 
-**Challenge:** Stringcontains
+### What Is It?
 
-## New Concepts Explained
+`strings.Contains(s, substr)` is implemented as: `strings.Index(s, substr) >= 0`. Once you have a working `Index` function, `Contains` is a one-liner.
 
-### 1. String iteration and character access
+For this challenge, you implement both — manually finding whether the substring appears anywhere in `s`.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### The Implementation
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+Using the sliding window from [101-findsubstring](../101-findsubstring/skills.md):
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+func Contains(s, substr string) bool {
+    if substr == "" {
+        return true  // empty string is "contained" in everything
     }
+    if len(substr) > len(s) {
+        return false
+    }
+    for i := 0; i <= len(s)-len(substr); i++ {
+        if s[i:i+len(substr)] == substr {
+            return true
+        }
+    }
+    return false
 }
-return -1
 ```
 
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Or by delegating to your own `Index` function:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func Index(s, substr string) int {
+    if substr == "" { return 0 }
+    if len(substr) > len(s) { return -1 }
+    for i := 0; i <= len(s)-len(substr); i++ {
+        if s[i:i+len(substr)] == substr {
+            return i
+        }
+    }
+    return -1
+}
+
+func Contains(s, substr string) bool {
+    return Index(s, substr) >= 0
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+### The Standard Library Functions
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+import "strings"
+
+strings.Contains(s, substr)      // true if substr appears anywhere
+strings.ContainsAny(s, chars)    // true if any char in `chars` appears in s
+strings.ContainsRune(s, r)       // true if specific rune r appears in s
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+```go
+strings.ContainsAny("hello", "aeiou")  // true — 'e' and 'o' are vowels
+strings.ContainsAny("xyz", "aeiou")    // false — no vowels
+strings.ContainsRune("hello", 'e')     // true — 'e' is in "hello"
+```
+
+### ContainsAny vs Contains
+
+- `Contains("hello", "ell")` — checks for the substring `"ell"` as a unit
+- `ContainsAny("hello", "ell")` — checks if ANY of `'e'`, `'l'` appears (returns true if any one matches)
+
+```go
+strings.Contains("xyz", "ell")     // false — "ell" is not in "xyz"
+strings.ContainsAny("xyz", "ell")  // false — none of 'e', 'l', 'l' in "xyz"
+
+strings.Contains("hello", "ell")     // true — "ell" appears in "hello"
+strings.ContainsAny("hello", "xyz")  // false — none of 'x', 'y', 'z' in "hello"
+strings.ContainsAny("hello", "xyo")  // true — 'o' appears in "hello"
+```
+
+### Special Cases
+
+```go
+Contains("hello", "")  // true  — empty substring is always "contained"
+Contains("", "abc")    // false — can't find non-empty substring in empty string
+Contains("", "")       // true  — empty in empty
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Returning false for empty substr | `Contains("x", "")` should be true | Check `substr == ""` → return true |
+| Not checking length bounds | `s[i:i+len(substr)]` panics if substr longer than remaining | Use `i <= len(s)-len(substr)` |
+
+## Algorithm
+
+1. If `substr == ""`, return `true`
+2. If `len(substr) > len(s)`, return `false`
+3. For `i` from `0` to `len(s)-len(substr)`:
+   - If `s[i:i+len(substr)] == substr`, return `true`
+4. Return `false`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [120-stringindex](../120-stringindex/skills.md) - Stringindex
+**Next:** [120-stringindex](../120-stringindex/README.md)

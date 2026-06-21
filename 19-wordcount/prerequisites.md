@@ -1,48 +1,63 @@
 # Prerequisites for 19-wordcount
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand `strings.Fields`, `len()` on slices, and optionally the state-tracking pattern with a boolean flag.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `strings.Fields` splits on whitespace, ignoring empty segments
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+import "strings"
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+strings.Fields("Hello World")       // ["Hello", "World"]
+strings.Fields("one  two   three")  // ["one", "two", "three"]
+strings.Fields("   ")               // []
+strings.Fields("")                  // []
+```
 
-## Skills You'll Learn
+### 2. `len()` on a slice counts elements
 
-After completing this exercise, you'll be able to:
+```go
+words := strings.Fields("Hello World")
+len(words)   // 2
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 3. The combined one-liner
 
-## How This Helps Your Capstone
+```go
+func WordCount(s string) int {
+    return len(strings.Fields(s))
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 4. Boolean flag for tracking state (manual approach)
+A boolean that changes based on what you saw last:
+
+```go
+inWord := false
+for _, r := range s {
+    if r != ' ' && !inWord {
+        count++
+        inWord = true
+    } else if r == ' ' {
+        inWord = false
+    }
+}
+```
+
+## Review If Stuck
+
+- [18-titlecase](../18-titlecase/skills.md) — covers `strings.Fields`, `strings.Join`, and boolean state flags
+- [08-count-character](../08-count-character/skills.md) — covers the counter pattern with `for...range`
+
+## You're Ready When You Can...
+
+- [ ] Call `strings.Fields(s)` and explain what it returns for edge cases like `""` and `"   "`
+- [ ] Apply `len()` to a `[]string` to count its elements
+- [ ] Write the `WordCount` function in one line using `strings.Fields`
+- [ ] Explain the difference between `strings.Split(s, " ")` and `strings.Fields(s)`
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [20-cameltosnakecase](../20-cameltosnakecase/README.md) - Cameltosnakecase
-- [21-countrepeats](../21-countrepeats/README.md) - Countrepeats
+- [20-cameltosnakecase](../20-cameltosnakecase/README.md)

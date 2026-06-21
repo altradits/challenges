@@ -1,79 +1,98 @@
 # Skills for 117-stringreplace
 
-## What You'll Learn
+**Previous:** [116-stringrepeat](../116-stringrepeat/README.md) | **Next:** [118-stringtrim](../118-stringtrim/README.md)
 
-**Previous:** [116-stringrepeat](../116-stringrepeat/skills.md)
+**Challenge:** Implement `Replace(s, old, new string) string` that replaces all occurrences of `old` with `new`, using `strings.Index` to find each occurrence, without using `strings.ReplaceAll`.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: Index-Based Replace with `strings.Index`
 
-**Challenge:** Stringreplace
+### What Is It?
 
-## New Concepts Explained
+This challenge revisits the replace-all pattern from [102-replaceall](../102-replaceall/skills.md), but now you can use `strings.Index` to jump directly to each occurrence rather than scanning character by character.
 
-### 1. String iteration and character access
+`strings.Index(s, substr)` returns the byte index of the first occurrence of `substr` in `s`, or -1 if not found.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String building and concatenation
-
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
+### The Algorithm
 
 ```go
-// Simple concatenation
-result := "Hello" + " " + "World"
-
-// Using strings.Builder for efficiency
-var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
-}
-result := b.String()
-```
-
-### 3. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
-
-```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+func Replace(s, old, new string) string {
+    if old == "" {
+        return s
     }
+    var b strings.Builder
+    remaining := s
+    for {
+        idx := strings.Index(remaining, old)
+        if idx == -1 {
+            b.WriteString(remaining)  // write rest, no more matches
+            break
+        }
+        b.WriteString(remaining[:idx])  // write text before the match
+        b.WriteString(new)              // write replacement
+        remaining = remaining[idx+len(old):]  // advance past the match
+    }
+    return b.String()
 }
-return -1
 ```
 
-### 4. Go function definition and usage
+### How It Works Step by Step
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+For `Replace("foo bar foo", "foo", "baz")`:
+
+| Iteration | remaining | idx | Write before | Write new | New remaining |
+|-----------|-----------|-----|--------------|-----------|---------------|
+| 1 | "foo bar foo" | 0 | "" | "baz" | " bar foo" |
+| 2 | " bar foo" | 5 | " bar " | "baz" | "" |
+| 3 | "" | -1 | "" (write rest) | — | — |
+
+Result: `"baz bar baz"` — correct.
+
+### `strings.Index` vs Manual Scan
+
+| Approach | When to use |
+|----------|-------------|
+| Manual scan (102) | No `strings` package available; learning the fundamentals |
+| `strings.Index` (117) | In production Go code; cleaner and often faster |
+
+Both produce the same result. `strings.Index` is the standard approach in real Go programs.
+
+### Using `strings.Builder` Here
+
+After the loop, `b.String()` returns the result without O(n²) copying. Each `b.WriteString` call appends directly to the buffer.
+
+### The "Remaining Slice" Pattern
+
+Instead of tracking an integer index into the original string, this pattern slices `remaining` down after each match. `remaining = remaining[idx+len(old):]` creates a new string view starting just after the match. This is clean and easy to reason about.
+
+### Standard Library: `strings.Replace` and `strings.ReplaceAll`
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
+strings.Replace(s, old, new, n)    // replace first n occurrences (-1 = all)
+strings.ReplaceAll(s, old, new)    // same as strings.Replace(s, old, new, -1)
 ```
 
-The `main()` function is special - it's where program execution begins.
+After this challenge, you understand exactly what `strings.ReplaceAll` does internally.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not handling `old == ""` | `strings.Index(s, "")` returns 0, loop infinite | Guard with `if old == "" { return s }` |
+| Using `s[idx+len(old):]` but forgetting `remaining` update | Never advances, infinite loop | Use `remaining = remaining[idx+len(old):]` |
+| Forgetting to write the tail | Last segment (after final match) dropped | Write `remaining` when `idx == -1` |
+
+## Algorithm
+
+1. If `old == ""`, return `s`
+2. Create `var b strings.Builder`, set `remaining = s`
+3. Loop:
+   - `idx = strings.Index(remaining, old)`
+   - If `idx == -1`: write `remaining`, break
+   - Write `remaining[:idx]`, write `new`, set `remaining = remaining[idx+len(old):]`
+4. Return `b.String()`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [118-stringtrim](../118-stringtrim/skills.md) - Stringtrim
+**Next:** [118-stringtrim](../118-stringtrim/README.md)

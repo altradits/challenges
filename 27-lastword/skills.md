@@ -1,74 +1,84 @@
-# Skills for 27-lastword
+# Skills for lastword
 
 ## What You'll Learn
 
-**Previous:** [26-hashcode](../26-hashcode/skills.md)
+**Previous:** [../26-hashcode/skills.md](../26-hashcode/skills.md) | **Next:** [../28-longestword/README.md](../28-longestword/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Return the last word in a string, followed by a newline.
 
-**Challenge:** Lastword
+## Core Concept: Accessing the Last Element of a Slice
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### What Is It?
+Once you split a string into words with `strings.Fields`, the last word is always at index `len(words)-1`. This off-by-one pattern is how you access any last element in Go — there is no built-in `last()` function.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+words := []string{"one", "two", "three"}
+fmt.Println(words[len(words)-1]) // "three"
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
+### How It Works
 
 ```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+import "strings"
+
+func LastWord(s string) string {
+    words := strings.Fields(s)
+    if len(words) == 0 {
+        return "\n"
     }
+    return words[len(words)-1] + "\n"
 }
 ```
 
-### 3. Go function definition and usage
+`strings.Fields` handles leading/trailing spaces and multiple consecutive spaces, so `LastWord(" lorem,ipsum ")` correctly returns `"lorem,ipsum\n"`.
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Manual Backward Scan (Without strings.Fields)
+Scan from the end of the string to skip trailing spaces, then find the start of the last word:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func LastWord(s string) string {
+    // Skip trailing spaces
+    end := len(s) - 1
+    for end >= 0 && s[end] == ' ' {
+        end--
+    }
+    if end < 0 {
+        return "\n"
+    }
+    // Find start of last word
+    start := end
+    for start > 0 && s[start-1] != ' ' {
+        start--
+    }
+    return s[start:end+1] + "\n"
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
+### The `len(slice)-1` Last-Element Pattern
+This is the standard Go idiom for the last element:
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+words := strings.Fields(s)
+last := words[len(words)-1]  // correct
+// NOT: words[len(words)]    // panic — one past the end
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `words[len(words)]` | Index out of range panic (off by one) | Use `words[len(words)-1]` |
+| Not checking for empty slice | Panic when string has no words | Guard with `if len(words) == 0` |
+| Forgetting `\n` | Missing required newline | Append `+ "\n"` |
+
+## Solving This Challenge
+
+### Algorithm
+1. Split with `strings.Fields(s)`.
+2. If slice is empty, return `"\n"`.
+3. Return `words[len(words)-1] + "\n"`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [28-longestword](../28-longestword/skills.md) - Longestword
+**Next:** [../28-longestword/README.md](../28-longestword/README.md)

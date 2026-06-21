@@ -1,61 +1,80 @@
-# Skills for 37-expandstr
+# Skills for expandstr
 
 ## What You'll Learn
 
-**Previous:** [36-cleanstr](../36-cleanstr/skills.md)
+**Previous:** [../36-cleanstr/skills.md](../36-cleanstr/skills.md) | **Next:** [../38-findprevprime/README.md](../38-findprevprime/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** A program that takes one argument and prints words separated by exactly three spaces, with no leading or trailing spaces.
 
-**Challenge:** Expandstr
+## Core Concept: strings.Join With a Custom Separator
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### What Is It?
+The difference from cleanstr is the separator: three spaces instead of one. The same `strings.Fields` + `strings.Join` pattern works, but you pass `"   "` (three spaces) to `strings.Join`.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+import (
+    "fmt"
+    "os"
+    "strings"
+)
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+func main() {
+    if len(os.Args) != 2 {
+        return  // display nothing
     }
+    words := strings.Fields(os.Args[1])
+    if len(words) == 0 {
+        return  // display nothing
+    }
+    fmt.Println(strings.Join(words, "   "))
 }
 ```
 
-### 3. Conditional logic and boolean returns
+### Key Difference From cleanstr
+- cleanstr: `strings.Join(words, " ")` — one space
+- expandstr: `strings.Join(words, "   ")` — three spaces
+- cleanstr prints a newline on bad input; expandstr prints nothing
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+```console
+$ go run . "  only  it's harder   " | cat -e
+only   it's   harder$
+```
 
+### When to Print Nothing
+cleanstr requires a newline on invalid input. expandstr requires *nothing*:
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+if len(os.Args) != 2 {
+    return  // no fmt.Println() — truly no output
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Checking for No Words
+If the argument is all spaces (`go run . "   "`), `strings.Fields` returns an empty slice. The challenge says display nothing in this case:
+```go
+words := strings.Fields(os.Args[1])
+if len(words) == 0 {
+    return
+}
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using one space in `strings.Join` | Output has single spaces instead of triple | Count your spaces: `"   "` (three) |
+| Printing a newline on bad input | Challenge says print nothing | Use bare `return`, not `fmt.Println()` |
+| Not trimming words before joining | `strings.Fields` already does this | No extra work needed — `strings.Fields` handles it |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `len(os.Args) != 2`, return (no output).
+2. `words := strings.Fields(os.Args[1])`.
+3. If `len(words) == 0`, return (no output).
+4. Print `strings.Join(words, "   ")`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [38-findprevprime](../38-findprevprime/skills.md) - Findprevprime
+**Next:** [../38-findprevprime/README.md](../38-findprevprime/README.md)

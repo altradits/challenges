@@ -1,48 +1,69 @@
-# Prerequisites for 65-revwstr
+# Prerequisites for revwstr
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `strings.Fields` — Split by Whitespace
+Splits a string into words, automatically handling multiple spaces and leading/trailing whitespace.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+import "strings"
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+words := strings.Fields("  hello   world  ")
+// words = ["hello", "world"]
+fmt.Println(len(words)) // 2
+```
 
-## Skills You'll Learn
+### 2. `strings.Join` — Rejoin a Slice into a String
+Join a `[]string` with a separator.
 
-After completing this exercise, you'll be able to:
+```go
+words := []string{"contempt", "of", "time", "the"}
+result := strings.Join(words, " ")
+fmt.Println(result)  // "contempt of time the"
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 3. Two-Pointer In-Place Slice Reversal
+Swap elements from both ends toward the center.
 
-## How This Helps Your Capstone
+```go
+s := []string{"a", "b", "c", "d"}
+for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+    s[i], s[j] = s[j], s[i]
+}
+// s = ["d", "c", "b", "a"]
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 4. Simultaneous Assignment
+Go allows swapping two variables without a temporary: `a, b = b, a`.
+
+```go
+x, y := 1, 2
+x, y = y, x
+fmt.Println(x, y)  // 2 1
+```
+
+### 5. Handling Empty String Input
+An empty string argument produces an empty `words` slice. Print a bare newline.
+
+```go
+if s == "" {
+    fmt.Println()
+    return
+}
+```
+
+## Review If Stuck
+- [60-fifthandskip](../60-fifthandskip/skills.md) — covers string scanning and space handling
+- [52-concatslice](../52-concatslice/skills.md) — covers slice operations
+
+## You're Ready When You Can...
+- [ ] Use `strings.Fields` to split a string into a word slice
+- [ ] Use `strings.Join` to reassemble a slice into a string
+- [ ] Reverse a `[]string` in-place using a two-pointer swap
+- [ ] Use simultaneous assignment `a, b = b, a` without a temp variable
+- [ ] Handle the empty-string edge case with a bare `fmt.Println()`
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [66-rostring](../66-rostring/README.md) - Rostring
-- [67-wordflip](../67-wordflip/README.md) - Wordflip
+- [66-rostring](../66-rostring/README.md)

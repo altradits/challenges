@@ -1,46 +1,69 @@
-# Prerequisites for StringSplit
+# Prerequisites for 114-stringsplit
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. String Slices: `[]string`
 
-1. **How to use strings.Fields**
-   ```go
-   words := strings.Fields(s)  // Split by whitespace
-   ```
+A slice of strings is Go's standard way to hold a list of words or tokens:
 
-2. **How to copy slices**
-   ```go
-   result := make([]string, len(words))
-   copy(result, words)
-   ```
+```go
+words := []string{"Hello", "World", "Go"}
+fmt.Println(words[0])    // "Hello"
+fmt.Println(len(words))  // 3
+```
 
-3. **How to handle empty strings**
-   ```go
-   if len(words) == 0 {
-       return []string{}
-   }
-   ```
+### 2. How Whitespace Works in Strings
 
-## Skills You'll Learn
+Whitespace characters that separate words:
+- `' '` — space (most common)
+- `'\t'` — tab
+- `'\n'` — newline
+- `'\r'` — carriage return
 
-After completing this exercise, you'll be able to:
+```go
+s := "  Go\tis\nfun  "
+// Has leading spaces, a tab, and a newline inside
+```
 
-1. **Split strings into words**
-2. **Use standard library functions**
-3. **Handle whitespace correctly**
-4. **Create text tokenization tools**
+### 3. What `strings.Split` Does (and Why It's Not Enough Here)
 
-## How This Helps Your Capstone
+`strings.Split("a  b", " ")` splits on the exact string `" "`. Two consecutive spaces create an empty element:
 
-This skill is used in:
-- **Budget Planner** - Split expense description
-- **Savings Calculator** - Parse input
-- **Investment Tracker** - Split fund names
-- **Net Worth Tracker** - Split account descriptions
+```go
+parts := strings.Split("a  b", " ")
+fmt.Println(parts)      // ["a" "" "b"]  ← empty element!
+fmt.Println(len(parts)) // 3
+```
+
+This is NOT what you want for word splitting.
+
+### 4. Appending to a Slice with `append`
+
+Build a result slice dynamically:
+
+```go
+var result []string
+result = append(result, "first")
+result = append(result, "second")
+fmt.Println(result)  // [first second]
+```
+
+### 5. `strings.Builder` from 113-stringbuilder
+
+You may also need `strings.Builder` if you implement word splitting manually. The efficient O(n) approach to building up words character by character.
+
+## Review If Stuck
+
+- [113-stringbuilder](../113-stringbuilder/skills.md) — covers efficient string building
+- [103-split](../103-split/skills.md) — covers the manual splitting algorithm with a start pointer
+
+## You're Ready When You Can...
+
+- [ ] Create and append to a `[]string` slice
+- [ ] Explain why `strings.Split(s, " ")` fails on multiple spaces
+- [ ] Identify whitespace characters: `' '`, `'\t'`, `'\n'`
+- [ ] Describe the state-machine approach: `inWord` flag + `start` index
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [115-stringjoin](../115-stringjoin/README.md) - Stringjoin
-- [116-stringrepeat](../116-stringrepeat/README.md) - Stringrepeat
+- [115-stringjoin](../115-stringjoin/README.md)

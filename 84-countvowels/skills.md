@@ -2,73 +2,102 @@
 
 ## What You'll Learn
 
-**Previous:** [83-checknumber](../83-checknumber/skills.md)
+**Previous:** [83-checknumber](../83-checknumber/skills.md) | **Next:** [85-reversestring](../85-reversestring/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `CountVowels(s string) int` that counts both uppercase and lowercase vowels (a, e, i, o, u, A, E, I, O, U).
 
-**Challenge:** Countvowels
+## Core Concept: Matching Against a Fixed Set Using `switch`
 
-## New Concepts Explained
+### The Vowel Set
 
-### 1. String iteration and character access
+Vowels are five specific letters — uppercase and lowercase variants — that do not form a simple numeric range like `'a'`–`'z'`. You need to check equality against each one.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### Approach A — Long `if` with `||`
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+if c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+   c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U' {
+    count++
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+This works but is verbose. For a small fixed set, a `switch` statement reads more clearly.
 
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+### Approach B — `switch` Statement
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+func CountVowels(s string) int {
+    count := 0
+    for _, c := range s {
+        switch c {
+        case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
+            count++
+        }
+    }
+    return count
 }
 ```
 
-### 3. Go function definition and usage
+In Go, a `switch` on a value checks each `case`. Multiple values can share a `case` line, separated by commas. If none match, execution continues past the switch (no action needed for non-vowels).
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Approach C — Normalise Case First
+
+Convert each character to lowercase, then check against only five values:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func CountVowels(s string) int {
+    count := 0
+    for _, c := range s {
+        // convert uppercase to lowercase using ASCII math
+        if c >= 'A' && c <= 'Z' {
+            c = c + 32
+        }
+        if c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' {
+            count++
+        }
+    }
+    return count
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+All three approaches produce the same result. Choose whichever is clearest to you.
 
-### 4. Conditional logic and boolean returns
+### The `switch` Statement
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+A `switch` compares one value against many cases:
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+switch variable {
+case value1:
+    // runs if variable == value1
+case value2, value3:
+    // runs if variable == value2 OR variable == value3
+default:
+    // runs if nothing else matched
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Unlike C or Java, Go's `switch` does NOT fall through between cases by default.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Only counting lowercase vowels | Misses `A E I O U` | Add uppercase cases or normalise first |
+| Using a range check `c >= 'a' && c <= 'u'` | Includes non-vowels like `b c d` | Check each vowel specifically |
+| Returning on first vowel | Would return `1` instead of count | Do not return inside the loop |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `count := 0`
+2. For each rune `c` in `s`:
+   - If `c` is one of `a e i o u A E I O U`: `count++`
+3. Return `count`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [85-reversestring](../85-reversestring/skills.md) - Reversestring
+**Next:** [85-reversestring](../85-reversestring/skills.md)

@@ -1,75 +1,114 @@
-# Skills for 63-slice
+# Skills for slice
 
 ## What You'll Learn
 
-**Previous:** [62-revconcatalternate](../62-revconcatalternate/skills.md)
+**Previous:** [62-revconcatalternate](../62-revconcatalternate/skills.md) | **Next:** [64-findpairs](../64-findpairs/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement a function `Slice(a []string, nbrs ...int)` that returns a sub-slice of `a` using Python-style indexing: negative indices count from the end, and one or two index arguments are supported.
 
-**Challenge:** Slice
+## Core Concept: Variadic Functions and Negative Index Normalization
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+This challenge teaches two things:
+1. **Variadic parameters** (`nbrs ...int`) — a function that accepts a variable number of extra arguments.
+2. **Negative index normalization** — converting negative indices (like `-1` meaning "last element") into positive ones.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
+
+**Step 1 — The variadic function signature:**
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func Slice(a []string, nbrs ...int) []string {
+```
+
+Inside the function, `nbrs` behaves like a `[]int`. Its length can be 0, 1, or 2.
+
+**Step 2 — Normalize an index (handle negatives):**
+
+A negative index `-n` means "from the end": index `-1` = last element, `-2` = second to last.
+
+```go
+func normalize(idx, length int) int {
+    if idx < 0 {
+        return length + idx  // e.g. -1 with len=5 → 4
+    }
+    return idx
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+**Step 3 — Determine start and end from `nbrs`:**
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+func Slice(a []string, nbrs ...int) []string {
+    length := len(a)
+
+    if len(nbrs) == 0 {
+        return a  // no args: return whole slice
+    }
+
+    start := normalize(nbrs[0], length)
+
+    if len(nbrs) == 1 {
+        if start < 0 || start >= length {
+            return nil
+        }
+        return a[start:]
+    }
+
+    // Two arguments: start and end
+    end := normalize(nbrs[1], length)
+
+    if start < 0 || end <= 0 || start >= end || start >= length {
+        return nil
+    }
+    if end > length {
+        end = length
+    }
+    return a[start:end]
 }
 ```
 
-### 3. Slice manipulation and operations
+**Trace the examples with `a = {"coding","algorithm","ascii","package","golang"}`:**
 
-Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
+| Call | start | end | Result |
+|------|-------|-----|--------|
+| `Slice(a, 1)` | 1 | — | `a[1:]` = `{"algorithm","ascii","package","golang"}` |
+| `Slice(a, 2, 4)` | 2 | 4 | `a[2:4]` = `{"ascii","package"}` |
+| `Slice(a, -3)` | 5+(-3)=2 | — | `a[2:]` = `{"ascii","package","golang"}` |
+| `Slice(a, -2, -1)` | 5+(-2)=3 | 5+(-1)=4 | `a[3:4]` = `{"package"}` |
+| `Slice(a, 2, 0)` | 2 | 0 | start>=end → `nil` |
 
-```go
-// Create a slice
-numbers := []int{1, 2, 3, 4, 5}
-
-// Slice an existing slice
-subset := numbers[1:4]  // [2, 3, 4]
-
-// Append to a slice
-numbers = append(numbers, 6)
-```
-
-Slices have length (current elements) and capacity (max elements without reallocation).
-
-### 4. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Variadic Function Internals
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func example(prefix string, nums ...int) {
+    fmt.Println(len(nums))  // number of extra args
+    for _, n := range nums {
+        fmt.Println(n)
+    }
 }
+example("x", 1, 2, 3)  // nums = [1, 2, 3]
+example("y")            // nums = [] (length 0)
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not normalizing negative indices | `a[-3:]` panics in Go | Convert to `a[len(a)-3:]` |
+| Returning `[]string{}` instead of `nil` | Output shows `[]string{}` vs `[]string(nil)` | Use `return nil` for invalid cases |
+| Not clamping `end` to `length` | Panic on slice-of-slice with end > length | `if end > length { end = length }` |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `len(nbrs) == 0`, return `a`.
+2. Normalize `start = nbrs[0]`; if negative, add `len(a)`.
+3. If only one `nbrs`: validate `start`, return `a[start:]` or `nil`.
+4. If two `nbrs`: normalize `end = nbrs[1]`. Validate `start < end && start >= 0 && end > 0`. Return `a[start:end]` or `nil`.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [64-findpairs](../64-findpairs/skills.md) - Findpairs
+**Next:** [64-findpairs](../64-findpairs/README.md)

@@ -1,53 +1,55 @@
-# Prerequisites for StringCount
+# Prerequisites for 121-stringcount
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Finding a substring position with `strings.Index`
 
-1. **How to find all occurrences**
-   ```go
-   start := 0
-   for {
-       idx := strings.Index(s[start:], substr)
-       if idx == -1 {
-           break
-       }
-       // Found at position start + idx
-       start += idx + 1  // +1 for overlapping
-   }
-   ```
+```go
+import "strings"
+idx := strings.Index("hello world", "world")  // 6
+idx  = strings.Index("hello world", "xyz")    // -1
+```
 
-2. **How to handle empty substring**
-   ```go
-   if substr == "" {
-       return 0  // Can't count empty substring
-   }
-   ```
+Review: [120-stringindex](../120-stringindex/skills.md)
 
-3. **How to use strings.Index**
-   ```go
-   // Returns -1 if not found, index if found
-   ```
+### 2. Incrementing a counter in a loop
 
-## Skills You'll Learn
+```go
+count := 0
+for _, c := range s {
+    if c == target {
+        count++
+    }
+}
+```
 
-After completing this exercise, you'll be able to:
+Review: [92-countchar](../92-countchar/skills.md)
 
-1. **Count substring occurrences**
-2. **Handle overlapping matches**
-3. **Build search tools**
-4. **Create text analysis functions**
+### 3. Slicing a string to advance past a match
 
-## How This Helps Your Capstone
+```go
+s := "hello hello"
+idx := strings.Index(s, "hello")  // 0
+s = s[idx+len("hello"):]          // " hello" — rest after match
+```
 
-This skill is used in:
-- **Budget Planner** - Count category occurrences
-- **Savings Calculator** - Count decimal places
-- **Investment Tracker** - Count ticker patterns
-- **Net Worth Tracker** - Count account types
+### 4. The infinite loop pattern with `break`
+
+```go
+for {
+    // do something
+    if donecondition {
+        break
+    }
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Index` to find a substring
+- [ ] Use slicing to advance past a found position
+- [ ] Write a loop that counts matches until none are left
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [122-stringprefix](../122-stringprefix/README.md) - Stringprefix
-- [123-stringsuffix](../123-stringsuffix/README.md) - Stringsuffix
+- [122-stringprefix](../122-stringprefix/README.md)

@@ -1,48 +1,66 @@
 # Prerequisites for 73-rpncalc
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Stack (slice as LIFO) from 72-brackets
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+You built a stack for bracket matching. The same pattern applies here — but the stack holds `int` values, not runes.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+stack := []int{}
+stack = append(stack, 42)           // push
+top := stack[len(stack)-1]          // peek
+stack = stack[:len(stack)-1]        // pop
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+Review: [72-brackets](../72-brackets/skills.md)
 
-## Skills You'll Learn
+### 2. `strings.Fields` — split on any whitespace
 
-After completing this exercise, you'll be able to:
+```go
+tokens := strings.Fields("1   3  *  2 -")
+// tokens = ["1", "3", "*", "2", "-"]
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+Review: [19-wordcount](../19-wordcount/skills.md)
 
-## How This Helps Your Capstone
+### 3. `strconv.Atoi` — string to int with error
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+n, err := strconv.Atoi("42")    // n=42, err=nil
+n, err := strconv.Atoi("xyz")   // n=0, err != nil
+if err != nil { /* not a number */ }
+```
+
+Review: [22-digitlen](../22-digitlen/skills.md)
+
+### 4. `os.Args` — command-line arguments
+
+```go
+if len(os.Args) != 2 {
+    fmt.Println("Error")
+    return
+}
+expr := os.Args[1]
+```
+
+### 5. `switch` statement
+
+```go
+switch token {
+case "+": result = a + b
+case "-": result = a - b
+default:  fmt.Println("Error")
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Push and pop from a `[]int` slice
+- [ ] Tokenize a string with `strings.Fields`
+- [ ] Convert a string to int and detect conversion failure
+- [ ] Use a switch statement for multiple cases
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [74-brainfuck](../74-brainfuck/README.md) - Brainfuck
-- [75-grouping](../75-grouping/README.md) - Grouping
+- [74-brainfuck](../74-brainfuck/README.md)

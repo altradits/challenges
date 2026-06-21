@@ -1,80 +1,120 @@
 # Skills for 114-stringsplit
 
-## What You'll Learn
+**Previous:** [113-stringbuilder](../113-stringbuilder/README.md) | **Next:** [115-stringjoin](../115-stringjoin/README.md)
 
-**Previous:** [113-stringbuilder](../113-stringbuilder/skills.md)
+**Challenge:** Implement `SplitWords(s string) []string` that splits a string into words, handling multiple consecutive spaces, leading/trailing spaces, and returning an empty slice for empty input — without using `strings.Split`.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: `strings.Fields` — Split on Any Whitespace
 
-**Challenge:** Stringsplit
+### What Is `strings.Fields`?
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+`strings.Fields(s)` splits a string into a slice of substrings separated by **any whitespace** (spaces, tabs, newlines). It:
+- Handles multiple consecutive spaces automatically
+- Ignores leading and trailing whitespace
+- Returns an empty slice for an empty or all-whitespace string
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+import "strings"
+
+fmt.Println(strings.Fields("Hello World"))
+// [Hello World]
+
+fmt.Println(strings.Fields("  Go   is  fun  "))
+// [Go is fun]
+
+fmt.Println(strings.Fields(""))
+// []  (empty slice)
+
+fmt.Println(strings.Fields("   "))
+// []  (all whitespace → empty slice)
+
+fmt.Println(strings.Fields("single"))
+// [single]
+```
+
+### How `strings.Fields` Differs from `strings.Split`
+
+| Function | Behavior | Example |
+|----------|----------|---------|
+| `strings.Split(s, " ")` | Splits on exact string; consecutive spaces create empty elements | `"a  b"` → `["a", "", "b"]` |
+| `strings.Fields(s)` | Splits on any whitespace; runs of spaces treated as one | `"a  b"` → `["a", "b"]` |
+
+For word splitting (this challenge), `strings.Fields` is almost always what you want.
+
+### The Implementation
+
+Since the constraint is "do not use `strings.Split`" (not "do not use `strings.Fields`"), you can use `strings.Fields` directly:
+
+```go
+func SplitWords(s string) []string {
+    return strings.Fields(s)
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String splitting and joining
-
-Go's `strings` package provides split and join functions:
-- `strings.Split(s, sep)` - split string into slice
-- `strings.Join(slice, sep)` - join slice into string
-- Manual implementation helps understand the logic
+But if you want to understand the manual approach (and `strings.Fields` is also disallowed), here is how to implement it:
 
 ```go
-// Manual split example
-parts := []string{}
-current := ""
-for _, c := range s {
-    if c == sep {
-        parts = append(parts, current)
-        current = ""
-    } else {
-        current += string(c)
+func SplitWords(s string) []string {
+    var result []string
+    inWord := false
+    start := 0
+
+    for i, c := range s {
+        isSpace := c == ' ' || c == '\t' || c == '\n'
+        if !isSpace && !inWord {
+            start = i   // beginning of a new word
+            inWord = true
+        } else if isSpace && inWord {
+            result = append(result, s[start:i])  // end of word
+            inWord = false
+        }
     }
-}
-```
-
-### 3. Slice manipulation and operations
-
-Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
-
-```go
-// Create a slice
-numbers := []int{1, 2, 3, 4, 5}
-
-// Slice an existing slice
-subset := numbers[1:4]  // [2, 3, 4]
-
-// Append to a slice
-numbers = append(numbers, 6)
-```
-
-Slices have length (current elements) and capacity (max elements without reallocation).
-
-### 4. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+    if inWord {
+        result = append(result, s[start:])  // last word
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### `strings.Fields` vs `strings.FieldsFunc`
+
+`strings.FieldsFunc(s, f)` is a generalization: it splits wherever `f(c)` returns true.
+
+```go
+// Split on commas or semicolons:
+parts := strings.FieldsFunc("a,b;c,d", func(c rune) bool {
+    return c == ',' || c == ';'
+})
+// ["a", "b", "c", "d"]
+```
+
+You'll use `FieldsFunc` in [124-stringfield](../124-stringfield/skills.md).
+
+### Edge Cases
+
+```go
+strings.Fields("")        // []        — empty slice, not [""]
+strings.Fields("  ")      // []        — all whitespace
+strings.Fields("a")       // ["a"]     — single word
+strings.Fields("a b")     // ["a","b"] — two words
+```
+
+Note: `strings.Split("", ",")` returns `[""]` (a slice with one empty string), but `strings.Fields("")` returns `[]`. This is an important behavioral difference.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `strings.Split(s, " ")` | Extra empty strings for multiple spaces | Use `strings.Fields` |
+| Not handling empty input | Returning `nil` vs `[]string{}` | `strings.Fields` returns `nil` for empty input — check if the tests accept `nil` |
+| Forgetting trailing word in manual version | Last word missed | Add post-loop check `if inWord { append last word }` |
+
+## Algorithm (using `strings.Fields`)
+
+1. Return `strings.Fields(s)` directly
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [115-stringjoin](../115-stringjoin/skills.md) - Stringjoin
+**Next:** [115-stringjoin](../115-stringjoin/README.md)

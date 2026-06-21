@@ -1,187 +1,126 @@
-# Open Source Contribution Guide
+# Bitcoin Open Source Contribution Guide
 
-## Getting Started
+You have completed the Go challenges series. You can write Go. Now the question is: what do you build, and who do you build it with?
 
-### Beginner-Friendly Projects
+This guide maps a concrete path from Go developer to Bitcoin open source contributor — through Go Lightning projects first, then Rust for Bitcoin infrastructure, then TypeScript and Python for applications.
 
-| Project | Description | Good First Issues |
-|---------|-------------|------------------|
-| [firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions) | Learn Git/GitHub workflow | All issues |
-| [up-for-grabs](https://up-for-grabs.net/) | Curated list of projects | Filter by language |
-| [good-first-issue](https://goodfirstissue.dev/) | Find beginner issues | Search "Go", "JavaScript", "Python" |
+## Why Bitcoin Open Source?
 
-### FinTech-Specific Projects
+Bitcoin is the most important open monetary network on earth. Its code is maintained entirely by volunteers and contributors. There is no central company deciding what gets merged. Contributing to Bitcoin open source means:
 
-| Project | Language | Contribution Areas |
-|---------|----------|-------------------|
-| [financedatabase](https://github.com/jealous/financedatabase) | Python | Data, documentation |
-| [openbanking](https://github.com/OpenBankingUK) | Multiple | API, documentation |
-| [plutus](https://github.com/input-output-hk/plutus) | Haskell | Documentation, examples |
-| [fireblocks](https://github.com/fireblocks) | Python, JS | SDKs, examples |
+- You are building tools that protect financial sovereignty for people who have no other option
+- You are working alongside some of the best systems programmers in the world
+- You are building a reputation in a field that values skill above credentials
 
-## Your First Contribution
+For African developers specifically: Bitcoin is not theoretical. It is a financial lifeline for countries with unstable currencies and broken banking systems. Your contribution is not a resume item — it is infrastructure.
 
-### Step 1: Find an Issue
-
-```bash
-# Search for issues
-# Go to GitHub
-# Search: "label:good-first-issue language:go"
-# Or: "label:beginner language:javascript"
-```
-
-### Step 2: Fork and Clone
-
-```bash
-# Fork on GitHub
-# Clone your fork
-git clone https://github.com/YOUR_USERNAME/project.git
-cd project
-
-# Add upstream
-git remote add upstream https://github.com/ORIGINAL_OWNER/project.git
-```
-
-### Step 3: Create Branch
-
-```bash
-git checkout -b fix-readme-typo
-# or
-git checkout -b add-budget-function
-```
-
-### Step 4: Make Changes
-
-```bash
-# Make your changes
-# Test them
-# Commit
-git add .
-git commit -m "Fix typo in README"
-```
-
-### Step 5: Push and PR
-
-```bash
-git push origin fix-readme-typo
-
-# Go to GitHub and create Pull Request
-```
-
-## Building Your Own Open Source
-
-### Project Ideas
-
-1. **Go Budget API** - Simple budget tracking API
-2. **JS Finance Charts** - Chart components for FinTech
-3. **Python Calculators** - Financial calculation library
-4. **React Hooks** - Custom hooks for financial data
-
-### Repository Structure
+## The Full Path
 
 ```
-fintech-budget-api/
-├── README.md          # Clear description
-├── LICENSE            # MIT license
-├── go.mod             # Go module
-├── main.go            # Entry point
-├── handlers/          # API handlers
-├── models/            # Data models
-├── docs/              # Documentation
-└── examples/          # Usage examples
+This repo (Go challenges 01-128)
+    |
+    v
+btcd contributor (Go, Bitcoin full node)
+    |
+    v
+lnd contributor (Go, Lightning Network)
+    |
+    v
+Apply to Qala Fellowship / Btrust Builders
+    |
+    v
+rust-bitcoin (learn Rust, Bitcoin primitives)
+    |
+    v
+BDK contributor (Rust, wallet development)
+    |
+    v
+LDK contributor (Rust, Lightning in Rust)
+    |
+    v
+Bitcoin Core (C++, expert level — optional)
 ```
 
-### README Template
+## Phase 1: Go — Bitcoin Lightning and Layer 2 (Start Here)
 
-```markdown
-# FinTech Budget API
+These projects are written in Go. You already know Go. Start here.
 
-A simple Go API for budget tracking.
+| Project | Repository | What It Is |
+|---------|-----------|-----------|
+| LND | github.com/lightningnetwork/lnd | Full Lightning Network node |
+| btcd | github.com/btcsuite/btcd | Full Bitcoin node in Go |
+| btcwallet | github.com/btcsuite/btcwallet | Bitcoin wallet library |
+| neutrino | github.com/lightninglabs/neutrino | Light client (SPV) for Bitcoin |
+| Loop | github.com/lightninglabs/loop | Lightning submarine swaps |
+| Pool | github.com/lightninglabs/pool | Lightning channel marketplace |
 
-## Installation
+See [go-bitcoin-path.md](./go-bitcoin-path.md) for detailed contribution steps.
 
-```bash
-go get github.com/username/fintech-budget-api
-```
+## Phase 2: Rust — Bitcoin Foundation Layer
 
-## Usage
+Rust is the dominant language for new Bitcoin infrastructure. After contributing to LND or btcd, learn Rust and move here.
 
-```go
-import "github.com/username/fintech-budget-api"
+| Project | Repository | What It Is |
+|---------|-----------|-----------|
+| rust-bitcoin | github.com/rust-bitcoin/rust-bitcoin | Core Bitcoin primitives |
+| Bitcoin Dev Kit (BDK) | github.com/bitcoindevkit/bdk | Wallet development toolkit |
+| Lightning Dev Kit (LDK) | github.com/lightningdevkit/rust-ldk | Lightning Network in Rust |
+| Fedimint | github.com/fedimint/fedimint | Federated e-cash on Bitcoin |
+| Nostr | github.com/rust-nostr/nostr | Decentralized social protocol |
 
-api := NewBudgetAPI()
-api.CreateBudget("food", 100)
-```
+See [rust-path.md](./rust-path.md) for the Rust learning path.
 
-## Contributing
+## Phase 3: TypeScript — Bitcoin Web and Applications
 
-1. Fork the repo
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+| Project | Repository | What It Is |
+|---------|-----------|-----------|
+| bitcoinjs-lib | github.com/bitcoinjs/bitcoinjs-lib | Bitcoin in JavaScript/TypeScript |
+| noble-secp256k1 | github.com/paulmillr/noble-secp256k1 | Pure JS cryptography |
+| LND gRPC web | github.com/lightninglabs/lnc-web | LND access from the browser |
+| Nostr tools | github.com/nostr-protocol/nostr | Nostr protocol tools |
 
-## License
+## Phase 4: Python — Bitcoin Scripting and Research
 
-MIT
-```
+| Project | Repository | What It Is |
+|---------|-----------|-----------|
+| python-bitcoinlib | github.com/petertodd/python-bitcoinlib | Bitcoin protocol in Python |
+| bip_utils | github.com/ebellocchia/bip_utils | BIP utilities and key derivation |
+| btc-rpc-explorer | github.com/janoside/btc-rpc-explorer | Bitcoin node explorer |
 
-## Maintaining Your Projects
+## Phase 5: C++ — Bitcoin Core (Expert Level)
 
-### Issue Templates
+| Project | Repository | What It Is |
+|---------|-----------|-----------|
+| Bitcoin Core | github.com/bitcoin/bitcoin | The reference implementation |
+| Core Lightning | github.com/ElementsProject/lightning | Lightning Network in C |
 
-Create `.github/ISSUE_TEMPLATE/`:
-- `bug_report.md`
-- `feature_request.md`
+Bitcoin Core is the most important and the hardest. It requires deep knowledge of C++, cryptography, networking, and consensus rules. Aim for this after completing Phases 1 and 2.
 
-### Pull Request Template
+## Btrust and African Bitcoin Development
 
-Create `.github/PULL_REQUEST_TEMPLATE.md`:
-```markdown
-## Description
+These programs exist specifically to bring African developers into Bitcoin open source. Apply after completing Phase 1.
 
-## Related Issue
+**Btrust Builders** — bitcoindevs.xyz
+Free mentorship program pairing African developers with experienced Bitcoin contributors. Fully remote.
 
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation
+**Qala Fellowship** — qala.dev
+A 3-month intensive fellowship for African developers. You work on a real Bitcoin or Lightning project with mentorship. Stipend included.
 
-## Checklist
-- [ ] Tests added
-- [ ] Docs updated
-```
+**Chaincode Labs FOSS Program** — bitcoindev.org
+Online seminars covering Bitcoin protocol development. Covers cryptography, peer-to-peer networking, the mempool, and Lightning. Free and open to all.
 
-## Building Reputation
+These programs are not theoretical. They are direct pipelines into the Bitcoin developer community, with real mentors, real code reviews, and real networks.
 
-### Strategies
+## Community and Learning Resources
 
-1. **Start small** - Fix typos, improve docs
-2. **Be consistent** - Regular contributions
-3. **Engage** - Comment on issues, help others
-4. **Share** - Tweet about your contributions
-5. **Document** - Write good READMEs
+See [community.md](./community.md) for the full list of resources, mailing lists, newsletters, and books.
 
-### Metrics to Track
+## Your First Move
 
-- Stars on your repos
-- Forks of your projects
-- Pull requests merged
-- Issues closed
-- Followers on GitHub
+1. Clone btcd: `git clone https://github.com/btcsuite/btcd`
+2. Read the README and CONTRIBUTING.md
+3. Run `go test ./...` to confirm the tests pass
+4. Go to the Issues tab on GitHub and filter by `good-first-issue` or `beginner`
+5. Pick one, comment that you are working on it, and open a draft PR when you start
 
-## Monthly Contribution Plan
-
-| Week | Activity |
-|------|----------|
-| Week 1 | Fix 1 documentation issue |
-| Week 2 | Add 1 small feature |
-| Week 3 | Review 2 PRs |
-| Week 4 | Create 1 new project |
-
-## Next Steps
-
-1. Find your first issue today
-2. Make your first PR this week
-3. Create your first project this month
-4. Build your reputation over time
+The first PR is the hardest. After that, everything gets easier.

@@ -2,53 +2,85 @@
 
 ## What You'll Learn
 
-**Previous:** [88-countrepeats](../88-countrepeats/skills.md)
+**Previous:** [88-countrepeats](../88-countrepeats/skills.md) | **Next:** [90-wordcount](../90-wordcount/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `RetainFirstHalf(s string) string` that returns the first half of the string. For odd-length strings, round down. A single character returns itself; an empty string returns `""`.
 
-**Challenge:** Retainfirsthalf
+## Core Concept: String Slicing and Integer Division
 
-## New Concepts Explained
+### String Slicing
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go lets you extract a portion of a string using **slice notation**:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+s := "Hello World"
+s[0:5]    // "Hello"  — characters at indices 0, 1, 2, 3, 4
+s[:5]     // "Hello"  — same thing; 0 is the default start
+s[6:]     // "World"  — from index 6 to the end
+```
+
+The slice `s[start:end]` includes `start` but excludes `end`. So `s[:n]` gives the first `n` characters.
+
+### Integer Division Rounds Down
+
+When you divide two integers in Go, the fractional part is discarded:
+
+```go
+6 / 2   // 3
+7 / 2   // 3 (not 3.5)
+5 / 2   // 2
+1 / 2   // 0
+```
+
+This is exactly the behaviour you want: the "first half" of an odd-length string should NOT include the middle character.
+
+### Calculating the Half Index
+
+```go
+half := len(s) / 2
+```
+
+| Input | `len(s)` | `len(s)/2` | First half |
+|-------|---------|-----------|------------|
+| `"abcd"` | 4 | 2 | `"ab"` |
+| `"abcde"` | 5 | 2 | `"ab"` |
+| `"Hello World"` | 11 | 5 | `"Hello"` |
+| `"A"` | 1 | 0 | `s[:0]` = `""` — but the challenge says return `"A"` |
+
+### The Full Implementation
+
+```go
+func RetainFirstHalf(s string) string {
+    if len(s) <= 1 {
+        return s   // empty or single char: return as-is
+    }
+    return s[:len(s)/2]
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+The guard `len(s) <= 1` handles both `""` and `"A"`. For `"A"`: `len = 1`, so return `"A"` directly.
 
-### 2. Go function definition and usage
+### Why the Guard Is Needed
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+For a 1-character string, `len(s)/2 = 0`, making `s[:0]` return `""` — but the test expects `"A"`. The `<= 1` guard short-circuits before the slicing.
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+### Common Mistakes
 
-The `main()` function is special - it's where program execution begins.
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `s[:len(s)/2+1]` | Includes the middle character for odd lengths | Use `s[:len(s)/2]` |
+| No guard for length 1 | Returns `""` instead of `"A"` | Check `len(s) <= 1` |
+| Float division: `len(s) / 2.0` | Compile error — `len` returns `int` | Use integer division: `len(s) / 2` |
 
-### 3. Formatted output with fmt package
+## Solving This Challenge
 
-The `fmt` package provides formatted I/O:
+### Algorithm
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
-
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+1. If `len(s) <= 1`, return `s`
+2. Return `s[:len(s)/2]`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [90-wordcount](../90-wordcount/skills.md) - Wordcount
+**Next:** [90-wordcount](../90-wordcount/skills.md)

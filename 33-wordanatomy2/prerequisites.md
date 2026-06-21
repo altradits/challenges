@@ -1,48 +1,73 @@
-# Prerequisites for 33-wordanatomy2
+# Prerequisites for wordanatomy2
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Functions That Take Slice Parameters
+A function can accept a `[]string` slice as a parameter and iterate over it.
+```go
+func checkPrefixes(word string, pref []string) string {
+    for _, p := range pref {
+        // check each prefix
+    }
+    return ""
+}
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. First-Match with break
+Stop searching as soon as you find the first match by using `break`.
+```go
+found := ""
+for _, p := range pref {
+    if len(word) >= len(p) && word[:len(p)] == p {
+        found = p
+        break  // stop here — first match wins
+    }
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. fmt.Sprintf for Formatted Strings
+Build a formatted string using `fmt.Sprintf` and format verbs. `%q` wraps the value in double quotes.
+```go
+result := fmt.Sprintf("prefix: %q, suffix: %q", "un", "able")
+// result == `prefix: "un", suffix: "able"`
+```
 
-## Skills You'll Learn
+### 4. String Slicing for Prefix/Suffix Matching
+```go
+word := "understandable"
+prefix := "un"
+// Check prefix:
+if len(word) >= len(prefix) && word[:len(prefix)] == prefix {
+    fmt.Println("match!")
+}
+// Check suffix:
+suffix := "able"
+if len(word) >= len(suffix) && word[len(word)-len(suffix):] == suffix {
+    fmt.Println("suffix match!")
+}
+```
 
-After completing this exercise, you'll be able to:
+### 5. Empty String as Default Value
+If no match is found, the default value `""` (empty string) should be used in the output.
+```go
+found := ""  // default: no match
+// ... search loop ...
+// if nothing matched, found is still ""
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../32-wordanatomy/skills.md](../32-wordanatomy/skills.md) — covers prefix/suffix detection and string slicing; this challenge adds first-match logic and formatted output
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Accept a `[]string` slice as a function parameter and iterate over it
+- [ ] Use `break` to stop a loop on the first match
+- [ ] Use `fmt.Sprintf` with `%q` to produce quoted strings in output
+- [ ] Return the empty string `""` as a default when no match is found
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [34-cameltosnakecase-35](../34-cameltosnakecase-35/README.md) - Cameltosnakecase 35
-- [35-clean-the-list](../35-clean-the-list/README.md) - Clean The List
+- [Next challenge](../35-clean-the-list/README.md)

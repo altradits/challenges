@@ -1,48 +1,55 @@
 # Prerequisites for 01-only1
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+This is your very first Go program. There are no prerequisites — you start here.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+All you need before attempting this challenge is:
+- Go installed on your machine (`go version` should print a version number)
+- A text editor or IDE
+- A terminal where you can run `go run .`
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+## What You'll Need to Understand
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 1. `package main`
+Every executable Go program declares itself as `package main` on the first line. This is not optional.
 
-## Skills You'll Learn
+```go
+package main
+```
 
-After completing this exercise, you'll be able to:
+### 2. `import "fmt"`
+To print output, you need the `fmt` package. You declare it with `import`.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+import "fmt"
+```
 
-## How This Helps Your Capstone
+### 3. `func main()`
+Go starts execution in the `main` function. Every program has exactly one.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+func main() {
+    // your code goes here
+}
+```
+
+### 4. `fmt.Println()`
+This function prints a value to the screen, followed by a newline.
+
+```go
+fmt.Println("hello")  // prints: hello
+```
+
+## You're Ready When You Can...
+
+- [ ] Create a file `main.go` with `package main` at the top
+- [ ] Add `import "fmt"` before the function
+- [ ] Write a `func main()` block with opening and closing braces
+- [ ] Call `fmt.Println("something")` inside it
+- [ ] Run `go run .` in the terminal and see the output
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [02-onlya](../02-onlya/README.md) - Onlya
-- [03-onlyb](../03-onlyb/README.md) - Onlyb
+- [02-onlya](../02-onlya/README.md)

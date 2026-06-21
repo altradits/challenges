@@ -2,53 +2,95 @@
 
 ## What You'll Learn
 
-**Previous:** [80-toupper](../80-toupper/skills.md)
+**Previous:** [80-toupper](../80-toupper/skills.md) | **Next:** [82-countalpha](../82-countalpha/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `ToLower(s string) string` that converts all uppercase letters to lowercase, leaving all other characters unchanged.
 
-**Challenge:** Tolower
+## Core Concept: The Reverse of Case Conversion
 
-## New Concepts Explained
+### The ToLower Formula
 
-### 1. String iteration and character access
+In [80-toupper](../80-toupper/skills.md) you learned that uppercase and lowercase letters are 32 apart in ASCII. `ToUpper` subtracts 32. `ToLower` is the exact mirror — **add 32**:
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+```
+'A' + 32 = 65 + 32 = 97 = 'a'
+'Z' + 32 = 90 + 32 = 122 = 'z'
+```
+
+### Detecting Uppercase Letters
+
+Only apply the formula to uppercase letters:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+if c >= 'A' && c <= 'Z' {
+    // c is an uppercase letter — convert it
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Full Implementation
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func ToLower(s string) string {
+    result := ""
+    for _, c := range s {
+        if c >= 'A' && c <= 'Z' {
+            result += string(c + 32)   // convert to lowercase
+        } else {
+            result += string(c)        // keep as-is
+        }
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Comparing ToUpper and ToLower Side by Side
 
-### 3. Formatted output with fmt package
+| Operation | Check | Formula | Example |
+|-----------|-------|---------|---------|
+| `ToUpper` | `c >= 'a' && c <= 'z'` | `c - 32` | `'a'` → `'A'` |
+| `ToLower` | `c >= 'A' && c <= 'Z'` | `c + 32` | `'A'` → `'a'` |
 
-The `fmt` package provides formatted I/O:
+The structure of the two functions is identical — only the range check and the direction of the arithmetic change.
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+### Common Mistakes
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `c - 32` | Converts to uppercase, not lowercase | Use `c + 32` |
+| Checking `'a'` to `'z'` range | Checks lowercase, should check uppercase | Use `'A'` to `'Z'` |
+| Converting digits and symbols | Corrupts non-letter characters | Only convert when in `'A'`–`'Z'` range |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `result := ""`
+2. For each rune `c` in `s`:
+   - If `'A' <= c <= 'Z'`: append `string(c + 32)` to result
+   - Else: append `string(c)` to result
+3. Return `result`
+
+### Trace Through an Example
+
+Input: `"Go is FUN!"`
+
+| Char | In 'A'-'Z'? | Output |
+|------|------------|--------|
+| `G` | Yes | `g` |
+| `o` | No | `o` |
+| ` ` | No | ` ` |
+| `i` | No | `i` |
+| `s` | No | `s` |
+| ` ` | No | ` ` |
+| `F` | Yes | `f` |
+| `U` | Yes | `u` |
+| `N` | Yes | `n` |
+| `!` | No | `!` |
+
+Result: `"go is fun!"`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [82-countalpha](../82-countalpha/skills.md) - Countalpha
+**Next:** [82-countalpha](../82-countalpha/skills.md)

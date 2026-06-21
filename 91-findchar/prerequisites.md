@@ -1,50 +1,77 @@
-# Prerequisites for FindChar
+# Prerequisites for 91-findchar
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to use for...range with index**
-   ```go
-   for i, c := range s {
-       // i is the index, c is the character
-   }
-   ```
+### 1. `for...range` with Index and Character
 
-2. **How to return early**
-   ```go
-   for i, c := range s {
-       if c == target {
-           return i  // Return immediately when found
-       }
-   }
-   return -1  // Not found
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md) you used `for _, c := range s` to discard the index. Now you need both:
 
-3. **How to handle not found case**
-   ```go
-   // Return -1 if character not found
-   ```
+```go
+for i, c := range s {
+    fmt.Println(i, string(c))
+}
+// "Hello" prints:
+// 0 H
+// 1 e
+// 2 l
+// 3 l
+// 4 o
+```
 
-## Skills You'll Learn
+`i` is the byte position of each character.
 
-After completing this exercise, you'll be able to:
+### 2. Early Return
 
-1. **Search for characters**
-2. **Return positions**
-3. **Use early return pattern**
-4. **Build search functions**
+From [83-checknumber skills.md](../83-checknumber/skills.md): return inside a loop to stop immediately when a condition is met. Here you return the index rather than `true`:
 
-## How This Helps Your Capstone
+```go
+for i, c := range s {
+    if c == target {
+        return i   // found — stop here
+    }
+}
+return -1   // checked all — not found
+```
 
-This skill is used in:
-- **Budget Planner** - Find separator in input
-- **Savings Calculator** - Find decimal point
-- **Investment Tracker** - Find ticker separator
-- **Net Worth Tracker** - Find account delimiter
+### 3. Functions with Two Parameters
+
+You have written functions with one parameter so far. This challenge has two:
+
+```go
+func FindChar(s string, c rune) int {
+    // s and c are both available here
+}
+```
+
+Call it by passing two arguments:
+
+```go
+FindChar("Hello", 'l')
+```
+
+### 4. Rune Literals
+
+A rune literal uses single quotes: `'l'`, `'H'`, `'a'`. It is a value of type `rune`. Compare it directly to the `c` you receive from `for...range`.
+
+### 5. The `-1` Sentinel
+
+Returning `-1` is the convention for "not found" when the return type is `int`. Valid indices are always `>= 0`, so `-1` is unambiguous.
+
+## Review If Stuck
+
+- [76-stringlength skills.md](../76-stringlength/skills.md) — `for...range` basics
+- [83-checknumber skills.md](../83-checknumber/skills.md) — early return pattern
+
+## You're Ready When You Can...
+
+- [ ] Write a `for...range` loop that uses both the index `i` and the character `c`
+- [ ] Return an integer index from inside a loop (early return)
+- [ ] Explain why `-1` is used instead of `0` for "not found"
+- [ ] Write a function that takes two parameters
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [92-countchar](../92-countchar/README.md) - Countchar
-- [93-findlastchar](../93-findlastchar/README.md) - Findlastchar
+- [91-findchar skills.md](skills.md) — teaches returning an index from a search loop
+- [92-countchar README](../92-countchar/README.md) — next challenge

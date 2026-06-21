@@ -2,69 +2,104 @@
 
 ## What You'll Learn
 
-**Previous:** [84-countvowels](../84-countvowels/skills.md)
+**Previous:** [84-countvowels](../84-countvowels/skills.md) | **Next:** [86-ispalindrome](../86-ispalindrome/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `ReverseString(s string) string` that returns the characters of the string in reverse order.
 
-**Challenge:** Reversestring
+## Core Concept: Converting a String to `[]rune` for In-Place Modification
 
-## New Concepts Explained
+### Why You Cannot Reverse a String Directly
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Go strings are **immutable** — you cannot write to individual positions:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+s := "Hello"
+s[0] = 'J'   // COMPILE ERROR: cannot assign to s[0]
+```
+
+To rearrange characters, you must first convert to a mutable type.
+
+### The `[]rune` Slice
+
+A `[]rune` is a slice of Unicode code points. Unlike a string, you can read AND write individual elements:
+
+```go
+runes := []rune("Hello")   // convert string → []rune
+runes[0] = 'J'             // fine — slices are mutable
+result := string(runes)    // convert back: "Jello"
+```
+
+Always use `[]rune` (not `[]byte`) when working with individual characters, because a single rune can be 1–4 bytes. Using `[]byte` would corrupt multi-byte characters like `é` or `中`.
+
+### The Two-Pointer Swap
+
+To reverse a slice, use two indices — one starting at the left, one at the right — and swap elements until they meet in the middle:
+
+```
+Original:  [H, e, l, l, o]   indices: 0 1 2 3 4
+Step 1: swap 0 and 4 → [o, e, l, l, H]
+Step 2: swap 1 and 3 → [o, l, l, e, H]
+Step 3: indices meet at 2 → stop
+Result:   "olleH"
+```
+
+In code:
+
+```go
+for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+    runes[i], runes[j] = runes[j], runes[i]
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+- `i` starts at the left (0), `j` starts at the right (`len-1`)
+- Each iteration swaps the two outer elements and moves inward
+- Stop when `i >= j` (they have met or crossed)
 
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+### Full Implementation
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+func ReverseString(s string) string {
+    runes := []rune(s)
+    for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+        runes[i], runes[j] = runes[j], runes[i]
+    }
+    return string(runes)
 }
 ```
 
-### 3. Go function definition and usage
+Step by step:
+1. `[]rune(s)` — convert string to a mutable rune slice
+2. The `for` loop with two indices swaps from the outside in
+3. `string(runes)` — convert the reversed slice back to a string
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### How Many Swaps?
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+For a string of length `n`:
+- Even length (e.g., 4): 2 swaps
+- Odd length (e.g., 5): 2 swaps (middle element never needs to move)
 
-The `main()` function is special - it's where program execution begins.
+The loop condition `i < j` handles both cases correctly.
 
-### 4. Formatted output with fmt package
+### Common Mistakes
 
-The `fmt` package provides formatted I/O:
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `[]byte(s)` instead of `[]rune(s)` | Breaks multi-byte UTF-8 characters | Use `[]rune` |
+| Loop condition `i <= j` | Swaps the middle element with itself (harmless but wasteful for odd length) | Use `i < j` |
+| Forgetting `string(runes)` at the end | Returns `[]rune`, not `string` | Add `return string(runes)` |
+| Building result by prepending: `result = string(c) + result` | Works but is O(n²) — slow | Use two-pointer swap |
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+## Solving This Challenge
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Algorithm
+
+1. `runes := []rune(s)`
+2. `i = 0`, `j = len(runes)-1`
+3. While `i < j`: swap `runes[i]` and `runes[j]`, then `i++`, `j--`
+4. Return `string(runes)`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [86-ispalindrome](../86-ispalindrome/skills.md) - Ispalindrome
+**Next:** [86-ispalindrome](../86-ispalindrome/skills.md)

@@ -1,61 +1,80 @@
-# Skills for 36-cleanstr
+# Skills for cleanstr
 
 ## What You'll Learn
 
-**Previous:** [35-clean-the-list](../35-clean-the-list/skills.md)
+**Previous:** [../35-clean-the-list/skills.md](../35-clean-the-list/skills.md) | **Next:** [../37-expandstr/README.md](../37-expandstr/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** A program that takes exactly one argument and prints its words separated by exactly one space, with no leading or trailing spaces.
 
-**Challenge:** Cleanstr
+## Core Concept: Normalizing Whitespace With strings.Fields and strings.Join
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### What Is It?
+`strings.Fields` splits on any amount of whitespace (including tabs) and returns only non-empty words. Joining the result with a single space gives the normalized output in one step.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+import (
+    "fmt"
+    "os"
+    "strings"
+)
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+func main() {
+    if len(os.Args) != 2 {
+        fmt.Println()
+        return
     }
+    words := strings.Fields(os.Args[1])
+    if len(words) == 0 {
+        fmt.Println()
+        return
+    }
+    fmt.Println(strings.Join(words, " "))
 }
 ```
 
-### 3. Conditional logic and boolean returns
+### Why strings.Fields + strings.Join?
+- `strings.Fields("  only    it's  harder   ")` → `["only", "it's", "harder"]`
+- `strings.Join(["only", "it's", "harder"], " ")` → `"only it's harder"`
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+The combination handles all edge cases: multiple spaces, tabs, leading/trailing whitespace.
 
+### strings.Join
+Joins a slice of strings with a separator between each element (not before the first or after the last):
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+words := []string{"one", "two", "three"}
+fmt.Println(strings.Join(words, " "))   // "one two three"
+fmt.Println(strings.Join(words, ", "))  // "one, two, three"
+fmt.Println(strings.Join(words, ""))    // "onetwothree"
+```
+
+### Argument Count Check
+The challenge says: if the number of arguments is not 1, or if there are no words, print a newline.
+```go
+if len(os.Args) != 2 {  // program name + exactly 1 arg = 2
+    fmt.Println()
+    return
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Checking `len(os.Args) != 1` | Off by one — program name counts | Check `!= 2` |
+| Using `strings.Split(s, " ")` | Doesn't collapse multiple spaces | Use `strings.Fields` |
+| Not printing a newline when args are wrong | Challenge requires a newline | Use `fmt.Println()` (not bare `return`) |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `len(os.Args) != 2`, print newline and return.
+2. Get `s := os.Args[1]`.
+3. `words := strings.Fields(s)`.
+4. If `len(words) == 0`, print newline and return.
+5. Print `strings.Join(words, " ")`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [37-expandstr](../37-expandstr/skills.md) - Expandstr
+**Next:** [../37-expandstr/README.md](../37-expandstr/README.md)

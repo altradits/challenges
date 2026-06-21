@@ -1,47 +1,43 @@
-# Prerequisites for StringField
+# Prerequisites for 124-stringfield
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.Fields` — you already used this
 
-1. **How to split strings**
-   ```go
-   parts := strings.Split(s, ",")
-   ```
+```go
+words := strings.Fields("hello world")  // ["hello", "world"]
+```
 
-2. **How to access array elements**
-   ```go
-   if index < len(parts) {
-       return parts[index]
-   }
-   ```
+Review: [90-wordcount](../90-wordcount/skills.md), [103-split](../103-split/skills.md)
 
-3. **How to handle out of bounds**
-   ```go
-   if index >= len(parts) {
-       return ""
-   }
-   ```
+### 2. `strings.Index` — find a separator
 
-## Skills You'll Learn
+```go
+idx := strings.Index("a,b,c", ",")  // 1
+```
 
-After completing this exercise, you'll be able to:
+Review: [120-stringindex](../120-stringindex/skills.md)
 
-1. **Extract fields from delimited strings**
-2. **Handle CSV-like data**
-3. **Build parsers**
-4. **Create data extractors**
+### 3. Building a result slice with `append`
 
-## How This Helps Your Capstone
+```go
+result := []string{}
+result = append(result, "part1")
+result = append(result, "part2")
+```
 
-This skill is used in:
-- **Budget Planner** - Parse CSV budget data
-- **Savings Calculator** - Extract parameters from config
-- **Investment Tracker** - Parse transaction records
-- **Net Worth Tracker** - Parse account data
+### 4. Advancing past a found position
+
+```go
+s = s[idx+len(sep):]  // chop off everything up to and including the separator
+```
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Index` to find where a separator is
+- [ ] Slice a string before and after a position
+- [ ] Loop until no more separators are found
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [125-stringmap](../125-stringmap/README.md) - Stringmap
-- [126-stringfilter](../126-stringfilter/README.md) - Stringfilter
+- [125-stringmap](../125-stringmap/README.md)

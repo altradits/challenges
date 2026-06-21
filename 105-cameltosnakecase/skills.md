@@ -1,58 +1,123 @@
 # Skills for 105-cameltosnakecase
 
-## What You'll Learn
+**Previous:** [104-join](../104-join/README.md) | **Next:** [106-itoa](../106-itoa/README.md)
 
-**Previous:** [104-join](../104-join/skills.md)
+**Challenge:** Convert a valid camelCase string to snake_case (inserting `_` before each uppercase letter after the first). Return the string unchanged if it is not valid camelCase.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: `unicode.IsUpper` and Validation-Before-Transformation
 
-**Challenge:** Cameltosnakecase
+### What Is It?
 
-## New Concepts Explained
+This challenge has two distinct phases: **validate** the input, then **transform** it. If validation fails, return the input unchanged. This pattern — validate first, transform only on valid input — is common in real-world Go code.
 
-### 1. String iteration and character access
+### Validation Rules for camelCase
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+A valid camelCase string must:
+1. Contain **only letters** (no digits, no punctuation)
+2. Have **at least one uppercase letter** (otherwise it's already lowercase, not camelCase)
+3. Have **no consecutive uppercase letters** (`CAMELCase` is invalid)
+4. **Not end** with an uppercase letter
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func isValidCamelCase(s string) bool {
+    if len(s) == 0 {
+        return false
+    }
+    hasUpper := false
+    for i, c := range s {
+        if !unicode.IsLetter(c) {
+            return false  // rule 1: only letters
+        }
+        if unicode.IsUpper(c) {
+            hasUpper = true
+            // rule 3: no consecutive uppercase
+            if i > 0 {
+                prev := []rune(s)[i-1]
+                if unicode.IsUpper(prev) {
+                    return false
+                }
+            }
+        }
+    }
+    // rule 2: must have at least one uppercase
+    if !hasUpper {
+        return false
+    }
+    // rule 4: must not end with uppercase
+    runes := []rune(s)
+    if unicode.IsUpper(runes[len(runes)-1]) {
+        return false
+    }
+    return true
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### The Transformation
 
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+Once the string is confirmed valid, iterate through it. Each time you find an uppercase letter (that is not the very first character), insert `_` before it:
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
-```
-
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func CamelToSnakeCase(s string) string {
+    if !isValidCamelCase(s) {
+        return s
+    }
+    result := ""
+    for i, c := range s {
+        if unicode.IsUpper(c) && i > 0 {
+            result += "_"
+        }
+        result += string(c)
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Tracing Through `"camelToSnakeCase"`
+
+| i | char | IsUpper? | i>0? | Action | result |
+|---|------|---------|------|--------|--------|
+| 0 | c | no | — | append 'c' | "c" |
+| 1 | a | no | — | append 'a' | "ca" |
+| 2 | m | no | — | append 'm' | "cam" |
+| 3 | e | no | — | append 'e' | "came" |
+| 4 | l | no | — | append 'l' | "camel" |
+| 5 | T | yes | yes | append '_','T' | "camel_T" |
+| 6 | o | no | — | append 'o' | "camel_To" |
+| 7 | S | yes | yes | append '_','S' | "camel_To_S" |
+| ... | | | | | "camel_To_Snake_Case" |
+
+### `unicode.IsUpper` vs Manual Check
+
+`unicode.IsUpper(c)` is the clean way. You can also use ASCII arithmetic for letters-only:
+
+```go
+// Manual ASCII check (only works for A-Z)
+if c >= 'A' && c <= 'Z' {
+    // uppercase
+}
+```
+
+`unicode.IsUpper` works for all Unicode letters, including accented capitals.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not validating first | `"CAMELCase"` becomes `"_C_A_M_E_L_Case"` | Check validity before transforming |
+| Adding `_` when `i == 0` | Leading underscore on first letter | Check `i > 0` |
+| Returning lowercase | `"HelloWorld"` → `"hello_world"` (but expected `"Hello_World"`) | Do NOT force lowercase unless required |
+
+## Algorithm
+
+1. Validate: check only letters, has uppercase, no consecutive uppercase, does not end with uppercase
+2. If invalid, return `s` unchanged
+3. Iterate through `s`:
+   - If `unicode.IsUpper(c)` and `i > 0`: append `"_"` to result
+   - Append `string(c)` to result
+4. Return result
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [106-itoa](../106-itoa/skills.md) - Itoa
+**Next:** [106-itoa](../106-itoa/README.md)

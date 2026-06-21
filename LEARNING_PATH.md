@@ -12,15 +12,15 @@ This document outlines the recommended order for tackling all challenges in this
 5. `05-onlyz` - Print a single character
 
 ### 10% Checkpoint - Basic String Operations
-6. `06-checknumber` - Check if string contains only numbers
-7. `07-countalpha` - Count alphabetic characters
+6. `07-functions` - **[Foundation]** Function syntax, parameters, return types, package piscine — study before 06
+7. `06-checknumber` - Check if string contains only numbers
 8. `08-count-character` - Count specific character occurrences
-9. `09-countvowels` - Count vowels in a string
+9. `09-Missing-pieces` - Supplementary mini-series (len/index concepts, last char)
 10. `10-findsubstring` - Find substring index
-11. `11-ispalindrome` - Check if string is palindrome
+11. `11-forloops` - **[Foundation]** All for loop patterns: index, while-style, range, break/continue
 12. `12-printif` - Conditional printing
 13. `13-printifnot` - Inverse conditional printing
-14. `14-rectperimeter` - Calculate rectangle perimeter
+14. `14-stringspackage` - **[Foundation]** The strings package: Contains, Fields, Split, Builder, etc.
 15. `15-removespaces` - Remove spaces from string
 16. `16-retainfirsthalf` - Keep first half of string
 17. `17-reversestring` - Reverse a string
@@ -32,8 +32,8 @@ This document outlines the recommended order for tackling all challenges in this
 21. `21-countrepeats` - Count repeated characters
 22. `22-digitlen` - Count digits in string
 23. `23-firstword` - Extract first word
-24. `24-fishandchips` - String processing challenge
-25. `25-gcd` - Calculate Greatest Common Divisor
+24. `24-recursion` - **[Foundation]** Recursion: base case, call stack, factorial and GCD examples
+25. `25-gcd` - Calculate Greatest Common Divisor (apply recursion)
 26. `26-hashcode` - Generate hash code
 27. `27-lastword` - Extract last word
 28. `28-longestword` - Find longest word
@@ -44,16 +44,16 @@ This document outlines the recommended order for tackling all challenges in this
 33. `33-wordanatomy2` - Advanced word analysis
 
 ### 35% Checkpoint - Advanced String Manipulation
-34. `34-cameltosnakecase-35` - Advanced camelCase conversion
-35. `35-clean-the-list` - Clean and format list items
+34. `34-slicesintro` - **[Foundation]** Go slices: make, append, range, nil vs empty, slice tricks
+35. `35-clean-the-list` - Clean and format list items (apply slices)
 36. `36-cleanstr` - Clean whitespace from strings
 37. `37-expandstr` - Expand spaces between words
 38. `38-findprevprime` - Find previous prime number
 39. `39-fromto` - Generate number range strings
 40. `40-iscapitalized` - Check if words are capitalized
 41. `41-itoa-35` - Integer to string conversion
-42. `42-passwordentropy` - Calculate password entropy
-43. `43-printmemory` - Display memory as hex and ASCII
+42. `42-arrays` - **[Foundation]** Go arrays: fixed-size, value semantics, [N]byte, arrays vs slices
+43. `43-printmemory` - Display memory as hex and ASCII (apply [10]byte arrays)
 44. `44-printrevcomb` - Print reversed digit combinations
 45. `45-thirdtimeisacharm` - Extract every third character
 46. `46-weareunique` - Count unique characters

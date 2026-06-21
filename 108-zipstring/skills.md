@@ -1,42 +1,101 @@
 # Skills for 108-zipstring
 
-## What You'll Learn
+**Previous:** [107-thirdchar](../107-thirdchar/README.md) | **Next:** [109-saveandmiss](../109-saveandmiss/README.md)
 
-**Previous:** [106-itoa](../106-itoa/skills.md)
+**Challenge:** Implement run-length encoding: compress consecutive identical characters as count+character (e.g., `"YouuungFellllas"` → `"1Y1o3u1n1g1F1e4l1a1s"`).
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: Run-Length Encoding with a "Previous Character" Tracker
 
-**Challenge:** Zipstring
+### What Is It?
 
-## New Concepts Explained
+**Run-Length Encoding (RLE)** compresses consecutive identical characters by recording how many times each character repeats before changing. Instead of storing `"aaabbc"`, you store `"3a2b1c"`.
 
-### 1. String iteration and character access
+The technique: track the **current character** and a **count**. When the next character differs from the current one, output `count + currentChar` and start a new count of 1.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### The Algorithm
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func ZipString(s string) string {
+    if len(s) == 0 {
+        return ""
+    }
+
+    result := ""
+    runes := []rune(s)
+    current := runes[0]
+    count := 1
+
+    for i := 1; i < len(runes); i++ {
+        if runes[i] == current {
+            count++  // same character, extend the run
+        } else {
+            // different character: flush the current run
+            result += fmt.Sprintf("%d%c", count, current)
+            current = runes[i]
+            count = 1  // start new run
+        }
+    }
+    // flush the last run (never flushed inside the loop)
+    result += fmt.Sprintf("%d%c", count, current)
+
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### The Critical "Last Group" Problem
+
+The loop only flushes a run when it finds a **different** character. The final run never triggers a different-character transition — so it would be silently lost without the post-loop flush.
+
+```
+"aabb":
+i=1: 'a'=='a' → count=2
+i=2: 'b'!='a' → flush "2a", current='b', count=1
+i=3: 'b'=='b' → count=2
+Loop ends → MUST flush "2b" here!
+```
+
+### Converting Count to String
+
+`fmt.Sprintf("%d%c", count, current)` formats an integer and a rune into a string. Alternatively, using the `Itoa` function you wrote in challenge 106:
+
+```go
+result += Itoa(count) + string(current)
+```
+
+### Tracing Through `"Helloo"`
+
+| i | runes[i] | == current? | count | current | result so far |
+|---|---------|------------|-------|---------|---------------|
+| start | — | — | 1 | 'H' | "" |
+| 1 | 'e' | no ('H') | flush "1H", count=1 | 'e' | "1H" |
+| 2 | 'l' | no ('e') | flush "1e", count=1 | 'l' | "1H1e" |
+| 3 | 'l' | yes | 2 | 'l' | "1H1e" |
+| 4 | 'o' | no ('l') | flush "2l", count=1 | 'o' | "1H1e2l" |
+| 5 | 'o' | yes | 2 | 'o' | "1H1e2l" |
+| end | — | — | flush "2o" | — | "1H1e2l2o" |
+
+Result: `"1H1e2l2o"` — correct.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Forgetting the post-loop flush | Last group silently dropped | Always add `result += Sprintf(count, current)` after the loop |
+| Not resetting `count = 1` on change | Count accumulates across runs | Set `count = 1` when starting a new run |
+| Using `s[i]` instead of runes | Breaks on multi-byte Unicode characters | Convert to `[]rune` first |
+
+## Algorithm
+
+1. Handle empty string → return `""`
+2. Convert `s` to `[]rune`, set `current = runes[0]`, `count = 1`
+3. For `i` from 1 to len-1:
+   - If `runes[i] == current`: `count++`
+   - Else: append `count+current` to result, set `current = runes[i]`, `count = 1`
+4. Append final `count+current` to result
+5. Return result
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [109-saveandmiss](../109-saveandmiss/skills.md) - Saveandmiss
+**Next:** [109-saveandmiss](../109-saveandmiss/README.md)

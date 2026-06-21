@@ -1,54 +1,64 @@
-# Prerequisites for Intersection
+# Prerequisites for 112-inter
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Using a Map as a Membership Set
 
-1. **How to build a set from a string**
-   ```go
-   set := make(map[rune]bool)
-   for _, c := range s2 {
-       set[c] = true
-   }
-   ```
+Build a set from a string, then use it for O(1) lookup:
 
-2. **How to check set membership**
-   ```go
-   if set[c] {
-       // c is in the set
-   }
-   ```
+```go
+s2 := "hello"
+inS2 := make(map[rune]bool)
+for _, c := range s2 {
+    inS2[c] = true
+}
 
-3. **How to track seen characters**
-   ```go
-   seen := make(map[rune]bool)
-   for _, c := range s1 {
-       if set[c] && !seen[c] {
-           // c is in both strings and not yet added
-           seen[c] = true
-       }
-   }
-   ```
+// Now check membership:
+fmt.Println(inS2['h'])  // true
+fmt.Println(inS2['z'])  // false
+```
 
-## Skills You'll Learn
+### 2. Two Maps for Two Questions
 
-After completing this exercise, you'll be able to:
+This challenge requires answering two separate questions per character:
+- "Is this character in s2?" → use `inS2` map
+- "Have I already added this to result?" → use `seen` map
 
-1. **Find common characters**
-2. **Use maps as sets**
-3. **Preserve order while deduplicating**
-4. **Build set operations**
+```go
+inS2 := make(map[rune]bool)   // built from s2
+seen := make(map[rune]bool)   // tracks what we've added
 
-## How This Helps Your Capstone
+for _, c := range s1 {
+    if inS2[c] && !seen[c] {
+        seen[c] = true
+        // add to result
+    }
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Find common categories
-- **Savings Calculator** - Find shared accounts
-- **Investment Tracker** - Find common tickers
-- **Net Worth Tracker** - Find shared assets
+### 3. Order Matters: Iterate s1, Look Up in s2
+
+The result must follow the order of s1. So:
+- Iterate **s1** (to preserve s1's character order)
+- Look up in **s2's set** (to filter)
+
+If you iterated s2 instead, you'd get s2's order — wrong.
+
+### 4. What "Intersection" Means
+
+Set intersection: only elements that are in BOTH sets. If s1=`"cat"` and s2=`"act"`, the intersection is `"cat"` filtered to only chars in s2 = `"cat"` (all chars appear in both). But if s1=`"dog"` and s2=`"cat"`, intersection is `""` (no common characters).
+
+## Review If Stuck
+
+- [111-union](../111-union/skills.md) — covers maps as sets; this challenge adds a second map for deduplication
+
+## You're Ready When You Can...
+
+- [ ] Build a `map[rune]bool` lookup set from one string
+- [ ] Check two conditions: `inS2[c] && !seen[c]`
+- [ ] Explain why you iterate s1 (not s2) to preserve correct order
+- [ ] Explain the difference between union ("OR") and intersection ("AND")
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [113-stringbuilder](../113-stringbuilder/README.md) - Stringbuilder
-- [114-stringsplit](../114-stringsplit/README.md) - Stringsplit
+- [113-stringbuilder](../113-stringbuilder/README.md)

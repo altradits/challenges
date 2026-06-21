@@ -1,48 +1,67 @@
-# Prerequisites for 22-digitlen
+# Prerequisites for digitlen
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Integer Division
+In Go, dividing two integers with `/` drops the decimal part — the result is always an integer.
+```go
+fmt.Println(100 / 10) // 10
+fmt.Println(7 / 2)    // 3
+fmt.Println(1 / 10)   // 0  ← this is what stops the loop
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. While-Style For Loop
+Go uses `for condition { }` as its while loop. It runs until the condition becomes false.
+```go
+n := 100
+for n > 0 {
+    n /= 10  // integer division
+}
+// n is now 0
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Counting Loop Iterations
+Declare a counter before the loop and increment it each iteration.
+```go
+count := 0
+n := 100
+for n > 0 {
+    n /= 10
+    count++
+}
+// count == 3
+```
 
-## Skills You'll Learn
+### 4. Negating an Integer
+To convert a negative number to positive, check the sign and negate it.
+```go
+n := -42
+if n < 0 {
+    n = -n  // now n == 42
+}
+```
 
-After completing this exercise, you'll be able to:
+### 5. Early Return for Invalid Input
+Return a sentinel value immediately when an argument is out of range.
+```go
+if base < 2 || base > 36 {
+    return -1
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../21-countrepeats/skills.md](../21-countrepeats/skills.md) — covers loop counters and using a for loop with a terminating condition
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Write a `for n > 0` loop that divides `n` by `base` each iteration
+- [ ] Count how many iterations the loop runs
+- [ ] Negate a negative integer before entering the loop
+- [ ] Return `-1` when the base is outside the valid range 2–36
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [23-firstword](../23-firstword/README.md) - Firstword
-- [24-fishandchips](../24-fishandchips/README.md) - Fishandchips
+- [Next challenge](../23-firstword/README.md)

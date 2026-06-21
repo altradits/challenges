@@ -1,61 +1,50 @@
-# Prerequisites for LongestWord
+# Prerequisites for 97-longestword
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to split into words**
-   ```go
-   words := []string{}
-   current := ""
-   for i := 0; i < len(s); i++ {
-       if s[i] == ' ' {
-           if current != "" {
-               words = append(words, current)
-               current = ""
-           }
-       } else {
-           current += string(s[i])
-       }
-   }
-   ```
+### 1. `strings.Fields` — splitting on whitespace
 
-2. **How to find maximum**
-   ```go
-   longest := words[0]
-   for _, w := range words {
-       if len(w) > len(longest) {
-           longest = w
-       }
-   }
-   ```
+`strings.Fields` splits a string into words, treating any whitespace as a separator.
 
-3. **How to handle empty input**
-   ```go
-   if len(words) == 0 {
-       return ""
-   }
-   ```
+```go
+import "strings"
 
-## Skills You'll Learn
+words := strings.Fields("  hello   world  ")
+// words = ["hello", "world"]
+```
 
-After completing this exercise, you'll be able to:
+Review: [90-wordcount](../90-wordcount/skills.md)
 
-1. **Extract words from text**
-2. **Find maximum values**
-3. **Handle multiple words**
-4. **Build text analysis tools**
+### 2. `len()` on strings
 
-## How This Helps Your Capstone
+`len(s)` returns the byte count of a string (equals character count for ASCII).
 
-This skill is used in:
-- **Budget Planner** - Find longest category
-- **Savings Calculator** - Find longest description
-- **Investment Tracker** - Find longest ticker
-- **Net Worth Tracker** - Find longest account
+```go
+len("hello") // 5
+len("")       // 0
+```
+
+Review: [76-stringlength](../76-stringlength/skills.md)
+
+### 3. Tracking a running maximum
+
+```go
+best := ""
+for _, item := range items {
+    if len(item) > len(best) {
+        best = item
+    }
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Split a string into words
+- [ ] Compare lengths of two strings with `len()`
+- [ ] Write a loop that keeps track of the best value seen so far
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [98-searchreplace](../98-searchreplace/README.md) - Searchreplace
-- [99-cleanlist](../99-cleanlist/README.md) - Cleanlist
+- [98-searchreplace](../98-searchreplace/README.md) — next challenge

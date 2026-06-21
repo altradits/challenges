@@ -1,55 +1,68 @@
-# Prerequisites for RemoveSpaces
+# Prerequisites for 87-removespaces
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check for specific characters**
-   ```go
-   if s[i] == ' ' {
-       // This is a space
-   }
-   ```
+### 1. Building a Result String by Accumulation
 
-2. **How to build strings selectively**
-   ```go
-   result := ""
-   for i := 0; i < len(s); i++ {
-       if s[i] != ' ' {
-           result += string(s[i])
-       }
-   }
-   ```
+From [80-toupper skills.md](../80-toupper/skills.md): start with an empty string and append characters inside a loop:
 
-3. **How to use strings.Builder**
-   ```go
-   var b strings.Builder
-   for _, r := range s {
-       if r != ' ' {
-           b.WriteRune(r)
-       }
-   }
-   ```
+```go
+result := ""
+for _, c := range s {
+    result += string(c)
+}
+return result
+```
 
-## Skills You'll Learn
+### 2. Conditional Appending
 
-After completing this exercise, you'll be able to:
+From [82-countalpha skills.md](../82-countalpha/skills.md): you already skipped non-matching characters (by not counting them). Here you skip them by not appending them:
 
-1. **Filter characters** from strings
-2. **Build selective output**
-3. **Handle multiple space types** (space, tab, newline)
-4. **Create clean string output**
+```go
+for _, c := range s {
+    if someCondition(c) {
+        result += string(c)   // only append when condition is true
+    }
+}
+```
 
-## How This Helps Your Capstone
+Characters that fail the condition are simply ignored.
 
-This skill is used in:
-- **Budget Planner** - Clean expense input
-- **Savings Calculator** - Remove extra spaces
-- **Investment Tracker** - Clean ticker input
-- **Currency Converter** - Remove currency symbols
+### 3. Comparing a Rune to a Character Literal
+
+Rune literals use single quotes:
+
+```go
+c == ' '    // true when c is a space (rune value 32)
+c != ' '    // true when c is anything except a space
+```
+
+Double-quoted strings (`" "`) are a different type — do not mix them with rune comparisons.
+
+### 4. The `for...range` Loop
+
+From [76-stringlength skills.md](../76-stringlength/skills.md): the standard way to walk over every character:
+
+```go
+for _, c := range s {
+    // c is a rune
+}
+```
+
+## Review If Stuck
+
+- [80-toupper skills.md](../80-toupper/skills.md) — building a result string inside a loop
+- [82-countalpha skills.md](../82-countalpha/skills.md) — conditional logic inside a loop
+
+## You're Ready When You Can...
+
+- [ ] Build a new string by appending characters inside a `for...range` loop
+- [ ] Write an `if` condition that is true for every character except a space
+- [ ] Explain why `' '` (single quotes) and `" "` (double quotes) are different types in Go
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [88-countrepeats](../88-countrepeats/README.md) - Countrepeats
-- [89-retainfirsthalf](../89-retainfirsthalf/README.md) - Retainfirsthalf
+- [87-removespaces skills.md](skills.md) — teaches the filter pattern
+- [88-countrepeats README](../88-countrepeats/README.md) — next challenge

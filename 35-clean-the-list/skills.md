@@ -1,79 +1,100 @@
-# Skills for 35-clean-the-list
+# Skills for clean-the-list
 
 ## What You'll Learn
 
-**Previous:** [33-wordanatomy2](../33-wordanatomy2/skills.md)
+**Previous:** [../34-slicesintro/skills.md](../34-slicesintro/skills.md) | **Next:** [../36-cleanstr/README.md](../36-cleanstr/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Transform each string in a slice: trim spaces, capitalize only the first letter, prepend an index number, ensure "milk" is in the list.
 
-**Challenge:** Clean The List
+## Core Concept: Transforming and Building a Slice
 
-## New Concepts Explained
+### What Is It?
+This challenge combines several string operations applied to every element of a slice, then rebuilds the output slice. You also learn how to check if a specific item is present and conditionally append it.
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+### Processing Each Element
+For each item in the input slice:
+1. `strings.TrimSpace(item)` — removes leading/trailing spaces
+2. `strings.ToLower(item)` — lowercases everything first
+3. Capitalize only the first rune using `unicode.ToUpper`
+4. Prepend the 1-based index with `fmt.Sprintf`
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+import (
+    "fmt"
+    "strings"
+    "unicode"
+)
+
+func CleanList(lst []string) []string {
+    if len(lst) == 0 {
+        return []string{}
     }
-}
-return -1
-```
-
-### 3. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
-
-```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
-```
-
-### 4. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+    result := []string{}
+    hasMilk := false
+    for i, item := range lst {
+        trimmed := strings.TrimSpace(item)
+        lowered := strings.ToLower(trimmed)
+        // Capitalize first letter only
+        if len(lowered) == 0 {
+            result = append(result, fmt.Sprintf("%d/ ", i+1))
+            continue
+        }
+        runes := []rune(lowered)
+        runes[0] = unicode.ToUpper(runes[0])
+        formatted := fmt.Sprintf("%d/ %s", i+1, string(runes))
+        result = append(result, formatted)
+        if strings.ToLower(trimmed) == "milk" {
+            hasMilk = true
+        }
     }
+    if !hasMilk {
+        result = append(result, fmt.Sprintf("%d/ Milk", len(result)+1))
+    }
+    return result
 }
 ```
+
+### strings.TrimSpace
+Removes all leading and trailing whitespace:
+```go
+strings.TrimSpace("  hello  ") // "hello"
+strings.TrimSpace("  hi ")     // "hi"
+```
+
+### Capitalizing Only the First Letter
+Convert to runes, uppercase the first, then convert back:
+```go
+runes := []rune("hello world")
+runes[0] = unicode.ToUpper(runes[0])
+result := string(runes) // "Hello world"
+```
+
+### fmt.Sprintf for Index Formatting
+Build the `"N/ Item"` format:
+```go
+fmt.Sprintf("%d/ %s", 1, "Tomatoes") // "1/ Tomatoes"
+fmt.Sprintf("%d/ %s", 2, "Milk")     // "2/ Milk"
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Capitalizing with `strings.Title` | Capitalizes every word, and it's deprecated | Use `unicode.ToUpper(runes[0])` on the first rune only |
+| Not checking for "milk" case-insensitively | `"Milk"`, `"MILK"`, `"milk"` all count | Compare `strings.ToLower(trimmed) == "milk"` |
+| Off-by-one in index | Output should be 1-based | Use `i+1` in the format string |
+
+## Solving This Challenge
+
+### Algorithm
+1. If input is empty, return empty slice.
+2. For each item: trim spaces, lowercase, capitalize first letter, format with 1-based index.
+3. Track whether any item equals "milk" (case-insensitive).
+4. If not found, append "milk" at the end with the next index.
+5. Return the result slice.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [36-cleanstr](../36-cleanstr/skills.md) - Cleanstr
+**Next:** [../36-cleanstr/README.md](../36-cleanstr/README.md)

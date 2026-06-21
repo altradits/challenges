@@ -2,57 +2,74 @@
 
 ## What You'll Learn
 
-**Previous:** [122-stringprefix](../122-stringprefix/skills.md)
+**Previous:** [122-stringprefix](../122-stringprefix/skills.md) | **Next:** [124-stringfield](../124-stringfield/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement `HasSuffix(s, suffix string) bool` without using `strings.HasSuffix`.
 
-**Challenge:** Stringsuffix
+## Core Concept: `strings.HasSuffix` and `strings.TrimSuffix`
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### The Built-in Functions
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+import "strings"
+
+strings.HasSuffix("hello world", "world")  // true
+strings.HasSuffix("hello world", "hello")  // false
+strings.HasSuffix("hello", "")             // true
+strings.HasSuffix("", "hello")             // false
+
+strings.TrimSuffix("hello.go", ".go")      // "hello"
+strings.TrimSuffix("hello.js", ".go")      // "hello.js" (unchanged)
+```
+
+### How to Implement `HasSuffix` Manually
+
+```go
+func HasSuffix(s, suffix string) bool {
+    if len(suffix) == 0 {
+        return true
+    }
+    if len(s) < len(suffix) {
+        return false
+    }
+    return s[len(s)-len(suffix):] == suffix
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+The key expression is `s[len(s)-len(suffix):]` — this slices the **last** `len(suffix)` bytes.
 
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Prefix vs Suffix — Side-by-Side
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
+// Prefix: check the FRONT
+s[:len(prefix)] == prefix
+
+// Suffix: check the BACK
+s[len(s)-len(suffix):] == suffix
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Common Uses
 
-### 3. Conditional logic and boolean returns
+- File extension check: `strings.HasSuffix(filename, ".go")`
+- Protocol check: `strings.HasSuffix(url, "/api")`
+- Strip extension: `strings.TrimSuffix("main.go", ".go")` → `"main"`
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+### Common Mistakes
 
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `s[len(s)-len(suffix)]` | Gets a byte, not a string | Add `:` → `s[len(s)-len(suffix):]` |
+| Not guarding `len(s) < len(suffix)` | Negative index panics | Always check lengths first |
+| Comparing byte instead of string | Type mismatch | Use slice `s[...]`, not `s[i]` |
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+## Algorithm
+
+1. If `len(suffix) == 0`, return `true`
+2. If `len(s) < len(suffix)`, return `false`
+3. Return `s[len(s)-len(suffix):]` == `suffix`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [124-stringfield](../124-stringfield/skills.md) - Stringfield
+**Next:** [124-stringfield](../124-stringfield/skills.md)

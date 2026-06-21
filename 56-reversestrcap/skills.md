@@ -1,78 +1,99 @@
-# Skills for 56-reversestrcap
+# Skills for reversestrcap
 
 ## What You'll Learn
 
-**Previous:** [55-inter](../55-inter/skills.md)
+**Previous:** [55-inter](../55-inter/skills.md) | **Next:** [57-saveandmiss](../57-saveandmiss/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** For each argument, put the last letter of each word in uppercase and all other letters in lowercase. Print the result followed by a newline.
 
-**Challenge:** Reversestrcap
+## Core Concept: Per-Word Capitalization Rules
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+This challenge requires you to identify word boundaries and apply different case rules depending on whether a letter is the last in its word. A "word" here is defined by spacing — the last letter before a space (or end of string) gets uppercased; all other letters get lowercased.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
+
+**Key insight:** You can only tell if a letter is the "last" of a word by looking at what comes AFTER it. The trick: lowercase every letter as you go, and uppercase the letter just before you find a space.
+
+**Two-pass approach — build a byte slice, then fix the last letters:**
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func transformArg(arg string) string {
+    // Step 1: convert everything to lowercase into a byte slice
+    result := []byte(strings.ToLower(arg))
+
+    // Step 2: uppercase the last letter of each word
+    for i := 0; i < len(result); i++ {
+        ch := result[i]
+        // Is this a letter followed by a non-letter (or end)?
+        isLetter := (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')
+        nextIsNonLetter := i+1 >= len(result) || !(result[i+1] >= 'a' && result[i+1] <= 'z')
+        if isLetter && nextIsNonLetter {
+            // Uppercase it: lowercase letter + 'A' - 'a' = uppercase
+            if ch >= 'a' && ch <= 'z' {
+                result[i] = ch - 32
+            }
+        }
+    }
+    return string(result)
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+**Alternative single-pass — look ahead one position:**
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+func transformArg(arg string) string {
+    runes := []rune(strings.ToLower(arg))
+    for i, r := range runes {
+        isLetter := unicode.IsLetter(r)
+        isLastInWord := i+1 >= len(runes) || !unicode.IsLetter(runes[i+1])
+        if isLetter && isLastInWord {
+            runes[i] = unicode.ToUpper(r)
+        }
+    }
+    return string(runes)
 }
 ```
 
-### 3. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+**Main function — handle multiple arguments:**
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
-```
-
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+func main() {
+    if len(os.Args) < 2 {
+        return
+    }
+    for _, arg := range os.Args[1:] {
+        fmt.Println(transformArg(arg))
+    }
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+**Trace `"First SMALL TesT"`:**
+1. Lowercase: `"first small test"`
+2. Walk: `t` (pos 4) — next char is ` ` (non-letter) → uppercase → `T`
+3. Walk: `l` (pos 10) — next char is ` ` (non-letter) → uppercase → `L`
+4. Walk: `t` (pos 15) — end of string → uppercase → `T`
+5. Output: `firsT smalL tesT`
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Uppercasing chars that aren't letters (e.g. digits, apostrophes) | `"it'S"` instead of `"it'S"` — apostrophe already ignored, but digits should stay as-is | Only uppercase if `unicode.IsLetter(r)` |
+| Not handling digits at end of "word" | Digits like `0123456789` are not letters, so the letter before them should be uppercased | Check `!unicode.IsLetter(next)` — a digit counts as non-letter |
+| Using `strings.ToUpper` on the whole string first | All letters become upper, then you can't tell original caps | Always lowercase first, then apply the rule |
+
+## Solving This Challenge
+
+### Algorithm
+1. If no args, return.
+2. For each argument:
+   a. Convert to lowercase (all letters).
+   b. Walk character by character; if a letter is followed by a non-letter (or end of string), uppercase it.
+   c. Print the result followed by a newline.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [57-saveandmiss](../57-saveandmiss/skills.md) - Saveandmiss
+**Next:** [57-saveandmiss](../57-saveandmiss/README.md)

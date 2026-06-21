@@ -1,48 +1,73 @@
-# Prerequisites for 44-printrevcomb
+# Prerequisites for printrevcomb
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Nested For Loops
+A loop inside a loop. The inner loop completes all its iterations for each single iteration of the outer loop.
+```go
+for a := 9; a >= 7; a-- {
+    for b := a - 1; b >= 6; b-- {
+        fmt.Printf("%d%d\n", a, b)
+    }
+}
+// 98, 97, 96, 87, 86, 76
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Strictly Decreasing Loop Variables
+Start each inner loop one below the outer loop's current value to guarantee all three values are different and in decreasing order.
+```go
+for a := 9; a >= 2; a-- {
+    for b := a - 1; b >= 1; b-- {
+        for c := b - 1; c >= 0; c-- {
+            // a > b > c, all different
+        }
+    }
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. fmt.Printf for Multi-Digit Output
+Print multiple values without spaces using `%d%d%d`:
+```go
+fmt.Printf("%d%d%d", 9, 8, 7) // "987"
+fmt.Printf("%d%d%d", 2, 1, 0) // "210"
+```
 
-## Skills You'll Learn
+### 4. Comma-Separator Pattern With a Boolean Flag
+Use a `first` flag to avoid printing a leading comma before the first element.
+```go
+first := true
+// inside loop:
+if !first {
+    fmt.Print(", ")
+}
+fmt.Print(value)
+first = false
+```
 
-After completing this exercise, you'll be able to:
+### 5. fmt.Print vs fmt.Println
+- `fmt.Print` does NOT add a newline.
+- `fmt.Println` adds a newline.
+- Use `fmt.Print` for values inside the loop; `fmt.Println()` once at the end.
+```go
+fmt.Print("987")
+fmt.Print(", ")
+fmt.Print("986")
+fmt.Println()   // adds the final newline
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../39-fromto/skills.md](../39-fromto/skills.md) — covers building a list with separators between elements
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Write three nested `for` loops with strictly decreasing variables
+- [ ] Use a `first` boolean flag to control separator printing
+- [ ] Print combinations using `fmt.Printf("%d%d%d", a, b, c)`
+- [ ] Print the final newline after all combinations with `fmt.Println()`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [45-thirdtimeisacharm](../45-thirdtimeisacharm/README.md) - Thirdtimeisacharm
-- [46-weareunique](../46-weareunique/README.md) - Weareunique
+- [Next challenge](../45-thirdtimeisacharm/README.md)

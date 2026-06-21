@@ -1,45 +1,73 @@
-# Prerequisites for ReverseStrCap
+# Prerequisites for 110-reversestrcap
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.Fields` — Split on Any Whitespace
 
-1. **How to split into words**
-   ```go
-   words := strings.Fields(s)
-   ```
+`strings.Fields(s)` splits a string on any whitespace (spaces, tabs, newlines) and handles multiple consecutive spaces automatically:
 
-2. **How to convert case**
-   ```go
-   // Lowercase: c + 32
-   // Uppercase: c - 32
-   ```
+```go
+import "strings"
 
-3. **How to work with rune slices**
-   ```go
-   runes := []rune(word)
-   runes[len(runes)-1] = uppercase(runes[len(runes)-1])
-   ```
+words := strings.Fields("  Hello   World  ")
+fmt.Println(words)      // ["Hello" "World"]
+fmt.Println(len(words)) // 2
+```
 
-## Skills You'll Learn
+### 2. `strings.Join` — Rejoin Words
 
-After completing this exercise, you'll be able to:
+`strings.Join(words, sep)` concatenates a slice of strings with `sep` between each:
 
-1. **Transform specific characters**
-2. **Work with word boundaries**
-3. **Apply selective case changes**
-4. **Build text transformation tools**
+```go
+words := []string{"hello", "world"}
+fmt.Println(strings.Join(words, " "))   // "hello world"
+fmt.Println(strings.Join(words, ", "))  // "hello, world"
+```
 
-## How This Helps Your Capstone
+### 3. Converting a String to a Mutable Rune Slice
 
-This skill is used in:
-- **Budget Planner** - Format category names
-- **Savings Calculator** - Format output
-- **Investment Tracker** - Format ticker display
-- **Net Worth Tracker** - Format account names
+Strings are immutable in Go — you cannot modify individual characters. Convert to `[]rune` to get a mutable slice:
+
+```go
+word := "Hello"
+runes := []rune(word)
+runes[0] = 'h'          // modify the first character
+fmt.Println(string(runes))  // "hello"
+```
+
+### 4. `unicode.ToLower` and `unicode.ToUpper`
+
+```go
+import "unicode"
+
+fmt.Println(string(unicode.ToLower('H')))  // "h"
+fmt.Println(string(unicode.ToUpper('a')))  // "A"
+fmt.Println(string(unicode.ToLower('!')))  // "!" — non-letters unchanged
+```
+
+### 5. Accessing the Last Element of a Slice
+
+```go
+runes := []rune("Hello")
+last := len(runes) - 1
+fmt.Println(string(runes[last]))  // "o"
+runes[last] = unicode.ToUpper(runes[last])
+fmt.Println(string(runes))        // "HellO"
+```
+
+## Review If Stuck
+
+- [105-cameltosnakecase](../105-cameltosnakecase/skills.md) — covers `unicode.IsUpper`, `unicode.IsLower` and case detection
+- [104-join](../104-join/skills.md) — covers joining strings
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Fields` to split a string into words on any whitespace
+- [ ] Convert a string to `[]rune` and modify individual characters
+- [ ] Apply `unicode.ToLower` and `unicode.ToUpper` to individual runes
+- [ ] Access the last element of a slice with `slice[len(slice)-1]`
+- [ ] Rejoin words with `strings.Join`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [111-union](../111-union/README.md) - Union
-- [112-inter](../112-inter/README.md) - Inter
+- [111-union](../111-union/README.md)

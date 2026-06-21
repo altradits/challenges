@@ -2,53 +2,100 @@
 
 ## What You'll Learn
 
-**Previous:** [91-findchar](../91-findchar/skills.md)
+**Previous:** [91-findchar](../91-findchar/skills.md) | **Next:** [93-findlastchar](../93-findlastchar/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `CountChar(s string, c rune) int` that returns the number of times character `c` appears in string `s`.
 
-**Challenge:** Countchar
+## Core Concept: The Full-Scan Accumulator for a Specific Target
 
-## New Concepts Explained
+### FindChar vs CountChar
 
-### 1. String iteration and character access
+| Function | Strategy | Returns |
+|----------|----------|---------|
+| `FindChar` | Stop at first match | `int` (index or -1) |
+| `CountChar` | Scan ALL, count every match | `int` (count) |
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+`CountChar` must **not** return early — you need to find every occurrence, not just the first.
+
+### The Implementation
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func CountChar(s string, c rune) int {
+    count := 0
+    for _, ch := range s {
+        if ch == c {
+            count++
+        }
+    }
+    return count
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+This is the accumulator pattern from [76-stringlength](../76-stringlength/skills.md), filtered by a specific character comparison. Notice that the index `i` is not needed — use `_` to discard it.
 
-### 2. Go function definition and usage
+### Two-Parameter Functions with a `rune` Argument
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
-
-The `main()` function is special - it's where program execution begins.
-
-### 3. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
+You saw this signature in [91-findchar](../91-findchar/skills.md):
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+func CountChar(s string, c rune) int
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+Called with:
+
+```go
+CountChar("Hello World", 'l')   // returns 3
+CountChar("   ", ' ')           // returns 3
+```
+
+### Case Sensitivity
+
+The comparison `ch == c` is case-sensitive. `'a'` and `'A'` are different runes:
+
+```go
+CountChar("Hello", 'h')   // 0 — no lowercase 'h'
+CountChar("Hello", 'H')   // 1
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `return count` inside the loop | Returns after counting only the first match | Return only after the loop |
+| `return 1` on first match | Only counts existence, not all occurrences | Use `count++` and return after loop |
+| Forgetting `count := 0` | `count` is undeclared | Declare before the loop |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `count := 0`
+2. For each rune `ch` in `s`:
+   - If `ch == c`: `count++`
+3. Return `count`
+
+### Trace Through an Example
+
+Input: `CountChar("Hello World", 'l')`
+
+| ch | ch=='l'? | count |
+|----|---------|-------|
+| H | No | 0 |
+| e | No | 0 |
+| l | Yes | 1 |
+| l | Yes | 2 |
+| o | No | 2 |
+| ` ` | No | 2 |
+| W | No | 2 |
+| o | No | 2 |
+| r | No | 2 |
+| l | Yes | 3 |
+| d | No | 3 |
+
+Result: `3`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [93-findlastchar](../93-findlastchar/skills.md) - Findlastchar
+**Next:** [93-findlastchar](../93-findlastchar/skills.md)

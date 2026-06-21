@@ -2,69 +2,100 @@
 
 ## What You'll Learn
 
-**Previous:** [81-tolower](../81-tolower/skills.md)
+**Previous:** [81-tolower](../81-tolower/skills.md) | **Next:** [83-checknumber](../83-checknumber/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `CountAlpha(s string) int` that returns the number of alphabetic characters (a–z, A–Z) in the string.
 
-**Challenge:** Countalpha
+## Core Concept: Counting Characters That Match a Condition
 
-## New Concepts Explained
+### What Is an Alphabetic Character?
 
-### 1. String iteration and character access
+An alphabetic character is any letter — uppercase or lowercase:
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+```
+a b c ... z   (ASCII 97–122)
+A B C ... Z   (ASCII 65–90)
+```
+
+Digits, spaces, and punctuation are NOT alphabetic.
+
+### The Counting Pattern
+
+This is the standard accumulator pattern applied to a filter condition:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func CountAlpha(s string) int {
+    count := 0
+    for _, c := range s {
+        if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') {
+            count++
+        }
+    }
+    return count
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Step by step:
+1. Start with `count := 0`
+2. For each rune `c` in `s`:
+   - If `c` is a lowercase letter OR an uppercase letter, increment `count`
+3. Return `count`
 
-### 2. Go function definition and usage
+### The `||` (OR) Operator
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
-
-The `main()` function is special - it's where program execution begins.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+A character is alphabetic if it is in the lowercase range **OR** in the uppercase range. In Go the OR operator is `||`:
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+(c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Break it down:
+- `c >= 'a' && c <= 'z'` — true if `c` is a lowercase letter
+- `c >= 'A' && c <= 'Z'` — true if `c` is an uppercase letter
+- `||` — the whole expression is true if either half is true
 
-### 4. Formatted output with fmt package
+### Difference from Previous Challenges
 
-The `fmt` package provides formatted I/O:
+| Challenge | Action per character | Returns |
+|-----------|---------------------|---------|
+| 80-toupper | Transform character | `string` |
+| 79-isempty | Stop at first match | `bool` |
+| 82-countalpha | Count matching characters | `int` |
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+### Common Mistakes
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Only checking `'a'`–`'z'` | Misses uppercase letters | Add `|| (c >= 'A' && c <= 'Z')` |
+| Counting digits as alpha | Digits are not letters | Only include the letter ranges |
+| Using `&` instead of `&&` | Bitwise AND, not logical AND | Use `&&` for conditions |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `count := 0`
+2. For each rune `c` in `s`:
+   - If `(c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')`: `count++`
+3. Return `count`
+
+### Trace Through an Example
+
+Input: `"H1e2l3"`
+
+| Char | Alpha? | count |
+|------|--------|-------|
+| `H` | Yes | 1 |
+| `1` | No | 1 |
+| `e` | Yes | 2 |
+| `2` | No | 2 |
+| `l` | Yes | 3 |
+| `3` | No | 3 |
+
+Result: `3`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [83-checknumber](../83-checknumber/skills.md) - Checknumber
+**Next:** [83-checknumber](../83-checknumber/skills.md)

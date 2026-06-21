@@ -1,49 +1,53 @@
-# Prerequisites for StringFilter
+# Prerequisites for 126-stringfilter
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Higher-order functions — functions as parameters
 
-1. **How to iterate over strings**
-   ```go
-   for i, char := range s {
-       // Process each character
-   }
-   ```
+You learned this in Map: a function can accept another function as a parameter.
 
-2. **How to use conditional logic**
-   ```go
-   if shouldKeep(char) {
-       // Add to result
-   }
-   ```
+```go
+func doSomething(s string, f func(rune) bool) string {
+    // f is a function we call inside
+}
+```
 
-3. **How to build strings**
-   ```go
-   var result strings.Builder
-   result.WriteRune(char)
-   return result.String()
-   ```
+Review: [125-stringmap](../125-stringmap/skills.md)
 
-## Skills You'll Learn
+### 2. `strings.Builder` for building output
 
-After completing this exercise, you'll be able to:
+```go
+var b strings.Builder
+b.WriteRune('a')
+result := b.String()
+```
 
-1. **Filter characters from strings**
-2. **Build predicate functions**
-3. **Create data cleaners**
-4. **Process strings functionally**
+Review: [113-stringbuilder](../113-stringbuilder/skills.md)
 
-## How This Helps Your Capstone
+### 3. `for...range` on strings
 
-This skill is used in:
-- **Budget Planner** - Remove special characters
-- **Savings Calculator** - Filter digits only
-- **Investment Tracker** - Clean ticker input
-- **Net Worth Tracker** - Remove formatting
+```go
+for _, r := range s {
+    // r is a rune
+}
+```
+
+### 4. Boolean predicate functions
+
+A predicate is a function that returns `true` or `false`:
+
+```go
+unicode.IsDigit('5')   // true
+unicode.IsLetter('5')  // false
+unicode.IsUpper('A')   // true
+```
+
+## You're Ready When You Can...
+
+- [ ] Write a function that takes `func(rune) bool` as a parameter
+- [ ] Use `strings.Builder` to collect only some characters
+- [ ] Apply a boolean condition inside a `for...range` loop
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [127-stringreduce](../127-stringreduce/README.md) - Stringreduce
-- [128-stringformat](../128-stringformat/README.md) - Stringformat
+- [127-stringreduce](../127-stringreduce/README.md)

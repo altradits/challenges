@@ -1,56 +1,53 @@
-# Prerequisites for CleanList
+# Prerequisites for 99-cleanlist
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Slice operations — iterating and appending
 
-1. **How to trim spaces**
-   ```go
-   func trimSpace(s string) string {
-       start := 0
-       end := len(s)
-       for start < end && (s[start] == ' ' || s[start] == '\t') {
-           start++
-       }
-       for end > start && (s[end-1] == ' ' || s[end-1] == '\t') {
-           end--
-       }
-       return s[start:end]
-   }
-   ```
+```go
+items := []string{"a", "b", "c"}
+result := []string{}
+for _, item := range items {
+    result = append(result, item)
+}
+```
 
-2. **How to check for empty strings**
-   ```go
-   if trimmed == "" {
-       // Skip this item
-   }
-   ```
+Review: [50-chunk](../50-chunk/skills.md)
 
-3. **How to build string slices**
-   ```go
-   result := make([]string, 0)
-   result = append(result, trimmed)
-   ```
+### 2. Maps — key/value lookup
 
-## Skills You'll Learn
+```go
+m := make(map[string]bool)
+m["hello"] = true
+if m["hello"] {  // true — key exists
+    fmt.Println("found")
+}
+if !m["world"] { // false — key not present, zero value
+    fmt.Println("not found")
+}
+```
 
-After completing this exercise, you'll be able to:
+Review: [21-countrepeats](../21-countrepeats/skills.md) introduced maps for counting.
 
-1. **Clean string lists**
-2. **Remove empty entries**
-3. **Trim whitespace**
-4. **Build data sanitization tools**
+### 3. The map-as-set pattern
 
-## How This Helps Your Capstone
+Using `map[T]bool` where you only care about membership (yes/no), not counts:
 
-This skill is used in:
-- **Budget Planner** - Clean expense list
-- **Savings Calculator** - Clean input data
-- **Investment Tracker** - Clean ticker list
-- **Net Worth Tracker** - Clean account list
+```go
+seen := make(map[string]bool)
+seen["go"] = true
+// Later:
+if !seen["python"] {  // not in set
+    fmt.Println("new item")
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Iterate over a string slice with `for _, s := range slice`
+- [ ] Create a map and check if a key exists
+- [ ] Append to a slice only when a condition is met
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [100-countwords](../100-countwords/README.md) - Countwords
-- [101-findsubstring](../101-findsubstring/README.md) - Findsubstring
+- [100-countwords](../100-countwords/README.md)

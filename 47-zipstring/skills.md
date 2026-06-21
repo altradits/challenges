@@ -1,70 +1,84 @@
-# Skills for 47-zipstring
+# Skills for zipstring
 
 ## What You'll Learn
 
-**Previous:** [46-weareunique](../46-weareunique/skills.md)
+**Previous:** [../46-weareunique/skills.md](../46-weareunique/skills.md) | **Next:** [../48-addprimesum/README.md](../48-addprimesum/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Replace each character with its consecutive-run count followed by the character itself (run-length encoding).
 
-**Challenge:** Zipstring
+## Core Concept: Run-Length Encoding
 
-## New Concepts Explained
+### What Is Run-Length Encoding?
+Count consecutive runs of the same character and represent each run as `count + character`. For example: `"YouuungFellllas"` → `"1Y1o3u1n1g1F1e4l1a1s"` (the `uuu` run becomes `3u`, the `llll` run becomes `4l`).
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### How It Works
+Use the same "compare to previous" pattern from countrepeats, but track the current run length:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func ZipString(s string) string {
+    if len(s) == 0 {
+        return ""
+    }
+    result := ""
+    count := 1
+    for i := 1; i < len(s); i++ {
+        if s[i] == s[i-1] {
+            count++
+        } else {
+            // flush the previous run
+            result += fmt.Sprintf("%d%c", count, s[i-1])
+            count = 1
+        }
+    }
+    // flush the last run
+    result += fmt.Sprintf("%d%c", count, s[len(s)-1])
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Step-by-Step for `"YouuungFellllas"`
+- Y: count=1
+- o≠Y: flush → "1Y", count=1
+- u≠o: flush → "1Y1o", count=1
+- u=u: count=2
+- u=u: count=3
+- n≠u: flush → "1Y1o3u", count=1
+- g≠n: flush → "1Y1o3u1n", count=1
+- ... and so on
+- Final flush: all remaining chars appended
+- Result: `"1Y1o3u1n1g1F1e4l1a1s"`
 
-### 3. Conditional logic and boolean returns
+### The Flush Pattern
+You process a run when the *next* character is different (or you've reached the end). This means you always flush *one run behind* where you are:
+- When `s[i] != s[i-1]`: emit the count and character for position `i-1`
+- After the loop: emit the final run for the last character
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
+### fmt.Sprintf With %d%c
+`%d` formats an integer; `%c` formats a rune as its character:
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+fmt.Sprintf("%d%c", 3, 'u') // "3u"
+fmt.Sprintf("%d%c", 1, 'Y') // "1Y"
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Common Mistakes
 
-### 4. Formatted output with fmt package
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Forgetting the final flush after the loop | Last run is missing from output | Add `result += fmt.Sprintf(...)` after the loop |
+| Flushing `s[i]` instead of `s[i-1]` | Emits the wrong character | When `s[i] != s[i-1]`, flush `s[i-1]` (the character that just ended) |
+| Not handling empty string | Panic on `s[len(s)-1]` | Guard with `if len(s) == 0 { return "" }` |
 
-The `fmt` package provides formatted I/O:
+## Solving This Challenge
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
-
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Algorithm
+1. Return `""` if string is empty.
+2. Initialize `count = 1`.
+3. Loop from i=1: if `s[i] == s[i-1]`, increment count; else flush (`count + s[i-1]`) and reset count=1.
+4. After loop, flush the final run.
+5. Return result.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [48-addprimesum](../48-addprimesum/skills.md) - Addprimesum
+**Next:** [../48-addprimesum/README.md](../48-addprimesum/README.md)

@@ -2,41 +2,105 @@
 
 ## What You'll Learn
 
-**Previous:** [126-stringfilter](../126-stringfilter/skills.md)
+**Previous:** [126-stringfilter](../126-stringfilter/skills.md) | **Next:** [128-stringformat](../128-stringformat/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement `Reduce(s string, f func(rune, rune) rune) rune` — fold a string to a single value.
 
-**Challenge:** Stringreduce
+## Core Concept: The Fold/Reduce Pattern
 
-## New Concepts Explained
+### What Is Reduce?
 
-### 1. String iteration and character access
+Reduce (also called fold or accumulate) takes a collection and **collapses it to a single value** by applying a combining function repeatedly.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+```
+"abc"  →  f(f('a', 'b'), 'c')  →  single rune
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### How It Works
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func Reduce(s string, f func(rune, rune) rune) rune {
+    if len(s) == 0 {
+        return 0  // empty string: return zero value
+    }
+    runes := []rune(s)
+    result := runes[0]           // start with the first element
+    for _, r := range runes[1:] { // combine with each remaining element
+        result = f(result, r)
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+Walk-through: `Reduce("abc", max)` where max returns the larger rune:
+- `result = 'a'` (97)
+- `result = max('a', 'b')` = `'b'` (98)
+- `result = max('b', 'c')` = `'c'` (99)
+- Return `'c'`
+
+### The Accumulator Pattern
+
+The accumulator holds the running result. You update it in each step:
+
+```go
+accumulator := initialValue
+for each element {
+    accumulator = combine(accumulator, element)
+}
+return accumulator
+```
+
+This is the same pattern as summing numbers — `sum += n` — generalized to any combining function.
+
+### Calling Reduce with Different Functions
+
+```go
+// Find max character
+Reduce("hello", func(a, b rune) rune {
+    if a > b { return a }
+    return b
+})  // 'o' (111, the largest)
+
+// Sum all rune values (numeric ASCII sum)
+Reduce("123", func(a, b rune) rune {
+    return a + b
+})  // '1'(49) + '2'(50) + '3'(51) = 150 = 'ö'
+
+// Find min character
+Reduce("hello", func(a, b rune) rune {
+    if a < b { return a }
+    return b
+})  // 'e' (101, the smallest)
+```
+
+### Map → Filter → Reduce Together
+
+These three patterns form the foundation of functional programming:
+
+```
+Map:    transform each element → same count
+Filter: select some elements  → fewer elements
+Reduce: combine all elements  → single value
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Starting accumulator at `0` | Wrong for max/min operations | Initialize to `runes[0]` |
+| Not handling empty string | Would panic on `runes[0]` | Return `0` if `len(s) == 0` |
+| Starting loop at index 0 | Applies function to first element twice | Start at index 1: `runes[1:]` |
+
+## Algorithm
+
+1. Return `0` if `s` is empty
+2. Convert `s` to `[]rune`
+3. Set `result = runes[0]`
+4. For each `r` in `runes[1:]`: `result = f(result, r)`
+5. Return `result`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [128-stringformat](../128-stringformat/skills.md) - Stringformat
+**Next:** [128-stringformat](../128-stringformat/skills.md)

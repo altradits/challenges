@@ -1,57 +1,79 @@
-# Prerequisites for SaveAndMiss
+# Prerequisites for 109-saveandmiss
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. The Modulo Operator for Cycling
 
-1. **How to use modulo for cycles**
-   ```go
-   for i := 0; i < len(s); i++ {
-       pos := i % (2 * n)  // 2n cycle
-       if pos < n {
-           // Save phase
-       } else {
-           // Miss phase
-       }
-   }
-   ```
+`i % n` gives a value that cycles from 0 to n-1, then repeats:
 
-2. **How to build strings conditionally**
-   ```go
-   result := ""
-   for i, c := range s {
-       if shouldSave(i, n) {
-           result += string(c)
-       }
-   }
-   ```
+```go
+for i := 0; i < 12; i++ {
+    fmt.Printf("i=%d  i%%4=%d\n", i, i%4)
+}
+// i=0  i%4=0
+// i=1  i%4=1
+// i=2  i%4=2
+// i=3  i%4=3
+// i=4  i%4=0  ← resets
+// ...
+```
 
-3. **How to handle edge cases**
-   ```go
-   if n <= 0 {
-       return ""  // Nothing to save
-   }
-   ```
+For save-and-miss with `n=3`: `i % 6` cycles 0,1,2,3,4,5,0,1,2,...  
+Characters where `i%6 < 3` are in the save zone.
 
-## Skills You'll Learn
+### 2. A Manual Cyclic Counter
 
-After completing this exercise, you'll be able to:
+An alternative to modulo: maintain a `pos` counter and reset it manually:
 
-1. **Implement periodic selection**
-2. **Use modulo arithmetic**
-3. **Build pattern-based tools**
-4. **Create selective extraction**
+```go
+pos := 0
+for _, c := range s {
+    // use pos
+    pos++
+    if pos == cycle {
+        pos = 0  // reset at end of cycle
+    }
+}
+```
 
-## How This Helps Your Capstone
+This is equivalent to `i % cycle` but easier to read when the cycle length is complex.
 
-This skill is used in:
-- **Budget Planner** - Sample expenses
-- **Savings Calculator** - Periodic reports
-- **Investment Tracker** - Sample data points
-- **Net Worth Tracker** - Snapshot selection
+### 3. Conditional Character Collection
+
+Add a character to the result only when in the save zone:
+
+```go
+result := ""
+for i, c := range s {
+    if i%6 < 3 {
+        result += string(c)
+    }
+    // else: skip (miss zone)
+}
+```
+
+### 4. Edge Case: n <= 0
+
+When `n` is 0 or negative, the cycle length would be 0 or negative, which causes division by zero or undefined behavior. Return the original string unchanged:
+
+```go
+if n <= 0 {
+    return s
+}
+```
+
+## Review If Stuck
+
+- [107-thirdchar](../107-thirdchar/skills.md) — covers modulo-based periodic selection
+- [108-zipstring](../108-zipstring/skills.md) — covers state tracking with a counter across iterations
+
+## You're Ready When You Can...
+
+- [ ] Use `i % (2*n) < n` to identify characters in the save zone
+- [ ] Maintain a manual position counter and reset it when it reaches the cycle boundary
+- [ ] Handle the edge case where `n <= 0`
+- [ ] Trace through an example on paper: n=2, string="abcdef" → "ab ef"? No → "abef"
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [110-reversestrcap](../110-reversestrcap/README.md) - Reversestrcap
-- [111-union](../111-union/README.md) - Union
+- [110-reversestrcap](../110-reversestrcap/README.md)

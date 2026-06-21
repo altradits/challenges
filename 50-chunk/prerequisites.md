@@ -1,48 +1,65 @@
-# Prerequisites for 50-chunk
+# Prerequisites for chunk
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Sub-Slicing With slice[i:j]
+Extract a portion of a slice from index `i` to `j-1` (j is exclusive).
+```go
+s := []int{0, 1, 2, 3, 4, 5, 6, 7}
+fmt.Println(s[0:3]) // [0 1 2]
+fmt.Println(s[3:6]) // [3 4 5]
+fmt.Println(s[6:8]) // [6 7]
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Advancing a Loop by a Variable Step
+Use `i += size` to step through a slice in chunks:
+```go
+size := 3
+for i := 0; i < len(s); i += size {
+    fmt.Println(i) // 0, 3, 6
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Clamping the End Index
+When computing the end of a chunk, ensure it doesn't exceed the slice length.
+```go
+end := i + size
+if end > len(slice) {
+    end = len(slice)  // clamp to valid range
+}
+chunk := slice[i:end]
+```
 
-## Skills You'll Learn
+### 4. Slice of Slices [][]int
+A slice where each element is itself an `[]int` slice. Append sub-slices to build the result.
+```go
+result := [][]int{}
+result = append(result, []int{0, 1, 2})
+result = append(result, []int{3, 4, 5})
+fmt.Println(result) // [[0 1 2] [3 4 5]]
+```
 
-After completing this exercise, you'll be able to:
+### 5. fmt.Println on a Slice of Slices
+`fmt.Println` knows how to print nested slices in the `[[...] [...]]` format automatically.
+```go
+chunks := [][]int{{0, 1, 2}, {3, 4, 5}, {6, 7}}
+fmt.Println(chunks) // [[0 1 2] [3 4 5] [6 7]]
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../31-splitjoin/skills.md](../31-splitjoin/skills.md) — covers building a `[]string` slice with `append`; the same pattern applies to `[][]int`
+- [../49-canjump/skills.md](../49-canjump/skills.md) — covers index arithmetic and bounds checking on slices
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Create a sub-slice with `s[i:j]` without exceeding the slice length
+- [ ] Write a loop that advances by `size` using `i += size`
+- [ ] Clamp the end index with `if end > len(slice) { end = len(slice) }`
+- [ ] Append sub-slices to a `[][]int` result and print it
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [51-concatalternate](../51-concatalternate/README.md) - Concatalternate
-- [52-concatslice](../52-concatslice/README.md) - Concatslice
+- [Next challenge](../51-concatalternate/README.md)

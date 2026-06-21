@@ -2,53 +2,63 @@
 
 ## What You'll Learn
 
-**Previous:** [96-printifnot](../96-printifnot/skills.md)
+**Previous:** [96-printifnot](../96-printifnot/skills.md) | **Next:** [98-searchreplace](../98-searchreplace/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Return the longest word in a string.
 
-**Challenge:** Longestword
+## Core Concept: Tracking a Running Maximum
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Finding the "maximum" element while iterating means keeping a variable that holds the best answer seen so far and updating it whenever you find something better.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func LongestWord(s string) string {
+    words := strings.Fields(s)  // split on any whitespace
+    longest := ""
+    for _, word := range words {
+        if len(word) > len(longest) {
+            longest = word
+        }
+    }
+    return longest
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Walk-through with `"Go is awesome"`:
+- Start: `longest = ""`
+- `"Go"` (2) > `""` (0) → `longest = "Go"`
+- `"is"` (2) > `"Go"` (2) → false, keep `"Go"`
+- `"awesome"` (7) > `"Go"` (2) → `longest = "awesome"`
+- Return `"awesome"`
 
-### 2. Go function definition and usage
+### Why Initialize to `""`?
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Initializing to empty string means any real word is longer and wins on the first comparison. This cleanly handles the empty-input case too — if there are no words, you return `""`.
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+### Ties
 
-The `main()` function is special - it's where program execution begins.
+When two words have equal length, the **first** one wins because `>` (strictly greater) is used. Change to `>=` if you want the last one to win.
 
-### 3. Formatted output with fmt package
+### Common Mistakes
 
-The `fmt` package provides formatted I/O:
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Comparing strings with `>` | Lexicographic, not length | Use `len(word) > len(longest)` |
+| Initializing `longest` to `words[0]` | Panics on empty input | Initialize to `""` |
+| Using byte indexing instead of Fields | Misses multi-byte chars | Use `strings.Fields` |
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+## Algorithm
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+1. Split `s` into words with `strings.Fields(s)`
+2. Initialize `longest = ""`
+3. For each word: if `len(word) > len(longest)`, update `longest`
+4. Return `longest`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [98-searchreplace](../98-searchreplace/skills.md) - Searchreplace
+**Next:** [98-searchreplace](../98-searchreplace/skills.md)

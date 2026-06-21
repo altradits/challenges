@@ -1,48 +1,59 @@
-# Prerequisites for 37-expandstr
+# Prerequisites for expandstr
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. strings.Fields
+Splits on any whitespace, returning only non-empty words.
+```go
+import "strings"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+words := strings.Fields("   only  it's harder   ")
+// words == []string{"only", "it's", "harder"}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. strings.Join With a Separator
+Joins a slice of strings, placing the separator *between* elements.
+```go
+import "strings"
 
-## Skills You'll Learn
+words := []string{"only", "it's", "harder"}
+result := strings.Join(words, "   ") // three spaces
+// result == "only   it's   harder"
+```
 
-After completing this exercise, you'll be able to:
+### 3. os.Args and Argument Count
+Program name counts in `os.Args`. Exactly one user argument means `len(os.Args) == 2`.
+```go
+import "os"
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+if len(os.Args) != 2 {
+    return  // print nothing
+}
+```
 
-## How This Helps Your Capstone
+### 4. Printing Nothing (vs. Printing a Newline)
+This challenge says display nothing on bad input. `return` exits without any output.
+```go
+if len(os.Args) != 2 {
+    return  // truly no output, not even a newline
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+Compare with cleanstr, which requires `fmt.Println()` (a newline) on bad input.
+
+## Review If Stuck
+
+- [../36-cleanstr/skills.md](../36-cleanstr/skills.md) — covers the `strings.Fields` + `strings.Join` + `os.Args` pattern; this challenge is nearly identical but uses 3 spaces and no output on bad args
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Fields` to split a string into clean words
+- [ ] Use `strings.Join(words, "   ")` with exactly three spaces
+- [ ] Check `len(os.Args) != 2` and `return` with no output
+- [ ] Distinguish "print nothing" (bare `return`) from "print newline" (`fmt.Println()`)
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [38-findprevprime](../38-findprevprime/README.md) - Findprevprime
-- [39-fromto](../39-fromto/README.md) - Fromto
+- [Next challenge](../38-findprevprime/README.md)

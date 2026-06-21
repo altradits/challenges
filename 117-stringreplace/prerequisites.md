@@ -1,55 +1,76 @@
-# Prerequisites for StringReplace
+# Prerequisites for 117-stringreplace
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.Index`
 
-1. **How to find all occurrences**
-   ```go
-   start := 0
-   for {
-       idx := strings.Index(s[start:], old)
-       if idx == -1 {
-           break
-       }
-       // Found at position start + idx
-       start += idx + len(old)
-   }
-   ```
+`strings.Index(s, substr)` returns the byte index of the first occurrence of `substr` in `s`. Returns -1 if not found.
 
-2. **How to build strings incrementally**
-   ```go
-   var b strings.Builder
-   b.WriteString(s[:idx])
-   b.WriteString(new)
-   ```
+```go
+import "strings"
 
-3. **How to handle empty old string**
-   ```go
-   if old == "" {
-       return s  // Nothing to replace
-   }
-   ```
+fmt.Println(strings.Index("hello world", "world"))  // 6
+fmt.Println(strings.Index("hello world", "xyz"))    // -1
+fmt.Println(strings.Index("abcabc", "bc"))          // 1
+fmt.Println(strings.Index("", "abc"))               // -1
+fmt.Println(strings.Index("hello", ""))             // 0
+```
 
-## Skills You'll Learn
+### 2. String Slicing Around a Match
 
-After completing this exercise, you'll be able to:
+Once you have the index where `old` starts, you can extract:
+- The text before the match: `s[:idx]`
+- The text after the match: `s[idx+len(old):]`
 
-1. **Replace all occurrences**
-2. **Build strings efficiently**
-3. **Handle multiple replacements**
-4. **Create text substitution tools**
+```go
+s := "hello world"
+idx := strings.Index(s, "world")  // 6
+before := s[:idx]                  // "hello "
+after  := s[idx+len("world"):]    // ""
+```
 
-## How This Helps Your Capstone
+### 3. `strings.Builder` (from 113-stringbuilder)
 
-This skill is used in:
-- **Budget Planner** - Replace category names
-- **Savings Calculator** - Update values
-- **Investment Tracker** - Update tickers
-- **Net Worth Tracker** - Update account names
+Efficient string building — write each piece with `b.WriteString`, get result with `b.String()`.
+
+### 4. The "Remaining" Pattern
+
+Process a string by repeatedly slicing off the front as you consume it:
+
+```go
+remaining := "foo bar foo"
+for {
+    idx := strings.Index(remaining, "foo")
+    if idx == -1 {
+        break  // no more matches
+    }
+    fmt.Println("match at", idx, "in:", remaining)
+    remaining = remaining[idx+3:]  // advance past "foo"
+}
+```
+
+### 5. Why Empty `old` Must Be Guarded
+
+`strings.Index(s, "")` returns 0 (empty string is found at position 0 of everything). If `old == ""`, the remaining never advances past position 0, causing an infinite loop. Always check:
+
+```go
+if old == "" {
+    return s
+}
+```
+
+## Review If Stuck
+
+- [102-replaceall](../102-replaceall/skills.md) — covers the same algorithm using manual character scanning
+- [113-stringbuilder](../113-stringbuilder/skills.md) — covers `strings.Builder`
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Index(s, substr)` and understand that -1 means not found
+- [ ] Extract text before/after a match with `s[:idx]` and `s[idx+len(old):]`
+- [ ] Use `strings.Builder` to accumulate the result
+- [ ] Write a loop that terminates when `strings.Index` returns -1
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [118-stringtrim](../118-stringtrim/README.md) - Stringtrim
-- [119-stringcontains](../119-stringcontains/README.md) - Stringcontains
+- [118-stringtrim](../118-stringtrim/README.md)

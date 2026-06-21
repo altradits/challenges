@@ -1,48 +1,49 @@
 # Prerequisites for 05-onlyz
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+This challenge requires the same skills as 01 through 04. You should be able to write the program skeleton from memory.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. The complete Go program skeleton
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+package main
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+import "fmt"
 
-## Skills You'll Learn
+func main() {
+    fmt.Println("z")
+}
+```
 
-After completing this exercise, you'll be able to:
+All four of these elements are required:
+- `package main` — marks this as an executable
+- `import "fmt"` — loads the print functions
+- `func main()` — entry point, called automatically
+- `fmt.Println(...)` — prints a value followed by a newline
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 2. String literals and case sensitivity
 
-## How This Helps Your Capstone
+```go
+fmt.Println("z")   // correct: lowercase z
+fmt.Println("Z")   // wrong: uppercase Z
+fmt.Println('z')   // wrong: prints 122 (the rune value of z)
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## Review If Stuck
+
+- [01-only1](../01-only1/skills.md) — covers the full skeleton for the first time
+- [02-onlya](../02-onlya/skills.md) — string literals (double vs single quotes)
+- [03-onlyb](../03-onlyb/skills.md) — case sensitivity
+- [04-onlyf](../04-onlyf/skills.md) — `fmt.Println` vs `fmt.Print` vs `fmt.Printf`
+
+## You're Ready When You Can...
+
+- [ ] Write the full Go program structure from memory, without copying
+- [ ] Correctly predict what `fmt.Println("z")` will output
+- [ ] Explain the difference between `"z"` and `'z'` in Go
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [06-checknumber](../06-checknumber/README.md) - Checknumber
-- [07-countalpha](../07-countalpha/README.md) - Countalpha
+- [06-checknumber](../06-checknumber/README.md) — your first challenge with real logic

@@ -1,45 +1,67 @@
-# Prerequisites for RetainFirstHalf
+# Prerequisites for 89-retainfirsthalf
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check string length**
-   ```go
-   if len(s) <= 1 {
-       return s  // Too short to split
-   }
-   ```
+### 1. `len(s)` Returns the Byte Count
 
-2. **How to use integer division**
-   ```go
-   half := len(s) / 2  // Rounds down for odd lengths
-   ```
+From [78-lastchar skills.md](../78-lastchar/skills.md): `len(s)` gives you an integer — the number of bytes in the string. For ASCII strings this equals the character count.
 
-3. **How to slice strings**
-   ```go
-   s[:half]  // First half of string
-   ```
+```go
+len("Hello")   // 5
+len("")        // 0
+```
 
-## Skills You'll Learn
+### 2. Integer Division Truncates
 
-After completing this exercise, you'll be able to:
+In Go, dividing two integers produces an integer result — the decimal part is dropped:
 
-1. **Split strings in half**
-2. **Handle odd-length strings**
-3. **Use integer division**
-4. **Build string partitioning tools**
+```go
+5 / 2   // 2  (not 2.5)
+4 / 2   // 2
+7 / 3   // 2
+```
 
-## How This Helps Your Capstone
+This is different from languages that auto-convert to float. Go never secretly converts `int` to `float`.
 
-This skill is used in:
-- **Budget Planner** - Split long descriptions
-- **Savings Calculator** - Truncate output
-- **Investment Tracker** - Show partial tickers
-- **Net Worth Tracker** - Display account previews
+### 3. String Slicing Syntax
+
+You can extract a substring with `s[start:end]`:
+
+```go
+s := "Hello"
+s[0:3]   // "Hel"  — indices 0, 1, 2
+s[:3]    // "Hel"  — same: start defaults to 0
+s[2:]    // "llo"  — end defaults to len(s)
+```
+
+`s[:n]` gives you the first `n` characters. If `n == 0`, you get `""`.
+
+### 4. Conditional Guard Before the Main Logic
+
+From [77-firstchar skills.md](../77-firstchar/skills.md) and [78-lastchar skills.md](../78-lastchar/skills.md): check edge cases first and return early:
+
+```go
+if len(s) <= 1 {
+    return s
+}
+// main logic follows
+```
+
+## Review If Stuck
+
+- [78-lastchar skills.md](../78-lastchar/skills.md) — `len(s)` and index arithmetic
+- [77-firstchar skills.md](../77-firstchar/skills.md) — empty-string guard
+
+## You're Ready When You Can...
+
+- [ ] Call `len(s)` and use the result in arithmetic
+- [ ] Explain what `7 / 2` equals in Go (integer division)
+- [ ] Use `s[:n]` to extract the first `n` characters from a string
+- [ ] Write an early-return guard for edge cases
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [90-wordcount](../90-wordcount/README.md) - Wordcount
-- [91-findchar](../91-findchar/README.md) - Findchar
+- [89-retainfirsthalf skills.md](skills.md) — teaches string slicing and integer division
+- [90-wordcount README](../90-wordcount/README.md) — next challenge

@@ -1,48 +1,70 @@
-# Prerequisites for 32-wordanatomy
+# Prerequisites for wordanatomy
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. String Slicing for Prefix/Suffix Detection
+`s[:n]` gives the first `n` bytes; `s[len(s)-n:]` gives the last `n` bytes.
+```go
+word := "unhappy"
+fmt.Println(word[:2])           // "un"  — first 2 chars
+fmt.Println(word[len(word)-2:]) // "py"  — last 2 chars
+fmt.Println(word[2:])           // "happy" — without prefix
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Comparing Slices with ==
+String slices compare equal if content matches:
+```go
+word := "unhappy"
+if word[:2] == "un" {
+    fmt.Println("has prefix un")
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Multiple Return Values
+A Go function can return more than one value. Declare return types in parentheses.
+```go
+func analyze(s string) (string, string) {
+    return "prefix", "suffix"
+}
+p, s := analyze("hello")
+```
 
-## Skills You'll Learn
+### 4. Iterating Over a Slice of Strings
+Loop through a list of candidates and check each one.
+```go
+prefixes := []string{"un", "re", "pre"}
+for _, p := range prefixes {
+    if len(word) >= len(p) && word[:len(p)] == p {
+        fmt.Println("found prefix:", p)
+    }
+}
+```
 
-After completing this exercise, you'll be able to:
+### 5. Tracking the Longest Match
+Keep a variable holding the best candidate found so far, update it when a longer match is found.
+```go
+found := ""
+for _, p := range prefixes {
+    if matches(word, p) && len(p) > len(found) {
+        found = p
+    }
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../29-replaceall/skills.md](../29-replaceall/skills.md) — covers string slicing and bounds checking
+- [../28-longestword/skills.md](../28-longestword/skills.md) — covers the running-maximum pattern for tracking the longest match
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Slice a string with `word[:n]` and `word[len(word)-n:]`
+- [ ] Compare a string slice to a literal using `==`
+- [ ] Write a function that returns multiple values
+- [ ] Iterate over a `[]string` of candidates and track the longest match
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [33-wordanatomy2](../33-wordanatomy2/README.md) - Wordanatomy2
-- [34-cameltosnakecase-35](../34-cameltosnakecase-35/README.md) - Cameltosnakecase 35
+- [Next challenge](../33-wordanatomy2/README.md)

@@ -1,48 +1,76 @@
-# Prerequisites for 60-fifthandskip
+# Prerequisites for fifthandskip
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Skipping Characters with `continue`
+Use `continue` in a `for` loop to skip the rest of the loop body for the current iteration.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+for _, c := range str {
+    if c == ' ' {
+        continue  // skip spaces
+    }
+    // only non-space characters reach here
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. The Modulo Operator `%` for Cyclical Position
+`count % 6` tells you where you are within a repeating pattern of 6 positions (0, 1, 2, 3, 4, 5, 0, 1, ...).
 
-## Skills You'll Learn
+```go
+count := 0
+for count < 12 {
+    fmt.Println(count % 6)  // 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5
+    count++
+}
+```
 
-After completing this exercise, you'll be able to:
+### 3. Conditional String Building
+Append to the result based on conditions. Add a separator before new groups.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+if pos == 0 && count > 0 {
+    result += " "  // space between groups
+}
+result += string(c)
+```
 
-## How This Helps Your Capstone
+### 4. Edge Case Handling — Return Early
+Check for empty strings and strings shorter than 5 non-space characters before processing.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+if str == "" {
+    return "\n"
+}
+if nonSpaceCount < 5 {
+    return "Invalid Input\n"
+}
+```
+
+### 5. Counting Characters Matching a Condition
+Count non-space characters separately from the main loop.
+
+```go
+nonSpace := 0
+for _, c := range str {
+    if c != ' ' {
+        nonSpace++
+    }
+}
+```
+
+## Review If Stuck
+- [57-saveandmiss](../57-saveandmiss/skills.md) — covers periodic selection with a counter
+- [59-wdmatch](../59-wdmatch/skills.md) — covers walking strings while tracking a separate counter
+
+## You're Ready When You Can...
+- [ ] Use `continue` to skip characters in a `for range` loop
+- [ ] Use `count % 6` to determine position in a repeating 6-item cycle
+- [ ] Add a separator only between groups (not before the first)
+- [ ] Count non-space characters before the main loop
+- [ ] Return special strings for empty input and too-short input
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [61-notdecimal](../61-notdecimal/README.md) - Notdecimal
-- [62-revconcatalternate](../62-revconcatalternate/README.md) - Revconcatalternate
+- [61-notdecimal](../61-notdecimal/README.md)

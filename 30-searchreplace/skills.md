@@ -1,62 +1,95 @@
-# Skills for 30-searchreplace
+# Skills for searchreplace
 
 ## What You'll Learn
 
-**Previous:** [29-replaceall](../29-replaceall/skills.md)
+**Previous:** [../29-replaceall/skills.md](../29-replaceall/skills.md) | **Next:** [../31-splitjoin/README.md](../31-splitjoin/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** A command-line program that takes exactly 3 arguments and replaces every occurrence of a single character with another.
 
-**Challenge:** Searchreplace
+## Core Concept: Reading and Validating os.Args
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 3. Command-line argument handling
-
-Access command-line arguments via `os.Args`:
+### What Is It?
+`os.Args` is a slice of strings containing the command-line arguments. `os.Args[0]` is the program name; the actual arguments start at index 1. Validating the count before using them is the first thing any CLI program should do.
 
 ```go
 import "os"
 
 func main() {
-    args := os.Args[1:]  // Skip program name
-    for _, arg := range args {
-        fmt.Println(arg)
+    // os.Args[0] is the program name
+    // os.Args[1], os.Args[2], ... are the user's arguments
+    if len(os.Args) != 4 {  // program + 3 args = 4 total
+        return
     }
+    text  := os.Args[1]  // the string
+    old   := os.Args[2]  // character to find
+    newCh := os.Args[3]  // character to replace with
 }
 ```
 
-Or use the `flag` package for more complex argument parsing.
+### Replacing a Single Character
+Since the second and third arguments are single characters (strings of length 1), you can use `strings.Contains` and then loop to replace:
+
+```go
+import (
+    "fmt"
+    "os"
+    "strings"
+)
+
+func main() {
+    if len(os.Args) != 4 {
+        return
+    }
+    text  := os.Args[1]
+    old   := os.Args[2]
+    newCh := os.Args[3]
+
+    result := ""
+    for _, c := range text {
+        if string(c) == old {
+            result += newCh
+        } else {
+            result += string(c)
+        }
+    }
+    fmt.Println(result)
+}
+```
+
+Or use `strings.ReplaceAll` since this challenge does NOT forbid it:
+```go
+fmt.Println(strings.ReplaceAll(text, old, newCh))
+```
+
+### When to Print Nothing
+The challenge says: if the argument count is wrong, print nothing. A bare `return` in `main()` exits without printing:
+```go
+if len(os.Args) != 4 {
+    return  // exits main, no output
+}
+```
+
+### When the Search Character Isn't Found
+If `old` is not in `text`, just print the text unchanged. Your replacement loop handles this naturally — no matches means the original text is copied unchanged.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Checking `len(os.Args) != 3` | Off by one — program name counts | Check `!= 4` (program + 3 args) |
+| Using `os.Args[1]` without checking length first | Panic if no arguments given | Always check `len(os.Args)` before indexing |
+| Printing a newline when args are wrong | Challenge says display nothing | Use bare `return`, not `fmt.Println()` |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `len(os.Args) != 4`, return (print nothing).
+2. Get `text = os.Args[1]`, `old = os.Args[2]`, `newCh = os.Args[3]`.
+3. Replace every occurrence of `old` in `text` with `newCh`.
+4. Print the result with `fmt.Println`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [31-splitjoin](../31-splitjoin/skills.md) - Splitjoin
+**Next:** [../31-splitjoin/README.md](../31-splitjoin/README.md)

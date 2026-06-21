@@ -1,48 +1,72 @@
-# Prerequisites for 41-itoa-35
+# Prerequisites for itoa-35
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Extracting Digits With Modulo and Division
+`n % 10` gives the last (ones) digit. `n / 10` removes it.
+```go
+n := 12345
+fmt.Println(n % 10) // 5  — ones digit
+n /= 10
+fmt.Println(n % 10) // 4  — next digit
+n /= 10
+fmt.Println(n)      // 123 — remaining
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Converting a Digit to a Character
+`'0' + digit` gives the ASCII code of the digit character. Wrap in `string(rune(...))`.
+```go
+digit := 7
+ch := string(rune('0' + digit))
+fmt.Println(ch) // "7"
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Prepending to a String
+To build the number left-to-right while extracting digits right-to-left, prepend each new digit:
+```go
+result := ""
+result = "5" + result  // "5"
+result = "4" + result  // "45"
+result = "3" + result  // "345"
+```
 
-## Skills You'll Learn
+### 4. Handling Zero as a Special Case
+When `n == 0`, the `for n > 0` loop never executes. Return `"0"` before entering the loop.
+```go
+if n == 0 {
+    return "0"
+}
+```
 
-After completing this exercise, you'll be able to:
+### 5. Handling Negative Numbers
+Negate the value, convert the positive part, then prepend `"-"`.
+```go
+negative := false
+if n < 0 {
+    negative = true
+    n = -n
+}
+// ... convert n ...
+if negative {
+    result = "-" + result
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../22-digitlen/skills.md](../22-digitlen/skills.md) — covers the `for n > 0 { n /= base }` pattern that is the backbone of this function
+- [../26-hashcode/skills.md](../26-hashcode/skills.md) — covers converting between integer values and string characters
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Extract the last digit of a number with `n % 10`
+- [ ] Remove the last digit with `n /= 10`
+- [ ] Convert a digit (0–9) to its character with `string(rune('0' + digit))`
+- [ ] Prepend digits to build the number in correct order
+- [ ] Handle `n == 0` and `n < 0` as special cases
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [42-passwordentropy](../42-passwordentropy/README.md) - Passwordentropy
-- [43-printmemory](../43-printmemory/README.md) - Printmemory
+- [Next challenge](../43-printmemory/README.md)

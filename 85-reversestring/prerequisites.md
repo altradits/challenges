@@ -1,45 +1,62 @@
-# Prerequisites for ReverseString
+# Prerequisites for 85-reversestring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to convert string to rune slice**
-   ```go
-   runes := []rune("Hello")
-   ```
+### 1. The `for...range` Loop
 
-2. **How to swap array elements**
-   ```go
-   for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-       runes[i], runes[j] = runes[j], runes[i]
-   }
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md): you know how to iterate over characters. This challenge takes that further by working with indices too.
 
-3. **How to convert rune slice back to string**
-   ```go
-   result := string(runes)
-   ```
+### 2. String Immutability
 
-## Skills You'll Learn
+You have already seen that strings cannot be modified in place. Every challenge so far (ToUpper, ToLower, RemoveSpaces) built a **new** string rather than changing the original. This challenge introduces a better tool for structural rearrangement.
 
-After completing this exercise, you'll be able to:
+### 3. Slices — A Brief Introduction
 
-1. **Modify strings** by converting to runes
-2. **Use two-pointer technique** for in-place operations
-3. **Handle multi-byte UTF-8 characters**
-4. **Build complex transformations**
+A **slice** in Go is a resizable, mutable sequence. `[]rune` is a slice of runes. Unlike a string, you can change individual elements:
 
-## How This Helps Your Capstone
+```go
+nums := []int{10, 20, 30}
+nums[0] = 99          // OK: slices are mutable
+fmt.Println(nums)     // [99 20 30]
+```
 
-This skill is used in:
-- **Budget Planner** - Reverse expense descriptions
-- **Savings Calculator** - Format historical data
-- **Investment Tracker** - Display timeline backwards
-- **Net Worth Tracker** - Show account history
+You will use `[]rune` to hold the characters while you rearrange them.
+
+### 4. Converting Between `string` and `[]rune`
+
+To go from string to rune slice and back:
+
+```go
+runes := []rune("Hello")   // string → []rune
+s := string(runes)         // []rune → string
+```
+
+### 5. Simultaneous Assignment
+
+Go supports swapping two variables in one line:
+
+```go
+a, b := 1, 2
+a, b = b, a   // now a=2, b=1 — no temporary variable needed
+```
+
+This is used to swap elements during the two-pointer reversal.
+
+## Review If Stuck
+
+- [80-toupper skills.md](../80-toupper/skills.md) — building a new string from characters; immutability
+- [78-lastchar skills.md](../78-lastchar/skills.md) — `len(s)` and index arithmetic
+
+## You're Ready When You Can...
+
+- [ ] Explain why you cannot write `s[0] = 'X'` on a string
+- [ ] Convert a string to `[]rune` and back to `string`
+- [ ] Access an element of a slice by index and change it
+- [ ] Swap two variables without a temporary using `a, b = b, a`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [86-ispalindrome](../86-ispalindrome/README.md) - Ispalindrome
-- [87-removespaces](../87-removespaces/README.md) - Removespaces
+- [85-reversestring skills.md](skills.md) — teaches the `[]rune` conversion and two-pointer swap
+- [86-ispalindrome README](../86-ispalindrome/README.md) — next challenge

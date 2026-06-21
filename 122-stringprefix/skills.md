@@ -2,57 +2,63 @@
 
 ## What You'll Learn
 
-**Previous:** [121-stringcount](../121-stringcount/skills.md)
+**Previous:** [121-stringcount](../121-stringcount/skills.md) | **Next:** [123-stringsuffix](../123-stringsuffix/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement `HasPrefix(s, prefix string) bool` without using `strings.HasPrefix`.
 
-**Challenge:** Stringprefix
+## Core Concept: `strings.HasPrefix` and `strings.TrimPrefix`
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### The Built-in Functions
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+import "strings"
+
+strings.HasPrefix("hello world", "hello")  // true
+strings.HasPrefix("hello world", "world")  // false
+strings.HasPrefix("hello", "")             // true (empty prefix always matches)
+strings.HasPrefix("", "hello")             // false
+
+strings.TrimPrefix("hello world", "hello") // " world"
+strings.TrimPrefix("hello world", "xyz")   // "hello world" (unchanged if no prefix)
+```
+
+### How to Implement `HasPrefix` Manually
+
+```go
+func HasPrefix(s, prefix string) bool {
+    if len(prefix) == 0 {
+        return true  // empty prefix is always present
+    }
+    if len(s) < len(prefix) {
+        return false  // s is too short
+    }
+    return s[:len(prefix)] == prefix
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Logic: extract the first `len(prefix)` bytes of `s` and compare.
 
-### 2. Go function definition and usage
+### When to Use These
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+- `HasPrefix` — validate format: `"BTC:..."`, `"0x..."`, `"https://..."`
+- `TrimPrefix` — strip a known leader: `strings.TrimPrefix(s, "0x")` → hex digits only
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+### Common Mistakes
 
-The `main()` function is special - it's where program execution begins.
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Checking `s[0] == prefix[0]` | Only checks one byte | Compare full slice `s[:len(prefix)]` |
+| Not checking `len(s) < len(prefix)` | Panics on short strings | Guard first |
+| Returning false for empty prefix | Contract says true | Check `len(prefix) == 0` first |
 
-### 3. Conditional logic and boolean returns
+## Algorithm
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+1. If `len(prefix) == 0`, return `true`
+2. If `len(s) < len(prefix)`, return `false`
+3. Return `s[:len(prefix)] == prefix`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [123-stringsuffix](../123-stringsuffix/skills.md) - Stringsuffix
+**Next:** [123-stringsuffix](../123-stringsuffix/skills.md)

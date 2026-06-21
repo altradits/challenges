@@ -1,48 +1,68 @@
 # Prerequisites for 13-printifnot
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand `if/else`, `len()`, and the `!` (NOT) logical operator. You should already be comfortable with 12-printif.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `if/else` in Go
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+if condition {
+    return "something"
+}
+return "other"
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. `len(s)` and comparison operators
 
-## Skills You'll Learn
+```go
+len("ab") < 3    // true  (2 < 3)
+len("abc") < 3   // false (3 < 3 is false)
+len("") < 3      // true  (0 < 3)
+```
 
-After completing this exercise, you'll be able to:
+### 3. The `!` (NOT) operator inverts a boolean
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+!true   // false
+!false  // true
 
-## How This Helps Your Capstone
+if !(len(str) >= 3) {
+    // same as: if len(str) < 3
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 4. De Morgan's Law for negating compound conditions
+
+```
+!(A || B) is the same as (!A && !B)
+!(A && B) is the same as (!A || !B)
+```
+
+### 5. String function returning a string with `\n`
+
+```go
+func PrintIfNot(str string) string {
+    if len(str) < 3 {
+        return "G\n"
+    }
+    return "Invalid Input\n"
+}
+```
+
+## Review If Stuck
+
+- [12-printif](../12-printif/skills.md) — covers `if/else`, `len()`, boolean operators, and returning strings with `\n`
+
+## You're Ready When You Can...
+
+- [ ] Write an `if/else` that compares `len(str)` to a number
+- [ ] Correctly predict what `len("") < 3` evaluates to
+- [ ] Explain the difference between `<` and `<=`
+- [ ] Explain what `!` does to a boolean expression
+- [ ] Solve 12-printif first — this challenge is the inverse of it
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [14-rectperimeter](../14-rectperimeter/README.md) - Rectperimeter
-- [15-removespaces](../15-removespaces/README.md) - Removespaces
+- [15-removespaces](../15-removespaces/README.md)

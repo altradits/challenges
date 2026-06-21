@@ -2,59 +2,80 @@
 
 ## What You'll Learn
 
-**Previous:** [119-stringcontains](../119-stringcontains/skills.md)
+**Previous:** [119-stringcontains](../119-stringcontains/skills.md) | **Next:** [121-stringcount](../121-stringcount/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement `Index(s, substr string) int` — find the byte position of the first occurrence of `substr` in `s`, or return -1.
 
-**Challenge:** Stringindex
+## Core Concept: `strings.Index` and the Sliding Window Search
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### The Built-in Function
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+import "strings"
+
+strings.Index("hello world", "world")  // 6
+strings.Index("hello world", "xyz")    // -1
+strings.Index("hello world", "")       // 0  (empty always found at 0)
+strings.Index("", "a")                 // -1
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+**Key variants:**
+```go
+strings.Index(s, substr)       // first occurrence
+strings.LastIndex(s, substr)   // last occurrence
+strings.IndexRune(s, 'x')      // first occurrence of a rune
+strings.IndexAny(s, "aeiou")   // first occurrence of any char in the set
+strings.IndexByte(s, 'x')      // first occurrence of a byte
+```
 
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+### How Manual Search Works (Sliding Window)
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+func Index(s, substr string) int {
+    if len(substr) == 0 {
+        return 0
     }
-}
-return -1
-```
-
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+    for i := 0; i <= len(s)-len(substr); i++ {
+        if s[i:i+len(substr)] == substr {
+            return i
+        }
+    }
+    return -1
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+The loop bound `i <= len(s)-len(substr)` prevents checking positions where the substring can't fit. This is the **sliding window** pattern.
+
+### Why the Loop Bound Matters
+
+```
+s = "hello"  (len=5)
+substr = "lo" (len=2)
+
+i can be: 0,1,2,3  (5-2=3, so i <= 3)
+i=0: s[0:2] = "he" ≠ "lo"
+i=1: s[1:3] = "el" ≠ "lo"
+i=2: s[2:4] = "ll" ≠ "lo"
+i=3: s[3:5] = "lo" = "lo" → return 3
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `i < len(s)` as bound | Panics on last window | Use `i <= len(s)-len(substr)` |
+| Not handling empty substr | Should return 0 | Check `len(substr) == 0` first |
+| `i < len(s)-len(substr)` (strict) | Misses last window | Must use `<=` |
+
+## Algorithm
+
+1. If `substr` is empty, return 0
+2. Loop `i` from 0 to `len(s)-len(substr)` inclusive
+3. If `s[i:i+len(substr)] == substr`, return `i`
+4. Return -1
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [121-stringcount](../121-stringcount/skills.md) - Stringcount
+**Next:** [121-stringcount](../121-stringcount/skills.md)

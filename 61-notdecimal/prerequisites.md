@@ -1,48 +1,78 @@
-# Prerequisites for 61-notdecimal
+# Prerequisites for notdecimal
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. String Slicing — Splitting at an Index
+You can extract a substring using `s[start:end]` syntax.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+s := "174.2"
+//    01234
+dot := 3
+intPart  := s[:dot]   // "174"
+fracPart := s[dot+1:] // "2"
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Finding a Character's Index by Scanning
+Scan the string to find the position of `.`.
 
-## Skills You'll Learn
+```go
+dotIdx := -1
+for i, c := range dec {
+    if c == '.' {
+        dotIdx = i
+        break
+    }
+}
+if dotIdx == -1 {
+    // no decimal point found
+}
+```
 
-After completing this exercise, you'll be able to:
+### 3. Validating Character by Character
+Check each character is a valid digit (`'0'` through `'9'`), allowing `-` at position 0 and `.` at the dot position.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+for i, c := range dec {
+    if i == 0 && c == '-' { continue }
+    if c == '.' { continue }
+    if c < '0' || c > '9' {
+        return dec + "\n"  // invalid character
+    }
+}
+```
 
-## How This Helps Your Capstone
+### 4. Trimming Trailing Bytes from a Substring
+To remove trailing `'0'` bytes from the fractional part, shrink the end index.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+fracPart := "200"
+end := len(fracPart)
+for end > 0 && fracPart[end-1] == '0' {
+    end--
+}
+fracPart = fracPart[:end]  // "2"
+```
+
+### 5. String Concatenation for the Result
+Join the parts back into one string.
+
+```go
+return intPart + fracPart + "\n"
+```
+
+## Review If Stuck
+- [60-fifthandskip](../60-fifthandskip/skills.md) — covers string scanning and conditional building
+- [53-fprime](../53-fprime/skills.md) — covers `strconv.Atoi` (for contrast — here we avoid float conversion)
+
+## You're Ready When You Can...
+- [ ] Use `s[start:end]` to extract a substring
+- [ ] Find the index of a character by scanning with `for i, c := range s`
+- [ ] Validate each character against a set of allowed values
+- [ ] Trim trailing zeros by decrementing an `end` index
+- [ ] Return the input unchanged (with `\n`) when it is not a valid decimal
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [62-revconcatalternate](../62-revconcatalternate/README.md) - Revconcatalternate
-- [63-slice](../63-slice/README.md) - Slice
+- [62-revconcatalternate](../62-revconcatalternate/README.md)

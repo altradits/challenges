@@ -1,48 +1,73 @@
-# Prerequisites for 46-weareunique
+# Prerequisites for weareunique
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Maps in Go
+A map stores key-value pairs. `map[rune]bool` maps characters to boolean values — ideal for a "set" that tracks which characters have been seen.
+```go
+seen := map[rune]bool{}  // create an empty map
+seen['a'] = true          // add 'a' to the set
+seen['b'] = true          // add 'b' to the set
+fmt.Println(seen['a'])    // true — 'a' is in the set
+fmt.Println(seen['c'])    // false — 'c' is not in the set (zero value)
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Map as a Set for Deduplication
+Setting a key to `true` multiple times has no effect — the map keeps only one entry per key.
+```go
+seen := map[rune]bool{}
+for _, c := range "foo" {
+    seen[c] = true
+}
+// seen == {'f': true, 'o': true} — only 2 keys, not 3
+fmt.Println(len(seen)) // 2
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Checking Map Membership
+`seen[key]` returns `false` if the key is not present (Go returns the zero value for missing keys).
+```go
+seen := map[rune]bool{'a': true}
+if seen['a'] {
+    fmt.Println("a is in the set")
+}
+if !seen['b'] {
+    fmt.Println("b is NOT in the set")
+}
+```
 
-## Skills You'll Learn
+### 4. Iterating Over a Map
+Use `for key := range m` to visit every key in a map.
+```go
+set := map[rune]bool{'a': true, 'b': true}
+for c := range set {
+    fmt.Println(string(c))
+}
+```
 
-After completing this exercise, you'll be able to:
+### 5. Counting Elements Not in Another Map
+```go
+count := 0
+for c := range set1 {
+    if !set2[c] {
+        count++
+    }
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../21-countrepeats/skills.md](../21-countrepeats/skills.md) — covers tracking state while iterating over a string
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Create a `map[rune]bool{}` and add entries to it
+- [ ] Use a map as a set to deduplicate characters from a string
+- [ ] Check whether a key is absent from a map with `!m[key]`
+- [ ] Iterate over all keys in a map with `for k := range m`
+- [ ] Count characters in one set that are absent from another
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [47-zipstring](../47-zipstring/README.md) - Zipstring
-- [48-addprimesum](../48-addprimesum/README.md) - Addprimesum
+- [Next challenge](../47-zipstring/README.md)

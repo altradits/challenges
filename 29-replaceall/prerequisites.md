@@ -1,48 +1,64 @@
-# Prerequisites for 29-replaceall
+# Prerequisites for replaceall
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. String Slicing
+Extract a portion of a string with `s[i:j]` — bytes from index `i` up to (not including) `j`.
+```go
+s := "banana"
+fmt.Println(s[0:3]) // "ban"
+fmt.Println(s[2:4]) // "na"
+fmt.Println(s[4:])  // "na" (to end)
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. String Comparison with ==
+Two strings (or string slices) compare equal with `==` when they have the same content.
+```go
+s := "banana"
+fmt.Println(s[2:4] == "na") // true
+fmt.Println(s[0:2] == "ba") // true
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Index-Based For Loop
+Use `i := 0; for i < len(text)` when you need to advance `i` by variable amounts (not just 1 each time).
+```go
+i := 0
+for i < len(text) {
+    // ... do work
+    i++ // or i += len(old)
+}
+```
 
-## Skills You'll Learn
+### 4. Building a Result String
+Concatenate characters or substrings to a result variable.
+```go
+result := ""
+result += "hello"
+result += string(text[i]) // one character at a time
+```
 
-After completing this exercise, you'll be able to:
+### 5. Bounds Checking Before Slicing
+Before doing `text[i:i+n]`, ensure `i+n <= len(text)` to avoid a panic.
+```go
+if i+len(old) <= len(text) && text[i:i+len(old)] == old {
+    // safe to slice
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../28-longestword/skills.md](../28-longestword/skills.md) — covers iterating over string content
+- [../26-hashcode/skills.md](../26-hashcode/skills.md) — covers building a result string character by character
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Slice a string with `s[i:j]` and compare the result with `==`
+- [ ] Write an index-based loop where `i` advances by different amounts
+- [ ] Build a result string by appending to it in a loop
+- [ ] Guard slice operations to avoid out-of-bounds panics
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [30-searchreplace](../30-searchreplace/README.md) - Searchreplace
-- [31-splitjoin](../31-splitjoin/README.md) - Splitjoin
+- [Next challenge](../30-searchreplace/README.md)

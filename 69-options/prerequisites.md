@@ -1,48 +1,77 @@
-# Prerequisites for 69-options
+# Prerequisites for options
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Bitwise OR to Set a Bit (`|=`)
+Set a specific bit without changing others. Bit `n` is set by OR-ing with `1 << n`.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+var flags int32
+flags |= 1 << 0   // set bit 0 (a)
+flags |= 1 << 1   // set bit 1 (b)
+flags |= 1 << 25  // set bit 25 (z)
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Bit Position from a Letter
+Subtract `'a'` from a lowercase letter to get its 0-based position.
 
-## Skills You'll Learn
+```go
+c := 'c'
+bit := uint(c - 'a')  // 'c' - 'a' = 2
+fmt.Println(bit)       // 2
+```
 
-After completing this exercise, you'll be able to:
+### 3. Left Shift (`<<`) to Create a Bitmask
+`1 << n` creates an integer with only bit `n` set.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+fmt.Println(1 << 0)   // 1   = 00000001
+fmt.Println(1 << 1)   // 2   = 00000010
+fmt.Println(1 << 7)   // 128 = 10000000
+```
 
-## How This Helps Your Capstone
+### 4. Extracting Byte Groups for Printing (`>>` and `& 0xFF`)
+To print a 32-bit integer as 4 groups of 8 bits, shift right and mask.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+var flags int32 = 0x01020304
+b3 := (flags >> 24) & 0xFF  // most significant byte
+b2 := (flags >> 16) & 0xFF
+b1 := (flags >> 8)  & 0xFF
+b0 := flags         & 0xFF  // least significant byte
+fmt.Printf("%08b %08b %08b %08b\n", b3, b2, b1, b0)
+```
+
+### 5. Iterating Over a String (arg[1:] for flag letters)
+Skip the leading `-` and iterate over the rest of the argument.
+
+```go
+arg := "-abc"
+for _, c := range arg[1:] {
+    fmt.Printf("%c\n", c)  // a, b, c
+}
+```
+
+### 6. `fmt.Printf` with `%08b`
+`%08b` prints an integer in binary, zero-padded to 8 digits.
+
+```go
+fmt.Printf("%08b\n", 7)   // 00000111
+fmt.Printf("%08b\n", 128) // 10000000
+```
+
+## Review If Stuck
+- [68-itoabase](../68-itoabase/skills.md) — covers integer arithmetic and digit extraction (similar bit-level thinking)
+- Prior `os.Args` challenges — covers iterating over command-line arguments
+
+## You're Ready When You Can...
+- [ ] Set a bit with `flags |= int32(1) << bit`
+- [ ] Convert a letter to its bit position with `uint(c - 'a')`
+- [ ] Extract each byte of a 32-bit int with `>> 24`, `>> 16`, `>> 8`, `& 0xFF`
+- [ ] Print a byte as 8 binary digits with `fmt.Printf("%08b", b)`
+- [ ] Iterate over `arg[1:]` to process option letters
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [70-piglatin](../70-piglatin/README.md) - Piglatin
-- [71-romannumbers](../71-romannumbers/README.md) - Romannumbers
+- [70-piglatin](../70-piglatin/README.md)

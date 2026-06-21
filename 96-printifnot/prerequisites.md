@@ -1,48 +1,38 @@
-# Prerequisites for PrintIfNot
+# Prerequisites for 96-printifnot
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `PrintIf` — you just completed it
 
-1. **How to check string length**
-   ```go
-   if len(str) < 3 {
-       // String is too short
-   }
-   ```
+This challenge is the exact inverse. If you completed [95-printif](../95-printif/README.md), you already know everything needed.
 
-2. **How to return strings**
-   ```go
-   func MyFunction(s string) string {
-       return s  // Return the string itself
-   }
-   ```
+```go
+// PrintIf returns "G" when len == 0 OR len >= 3
+// PrintIfNot returns "G" when len < 3 (the inverse condition)
+```
 
-3. **How to use conditional logic**
-   ```go
-   // This is the inverse of PrintIf
-   // Return string if length < 3, otherwise error
-   ```
+### 2. Inverting conditions
 
-## Skills You'll Learn
+| Original | Inverse |
+|----------|---------|
+| `>= 3` | `< 3` |
+| `== 0` | `!= 0` |
+| `A or B` | `not A and not B` |
 
-After completing this exercise, you'll be able to:
+### 3. `len()` and `if/else`
 
-1. **Validate input length**
-2. **Return appropriate values**
-3. **Handle edge cases**
-4. **Build input validation**
+```go
+if len(str) < 3 {
+    return "G\n"
+}
+return "Invalid Input\n"
+```
 
-## How This Helps Your Capstone
+## You're Ready When You Can...
 
-This skill is used in:
-- **Budget Planner** - Validate short input
-- **Savings Calculator** - Check for minimum input
-- **Investment Tracker** - Validate ticker length
-- **Net Worth Tracker** - Check account format
+- [ ] Flip the condition from PrintIf to its inverse
+- [ ] Verify with: `""` → `"G\n"`, `"ab"` → `"G\n"`, `"abc"` → `"Invalid Input\n"`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [97-longestword](../97-longestword/README.md) - Longestword
-- [98-searchreplace](../98-searchreplace/README.md) - Searchreplace
+- [97-longestword](../97-longestword/README.md)

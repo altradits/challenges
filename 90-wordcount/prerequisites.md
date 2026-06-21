@@ -1,53 +1,64 @@
-# Prerequisites for WordCount
+# Prerequisites for 90-wordcount
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to track word state**
-   ```go
-   inWord := false
-   for i := 0; i < len(s); i++ {
-       isWordChar := s[i] != ' ' && s[i] != '\t' && s[i] != '\n'
-   }
-   ```
+### 1. The `for...range` Loop
 
-2. **How to count transitions**
-   ```go
-   if isWordChar && !inWord {
-       count++
-       inWord = true
-   } else if !isWordChar {
-       inWord = false
-   }
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md): iterating over every character in a string using `for _, c := range s`.
 
-3. **How to handle edge cases**
-   ```go
-   if len(s) == 0 {
-       return 0
-   }
-   ```
+### 2. Boolean State Variables
 
-## Skills You'll Learn
+From [88-countrepeats skills.md](../88-countrepeats/skills.md): a boolean variable declared before the loop that persists its value between iterations:
 
-After completing this exercise, you'll be able to:
+```go
+inRepeat := false
+for _, c := range s {
+    if someCondition {
+        inRepeat = true
+    } else {
+        inRepeat = false
+    }
+}
+```
 
-1. **Count words in text**
-2. **Track state across iterations**
-3. **Handle multiple whitespace types**
-4. **Build text analysis tools**
+For this challenge the flag is called `inWord`.
 
-## How This Helps Your Capstone
+### 3. Comparing a Rune to a Space
 
-This skill is used in:
-- **Budget Planner** - Count expense items
-- **Savings Calculator** - Count input fields
-- **Investment Tracker** - Count fund names
-- **Net Worth Tracker** - Count accounts
+You already know rune comparisons from [87-removespaces skills.md](../87-removespaces/skills.md):
+
+```go
+c == ' '    // c is a space
+c != ' '    // c is not a space (a word character)
+```
+
+### 4. Compound `if` Conditions
+
+From [82-countalpha skills.md](../82-countalpha/skills.md): combining conditions with `&&` (and) and `||` (or):
+
+```go
+if c != ' ' && !inWord {
+    // c is a non-space character AND we are not already inside a word
+}
+```
+
+`!inWord` means "the flag is currently false" (not in a word).
+
+## Review If Stuck
+
+- [88-countrepeats skills.md](../88-countrepeats/skills.md) — state tracking with a boolean flag across iterations
+- [87-removespaces skills.md](../87-removespaces/skills.md) — comparing runes to `' '`
+
+## You're Ready When You Can...
+
+- [ ] Declare a `bool` variable before a loop and update it inside the loop
+- [ ] Use `c != ' '` to detect a non-space character
+- [ ] Use `&&` to combine two conditions
+- [ ] Explain why two consecutive spaces should NOT count as two word boundaries
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [91-findchar](../91-findchar/README.md) - Findchar
-- [92-countchar](../92-countchar/README.md) - Countchar
+- [90-wordcount skills.md](skills.md) — teaches the `inWord` flag pattern for counting word transitions
+- [91-findchar README](../91-findchar/README.md) — next challenge

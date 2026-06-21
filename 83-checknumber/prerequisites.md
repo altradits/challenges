@@ -1,52 +1,79 @@
-# Prerequisites for CheckNumber
+# Prerequisites for 83-checknumber
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check for digits**
-   ```go
-   if c >= '0' && c <= '9' {
-       // Character is a digit
-   }
-   ```
+### 1. Functions That Return `bool`
 
-2. **How to return early**
-   ```go
-   for _, c := range s {
-       if c >= '0' && c <= '9' {
-           return true  // Found a digit, return immediately
-       }
-   }
-   return false
-   ```
+From [79-isempty skills.md](../79-isempty/skills.md): a boolean function answers a yes/no question:
 
-3. **How to use boolean return**
-   ```go
-   func CheckNumber(s string) bool {
-       // Return true if found, false otherwise
-   }
-   ```
+```go
+func CheckNumber(s string) bool {
+    return true   // or false
+}
+```
 
-## Skills You'll Learn
+### 2. The `for...range` Loop
 
-After completing this exercise, you'll be able to:
+From [76-stringlength skills.md](../76-stringlength/skills.md): iterate over every character:
 
-1. **Detect digits in strings**
-2. **Use early return for efficiency**
-3. **Build validation functions**
-4. **Create input sanitization tools**
+```go
+for _, c := range s {
+    // c is each rune in turn
+}
+```
 
-## How This Helps Your Capstone
+### 3. Range Checks on Runes
 
-This skill is used in:
-- **Budget Planner** - Check for amounts in input
-- **Savings Calculator** - Validate numeric input
-- **Investment Tracker** - Check for prices
-- **Net Worth Tracker** - Validate account values
+From [82-countalpha skills.md](../82-countalpha/skills.md): you can check whether a rune falls in a range using `>=` and `<=`. For digits:
+
+```go
+if c >= '0' && c <= '9' {
+    // c is a digit
+}
+```
+
+The digit characters `'0'`–`'9'` have ASCII values 48–57 (consecutive), so this range check works.
+
+### 4. Returning Inside a Loop (Early Return)
+
+You already returned inside a loop in [77-firstchar](../77-firstchar/skills.md):
+
+```go
+for _, c := range s {
+    return string(c)   // returns immediately on first iteration
+}
+```
+
+For this challenge, you will `return true` the moment you find a digit — before the loop finishes.
+
+### 5. The Fallback Return
+
+After a loop that may exit early, Go requires a return statement outside the loop too:
+
+```go
+for _, c := range s {
+    if condition {
+        return true   // early exit
+    }
+}
+return false   // reached only if the loop ran to completion
+```
+
+## Review If Stuck
+
+- [79-isempty skills.md](../79-isempty/skills.md) — `bool` return type
+- [82-countalpha skills.md](../82-countalpha/skills.md) — range checks with `&&`
+
+## You're Ready When You Can...
+
+- [ ] Write a function that returns `bool`
+- [ ] Check whether a rune is in the range `'0'` to `'9'`
+- [ ] Return `true` from inside a loop to exit early
+- [ ] Place `return false` after the loop as a fallback
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [84-countvowels](../84-countvowels/README.md) - Countvowels
-- [85-reversestring](../85-reversestring/README.md) - Reversestring
+- [83-checknumber skills.md](skills.md) — teaches early return and digit detection
+- [84-countvowels README](../84-countvowels/README.md) — next challenge

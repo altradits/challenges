@@ -1,55 +1,82 @@
-# Prerequisites for CamelToSnakeCase
+# Prerequisites for 105-cameltosnakecase
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `unicode.IsUpper` and `unicode.IsLower`
 
-1. **How to check for uppercase**
-   ```go
-   if c >= 'A' && c <= 'Z' {
-       // Character is uppercase
-   }
-   ```
+These functions from the `unicode` package check the case of a letter rune:
 
-2. **How to validate input**
-   ```go
-   for _, c := range s {
-       if !((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
-           return s  // Invalid character
-       }
-   }
-   ```
+```go
+import "unicode"
 
-3. **How to build strings**
-   ```go
-   var result []byte
-   for i := 0; i < len(s); i++ {
-       if s[i] >= 'A' && s[i] <= 'Z' && i > 0 {
-           result = append(result, '_')
-       }
-       result = append(result, s[i])
-   }
-   ```
+fmt.Println(unicode.IsUpper('A'))  // true
+fmt.Println(unicode.IsUpper('a'))  // false
+fmt.Println(unicode.IsUpper('!'))  // false
 
-## Skills You'll Learn
+fmt.Println(unicode.IsLower('z'))  // true
+fmt.Println(unicode.IsLower('Z'))  // false
+```
 
-After completing this exercise, you'll be able to:
+### 2. `unicode.IsLetter`
 
-1. **Validate string format**
-2. **Transform naming conventions**
-3. **Handle edge cases**
-4. **Build string converters**
+Checks whether a rune is any kind of letter (upper or lower case, any alphabet):
 
-## How This Helps Your Capstone
+```go
+fmt.Println(unicode.IsLetter('a'))  // true
+fmt.Println(unicode.IsLetter('Z'))  // true
+fmt.Println(unicode.IsLetter('5'))  // false
+fmt.Println(unicode.IsLetter('!'))  // false
+```
 
-This skill is used in:
-- **Budget Planner** - Convert field names
-- **Savings Calculator** - Format output
-- **Investment Tracker** - Normalize tickers
-- **Net Worth Tracker** - Standardize names
+### 3. Iterating with Index
+
+When you need to know the position of the character (to skip the first one), use `for i, c := range s`:
+
+```go
+s := "HelloWorld"
+for i, c := range s {
+    if unicode.IsUpper(c) && i > 0 {
+        fmt.Printf("Uppercase at position %d: %c\n", i, c)
+    }
+}
+// Uppercase at position 5: W
+```
+
+### 4. Converting a Rune to String
+
+`string(c)` converts a single rune to a one-character string:
+
+```go
+var c rune = 'H'
+fmt.Println(string(c))  // "H"
+fmt.Println("_" + string(c))  // "_H"
+```
+
+### 5. Validate-Then-Transform Pattern
+
+A common Go pattern: check whether input is valid, return unchanged if not, otherwise proceed:
+
+```go
+func process(s string) string {
+    if !isValid(s) {
+        return s  // invalid input: return as-is
+    }
+    // transform and return
+}
+```
+
+## Review If Stuck
+
+- [100-countwords](../100-countwords/skills.md) — covers `unicode.IsLetter`, `unicode.IsDigit`, and iteration with index
+- [104-join](../104-join/skills.md) — covers building result strings character by character
+
+## You're Ready When You Can...
+
+- [ ] Use `unicode.IsUpper(c)` to check if a rune is uppercase
+- [ ] Use `unicode.IsLetter(c)` to validate a character is a letter
+- [ ] Iterate a string with `for i, c := range s` and use `i` to skip the first character
+- [ ] Explain the two-phase validate-then-transform approach
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [106-itoa](../106-itoa/README.md) - Itoa
-- [107-thirdchar](../107-thirdchar/README.md) - Thirdchar
+- [106-itoa](../106-itoa/README.md)

@@ -1,48 +1,64 @@
-# Prerequisites for 21-countrepeats
+# Prerequisites for countrepeats
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. String Indexing
+Strings in Go can be accessed by position. `s[i]` gives the byte at index `i`. Indexing starts at 0.
+```go
+s := "hello"
+fmt.Println(s[0]) // 104 — byte value of 'h'
+fmt.Println(s[1]) // 101 — byte value of 'e'
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Comparing Adjacent Characters
+You can compare bytes at consecutive positions using `==`.
+```go
+s := "aabb"
+// Check if position 1 equals position 0:
+if s[1] == s[0] { // 'a' == 'a' → true
+    fmt.Println("same")
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. Index-Based For Loop
+Use a standard index loop starting at 1 to compare each character with the previous one.
+```go
+s := "aabb"
+for i := 1; i < len(s); i++ {
+    if s[i] == s[i-1] {
+        fmt.Println("repeat at index", i)
+    }
+}
+```
 
-## Skills You'll Learn
+### 4. Boolean Flags
+A boolean variable tracks state across iterations — for example, whether you are currently inside a consecutive group.
+```go
+inRepeat := false
+// set true when a group starts, false when characters change
+```
 
-After completing this exercise, you'll be able to:
+### 5. Empty String Guard
+Always check length before indexing to avoid an index-out-of-range panic.
+```go
+if len(s) < 2 {
+    return 0
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../20-cameltosnakecase/skills.md](../20-cameltosnakecase/skills.md) — covers string indexing and character-by-character iteration
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Write a for loop starting at index 1 that compares `s[i]` to `s[i-1]`
+- [ ] Use a boolean flag to track whether you are inside a consecutive run
+- [ ] Increment a counter only at the *start* of a new repeat group, not on every matching pair
+- [ ] Return 0 safely for an empty or single-character string
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [22-digitlen](../22-digitlen/README.md) - Digitlen
-- [23-firstword](../23-firstword/README.md) - Firstword
+- [Next challenge](../22-digitlen/README.md)

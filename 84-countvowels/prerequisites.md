@@ -1,56 +1,59 @@
-# Prerequisites for CountVowels
+# Prerequisites for 84-countvowels
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check for specific characters**
-   ```go
-   vowels := "aeiouAEIOU"
-   for _, c := range s {
-       if c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' {
-           // c is a vowel
-       }
-   }
-   ```
+### 1. The Accumulator Pattern
 
-2. **How to handle case-insensitive matching**
-   ```go
-   // Check both uppercase and lowercase
-   if c == 'a' || c == 'A' || c == 'e' || c == 'E' {
-       // ...
-   }
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md) and [82-countalpha skills.md](../82-countalpha/skills.md): count by starting at zero and incrementing when a condition is met:
 
-3. **How to count in a loop**
-   ```go
-   count := 0
-   for _, c := range s {
-       if isVowel(c) {
-           count++
-       }
-   }
-   ```
+```go
+count := 0
+for _, c := range s {
+    if condition {
+        count++
+    }
+}
+return count
+```
 
-## Skills You'll Learn
+### 2. Checking Equality with `==`
 
-After completing this exercise, you'll be able to:
+From [79-isempty skills.md](../79-isempty/skills.md): use `==` to test whether a rune equals a specific character:
 
-1. **Detect multiple character types**
-2. **Handle case-insensitive matching**
-3. **Build character classifiers**
-4. **Create text analysis tools**
+```go
+c == 'a'   // true only when c is the letter a
+```
 
-## How This Helps Your Capstone
+### 3. Combining Conditions with `||`
 
-This skill is used in:
-- **Budget Planner** - Analyze expense descriptions
-- **Savings Calculator** - Validate input text
-- **Investment Tracker** - Check ticker readability
-- **Net Worth Tracker** - Analyze account names
+From [82-countalpha skills.md](../82-countalpha/skills.md): use `||` when any one of several conditions should trigger the action:
+
+```go
+if c == 'a' || c == 'e' || c == 'i' {
+    // c is one of these vowels
+}
+```
+
+### 4. Case Sensitivity
+
+`'a'` and `'A'` are different rune values. The challenge requires counting both. You can either:
+- List all ten vowel characters (5 lowercase + 5 uppercase)
+- Convert to lowercase first using the ASCII trick from [80-toupper skills.md](../80-toupper/skills.md): `if c >= 'A' && c <= 'Z' { c = c + 32 }`
+
+## Review If Stuck
+
+- [82-countalpha skills.md](../82-countalpha/skills.md) — counting characters that match a condition
+- [80-toupper skills.md](../80-toupper/skills.md) — converting case with ASCII math
+
+## You're Ready When You Can...
+
+- [ ] Count characters in a string that match a specific condition
+- [ ] Check a rune against a list of characters using `==` and `||`
+- [ ] Handle both uppercase and lowercase variants of the same letter
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [85-reversestring](../85-reversestring/README.md) - Reversestring
-- [86-ispalindrome](../86-ispalindrome/README.md) - Ispalindrome
+- [84-countvowels skills.md](skills.md) — teaches `switch` for matching a fixed set
+- [85-reversestring README](../85-reversestring/README.md) — next challenge

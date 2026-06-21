@@ -1,76 +1,78 @@
-# Skills for 28-longestword
+# Skills for longestword
 
 ## What You'll Learn
 
-**Previous:** [27-lastword](../27-lastword/skills.md)
+**Previous:** [../27-lastword/skills.md](../27-lastword/skills.md) | **Next:** [../29-replaceall/README.md](../29-replaceall/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Find the longest word in a string, returning the first one if there is a tie.
 
-**Challenge:** Longestword
+## Core Concept: Tracking a Running Maximum
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### What Is It?
+Iterate over all words and keep track of the longest one seen so far. This "running maximum" pattern appears in many problems: scan all items, update your best candidate whenever you find a better one.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+import "strings"
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
-
-```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+func LongestWord(s string) string {
+    words := strings.Fields(s)
+    if len(words) == 0 {
+        return ""
     }
-}
-return -1
-```
-
-### 3. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+    longest := ""
+    for _, word := range words {
+        if len(word) > len(longest) {
+            longest = word
+        }
     }
+    return longest
 }
 ```
 
-### 4. Go function definition and usage
+### Step-by-Step for `"the quick brown fox"`
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Words: `["the", "quick", "brown", "fox"]`
+
+| Iteration | word    | len(word) | len(longest) | Update? |
+|-----------|---------|-----------|--------------|---------|
+| 1         | "the"   | 3         | 0 ("")       | Yes → longest="the" |
+| 2         | "quick" | 5         | 3            | Yes → longest="quick" |
+| 3         | "brown" | 5         | 5            | No (tie — keep first) |
+| 4         | "fox"   | 3         | 5            | No |
+
+Result: `"quick"`
+
+### Why Initialize `longest` as `""`?
+Starting with an empty string means `len("") == 0`, so the very first word always becomes the initial longest candidate. This is cleaner than using a separate index variable.
+
+### Strict Greater-Than for Ties
+Using `>` (not `>=`) means you only update when you find something *strictly longer*, so ties keep the *first* word — matching the challenge requirement.
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+if len(word) > len(longest) {  // > keeps first on tie
+    longest = word
 }
+// vs. >= would keep the last on tie
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `>=` instead of `>` | On a tie, keeps the *last* word instead of the first | Use `>` strictly |
+| Not checking for empty input | `strings.Fields("")` returns empty slice; returning `longest` = `""` is actually correct | Still guard or test carefully |
+| Comparing `len(s)` directly instead of per-word | Measures the whole string | Use `strings.Fields` and compare each `word` |
+
+## Solving This Challenge
+
+### Algorithm
+1. Split with `strings.Fields(s)`. If empty, return `""`.
+2. Initialize `longest := ""`.
+3. For each word: if `len(word) > len(longest)`, update `longest = word`.
+4. Return `longest`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [29-replaceall](../29-replaceall/skills.md) - Replaceall
+**Next:** [../29-replaceall/README.md](../29-replaceall/README.md)

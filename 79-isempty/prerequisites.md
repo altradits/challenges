@@ -1,50 +1,71 @@
-# Prerequisites for IsEmpty
+# Prerequisites for 79-isempty
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to iterate over strings**
-   ```go
-   for range s {
-       // This loop runs once for each character
-   }
-   ```
+### 1. Functions That Return `bool`
 
-2. **How to return early**
-   ```go
-   for _, c := range s {
-       return false  // Found a character, not empty
-   }
-   return true  // No characters found
-   ```
+So far your functions have returned `int` or `string`. This one returns a **boolean** — a true/false value:
 
-3. **How to use boolean return**
-   ```go
-   func IsEmpty(s string) bool {
-       // Return true or false
-   }
-   ```
+```go
+func IsEmpty(s string) bool {
+    return true   // or false
+}
+```
 
-## Skills You'll Learn
+`bool` is a distinct type in Go. You cannot return `0`, `1`, or `""` — only `true` or `false`.
 
-After completing this exercise, you'll be able to:
+### 2. The `==` Comparison Operator
 
-1. **Check for empty strings**
-2. **Use early return pattern**
-3. **Work with boolean logic**
-4. **Build validation functions**
+`==` checks equality and produces a `bool`:
 
-## How This Helps Your Capstone
+```go
+s := "Hello"
+s == "Hello"   // true
+s == ""        // false
+s == "World"   // false
+```
 
-This skill is used in:
-- **Budget Planner** - Validate input not empty
-- **Savings Calculator** - Check for missing data
-- **Investment Tracker** - Validate ticker exists
-- **Net Worth Tracker** - Check account list
+You can return the result of a comparison directly:
+
+```go
+return s == ""   // returns true if s is empty, false otherwise
+```
+
+### 3. The `for...range` Loop and Early Return
+
+From [76-stringlength skills.md](../76-stringlength/skills.md): a `for...range` loop on an empty string runs zero times. You can exploit that to detect emptiness:
+
+```go
+for range s {
+    return false   // we found at least one character
+}
+return true        // the loop never ran
+```
+
+### 4. `len(s)` Returns Zero for Empty Strings
+
+From [78-lastchar skills.md](../78-lastchar/skills.md): `len(s)` counts bytes. For an empty string it returns `0`:
+
+```go
+len("")    // 0
+len("Hi")  // 2
+```
+
+## Review If Stuck
+
+- [76-stringlength skills.md](../76-stringlength/skills.md) — covers `for...range` iteration
+- [78-lastchar skills.md](../78-lastchar/skills.md) — covers `len(s)`
+
+## You're Ready When You Can...
+
+- [ ] Write a Go function that returns `bool`
+- [ ] Use `==` to compare a string to `""`
+- [ ] Explain the difference between `""` (empty) and `" "` (one space)
+- [ ] Describe what happens when `for...range` runs on an empty string
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [80-toupper](../80-toupper/README.md) - Toupper
-- [81-tolower](../81-tolower/README.md) - Tolower
+- [79-isempty skills.md](skills.md) — teaches boolean returns and empty-string detection
+- [80-toupper README](../80-toupper/README.md) — next challenge

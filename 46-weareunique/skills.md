@@ -1,70 +1,91 @@
-# Skills for 46-weareunique
+# Skills for weareunique
 
 ## What You'll Learn
 
-**Previous:** [45-thirdtimeisacharm](../45-thirdtimeisacharm/skills.md)
+**Previous:** [../45-thirdtimeisacharm/skills.md](../45-thirdtimeisacharm/skills.md) | **Next:** [../47-zipstring/README.md](../47-zipstring/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Count characters that appear in one string but not the other, counting each unique character only once.
 
-**Challenge:** Weareunique
+## Core Concept: Using a Map as a Set for Deduplication
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### What Is a Set?
+A "set" holds unique values — no duplicates. Go doesn't have a built-in set type, but `map[rune]bool` works perfectly: the key is the value, and the presence of the key means "this item exists in the set."
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+seen := map[rune]bool{}
+seen['a'] = true
+seen['b'] = true
+seen['a'] = true  // duplicate — no effect, key already exists
+fmt.Println(len(seen)) // 2
+```
+
+### The Algorithm
+1. Build a set of all unique characters in `str1`.
+2. Build a set of all unique characters in `str2`.
+3. Count characters in set1 that are NOT in set2, plus characters in set2 that are NOT in set1.
+
+```go
+func WeAreUnique(str1, str2 string) int {
+    if str1 == "" && str2 == "" {
+        return -1
+    }
+    set1 := map[rune]bool{}
+    set2 := map[rune]bool{}
+    for _, c := range str1 {
+        set1[c] = true
+    }
+    for _, c := range str2 {
+        set2[c] = true
+    }
+    count := 0
+    for c := range set1 {
+        if !set2[c] {
+            count++
+        }
+    }
+    for c := range set2 {
+        if !set1[c] {
+            count++
+        }
+    }
+    return count
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
+### Map Lookup Returns Zero Value for Missing Keys
+In Go, looking up a missing key in a `map[rune]bool` returns `false` (the zero value for bool). So `!set2[c]` is true when `c` is not in `set2`:
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
+seen := map[rune]bool{}
+seen['a'] = true
+fmt.Println(seen['a']) // true
+fmt.Println(seen['b']) // false — key missing, zero value returned
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Step-by-Step for `WeAreUnique("foo", "boo")`
+- str1 "foo": set1 = {'f':true, 'o':true}
+- str2 "boo": set2 = {'b':true, 'o':true}
+- In set1 but not set2: 'f' → count=1
+- In set2 but not set1: 'b' → count=2
+- Result: 2
 
-### 3. Conditional logic and boolean returns
+### Common Mistakes
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Counting character occurrences instead of unique chars | `"foo"` and `"boo"` would count `o` multiple times | Use a set (map) to deduplicate first |
+| Not handling both-empty case | Should return -1 | Check `str1 == "" && str2 == ""` first |
+| Forgetting to check characters unique to str2 | Only counts what str1 has that str2 doesn't | Also loop over set2 and check against set1 |
 
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
+## Solving This Challenge
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
-
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
-
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Algorithm
+1. If both strings are empty, return -1.
+2. Build `set1` from unique chars of `str1`; `set2` from unique chars of `str2`.
+3. Count chars in set1 not in set2, plus chars in set2 not in set1.
+4. Return count.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [47-zipstring](../47-zipstring/skills.md) - Zipstring
+**Next:** [../47-zipstring/README.md](../47-zipstring/README.md)

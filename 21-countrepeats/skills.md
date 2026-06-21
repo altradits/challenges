@@ -1,70 +1,73 @@
-# Skills for 21-countrepeats
+# Skills for countrepeats
 
 ## What You'll Learn
 
-**Previous:** [20-cameltosnakecase](../20-cameltosnakecase/skills.md)
+**Previous:** [../20-cameltosnakecase/skills.md](../20-cameltosnakecase/skills.md) | **Next:** [../22-digitlen/README.md](../22-digitlen/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Count the number of groups of consecutive repeated characters in a string.
 
-**Challenge:** Countrepeats
+## Core Concept: Detecting Consecutive Repetition Groups
 
-## New Concepts Explained
+### What Is It?
+A "repeat group" is when the same character appears two or more times in a row. `"aaa"` is one group; `"aabb"` is two groups. The key skill is comparing each character to the one before it, and using a flag to count only the *start* of each group — not every matching pair.
 
-### 1. String iteration and character access
+### How It Works
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Compare `s[i]` with `s[i-1]`. When you first enter a repeat (same as previous, and you weren't already in one), increment the counter. Use a boolean `inRepeat` flag to track state.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func CountRepeats(s string) int {
+    if len(s) < 2 {
+        return 0
+    }
+    count := 0
+    inRepeat := false
+    for i := 1; i < len(s); i++ {
+        if s[i] == s[i-1] {
+            if !inRepeat {
+                count++
+                inRepeat = true
+            }
+        } else {
+            inRepeat = false
+        }
+    }
+    return count
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Step-by-step for `"heelloo"` (`h`,`e`,`e`,`l`,`l`,`o`,`o`):
+- i=1: `e==h`? No → inRepeat=false
+- i=2: `e==e`? Yes, !inRepeat → count=1, inRepeat=true
+- i=3: `l==e`? No → inRepeat=false
+- i=4: `l==l`? Yes, !inRepeat → count=2, inRepeat=true
+- i=5: `o==l`? No → inRepeat=false
+- i=6: `o==o`? Yes, !inRepeat → count=3, inRepeat=true
+- Result: 3
 
-### 2. Go function definition and usage
+### Why the `inRepeat` Flag?
+Without the flag, a run of `"aaaa"` would match at i=1, i=2, and i=3 — giving count=3 instead of 1. The flag ensures you only count the *transition into* a repeat, not every match within it.
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Common Mistakes
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Starting loop at `i=0` | Accesses `s[i-1]` which is `s[-1]` — panic | Start at `i := 1` |
+| No `inRepeat` flag | `"aaaa"` gives 3 instead of 1 | Track whether you are already inside a group |
+| No empty string check | Panic on `len(s) < 2` when trying `s[i-1]` | Guard with `if len(s) < 2 { return 0 }` |
 
-The `main()` function is special - it's where program execution begins.
+## Solving This Challenge
 
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
-
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
-
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Algorithm
+1. Return 0 if `len(s) < 2`.
+2. Initialize `count := 0`, `inRepeat := false`.
+3. Loop `i` from 1 to `len(s)-1`.
+4. If `s[i] == s[i-1]` and `!inRepeat`: increment count, set inRepeat=true.
+5. If `s[i] != s[i-1]`: set inRepeat=false.
+6. Return count.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [22-digitlen](../22-digitlen/skills.md) - Digitlen
+**Next:** [../22-digitlen/README.md](../22-digitlen/README.md)

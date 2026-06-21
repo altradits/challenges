@@ -2,75 +2,136 @@
 
 ## What You'll Learn
 
-**Previous:** [08-count-character](../08-count-character/skills.md)
+**Previous:** [08-count-character](../08-count-character/skills.md) | **Next:** [11-forloops](../11-forloops/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write `FindSubstring(text, substring string) int` that returns the index of the first occurrence of `substring` in `text`, or `-1` if not found.
 
-**Challenge:** Findsubstring
+## Core Concept: Sliding Window Search Over a String
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Finding a substring means sliding a window of length `len(substring)` along `text`, and at each position checking whether the slice of `text` starting there matches `substring`. This is your first challenge that involves **string slicing** — extracting a portion of a string using `s[start:end]`.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### New Tool: String Slicing
+
+In Go, `s[start:end]` returns the substring from index `start` up to (but not including) index `end`.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+s := "Hello World"
+s[0:5]   // "Hello"
+s[6:11]  // "World"
+s[6:]    // "World"  (to the end)
+s[:5]    // "Hello"  (from the start)
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Indices are **byte** positions (not rune positions). For ASCII strings this is the same as character positions.
 
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+### New Tool: `len(s)` Returns the Byte Count
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+len("Hello")  // 5
+len("World")  // 5
+len("")       // 0
+```
+
+### The Sliding Window Algorithm
+
+```
+text:      "banana"
+substring: "ana"
+len(sub):  3
+
+position 0: "ban" == "ana"? No
+position 1: "ana" == "ana"? YES -> return 1
+```
+
+In code:
+
+```go
+func FindSubstring(text, substring string) int {
+    subLen := len(substring)
+
+    // Edge case: empty substring is always found at position 0
+    if subLen == 0 {
+        return 0
     }
+
+    textLen := len(text)
+    for i := 0; i <= textLen-subLen; i++ {
+        if text[i:i+subLen] == substring {
+            return i
+        }
+    }
+    return -1
 }
-return -1
 ```
 
-### 3. String transformation and case conversion
+Step by step:
+1. Handle the empty substring edge case first
+2. Loop `i` from `0` to `len(text) - len(substring)` (inclusive)
+3. At each position, slice `text[i : i+subLen]` and compare to `substring`
+4. If they match, return `i`
+5. If the loop ends without a match, return `-1`
 
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
+### Why `i <= textLen-subLen` (not `i < textLen`)?
 
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+If `text = "ab"` and `substring = "ab"`, then `textLen = 2` and `subLen = 2`. The only valid starting position is `0`. If you loop to `i < textLen` you would try `i=1` and slice `text[1:3]` — which goes out of bounds.
+
+```
+textLen - subLen = 2 - 2 = 0
+So loop runs for i = 0 only. Correct.
+```
+
+### Visual: Sliding Window
+
+```
+text:      b  a  n  a  n  a
+index:     0  1  2  3  4  5
+
+window at 0: [b  a  n] vs "ana" -> no
+window at 1: [a  n  a] vs "ana" -> no
+window at 2: [n  a  n] vs "ana" -> no
+window at 3: [a  n  a] vs "ana" -> no  (wait — "ana"[3:6] = "ana"?)
+
+Actually for "banana":
+i=0: text[0:3] = "ban" != "ana"
+i=1: text[1:4] = "ana" == "ana" -> return 1
+```
+
+### Alternative: `strings.Index`
+
+The standard library has this built in:
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+import "strings"
+
+func FindSubstring(text, substring string) int {
+    return strings.Index(text, substring)
 }
 ```
 
-### 4. Go function definition and usage
+`strings.Index` returns `-1` when not found and `0` for empty substring — exactly matching the requirements. However, implementing it manually teaches you slicing and loop bounds.
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Common Mistakes
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `i < textLen` as loop bound | Index out of bounds when `i + subLen > textLen` | Use `i <= textLen - subLen` |
+| Forgetting the empty substring case | Loop might return wrong result or index out of bounds | Check `if subLen == 0 { return 0 }` first |
+| Not returning `-1` after the loop | Missing return — compile error | Add `return -1` after the loop |
+| Case-sensitive mismatch | `"World" != "world"` — this is correct behavior | The search is intentionally case-sensitive |
 
-The `main()` function is special - it's where program execution begins.
+## Solving This Challenge
+
+### Algorithm
+
+1. If `substring` is empty, return `0`
+2. For each starting position `i` from `0` to `len(text)-len(substring)`:
+   a. If `text[i:i+len(substring)] == substring`, return `i`
+3. Return `-1`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [12-printif](../12-printif/skills.md) - Printif
+**Next:** [11-forloops](../11-forloops/README.md)

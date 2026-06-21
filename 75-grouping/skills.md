@@ -2,81 +2,186 @@
 
 ## What You'll Learn
 
-**Previous:** [74-brainfuck](../74-brainfuck/skills.md)
+**Previous:** [74-brainfuck](../74-brainfuck/skills.md) | **Next:** [76-stringlength](../76-stringlength/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Given a regex-like group pattern (e.g. `(a)` or `(e|n)`) and a string, print each word that contains the pattern, numbered in order of appearance.
 
-**Challenge:** Grouping
+## Core Concept: Word Filtering with Substring Matching and the `|` Alternation
 
-## New Concepts Explained
+### What the Program Does
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+```
+$ go run . "(a)" "I'm heavy, jumpsuit is on steady"
+1: heavy
+2: steady
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+The pattern `(a)` means: find all words that contain the letter `a`.
 
-### 2. String searching and indexing
+```
+$ go run . "(e|n)" "I currently have 4 windows opened"
+1: currently
+2: currently
+3: have
+4: windows
+...
+```
 
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+The pattern `(e|n)` means: find all words that contain `e` OR `n`. A word matching both is listed **twice** — once per matching alternative.
+
+### Step 1: Validate the Pattern
+
+A valid pattern must start with `(` and end with `)`:
+```go
+if len(pattern) < 3 || pattern[0] != '(' || pattern[len(pattern)-1] != ')' {
+    return // invalid — print nothing
+}
+inner := pattern[1 : len(pattern)-1]  // strip the parentheses
+```
+
+### Step 2: Split on `|`
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+import "strings"
+
+alternatives := strings.Split(inner, "|")
+// "(e|n)" → inner = "e|n" → alternatives = ["e", "n"]
+// "(a)"   → inner = "a"   → alternatives = ["a"]
+```
+
+### Step 3: Split the String into Words
+
+```go
+words := strings.Fields(sentence)
+```
+
+### Step 4: For Each Alternative, Find Matching Words
+
+The key: for each alternative, scan all words in order. This ensures words appear in sentence order for each alternative, and a word matching both `e` and `n` appears in both passes.
+
+```go
+count := 0
+for _, alt := range alternatives {
+    for _, word := range words {
+        // strip punctuation? No — strings.Contains handles substrings
+        if strings.Contains(word, alt) {
+            count++
+            fmt.Printf("%d: %s\n", count, word)
+        }
     }
 }
-return -1
 ```
 
-### 3. Stack data structure for LIFO operations
-
-A stack is a Last-In-First-Out (LIFO) data structure. In Go, you can implement a stack using a slice:
+Wait — but the examples show words stripped of punctuation (e.g., `"heavy,"` becomes `"heavy"`). You may need to clean each word:
 
 ```go
-// Push
-stack = append(stack, item)
+import "unicode"
 
-// Pop
-item := stack[len(stack)-1]
-stack = stack[:len(stack)-1]
-
-// Peek
-item := stack[len(stack)-1]
+func cleanWord(w string) string {
+    var b strings.Builder
+    for _, r := range w {
+        if unicode.IsLetter(r) || unicode.IsDigit(r) {
+            b.WriteRune(r)
+        }
+    }
+    return b.String()
+}
 ```
 
-Stacks are useful for bracket matching, RPN evaluation, and backtracking algorithms.
-
-### 4. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+### Complete Implementation
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
+package main
 
-// While-style loop
-for condition { }
+import (
+    "fmt"
+    "os"
+    "strings"
+    "unicode"
+)
 
-// Range loop (for collections)
-for index, value := range collection { }
+func cleanWord(w string) string {
+    var b strings.Builder
+    for _, r := range w {
+        if unicode.IsLetter(r) || unicode.IsDigit(r) {
+            b.WriteRune(r)
+        }
+    }
+    return b.String()
+}
+
+func main() {
+    if len(os.Args) != 3 {
+        return
+    }
+    pattern := os.Args[1]
+    sentence := os.Args[2]
+
+    if sentence == "" {
+        return
+    }
+    if len(pattern) < 3 || pattern[0] != '(' || pattern[len(pattern)-1] != ')' {
+        return
+    }
+
+    inner := pattern[1 : len(pattern)-1]
+    if inner == "" {
+        return
+    }
+
+    alternatives := strings.Split(inner, "|")
+    words := strings.Fields(sentence)
+
+    count := 0
+    for _, alt := range alternatives {
+        for _, word := range words {
+            cleaned := cleanWord(word)
+            if strings.Contains(cleaned, alt) {
+                count++
+                fmt.Printf("%d: %s\n", count, cleaned)
+            }
+        }
+    }
+}
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
+### Key Go Techniques
+
+**`strings.Split(s, "|")`** — splits on the pipe character:
+```go
+strings.Split("e|n", "|")  // ["e", "n"]
+strings.Split("a", "|")    // ["a"]
+```
+
+**`strings.Fields(s)`** — splits on any whitespace:
+```go
+strings.Fields("hello world")  // ["hello", "world"]
+```
+
+**`strings.Contains(word, sub)`** — true if word contains sub:
+```go
+strings.Contains("heavy", "a")  // true
+strings.Contains("light", "a")  // false
+```
+
+**`unicode.IsLetter(r)`** — true for alphabetic runes, false for punctuation:
+```go
+unicode.IsLetter('h')  // true
+unicode.IsLetter(',')  // false
+```
+
+**`fmt.Printf("%d: %s\n", count, word)`** — numbered output.
+
+### Understanding the Double-Count Behavior
+
+For `(e|n)` applied to the word `"currently"`:
+- "currently" contains `e` → match 1
+- "currently" contains `n` → match 2
+
+The two alternatives are processed separately, so one word can appear multiple times. This is intentional — you're matching patterns, not unique words.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [76-stringlength](../76-stringlength/skills.md) - Stringlength
+**Next:** [76-stringlength](../76-stringlength/skills.md) — Start of the main exercises series

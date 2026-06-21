@@ -1,48 +1,72 @@
-# Prerequisites for 56-reversestrcap
+# Prerequisites for reversestrcap
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Case Conversion with `unicode` Package
+`unicode.ToUpper(r)` and `unicode.ToLower(r)` convert a rune's case. `unicode.IsLetter(r)` checks if it's a letter.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+import "unicode"
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+fmt.Println(unicode.ToLower('A'))   // 97 ('a')
+fmt.Println(unicode.ToUpper('a'))   // 65 ('A')
+fmt.Println(unicode.IsLetter('3'))  // false
+fmt.Println(unicode.IsLetter('x'))  // true
+```
 
-## Skills You'll Learn
+### 2. Converting a String to a `[]rune` for Mutation
+Strings are immutable in Go. To modify individual characters, convert to a `[]rune` first.
 
-After completing this exercise, you'll be able to:
+```go
+s := "hello"
+runes := []rune(s)
+runes[0] = unicode.ToUpper(runes[0])
+result := string(runes)  // "Hello"
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 3. Look-Ahead — Checking the Next Element
+To know if a character is "last in a word," look at the character at `i+1`. Always check bounds first.
 
-## How This Helps Your Capstone
+```go
+for i, r := range runes {
+    isLastInWord := i+1 >= len(runes) || !unicode.IsLetter(runes[i+1])
+    if unicode.IsLetter(r) && isLastInWord {
+        runes[i] = unicode.ToUpper(r)
+    }
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 4. `strings.ToLower` — Lowercase an Entire String
+Before applying the "last letter uppercase" rule, lowercase the whole string.
+
+```go
+import "strings"
+
+s := "First SMALL TesT"
+s = strings.ToLower(s)  // "first small test"
+```
+
+### 5. Multiple Arguments with `os.Args[1:]`
+The program takes one or more arguments. Loop over all of them.
+
+```go
+for _, arg := range os.Args[1:] {
+    fmt.Println(process(arg))
+}
+```
+
+## Review If Stuck
+- [55-inter](../55-inter/skills.md) — covers iterating over strings with `for range`
+- Prior unicode challenges — covers `unicode.IsLetter`, `unicode.ToUpper`, `unicode.ToLower`
+
+## You're Ready When You Can...
+- [ ] Convert a string to `[]rune` and modify individual runes
+- [ ] Use `unicode.IsLetter`, `unicode.ToUpper`, `unicode.ToLower`
+- [ ] Check `i+1 >= len(runes)` before accessing `runes[i+1]`
+- [ ] Use `strings.ToLower` to normalize case before processing
+- [ ] Loop over `os.Args[1:]` to process multiple arguments
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [57-saveandmiss](../57-saveandmiss/README.md) - Saveandmiss
-- [58-union](../58-union/README.md) - Union
+- [57-saveandmiss](../57-saveandmiss/README.md)

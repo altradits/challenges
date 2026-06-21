@@ -1,53 +1,71 @@
-# Prerequisites for CountAlpha
+# Prerequisites for 82-countalpha
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check character ranges**
-   ```go
-   if (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') {
-       // Character is alphabetic
-   }
-   ```
+### 1. The Accumulator Pattern
 
-2. **How to use OR operator**
-   ```go
-   // || combines conditions
-   if condition1 || condition2 {
-       // Either condition is true
-   }
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md): counting with a variable that starts at zero:
 
-3. **How to count in a loop**
-   ```go
-   count := 0
-   for _, c := range s {
-       if isAlpha(c) {
-           count++
-       }
-   }
-   ```
+```go
+count := 0
+for _, c := range s {
+    count++   // add 1 per character
+}
+return count
+```
 
-## Skills You'll Learn
+Here you will only increment when a condition is met, not for every character.
 
-After completing this exercise, you'll be able to:
+### 2. ASCII Letter Ranges
 
-1. **Classify characters**
-2. **Combine multiple conditions**
-3. **Count specific character types**
-4. **Build character analysis tools**
+From [80-toupper skills.md](../80-toupper/skills.md) and [81-tolower skills.md](../81-tolower/skills.md): letters occupy two contiguous ranges:
 
-## How This Helps Your Capstone
+```
+Uppercase: 'A' (65) through 'Z' (90)
+Lowercase: 'a' (97) through 'z' (122)
+```
 
-This skill is used in:
-- **Budget Planner** - Count letters in category names
-- **Savings Calculator** - Validate input format
-- **Investment Tracker** - Check ticker format
-- **Net Worth Tracker** - Validate account names
+Checking a range:
+
+```go
+c >= 'A' && c <= 'Z'   // uppercase letter
+c >= 'a' && c <= 'z'   // lowercase letter
+```
+
+### 3. The `||` Operator (Logical OR)
+
+You need to count letters from EITHER range. Use `||` to combine the two conditions:
+
+```go
+if (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') {
+    // c is a letter
+}
+```
+
+`||` is true when at least one side is true.
+
+### 4. `&&` vs `||`
+
+| Operator | Meaning | True when |
+|----------|---------|-----------|
+| `&&` | AND | Both sides are true |
+| `\|\|` | OR | At least one side is true |
+
+## Review If Stuck
+
+- [76-stringlength skills.md](../76-stringlength/skills.md) — `for...range` and counting
+- [80-toupper skills.md](../80-toupper/skills.md) — ASCII letter ranges and range checks
+
+## You're Ready When You Can...
+
+- [ ] Loop over a string and count characters that satisfy a condition
+- [ ] Write a range check for lowercase letters using `&&`
+- [ ] Combine two range checks with `||` to cover both letter cases
+- [ ] Return the final count after the loop
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [83-checknumber](../83-checknumber/README.md) - Checknumber
-- [84-countvowels](../84-countvowels/README.md) - Countvowels
+- [82-countalpha skills.md](skills.md) — teaches the combined letter range check
+- [83-checknumber README](../83-checknumber/README.md) — next challenge

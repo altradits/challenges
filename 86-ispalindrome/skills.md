@@ -2,73 +2,113 @@
 
 ## What You'll Learn
 
-**Previous:** [85-reversestring](../85-reversestring/skills.md)
+**Previous:** [85-reversestring](../85-reversestring/skills.md) | **Next:** [87-removespaces](../87-removespaces/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `IsPalindrome(s string) bool` that returns `true` if the string reads the same forwards and backwards, ignoring case and ignoring non-alphanumeric characters. Empty strings return `true`.
 
-**Challenge:** Ispalindrome
+## Core Concept: Composing Earlier Skills to Solve a Harder Problem
 
-## New Concepts Explained
+### What Is a Palindrome?
 
-### 1. String iteration and character access
+A palindrome reads the same forwards and backwards:
+- `"racecar"` → `true`
+- `"A man a plan a canal Panama"` → `true` (after removing spaces and ignoring case)
+- `"Hello"` → `false`
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+The challenge requires ignoring case and ignoring non-alphanumeric characters (spaces, punctuation).
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+### The Two-Step Strategy
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+1. **Clean the string**: keep only alphanumeric characters, converted to lowercase
+2. **Compare with its reverse**: if they are equal, it is a palindrome
 
-### 2. String transformation and case conversion
+### Step 1 — Cleaning
 
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+Build a new string containing only letters and digits, all lowercased:
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
-```
-
-### 3. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
+cleaned := ""
 for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+    if (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') {
+        cleaned += string(c)
+    } else if c >= 'A' && c <= 'Z' {
+        cleaned += string(c + 32)   // lowercase the uppercase letter
     }
 }
 ```
 
-### 4. Go function definition and usage
+This uses:
+- Lowercase range from [82-countalpha](../82-countalpha/skills.md)
+- Digit range from [83-checknumber](../83-checknumber/skills.md)
+- Case conversion from [81-tolower](../81-tolower/skills.md)
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Step 2 — Reversing
+
+Use the `[]rune` two-pointer technique from [85-reversestring](../85-reversestring/skills.md):
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func reverse(s string) string {
+    runes := []rune(s)
+    for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+        runes[i], runes[j] = runes[j], runes[i]
+    }
+    return string(runes)
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Step 3 — Compare
+
+```go
+return cleaned == reverse(cleaned)
+```
+
+### Full Implementation
+
+```go
+func IsPalindrome(s string) bool {
+    cleaned := ""
+    for _, c := range s {
+        if (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') {
+            cleaned += string(c)
+        } else if c >= 'A' && c <= 'Z' {
+            cleaned += string(c + 32)
+        }
+    }
+    // Two-pointer check (avoids building a reversed copy)
+    runes := []rune(cleaned)
+    for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+        if runes[i] != runes[j] {
+            return false
+        }
+    }
+    return true
+}
+```
+
+The two-pointer check is more efficient: as soon as a mismatch is found it returns `false` without building the full reversed string.
+
+### Why Empty Returns `true`
+
+An empty string has no characters, so there is nothing to disagree — it reads the same forwards and backwards vacuously. The loop runs zero times and returns `true`.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Case-sensitive comparison | `"Racecar"` fails | Convert to lowercase first |
+| Not removing spaces/punctuation | `"A man..."` fails | Keep only alphanumeric characters |
+| Comparing entire original string | Fails when spaces or case differ | Compare `cleaned` to its reverse |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. Build `cleaned`: lowercase alphanumeric characters only
+2. Use two-pointer to compare `cleaned[i]` with `cleaned[j]`; return `false` on mismatch
+3. Return `true` if no mismatch found
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [87-removespaces](../87-removespaces/skills.md) - Removespaces
+**Next:** [87-removespaces](../87-removespaces/skills.md)

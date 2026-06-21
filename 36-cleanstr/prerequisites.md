@@ -1,48 +1,60 @@
-# Prerequisites for 36-cleanstr
+# Prerequisites for cleanstr
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. strings.Fields
+Splits a string on any whitespace, collapsing multiple spaces and ignoring leading/trailing whitespace. Returns only non-empty strings.
+```go
+import "strings"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+words := strings.Fields("  only    it's  harder   ")
+// words == []string{"only", "it's", "harder"}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. strings.Join
+Joins a slice of strings with a separator placed *between* elements.
+```go
+import "strings"
 
-## Skills You'll Learn
+words := []string{"only", "it's", "harder"}
+result := strings.Join(words, " ")
+// result == "only it's harder"
+```
 
-After completing this exercise, you'll be able to:
+### 3. os.Args and Argument Count Validation
+`os.Args[0]` is the program name. User arguments start at index 1. Total count includes the program name.
+```go
+import "os"
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+// Running: go run . "hello world"
+// len(os.Args) == 2  (program + 1 arg)
+if len(os.Args) != 2 {
+    fmt.Println()
+    return
+}
+```
 
-## How This Helps Your Capstone
+### 4. Printing an Empty Newline
+When there is no output content, the challenge still requires a newline. `fmt.Println()` with no arguments prints just a newline.
+```go
+fmt.Println() // prints "\n"
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## Review If Stuck
+
+- [../35-clean-the-list/skills.md](../35-clean-the-list/skills.md) — covers `strings.TrimSpace` and working with word-by-word processing
+- [../23-firstword/skills.md](../23-firstword/skills.md) — introduces `strings.Fields`
+- [../31-splitjoin/skills.md](../31-splitjoin/skills.md) — shows how Join works internally
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Fields` to split a string into clean words regardless of spacing
+- [ ] Use `strings.Join` to reassemble words with exactly one space between them
+- [ ] Check `len(os.Args) != 2` to validate single-argument programs
+- [ ] Print a bare newline with `fmt.Println()` for invalid/empty input
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [37-expandstr](../37-expandstr/README.md) - Expandstr
-- [38-findprevprime](../38-findprevprime/README.md) - Findprevprime
+- [Next challenge](../37-expandstr/README.md)

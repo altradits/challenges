@@ -1,48 +1,78 @@
-# Prerequisites for 48-addprimesum
+# Prerequisites for addprimesum
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. strconv.Atoi
+Converts a string to an integer. Returns the value and an error. Always check the error.
+```go
+import "strconv"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+n, err := strconv.Atoi("42")
+if err != nil {
+    fmt.Println("not a number")
+} else {
+    fmt.Println(n) // 42
+}
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+_, err2 := strconv.Atoi("abc")
+fmt.Println(err2 != nil) // true — conversion failed
+```
 
-## Skills You'll Learn
+### 2. Prime Checking
+A number is prime if no integer from 2 to sqrt(n) divides it evenly.
+```go
+func isPrime(n int) bool {
+    if n < 2 {
+        return false
+    }
+    for i := 2; i*i <= n; i++ {
+        if n%i == 0 {
+            return false
+        }
+    }
+    return true
+}
+```
 
-After completing this exercise, you'll be able to:
+### 3. Summing Values in a Loop
+Accumulate a running total with `sum += value`:
+```go
+sum := 0
+for i := 2; i <= n; i++ {
+    if isPrime(i) {
+        sum += i
+    }
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 4. os.Args and Input Validation
+Get the argument from `os.Args[1]`, validate count, validate numeric conversion, validate positive value.
+```go
+if len(os.Args) != 2 {
+    fmt.Println(0)
+    return
+}
+n, err := strconv.Atoi(os.Args[1])
+if err != nil || n <= 0 {
+    fmt.Println(0)
+    return
+}
+```
 
-## How This Helps Your Capstone
+## Review If Stuck
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+- [../38-findprevprime/skills.md](../38-findprevprime/skills.md) — covers writing an `isPrime` function using `i*i <= n`
+- [../30-searchreplace/skills.md](../30-searchreplace/skills.md) — covers `os.Args` and argument count validation
+
+## You're Ready When You Can...
+
+- [ ] Use `strconv.Atoi` to parse a command-line argument to an integer
+- [ ] Check and handle the error from `strconv.Atoi`
+- [ ] Write an `isPrime` function using the `i*i <= n` optimization
+- [ ] Sum all primes from 2 to `n` using a loop and a running total
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [49-canjump](../49-canjump/README.md) - Canjump
-- [50-chunk](../50-chunk/README.md) - Chunk
+- [Next challenge](../49-canjump/README.md)

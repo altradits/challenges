@@ -2,76 +2,122 @@
 
 ## What You'll Learn
 
-**Previous:** [16-retainfirsthalf](../16-retainfirsthalf/skills.md)
+**Previous:** [16-retainfirsthalf](../16-retainfirsthalf/skills.md) | **Next:** [18-titlecase](../18-titlecase/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write `ReverseString(s string) string` that returns the string with all characters in reverse order. Do not use any built-in reverse functions.
 
-**Challenge:** Reversestring
+## Core Concept: Converting a String to a Rune Slice for Mutation
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Go strings are immutable — you cannot change them in place. To reverse a string, you need to either:
+1. Iterate backwards and build a new string, or
+2. Convert the string to a **rune slice** (`[]rune`), reverse the slice in place, and convert back to string
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+The rune slice approach is the idiomatic Go method and handles multi-byte Unicode characters correctly.
+
+### Method 1: Iterate Backwards (Using `strings.Builder`)
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+import "strings"
+
+func ReverseString(s string) string {
+    runes := []rune(s)   // convert to slice so we can index by rune position
+    var b strings.Builder
+    for i := len(runes) - 1; i >= 0; i-- {
+        b.WriteRune(runes[i])
+    }
+    return b.String()
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Step by step:
+1. `[]rune(s)` — convert the string to a slice of runes (safe for Unicode)
+2. Start `i` at the last index: `len(runes) - 1`
+3. Count down: `i--` each iteration
+4. Stop when `i < 0`
+5. Write each rune to the builder in reverse order
 
-### 2. String building and concatenation
-
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
-
-```go
-// Simple concatenation
-result := "Hello" + " " + "World"
-
-// Using strings.Builder for efficiency
-var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
-}
-result := b.String()
-```
-
-### 3. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+### Method 2: Reverse a Rune Slice In-Place
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+func ReverseString(s string) string {
+    runes := []rune(s)
+    left, right := 0, len(runes)-1
+    for left < right {
+        runes[left], runes[right] = runes[right], runes[left]
+        left++
+        right--
+    }
+    return string(runes)
 }
 ```
 
-### 4. Go function definition and usage
+This uses the **two-pointer swap** technique:
+- `left` starts at index 0, `right` at the last index
+- Swap the characters at both ends
+- Move inward until they meet
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Diagram: Two-Pointer Reverse of "Hello"
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
+```
+Initial:   H  e  l  l  o
+index:     0  1  2  3  4
+           ^              ^
+          left           right
+
+Step 1: swap H and o
+           o  e  l  l  H
+           left moves right, right moves left
+
+Step 2: swap e and l  (indices 1 and 3)
+           o  l  l  e  H
+
+Step 3: left(2) == right(2), stop
+
+Result: "olleH"
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Why Convert to `[]rune` Instead of `[]byte`?
+
+`[]byte(s)` would work for ASCII but would break multi-byte Unicode characters. For example, the emoji `"👋"` is 4 bytes. Reversing the bytes would corrupt the encoding. `[]rune(s)` decodes the string into Unicode code points first, so each element is one character regardless of byte length.
+
+### Converting Between String and Rune Slice
+
+```go
+s := "Hello"
+runes := []rune(s)        // string -> rune slice
+back := string(runes)     // rune slice -> string
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Reversing `[]byte(s)` | Corrupts multi-byte Unicode characters | Use `[]rune(s)` |
+| `for i := len(s) - 1` without converting to runes | `s[i]` gives a byte, not a rune | Convert first: `runes := []rune(s)`, then `runes[i]` |
+| Off-by-one: `i >= 0` vs `i > 0` | `i >= 0` is correct — you need to include index 0 | Make sure the loop includes `i == 0` |
+| Swapping with temp variable instead of multi-assign | More verbose than needed | Use `a, b = b, a` for clean in-place swaps |
+
+## Solving This Challenge
+
+### Algorithm (backwards iteration)
+
+1. Convert `s` to `[]rune`
+2. Create a `strings.Builder`
+3. Loop from the last index down to 0
+4. Write each rune to the builder
+5. Return `b.String()`
+
+### Algorithm (two-pointer in-place)
+
+1. Convert `s` to `[]rune`
+2. Set `left = 0`, `right = len-1`
+3. While `left < right`: swap `runes[left]` and `runes[right]`, move both inward
+4. Return `string(runes)`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [18-titlecase](../18-titlecase/skills.md) - Titlecase
+**Next:** [18-titlecase](../18-titlecase/README.md)

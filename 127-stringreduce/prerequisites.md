@@ -1,50 +1,54 @@
-# Prerequisites for StringReduce
+# Prerequisites for 127-stringreduce
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Higher-order functions with two-argument function types
 
-1. **How to iterate over strings**
-   ```go
-   for i, char := range s {
-       // Process each character
-   }
-   ```
+You've seen `func(rune) rune` in Map. Now the combining function takes two runes:
 
-2. **How to accumulate values**
-   ```go
-   var result int
-   for _, char := range s {
-       result += int(char)
-   }
-   ```
+```go
+func(rune, rune) rune  // takes two runes, returns one
+```
 
-3. **How to use functions as parameters**
-   ```go
-   func reduce(s string, f func(int, rune) int) int {
-       // Apply f to accumulate
-   }
-   ```
+Review: [125-stringmap](../125-stringmap/skills.md)
 
-## Skills You'll Learn
+### 2. Converting a string to `[]rune`
 
-After completing this exercise, you'll be able to:
+To access individual runes by index, convert first:
 
-1. **Reduce strings to single values**
-2. **Build aggregation functions**
-3. **Create hash functions**
-4. **Process strings functionally**
+```go
+runes := []rune("hello")
+runes[0]  // 'h'
+runes[1:]  // ['e','l','l','o']  — all but first
+```
 
-## How This Helps Your Capstone
+### 3. The accumulator pattern
 
-This skill is used in:
-- **Budget Planner** - Sum digit values
-- **Savings Calculator** - Calculate checksums
-- **Investment Tracker** - Aggregate metrics
-- **Net Worth Tracker** - Compute totals
+Keeping a running total across loop iterations:
+
+```go
+sum := 0
+for _, n := range numbers {
+    sum += n
+}
+```
+
+The same concept applies here, but the accumulator is a `rune` and the combining function is passed in.
+
+### 4. Slice indexing and sub-slicing
+
+```go
+s := []rune{'a', 'b', 'c'}
+s[0]    // 'a'
+s[1:]   // ['b', 'c']
+```
+
+## You're Ready When You Can...
+
+- [ ] Write a function that accepts `func(rune, rune) rune` as a parameter
+- [ ] Initialize an accumulator to the first element of a slice
+- [ ] Apply a function in a loop starting from the second element
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [128-stringformat](../128-stringformat/README.md) - Stringformat
-- [129-financial-freedom-api](../129-financial-freedom-api/README.md) - Financial Freedom Api
+- [128-stringformat](../128-stringformat/README.md)

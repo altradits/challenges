@@ -1,49 +1,79 @@
-# Prerequisites for StringTrim
+# Prerequisites for 118-stringtrim
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `unicode.IsSpace`
 
-1. **How to find start position**
-   ```go
-   start := 0
-   for start < len(s) && unicode.IsSpace(rune(s[start])) {
-       start++
-   }
-   ```
+`unicode.IsSpace(r)` returns true for any Unicode whitespace character:
 
-2. **How to find end position**
-   ```go
-   end := len(s)
-   for end > start && unicode.IsSpace(rune(s[end-1])) {
-       end--
-   }
-   ```
+```go
+import "unicode"
 
-3. **How to extract substring**
-   ```go
-   return s[start:end]
-   ```
+fmt.Println(unicode.IsSpace(' '))   // true — regular space
+fmt.Println(unicode.IsSpace('\t'))  // true — tab
+fmt.Println(unicode.IsSpace('\n'))  // true — newline
+fmt.Println(unicode.IsSpace('a'))   // false — letter
+fmt.Println(unicode.IsSpace('5'))   // false — digit
+```
 
-## Skills You'll Learn
+### 2. Scanning from the Left with a `start` Pointer
 
-After completing this exercise, you'll be able to:
+Move `start` forward as long as the character at `start` is whitespace:
 
-1. **Remove leading/trailing whitespace**
-2. **Use unicode package**
-3. **Handle all whitespace types**
-4. **Build string cleaning tools**
+```go
+start := 0
+for start < len(s) && unicode.IsSpace(rune(s[start])) {
+    start++
+}
+// start now points to the first non-whitespace byte
+```
 
-## How This Helps Your Capstone
+### 3. Scanning from the Right with an `end` Pointer
 
-This skill is used in:
-- **Budget Planner** - Clean expense input
-- **Savings Calculator** - Trim user input
-- **Investment Tracker** - Clean ticker symbols
-- **Net Worth Tracker** - Clean account names
+Move `end` backward from the last character:
+
+```go
+end := len(s) - 1
+for end >= 0 && unicode.IsSpace(rune(s[end])) {
+    end--
+}
+// end now points to the last non-whitespace byte
+```
+
+### 4. Slicing Between Two Pointers
+
+Once you have `start` and `end`:
+
+```go
+// Include both start and end:
+result := s[start : end+1]
+// Note: [a:b] is exclusive of b, so use end+1 to include end
+```
+
+### 5. All-Whitespace String
+
+If the entire string is whitespace, `start` will equal `len(s)` after the left scan. Check for this:
+
+```go
+if start >= len(s) {
+    return ""
+}
+```
+
+Or equivalently, if `start > end` after both scans.
+
+## Review If Stuck
+
+- [100-countwords](../100-countwords/skills.md) — covers `unicode` package for character classification
+
+## You're Ready When You Can...
+
+- [ ] Use `unicode.IsSpace(r)` to detect whitespace
+- [ ] Write a forward scan that advances a pointer past whitespace
+- [ ] Write a backward scan that retreats a pointer past whitespace
+- [ ] Extract the trimmed result with `s[start:end+1]`
+- [ ] Handle the all-whitespace edge case
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [119-stringcontains](../119-stringcontains/README.md) - Stringcontains
-- [120-stringindex](../120-stringindex/README.md) - Stringindex
+- [119-stringcontains](../119-stringcontains/README.md)

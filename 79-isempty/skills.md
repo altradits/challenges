@@ -2,69 +2,107 @@
 
 ## What You'll Learn
 
-**Previous:** [78-lastchar](../78-lastchar/skills.md)
+**Previous:** [78-lastchar](../78-lastchar/skills.md) | **Next:** [80-toupper](../80-toupper/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `IsEmpty(s string) bool` that returns `true` if the string has no characters, `false` otherwise.
 
-**Challenge:** Isempty
+## Core Concept: Boolean Return Values and Empty-String Detection
 
-## New Concepts Explained
+### What Is a `bool`?
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+A `bool` is the simplest type in Go: it is either `true` or `false`. Functions that answer yes/no questions return `bool`:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func IsEmpty(s string) bool {
+    // must return true or false
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### Two Ways to Check for Empty
 
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+**Option A — compare with `""`:**
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func IsEmpty(s string) bool {
+    return s == ""
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+This is the most direct and idiomatic way. `s == ""` evaluates to `true` when the string has zero characters, `false` otherwise.
 
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+**Option B — use `len(s)`:**
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
+func IsEmpty(s string) bool {
+    return len(s) == 0
+}
+```
+
+Both work identically. Option A reads more naturally.
+
+**Option C — use `for...range` (what the README encourages):**
+
+```go
+func IsEmpty(s string) bool {
+    for range s {
+        return false   // found at least one character → not empty
+    }
+    return true        // loop ran zero times → empty
+}
+```
+
+This reinforces your understanding of iteration: a `for...range` on an empty string runs zero times, so only the final `return true` executes.
+
+### Empty String vs Whitespace
+
+These are NOT the same:
+
+| Value | `IsEmpty` result | Why |
+|-------|-----------------|-----|
+| `""` | `true` | Zero characters |
+| `" "` | `false` | One space character |
+| `"\t"` | `false` | One tab character |
+
+The challenge tests only for truly empty strings (zero length), not for "only whitespace".
+
+### Returning `bool` Directly vs `if/else`
+
+You can return the result of a comparison directly — there is no need for an `if`:
+
+```go
+// Verbose (unnecessary)
+if s == "" {
+    return true
 } else {
-    // default case
+    return false
 }
+
+// Concise (preferred)
+return s == ""
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Both are correct; the second form is cleaner.
 
-### 4. Formatted output with fmt package
+### Common Mistakes
 
-The `fmt` package provides formatted I/O:
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `return s == " "` | Checks for one space, not empty | `return s == ""` |
+| Returning `0` or `1` instead of `bool` | Type mismatch, won't compile | Return `true` / `false` |
+| `if s == "" { return true }` with no other return | Compile error: missing return | Add `return false` after |
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+## Solving This Challenge
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Algorithm
+
+1. Return `s == ""` directly (one line!)
+
+Or if using the loop style:
+1. `for range s { return false }`
+2. `return true`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [80-toupper](../80-toupper/skills.md) - Toupper
+**Next:** [80-toupper](../80-toupper/skills.md)

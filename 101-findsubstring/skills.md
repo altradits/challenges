@@ -1,72 +1,98 @@
 # Skills for 101-findsubstring
 
-## What You'll Learn
+**Previous:** [100-countwords](../100-countwords/README.md) | **Next:** [102-replaceall](../102-replaceall/README.md)
 
-**Previous:** [100-countwords](../100-countwords/skills.md)
+**Challenge:** Find the index of the first occurrence of a substring in a string, returning -1 if not found, without using `strings.Index`.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: The Sliding Window Search
 
-**Challenge:** Findsubstring
+### What Is It?
 
-## New Concepts Explained
+A **sliding window** moves a fixed-size frame across the text one position at a time, checking whether the window's contents match the pattern. For substring search, the window size equals the length of the pattern.
 
-### 1. String iteration and character access
+```
+Text:    "banana"  (len=6)
+Pattern: "ana"     (len=3)
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+Window at 0: text[0:3] = "ban" — no match
+Window at 1: text[1:4] = "ana" — MATCH! return 1
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### Byte Indexing in Go
 
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+Go strings can be indexed with `s[i]` which gives the **byte** at position `i`. For ASCII text, one byte equals one character.
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+s := "Hello"
+fmt.Println(s[0])           // 72  (byte value of 'H')
+fmt.Println(string(s[0]))   // "H"
+fmt.Println(s[0] == 'H')    // true
+```
+
+### The Algorithm
+
+```go
+func FindSubstring(text, pattern string) int {
+    if len(pattern) == 0 {
+        return 0
     }
+    if len(pattern) > len(text) {
+        return -1
+    }
+
+    for i := 0; i <= len(text)-len(pattern); i++ {
+        match := true
+        for j := 0; j < len(pattern); j++ {
+            if text[i+j] != pattern[j] {
+                match = false
+                break
+            }
+        }
+        if match {
+            return i
+        }
+    }
+    return -1
 }
-return -1
 ```
 
-### 3. Go function definition and usage
+### Why `i <= len(text) - len(pattern)`?
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+The last possible window start is `len(text) - len(pattern)`. If you go further, there are not enough characters left to fit the pattern.
 
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
+Example: text `"Hello"` (len=5), pattern `"lo"` (len=2).
+- Last valid start: `5 - 2 = 3` → window is `"lo"` — fits exactly
+- Start `4` would give only one character — too short
 
-The `main()` function is special - it's where program execution begins.
+### Tracing Through `"banana"` for `"ana"`
 
-### 4. Formatted output with fmt package
+| i | text[i:i+3] | j=0: text[i+j]==pattern[j]? | Result |
+|---|------------|------------------------------|--------|
+| 0 | "ban" | 'b'=='a'? No → break | false |
+| 1 | "ana" | 'a'=='a'? Yes, 'n'=='n'? Yes, 'a'=='a'? Yes | **true → return 1** |
 
-The `fmt` package provides formatted I/O:
+### Common Mistakes
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Loop condition `i < len(text)` | Checks windows too short to match | Use `i <= len(text)-len(pattern)` |
+| Not handling empty pattern | `FindSubstring("x", "")` should return 0 | Check `len(pattern) == 0` first |
+| Not handling pattern longer than text | `len(text)-len(pattern)` would be negative, loop never runs | Check `len(pattern) > len(text)` first |
+| Forgetting `break` after mismatch | Still correct but wastes work | Add `break` when mismatch found |
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+## Algorithm
+
+1. If `pattern` is empty, return `0`
+2. If `len(pattern) > len(text)`, return `-1`
+3. For `i` from `0` to `len(text)-len(pattern)` inclusive:
+   a. Set `match = true`
+   b. For `j` from `0` to `len(pattern)-1`:
+      - If `text[i+j] != pattern[j]`, set `match = false`, `break`
+   c. If `match`, return `i`
+4. Return `-1`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [102-replaceall](../102-replaceall/skills.md) - Replaceall
+**Next:** [102-replaceall](../102-replaceall/README.md)

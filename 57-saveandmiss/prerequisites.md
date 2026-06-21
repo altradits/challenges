@@ -1,48 +1,73 @@
-# Prerequisites for 57-saveandmiss
+# Prerequisites for saveandmiss
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `for range` Over a String
+Iterate over every character as a rune.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+for _, c := range "hello" {
+    fmt.Printf("%c\n", c)
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Boolean Flag (Toggle)
+Use a `bool` to track which mode you are in. Flip it with `!`.
 
-## Skills You'll Learn
+```go
+save := true
+save = !save  // now false
+save = !save  // now true again
+```
 
-After completing this exercise, you'll be able to:
+### 3. Counter with Reset
+Track your position within a group using an integer counter. Reset to 0 when the group is complete.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+count := 0
+for _, c := range s {
+    count++
+    if count == num {
+        count = 0  // start fresh for next group
+        // flip mode
+    }
+}
+```
 
-## How This Helps Your Capstone
+### 4. Building a String with Concatenation
+Append to a result string only when in "save" mode.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+result := ""
+if save {
+    result += string(c)
+}
+```
+
+### 5. Early Return for Edge Cases
+When `num <= 0`, the spec says return the original string.
+
+```go
+func SaveAndMiss(arg string, num int) string {
+    if num <= 0 {
+        return arg
+    }
+    // ... rest of logic
+}
+```
+
+## Review If Stuck
+- [56-reversestrcap](../56-reversestrcap/skills.md) — covers walking strings with a counter
+- Prior `for range` challenges — covers iterating strings as runes
+
+## You're Ready When You Can...
+- [ ] Use `for _, c := range s` to iterate characters
+- [ ] Toggle a `bool` variable with `!`
+- [ ] Use a counter variable that resets to 0 at a boundary
+- [ ] Conditionally append to a string only when a flag is true
+- [ ] Return the input unchanged when a condition is met
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [58-union](../58-union/README.md) - Union
-- [59-wdmatch](../59-wdmatch/README.md) - Wdmatch
+- [58-union](../58-union/README.md)

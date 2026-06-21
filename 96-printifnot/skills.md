@@ -2,69 +2,68 @@
 
 ## What You'll Learn
 
-**Previous:** [95-printif](../95-printif/skills.md)
+**Previous:** [95-printif](../95-printif/skills.md) | **Next:** [97-longestword](../97-longestword/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Return `"G\n"` if string length is < 3, else `"Invalid Input\n"` — the inverse of PrintIf.
 
-**Challenge:** Printifnot
+## Core Concept: Inverting Conditions and De Morgan's Law
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### PrintIf vs PrintIfNot — Side by Side
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+// PrintIf: return "G" when len == 0 OR len >= 3
+if len(str) == 0 || len(str) >= 3 {
+    return "G\n"
 }
-```
+return "Invalid Input\n"
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+// PrintIfNot: the EXACT INVERSE — swap the return values
+if len(str) < 3 {
+    return "G\n"
 }
+return "Invalid Input\n"
 ```
 
-The `main()` function is special - it's where program execution begins.
+Notice that `len(str) < 3` is equivalent to `len(str) == 0 || len(str) == 1 || len(str) == 2` — it captures lengths 0, 1, and 2. Empty string (length 0) is included.
 
-### 3. Conditional logic and boolean returns
+### Inverting Compound Conditions — De Morgan's Law
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+De Morgan's Law tells you how to flip a compound condition:
 
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+```
+NOT (A OR B)  =  (NOT A) AND (NOT B)
+NOT (A AND B) =  (NOT A) OR  (NOT B)
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+Applied here:
 
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
-
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+```
+Original: len == 0 OR len >= 3
+Negated:  len != 0 AND len < 3
+Simplified: 0 < len < 3  (len is 1 or 2)
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+So `PrintIfNot` returns `"G\n"` when len is 0, 1, or 2 — when the condition for `PrintIf` was false.
+
+### Why This Pattern Matters
+
+Inverse conditions appear everywhere: "allow if condition" vs "deny if condition", "valid if X" vs "invalid if not X". Understanding how to flip logic is a core programming skill.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Copying PrintIf exactly | Same output, wrong result | Use `< 3` not `>= 3` |
+| Thinking `< 3` excludes 0 | `len("") = 0`, which is `< 3` | 0 < 3 is true |
+| Using `<= 2` | Works but less readable | `< 3` is equivalent and cleaner |
+
+## Algorithm
+
+1. If `len(str) < 3`: return `"G\n"`
+2. Else: return `"Invalid Input\n"`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [97-longestword](../97-longestword/skills.md) - Longestword
+**Next:** [97-longestword](../97-longestword/skills.md)

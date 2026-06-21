@@ -1,54 +1,66 @@
-# Prerequisites for CountRepeats
+# Prerequisites for 88-countrepeats
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to track state**
-   ```go
-   inRepeat := false
-   for i := 1; i < len(s); i++ {
-       if s[i] == s[i-1] {
-           // Consecutive same character
-       }
-   }
-   ```
+### 1. The `for...range` Loop with State
 
-2. **How to detect transitions**
-   ```go
-   if s[i] == s[i-1] && !inRepeat {
-       // Entering a repeat group
-       inRepeat = true
-       count++
-   }
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md): iterating over characters. Here you also need to **remember the previous character** across iterations, which means declaring a variable before the loop:
 
-3. **How to handle edge cases**
-   ```go
-   if len(s) == 0 {
-       return 0
-   }
-   ```
+```go
+var prev rune      // declared outside the loop — persists across iterations
+for _, c := range s {
+    // use prev here
+    prev = c       // update at the end of each iteration
+}
+```
 
-## Skills You'll Learn
+### 2. Boolean Flags
 
-After completing this exercise, you'll be able to:
+A boolean variable used to remember whether you are in a certain state:
 
-1. **Detect consecutive patterns**
-2. **Track state across iterations**
-3. **Count groups, not individual characters**
-4. **Build pattern analysis tools**
+```go
+inRepeat := false   // start: not in a repeat
 
-## How This Helps Your Capstone
+// Inside the loop:
+if someCondition {
+    inRepeat = true   // enter the state
+} else {
+    inRepeat = false  // exit the state
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Detect repeated categories
-- **Savings Calculator** - Check for duplicate entries
-- **Investment Tracker** - Find repeated patterns
-- **Net Worth Tracker** - Identify duplicate accounts
+You used a similar idea in [79-isempty](../79-isempty/skills.md) (returning on first match), but here the flag persists across iterations instead of causing an immediate return.
+
+### 3. The Accumulator Pattern
+
+From [76-stringlength skills.md](../76-stringlength/skills.md): `count := 0` then `count++` inside the loop. Here you only increment under a compound condition.
+
+### 4. `var` Declaration for Zero Value
+
+`var prevChar rune` declares a `rune` initialised to its zero value (`0`). This is safe as a "nothing seen yet" sentinel because `0` is not a printable character:
+
+```go
+var prevChar rune   // = 0
+```
+
+Compare to `:=` which requires an explicit initial value.
+
+## Review If Stuck
+
+- [76-stringlength skills.md](../76-stringlength/skills.md) — `for...range` and counting
+- [79-isempty skills.md](../79-isempty/skills.md) — boolean logic
+- [83-checknumber skills.md](../83-checknumber/skills.md) — why having a state variable changes behaviour
+
+## You're Ready When You Can...
+
+- [ ] Declare a variable before a loop and read/write it inside the loop
+- [ ] Track a boolean flag that changes state based on the current character vs the previous one
+- [ ] Increment a count only when a specific compound condition is true
+- [ ] Explain what a "sentinel value" is and why `var prevChar rune` gives a safe one
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [89-retainfirsthalf](../89-retainfirsthalf/README.md) - Retainfirsthalf
-- [90-wordcount](../90-wordcount/README.md) - Wordcount
+- [88-countrepeats skills.md](skills.md) — teaches state tracking with `prevChar` and `inRepeat` flag
+- [89-retainfirsthalf README](../89-retainfirsthalf/README.md) — next challenge

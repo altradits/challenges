@@ -2,59 +2,77 @@
 
 ## What You'll Learn
 
-**Previous:** [120-stringindex](../120-stringindex/skills.md)
+**Previous:** [120-stringindex](../120-stringindex/skills.md) | **Next:** [122-stringprefix](../122-stringprefix/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement `Count(s, substr string) int` — count all occurrences of `substr` in `s`, including overlapping ones.
 
-**Challenge:** Stringcount
+## Core Concept: `strings.Count` and the Sliding Counter Loop
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### The Built-in Function
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+import "strings"
+
+strings.Count("hello hello", "l")   // 4
+strings.Count("hello hello", "ll")  // 2
+strings.Count("aaa", "aa")          // 1  (non-overlapping!)
+strings.Count("hello", "")          // 6  (one between each char + ends)
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+**Note**: `strings.Count` counts NON-overlapping occurrences. If your challenge says "count overlapping", you need the manual approach below.
 
-### 2. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+### Non-overlapping Count (what `strings.Count` does)
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+func Count(s, substr string) int {
+    count := 0
+    start := 0
+    for {
+        idx := strings.Index(s[start:], substr)
+        if idx == -1 {
+            break
+        }
+        count++
+        start += idx + len(substr)  // skip past the match
     }
+    return count
 }
-return -1
 ```
 
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Overlapping Count (advance by 1 each time)
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func CountOverlapping(s, substr string) int {
+    count := 0
+    for i := 0; i <= len(s)-len(substr); i++ {
+        if s[i:i+len(substr)] == substr {
+            count++
+            // do NOT skip — advance by 1 to catch overlaps
+        }
+    }
+    return count
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+Example: `CountOverlapping("aaa", "aa")` → 2 (positions 0 and 1 both match)
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not handling empty substr | Infinite loop | Return 0 or special value |
+| Advancing by len(substr) for overlapping count | Misses overlaps | Advance by 1 |
+| Using `strings.Count` when overlap needed | Wrong answer | Use manual loop |
+
+## Algorithm (non-overlapping)
+
+1. If `substr` is empty, return 0
+2. `start = 0`, `count = 0`
+3. Loop: find `substr` in `s[start:]`; if -1 break; count++; start += idx+len(substr)
+4. Return `count`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [122-stringprefix](../122-stringprefix/skills.md) - Stringprefix
+**Next:** [122-stringprefix](../122-stringprefix/skills.md)

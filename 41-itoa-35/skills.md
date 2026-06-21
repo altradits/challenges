@@ -1,71 +1,96 @@
-# Skills for 41-itoa-35
+# Skills for itoa-35
 
 ## What You'll Learn
 
-**Previous:** [40-iscapitalized](../40-iscapitalized/skills.md)
+**Previous:** [../40-iscapitalized/skills.md](../40-iscapitalized/skills.md) | **Next:** [../42-arrays/README.md](../42-arrays/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Convert an integer to its string representation without using `strconv.Itoa` — implement the conversion manually.
 
-**Challenge:** Itoa 35
+## Core Concept: Manual Integer-to-String Conversion
 
-## New Concepts Explained
+### What Is It?
+`strconv.Itoa` in the standard library converts an `int` to its decimal string. Here you implement that logic yourself using integer arithmetic: repeatedly take `n % 10` to get the last digit, prepend it to the result, then divide `n` by 10.
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### How It Works
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func Itoa(n int) string {
+    if n == 0 {
+        return "0"
+    }
+    result := ""
+    negative := false
+    if n < 0 {
+        negative = true
+        n = -n
+    }
+    for n > 0 {
+        digit := n % 10          // last digit: 0-9
+        result = string(rune('0'+digit)) + result  // prepend
+        n /= 10
+    }
+    if negative {
+        result = "-" + result
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### How Digit Extraction Works
+`n % 10` gives the ones digit. `n / 10` removes it. Repeating extracts all digits from right to left, so you prepend each one:
 
-### 3. Looping constructs (for, range)
+For `n = 12345`:
+- 12345 % 10 = 5, prepend → "5";  12345/10 = 1234
+- 1234 % 10 = 4, prepend → "45"; 1234/10 = 123
+- 123 % 10 = 3, prepend → "345"; 123/10 = 12
+- 12 % 10 = 2, prepend → "2345"; 12/10 = 1
+- 1 % 10 = 1, prepend → "12345"; 1/10 = 0
+- Loop ends. Result: `"12345"`
 
-Go has only one looping construct: the `for` loop. It can be used in several ways:
-
+### Converting a Digit to a Character
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
+digit := 5
+ch := string(rune('0' + digit)) // '0' is 48, +5 = 53 = '5'
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
+`'0' + digit` gives the ASCII code of that digit character. `string(rune(...))` converts it to a one-character string.
 
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
-
+### Handling Negatives
+Detect negative, negate, convert the positive part, then prepend `"-"`:
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+if n < 0 {
+    negative = true
+    n = -n
+}
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Handling Zero
+The loop `for n > 0` never runs when `n == 0`. Special-case it first:
+```go
+if n == 0 {
+    return "0"
+}
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not handling `n == 0` | Loop never runs, returns empty string | Return `"0"` before the loop |
+| Appending instead of prepending | Digits come out in reverse order | Use `result = newDigit + result` |
+| Not handling negative numbers | Negative input returns wrong result | Check `n < 0`, negate, add `"-"` at end |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `n == 0`, return `"0"`.
+2. If `n < 0`, set `negative = true`, negate `n`.
+3. While `n > 0`: prepend `string(rune('0' + n%10))` to result, then `n /= 10`.
+4. If `negative`, prepend `"-"`.
+5. Return result.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [43-printmemory](../43-printmemory/skills.md) - Printmemory
+**Next:** [../42-arrays/README.md](../42-arrays/README.md)

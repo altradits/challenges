@@ -1,82 +1,111 @@
-# Skills for 65-revwstr
+# Skills for revwstr
 
 ## What You'll Learn
 
-**Previous:** [64-findpairs](../64-findpairs/skills.md)
+**Previous:** [64-findpairs](../64-findpairs/skills.md) | **Next:** [66-rostring](../66-rostring/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Reverse the order of words in a string. Words are alphanumeric sequences separated by exactly one space.
 
-**Challenge:** Revwstr
+## Core Concept: Splitting, Reversing, and Rejoining Words
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Reversing the words in a string means taking `"the time of contempt"` and outputting `"contempt of time the"`. The characters within each word stay in order — only the word positions are reversed.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
+
+**Step 1 — Split the string into words:**
+
+`strings.Fields` splits on any whitespace (spaces, tabs) and ignores leading/trailing spaces — perfect for this challenge.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+import "strings"
+
+words := strings.Fields("the time of contempt")
+// words = ["the", "time", "of", "contempt"]
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+**Step 2 — Reverse the slice of words:**
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+for i, j := 0, len(words)-1; i < j; i, j = i+1, j-1 {
+    words[i], words[j] = words[j], words[i]
 }
+// words = ["contempt", "of", "time", "the"]
 ```
 
-### 3. String splitting and joining
-
-Go's `strings` package provides split and join functions:
-- `strings.Split(s, sep)` - split string into slice
-- `strings.Join(slice, sep)` - join slice into string
-- Manual implementation helps understand the logic
+**Step 3 — Join with a single space and print:**
 
 ```go
-// Manual split example
-parts := []string{}
-current := ""
-for _, c := range s {
-    if c == sep {
-        parts = append(parts, current)
-        current = ""
-    } else {
-        current += string(c)
+fmt.Println(strings.Join(words, " "))
+// "contempt of time the"
+```
+
+**Full program:**
+
+```go
+package main
+
+import (
+    "fmt"
+    "os"
+    "strings"
+)
+
+func main() {
+    if len(os.Args) != 2 {
+        return
     }
+    s := os.Args[1]
+    if s == "" {
+        fmt.Println()
+        return
+    }
+    words := strings.Fields(s)
+    for i, j := 0, len(words)-1; i < j; i, j = i+1, j-1 {
+        words[i], words[j] = words[j], words[i]
+    }
+    fmt.Println(strings.Join(words, " "))
 }
 ```
 
-### 4. String filtering and cleaning
+**`strings.Fields` vs `strings.Split`:**
 
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
+| Function | `"  a  b  c  "` |
+|----------|-----------------|
+| `strings.Split(s, " ")` | `["", "", "a", "", "b", "", "c", "", ""]` — includes empty strings |
+| `strings.Fields(s)` | `["a", "b", "c"]` — handles any whitespace, ignores leading/trailing |
+
+Use `strings.Fields` when you want "clean" word splitting.
+
+**Two-pointer swap:**
+
+The `i, j = i+1, j-1` idiom swaps from both ends simultaneously until they meet in the middle:
 
 ```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
-    }
-}
+i=0,j=3 → swap words[0] and words[3]
+i=1,j=2 → swap words[1] and words[2]
+i=2,j=1 → i >= j, stop
 ```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `strings.Split(s, " ")` | Empty strings in the slice when multiple spaces present | Use `strings.Fields` |
+| Building the reverse manually with `append` | More complex, error-prone | Use in-place two-pointer swap |
+| Printing a newline for empty input | `fmt.Println()` on empty string | Check `s == ""` and print bare newline |
+
+## Solving This Challenge
+
+### Algorithm
+1. Validate exactly 1 argument; return otherwise.
+2. If empty string, print newline and return.
+3. `words = strings.Fields(s)`.
+4. Reverse `words` in-place with two-pointer swap.
+5. `fmt.Println(strings.Join(words, " "))`.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [66-rostring](../66-rostring/skills.md) - Rostring
+**Next:** [66-rostring](../66-rostring/README.md)

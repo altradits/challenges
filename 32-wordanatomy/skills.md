@@ -1,71 +1,90 @@
-# Skills for 32-wordanatomy
+# Skills for wordanatomy
 
 ## What You'll Learn
 
-**Previous:** [31-splitjoin](../31-splitjoin/skills.md)
+**Previous:** [../31-splitjoin/skills.md](../31-splitjoin/skills.md) | **Next:** [../33-wordanatomy2/README.md](../33-wordanatomy2/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Given a word, detect and return its prefix, root, and suffix from fixed lists, using the longest-match rule for prefixes and suffixes.
 
-**Challenge:** Wordanatomy
+## Core Concept: String Prefix and Suffix Matching
 
-## New Concepts Explained
+### What Is It?
+Check whether a string *starts with* a given prefix or *ends with* a given suffix by slicing. Since no imports are allowed, you cannot use `strings.HasPrefix` — you must use string indexing directly.
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
+### Checking a Prefix Manually
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func hasPrefix(word, prefix string) bool {
+    if len(word) < len(prefix) {
+        return false
+    }
+    return word[:len(prefix)] == prefix
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Slice manipulation and operations
-
-Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
-
+### Checking a Suffix Manually
 ```go
-// Create a slice
-numbers := []int{1, 2, 3, 4, 5}
-
-// Slice an existing slice
-subset := numbers[1:4]  // [2, 3, 4]
-
-// Append to a slice
-numbers = append(numbers, 6)
-```
-
-Slices have length (current elements) and capacity (max elements without reallocation).
-
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func hasSuffix(word, suffix string) bool {
+    if len(word) < len(suffix) {
+        return false
+    }
+    return word[len(word)-len(suffix):] == suffix
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
+### The Longest Match Rule
+When multiple prefixes could match, use the longest one. Sort them by length descending, or check all and keep the longest found:
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+prefixes := []string{"un", "re", "pre", "mis", "dis", "over", "under", "anti", "inter", "sub"}
+
+foundPrefix := ""
+for _, p := range prefixes {
+    if hasPrefix(word, p) && len(p) > len(foundPrefix) {
+        foundPrefix = p
+    }
+}
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Extracting the Root
+Once you know the prefix and suffix, the root is what remains in the middle:
+```go
+root := word[len(foundPrefix) : len(word)-len(foundSuffix)]
+```
+
+If `foundSuffix == ""` then `len(word)-0 = len(word)`, so `word[len(prefix):]` is correct.
+
+### Multiple Return Values
+Go functions can return multiple values. Use parentheses around the return types:
+```go
+func WordAnatomy(word string) (string, string, string) {
+    // ...
+    return prefix, root, suffix
+}
+```
+
+Call it and capture all three:
+```go
+prefix, root, suffix := WordAnatomy("unhappy")
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not checking `len(word) >= len(prefix)` | Slice out of bounds panic | Always check length before slicing |
+| Using first-match instead of longest-match | `"underpaid"` → prefix `"un"` instead of `"under"` | Track the longest found, not the first |
+| Computing root before finding both prefix and suffix | Root length is wrong | Find prefix and suffix first, then compute root |
+
+## Solving This Challenge
+
+### Algorithm
+1. Search all prefixes; keep the longest one that matches the start of `word`.
+2. Search all suffixes; keep the longest one that matches the end of `word`.
+3. Compute root as `word[len(prefix) : len(word)-len(suffix)]`.
+4. Return `prefix, root, suffix`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [33-wordanatomy2](../33-wordanatomy2/skills.md) - Wordanatomy2
+**Next:** [../33-wordanatomy2/README.md](../33-wordanatomy2/README.md)

@@ -1,43 +1,59 @@
-# Prerequisites for StringFormat
+# Prerequisites for 128-stringformat
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `fmt.Println` and `fmt.Printf` — you've been using these since challenge 01
 
-1. **How to use fmt.Sprintf**
-   ```go
-   result := fmt.Sprintf("Hello %s", name)
-   ```
+```go
+fmt.Println("Hello")          // prints with newline
+fmt.Printf("Value: %d\n", 42) // prints formatted
+```
 
-2. **How to format numbers**
-   ```go
-   result := fmt.Sprintf("%.2f", 3.14159)  // "3.14"
-   ```
+Review: [01-only1](../01-only1/skills.md), [04-onlyf](../04-onlyf/skills.md)
 
-3. **How to build strings with variables**
-   ```go
-   result := fmt.Sprintf("Value: %d, Label: %s", value, label)
-   ```
+### 2. Format verbs — the basics
 
-## Skills You'll Learn
+```go
+fmt.Printf("%s", "text")   // string
+fmt.Printf("%d", 42)       // integer
+fmt.Printf("%f", 3.14)     // float
+fmt.Printf("%v", anything) // any type (general)
+```
 
-After completing this exercise, you'll be able to:
+### 3. `fmt.Sprintf` — returns a string instead of printing
 
-1. **Format strings with placeholders**
-2. **Create formatted output**
-3. **Build string templates**
-4. **Display data nicely**
+```go
+s := fmt.Sprintf("Hello %s", "world")
+// s = "Hello world"
+```
 
-## How This Helps Your Capstone
+### 4. Variadic parameters with `...`
 
-This skill is used in:
-- **Budget Planner** - Format currency values
-- **Savings Calculator** - Display percentages
-- **Investment Tracker** - Format stock prices
-- **Net Worth Tracker** - Display totals
+A function that accepts any number of arguments:
+
+```go
+func greetAll(names ...string) {
+    for _, name := range names {
+        fmt.Println("Hello", name)
+    }
+}
+greetAll("Alice", "Bob", "Carol")
+```
+
+And `args...` unpacks a slice into individual arguments:
+
+```go
+args := []interface{}{"Alice", 30}
+fmt.Sprintf("Name: %s, Age: %d", args...)
+```
+
+## You're Ready When You Can...
+
+- [ ] Use `fmt.Printf` with at least three different format verbs
+- [ ] Use `fmt.Sprintf` to build a string without printing it
+- [ ] Understand the difference between `fmt.Print`, `fmt.Printf`, and `fmt.Sprintf`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [129-financial-freedom-api](../129-financial-freedom-api/README.md) - Financial Freedom Api
-- [130-index-fund-tracker](../130-index-fund-tracker/README.md) - Index Fund Tracker
+- You've completed the strings series! Explore:
+- [129-financial-freedom-api](../129-financial-freedom-api/README.md)

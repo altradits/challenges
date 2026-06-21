@@ -1,67 +1,90 @@
-# Skills for 22-digitlen
+# Skills for digitlen
 
 ## What You'll Learn
 
-**Previous:** [21-countrepeats](../21-countrepeats/skills.md)
+**Previous:** [../21-countrepeats/skills.md](../21-countrepeats/skills.md) | **Next:** [../23-firstword/README.md](../23-firstword/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Count how many times `n` can be divided by `base` until it reaches zero — effectively counting the number of digits in that base.
 
-**Challenge:** Digitlen
+## Core Concept: Repeated Integer Division
 
-## New Concepts Explained
+### What Is It?
+The number of digits a positive integer `n` has in base `b` equals the number of times you can divide it by `b` before it hits zero. This is pure integer arithmetic — no string conversion needed.
 
-### 1. Numeric operations and type conversion
+For example, `100` in base 10: 100 → 10 → 1 → 0 = 3 steps = 3 digits.
 
-Go supports various numeric types: `int`, `int8`, `int16`, `int32`, `int64`, `uint`, `float32`, `float64`.
-
-Common operations:
-- `%` (modulo) for remainders
-- `/` for division (integer division truncates)
-- Type conversion: `int(x)`, `float64(x)`
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### How It Works
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func DigitLen(n, base int) int {
+    if base < 2 || base > 36 {
+        return -1
+    }
+    if n < 0 {
+        n = -n
+    }
+    count := 0
+    for n > 0 {
+        n /= base
+        count++
+    }
+    return count
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+Step-by-step for `DigitLen(100, 10)`:
+- n=100: 100/10=10, count=1
+- n=10:  10/10=1,  count=2
+- n=1:   1/10=0,   count=3
+- n=0: loop ends
+- return 3
 
-### 3. Conditional logic and boolean returns
+Step-by-step for `DigitLen(100, 2)`:
+- 100→50→25→12→6→3→1→0 (7 steps) → return 7
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
+### Integer Division in Go
+The `/` operator on integers truncates toward zero — no decimal part:
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+fmt.Println(7 / 2)    // 3, not 3.5
+fmt.Println(1 / 10)   // 0  ← this ends the loop
+fmt.Println(-7 / 2)   // -3 (truncated toward zero)
+```
+
+### Handling Negative Input
+The challenge says treat negative numbers by using their absolute value:
+```go
+if n < 0 {
+    n = -n
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
-
+### Validating the Base
+The base must be between 2 and 36. Check this before doing anything else:
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+if base < 2 || base > 36 {
+    return -1
+}
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not validating base first | Wrong results for base 0 or 1 (infinite loop for base 1) | Check `base < 2 \|\| base > 36` at the start |
+| Not negating negative `n` | Loop `n > 0` never runs for negative numbers | Add `if n < 0 { n = -n }` before the loop |
+| Using `n /= base` with float | Precision errors | Use integer types only — no `float64` |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `base < 2` or `base > 36`, return `-1`.
+2. If `n < 0`, set `n = -n`.
+3. Initialize `count := 0`.
+4. While `n > 0`: divide `n` by `base`, increment `count`.
+5. Return `count`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [23-firstword](../23-firstword/skills.md) - Firstword
+**Next:** [../23-firstword/README.md](../23-firstword/README.md)

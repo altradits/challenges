@@ -2,78 +2,78 @@
 
 ## What You'll Learn
 
-**Previous:** [97-longestword](../97-longestword/skills.md)
+**Previous:** [97-longestword](../97-longestword/skills.md) | **Next:** [99-cleanlist](../99-cleanlist/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Find the first occurrence of `old` in `text` and replace it with `new`.
 
-**Challenge:** Searchreplace
+## Core Concept: Substring Replacement via String Slicing
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Replacing a substring means splitting the original string into three parts — before, the match, and after — then joining them with the replacement in the middle.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+```
+text = "Hello World"
+old  = "World"
+new  = "Go"
+
+Step 1: Find index of "World" → 6
+Step 2: before = text[:6]         → "Hello "
+Step 3: after  = text[6+5:]       → ""   (6 + len("World"))
+Step 4: return before + new + after → "Hello Go"
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String building and concatenation
-
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
+### The Manual Implementation
 
 ```go
-// Simple concatenation
-result := "Hello" + " " + "World"
-
-// Using strings.Builder for efficiency
-var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
-}
-result := b.String()
-```
-
-### 3. String searching and indexing
-
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
-
-```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+func SearchReplace(text, old, newStr string) string {
+    // Find position of old in text
+    idx := -1
+    for i := 0; i <= len(text)-len(old); i++ {
+        if text[i:i+len(old)] == old {
+            idx = i
+            break
+        }
     }
+    if idx == -1 {
+        return text  // not found, return unchanged
+    }
+    return text[:idx] + newStr + text[idx+len(old):]
 }
-return -1
 ```
 
-### 4. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Using `strings.Index`
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+import "strings"
+
+func SearchReplace(text, old, newStr string) string {
+    idx := strings.Index(text, old)
+    if idx == -1 {
+        return text
+    }
+    return text[:idx] + newStr + text[idx+len(old):]
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `strings.ReplaceAll` | Replaces ALL occurrences | Use `strings.Index` + slicing for first-only |
+| Forgetting the `-1` check | Panics if old not found | Always guard with `if idx == -1` |
+| `text[idx+len(new):]` | Uses length of `new`, not `old` | The skip is `len(old)` — the piece you removed |
+
+## Algorithm
+
+1. Find index of `old` in `text` (return -1 if absent)
+2. If not found, return `text` unchanged
+3. Return `text[:idx]` + `newStr` + `text[idx+len(old):]`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [99-cleanlist](../99-cleanlist/skills.md) - Cleanlist
+**Next:** [99-cleanlist](../99-cleanlist/skills.md)

@@ -1,48 +1,72 @@
-# Prerequisites for 39-fromto
+# Prerequisites for fromto
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. fmt.Sprintf with %02d
+Format an integer as a two-digit string with a leading zero when necessary.
+```go
+import "fmt"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+fmt.Println(fmt.Sprintf("%02d", 5))  // "05"
+fmt.Println(fmt.Sprintf("%02d", 10)) // "10"
+fmt.Println(fmt.Sprintf("%02d", 0))  // "00"
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Counting Up and Down in a Loop
+Use `i++` to count up, `i--` to count down. Both have the same `for` syntax.
+```go
+// Counting up: 1, 2, 3, 4, 5
+for i := 1; i <= 5; i++ { }
 
-## Skills You'll Learn
+// Counting down: 5, 4, 3, 2, 1
+for i := 5; i >= 1; i-- { }
+```
 
-After completing this exercise, you'll be able to:
+### 3. Building a String List With append and strings.Join
+Collect formatted numbers into a slice, then join with a separator.
+```go
+import "strings"
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+parts := []string{}
+parts = append(parts, "01")
+parts = append(parts, "02")
+parts = append(parts, "03")
+fmt.Println(strings.Join(parts, ", ")) // "01, 02, 03"
+```
 
-## How This Helps Your Capstone
+### 4. Input Validation With Early Return
+Check both boundary conditions before doing any work.
+```go
+if from < 0 || from > 99 || to < 0 || to > 99 {
+    return "Invalid\n"
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 5. Conditional Direction
+Use `if from <= to` to decide whether to count up or down.
+```go
+if from <= to {
+    // count up
+} else {
+    // count down
+}
+```
+
+## Review If Stuck
+
+- [../38-findprevprime/skills.md](../38-findprevprime/skills.md) — covers downward iteration (`i--`)
+- [../31-splitjoin/skills.md](../31-splitjoin/skills.md) — covers `strings.Join` and building slices with `append`
+
+## You're Ready When You Can...
+
+- [ ] Format a number with leading zero using `fmt.Sprintf("%02d", n)`
+- [ ] Write both an upward and a downward counting loop
+- [ ] Collect formatted strings into a slice with `append`
+- [ ] Join the slice with `strings.Join(parts, ", ")`
+- [ ] Validate input and return `"Invalid\n"` for out-of-range values
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [40-iscapitalized](../40-iscapitalized/README.md) - Iscapitalized
-- [41-itoa-35](../41-itoa-35/README.md) - Itoa 35
+- [Next challenge](../40-iscapitalized/README.md)

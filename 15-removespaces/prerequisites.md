@@ -1,48 +1,72 @@
 # Prerequisites for 15-removespaces
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand how to iterate over a string, filter characters, and build a new string from selected characters.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `for...range` on a string gives you runes
+Iterating a string produces one rune per character:
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+for _, r := range "hello" {
+    // r is each character as a rune
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Rune comparison with `!=`
+To check that a rune is NOT a space:
 
-## Skills You'll Learn
+```go
+if r != ' ' {
+    // r is not a space
+}
+```
 
-After completing this exercise, you'll be able to:
+`' '` (single quotes, a space character) is a rune literal.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 3. `strings.Builder` for efficient string construction
+Use `strings.Builder` to accumulate characters without creating many intermediate strings.
 
-## How This Helps Your Capstone
+```go
+import "strings"
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+var b strings.Builder
+b.WriteRune('H')
+b.WriteRune('i')
+result := b.String()   // "Hi"
+```
+
+### 4. `strings.ReplaceAll` as a shortcut
+The standard library can do this in one call:
+
+```go
+import "strings"
+
+strings.ReplaceAll("hello world", " ", "")  // "helloworld"
+```
+
+### 5. Go strings are immutable
+You cannot modify a string in place. You must build a new one.
+
+```go
+s := "hello"
+s[0] = 'H'   // compile error: cannot assign to s[0]
+```
+
+## Review If Stuck
+
+- [14-stringspackage](../14-stringspackage/skills.md) — covers `strings.ReplaceAll`, `strings.Builder`, and related functions
+- [06-checknumber](../06-checknumber/skills.md) — covers `for...range` and rune comparisons
+- [08-count-character](../08-count-character/skills.md) — covers iterating and testing individual runes
+
+## You're Ready When You Can...
+
+- [ ] Write a `for...range` loop over a string
+- [ ] Test a rune against `' '` (space) using `!=`
+- [ ] Use `strings.Builder` to collect characters, then call `.String()`
+- [ ] Alternatively, use `strings.ReplaceAll` to remove all occurrences of a character
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [16-retainfirsthalf](../16-retainfirsthalf/README.md) - Retainfirsthalf
-- [17-reversestring](../17-reversestring/README.md) - Reversestring
+- [16-retainfirsthalf](../16-retainfirsthalf/README.md)

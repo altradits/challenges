@@ -1,82 +1,94 @@
-# Skills for 66-rostring
+# Skills for rostring
 
 ## What You'll Learn
 
-**Previous:** [65-revwstr](../65-revwstr/skills.md)
+**Previous:** [65-revwstr](../65-revwstr/skills.md) | **Next:** [67-wordflip](../67-wordflip/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Rotate a string one word to the left — the first word moves to the end, all others keep their order. Words are alphanumeric sequences; output is joined by single spaces.
 
-**Challenge:** Rostring
+## Core Concept: String Rotation via Word Splitting
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Rotating a string left by one word means taking the first word and appending it to the end. The key skills are: extracting real words (ignoring extra spaces and non-alphanumeric sequences), then reassembling with `strings.Join`.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+**Step 1 — Extract words (alphanumeric sequences only):**
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+`strings.Fields` splits on whitespace but keeps non-alphanumeric tokens like `,` and `;` as separate "words." For this challenge, words are defined as alphanumeric sequences, so we must either filter or use a different approach.
 
-### 2. String splitting and joining
-
-Go's `strings` package provides split and join functions:
-- `strings.Split(s, sep)` - split string into slice
-- `strings.Join(slice, sep)` - join slice into string
-- Manual implementation helps understand the logic
+Looking at the expected output for `"     AkjhZ zLKIJz , 23y"` → `"zLKIJz , 23y AkjhZ"`: the comma `,` is kept as a separate token and preserved in order! So `strings.Fields` actually works here — it treats `,` as its own word token.
 
 ```go
-// Manual split example
-parts := []string{}
-current := ""
-for _, c := range s {
-    if c == sep {
-        parts = append(parts, current)
-        current = ""
-    } else {
-        current += string(c)
+import (
+    "fmt"
+    "os"
+    "strings"
+)
+
+func main() {
+    if len(os.Args) != 2 {
+        fmt.Println()
+        return
     }
-}
-```
+    s := os.Args[1]
+    words := strings.Fields(s)
 
-### 3. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+    if len(words) == 0 {
+        fmt.Println()
+        return
     }
+
+    // Rotate left: first word goes to the end
+    rotated := append(words[1:], words[0])
+    fmt.Println(strings.Join(rotated, " "))
 }
 ```
 
-### 4. Conditional logic and boolean returns
+**Trace `"Let there     be light"`:**
+- `strings.Fields` → `["Let", "there", "be", "light"]`
+- Rotate: `["there", "be", "light", "Let"]`
+- Join: `"there be light Let"` ✓
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+**Trace `"abc   "` (trailing spaces):**
+- `strings.Fields` → `["abc"]`
+- Rotate: `["abc"]` (one word, goes to end — same position)
+- Join: `"abc"` ✓
+
+**Trace `"     AkjhZ zLKIJz , 23y"`:**
+- `strings.Fields` → `["AkjhZ", "zLKIJz", ",", "23y"]`
+- Rotate: `["zLKIJz", ",", "23y", "AkjhZ"]`
+- Join: `"zLKIJz , 23y AkjhZ"` ✓
+
+**Understanding `append(words[1:], words[0])`:**
+
+`words[1:]` is a new slice starting from the second element. `words[0]` is the first element. Appending the first element to the tail gives the rotated result.
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+words := []string{"a", "b", "c", "d"}
+rotated := append(words[1:], words[0])
+// rotated = ["b", "c", "d", "a"]
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not handling single-word input | Index out of range on `words[1:]` | `words[1:]` on a 1-element slice returns `[]` — safe in Go |
+| Not handling empty/whitespace-only input | `words` is empty, `words[0]` panics | Check `len(words) == 0` first |
+| Printing extra spaces | `strings.Join` with `" "` produces exactly one space | Use `strings.Fields` + `strings.Join` — extra spaces are normalized |
+
+## Solving This Challenge
+
+### Algorithm
+1. If arg count != 1, print newline and return.
+2. `words = strings.Fields(s)`.
+3. If `len(words) == 0`, print newline and return.
+4. `rotated = append(words[1:], words[0])`.
+5. `fmt.Println(strings.Join(rotated, " "))`.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [67-wordflip](../67-wordflip/skills.md) - Wordflip
+**Next:** [67-wordflip](../67-wordflip/README.md)

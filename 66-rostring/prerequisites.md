@@ -1,48 +1,61 @@
-# Prerequisites for 66-rostring
+# Prerequisites for rostring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `strings.Fields` for Word Splitting
+Splits on any whitespace, handles multiple spaces and leading/trailing spaces.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+words := strings.Fields("  Let  there be  light  ")
+// words = ["Let", "there", "be", "light"]
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. `strings.Join` for Word Reassembly
+Joins a string slice with a single-space separator.
 
-## Skills You'll Learn
+```go
+result := strings.Join([]string{"there", "be", "light", "Let"}, " ")
+// "there be light Let"
+```
 
-After completing this exercise, you'll be able to:
+### 3. Slice Re-slicing — `words[1:]`
+`words[1:]` gives a new slice starting from index 1 to the end. Safe even when there is only one element (returns an empty slice).
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+words := []string{"a", "b", "c"}
+tail := words[1:]  // ["b", "c"]
+```
 
-## How This Helps Your Capstone
+### 4. `append(words[1:], words[0])` — Left Rotation
+The standard Go idiom for rotating a slice one position left.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+words := []string{"a", "b", "c", "d"}
+rotated := append(words[1:], words[0])
+// rotated = ["b", "c", "d", "a"]
+```
+
+### 5. Handling Empty and Whitespace-Only Input
+`strings.Fields` on an empty or all-space string returns an empty slice. Guard against indexing it.
+
+```go
+if len(words) == 0 {
+    fmt.Println()
+    return
+}
+```
+
+## Review If Stuck
+- [65-revwstr](../65-revwstr/skills.md) — teaches `strings.Fields`, `strings.Join`, and the two-pointer slice reversal pattern
+
+## You're Ready When You Can...
+- [ ] Use `strings.Fields` to split into tokens ignoring extra spaces
+- [ ] Use `strings.Join(words, " ")` to reassemble
+- [ ] Use `words[1:]` to get all elements after the first
+- [ ] Use `append(words[1:], words[0])` to rotate left by one
+- [ ] Guard against an empty `words` slice before indexing
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [67-wordflip](../67-wordflip/README.md) - Wordflip
-- [68-itoabase](../68-itoabase/README.md) - Itoabase
+- [67-wordflip](../67-wordflip/README.md)

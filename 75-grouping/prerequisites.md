@@ -1,48 +1,82 @@
 # Prerequisites for 75-grouping
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Validating argument count and pattern structure
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+```go
+if len(os.Args) != 3 {
+    return
+}
+pattern := os.Args[1]
+if len(pattern) < 3 || pattern[0] != '(' || pattern[len(pattern)-1] != ')' {
+    return
+}
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+Review: [06-checknumber](../06-checknumber/skills.md) — byte indexing with `s[0]`, `s[len(s)-1]`.
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. `strings.Split` to handle the `|` alternation
 
-## Skills You'll Learn
+```go
+inner := pattern[1 : len(pattern)-1]   // strip ( and )
+alternatives := strings.Split(inner, "|")
+// "e|n" → ["e", "n"]
+// "a"   → ["a"]
+```
 
-After completing this exercise, you'll be able to:
+Review: [14-stringspackage](../14-stringspackage/skills.md) — strings.Split, strings.Fields, strings.Contains.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 3. `strings.Fields` to split the sentence into words
 
-## How This Helps Your Capstone
+```go
+words := strings.Fields(sentence)
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 4. `strings.Contains` to test if a word contains the pattern
+
+```go
+if strings.Contains(word, alt) {
+    count++
+    fmt.Printf("%d: %s\n", count, cleanedWord)
+}
+```
+
+### 5. `unicode.IsLetter` for stripping punctuation from words
+
+```go
+import "unicode"
+
+for _, r := range word {
+    if unicode.IsLetter(r) || unicode.IsDigit(r) {
+        b.WriteRune(r)
+    }
+}
+```
+
+Review: [18-titlecase](../18-titlecase/skills.md) — unicode package usage.
+
+### 6. Nested loops: for each alternative, scan all words
+
+The output order is: for each alternative in order, list matching words in sentence order. This means a word can appear more than once if it matches multiple alternatives.
+
+```go
+for _, alt := range alternatives {
+    for _, word := range words {
+        if strings.Contains(cleanWord(word), alt) { ... }
+    }
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Validate that a pattern starts with `(` and ends with `)`
+- [ ] Strip the outer parentheses with slicing: `pattern[1:len(pattern)-1]`
+- [ ] Split on `|` to get alternatives
+- [ ] Use `strings.Fields` to split a sentence into words
+- [ ] Use nested loops: outer over alternatives, inner over words
+- [ ] Clean punctuation off words before matching
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [76-stringlength](../76-stringlength/README.md) - Stringlength
-- [77-firstchar](../77-firstchar/README.md) - Firstchar
+- [76-stringlength](../76-stringlength/README.md) — Start of the main exercises series

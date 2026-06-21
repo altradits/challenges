@@ -2,28 +2,79 @@
 
 ## What You'll Learn
 
-**Previous:** [02-onlya](../02-onlya/skills.md)
+**Previous:** [02-onlya](../02-onlya/skills.md) | **Next:** [04-onlyf](../04-onlyf/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a program that prints the character `B` and nothing else.
 
-**Challenge:** Onlyb
+## Core Concept: Case Sensitivity in Strings and Go Itself
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+This challenge looks identical to the previous ones, but there is a subtle point: the character to print is an uppercase `B`, not lowercase `b`. This is a good opportunity to understand that Go is case-sensitive everywhere — in the language keywords, in function names, and in string values.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("B")
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Output:
+```
+B
+```
+
+### Case Sensitivity in Go: Two Layers
+
+**Layer 1 — The language itself is case-sensitive:**
+
+```go
+func main() { }   // correct: lowercase func, main
+Func Main() { }   // syntax error: Go keywords are always lowercase
+```
+
+**Layer 2 — String values are case-sensitive:**
+
+```go
+fmt.Println("B")  // prints uppercase B
+fmt.Println("b")  // prints lowercase b — wrong for this challenge
+```
+
+The challenge says `B` (uppercase). If you print `b` (lowercase), you fail the test.
+
+### Why Does Uppercase vs Lowercase Matter in Go?
+
+In Go, the case of the first letter of a name also controls visibility (exported vs unexported):
+
+```go
+fmt.Println   // uppercase P — exported, usable from outside the fmt package
+fmt.println   // lowercase p — unexported, not accessible outside fmt
+```
+
+This is why you write `fmt.Println` not `fmt.println`. You will encounter this pattern throughout your Go journey.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `fmt.Println("b")` lowercase | Prints `b`, challenge expects `B` | Use `"B"` |
+| `fmt.println("B")` | `println` is unexported — compile error | Use `fmt.Println` (capital P) |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. Declare `package main`
+2. Import `fmt`
+3. Inside `func main()`, call `fmt.Println("B")`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [04-onlyf](../04-onlyf/skills.md) - Onlyf
+**Next:** [04-onlyf](../04-onlyf/README.md)

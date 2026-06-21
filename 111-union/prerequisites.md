@@ -1,49 +1,76 @@
-# Prerequisites for Union
+# Prerequisites for 111-union
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Maps in Go — `map[rune]bool`
 
-1. **How to use maps for tracking**
-   ```go
-   seen := make(map[rune]bool)
-   if !seen[c] {
-       // First time seeing this character
-   }
-   ```
+A map associates keys with values. `map[rune]bool` is a set of runes — the value `true` means "present".
 
-2. **How to iterate over two strings**
-   ```go
-   for _, c := range s1 + s2 {
-       // Process all characters
-   }
-   ```
+```go
+seen := make(map[rune]bool)
 
-3. **How to build rune slices**
-   ```go
-   var result []rune
-   result = append(result, c)
-   ```
+seen['a'] = true  // add 'a'
+seen['b'] = true  // add 'b'
 
-## Skills You'll Learn
+fmt.Println(seen['a'])  // true  — present
+fmt.Println(seen['c'])  // false — not present (zero value)
+```
 
-After completing this exercise, you'll be able to:
+### 2. Checking Map Membership
 
-1. **Combine unique characters**
-2. **Use maps for deduplication**
-3. **Preserve order while removing duplicates**
-4. **Build set operations**
+```go
+if seen['x'] {
+    fmt.Println("x was seen")
+} else {
+    fmt.Println("x is new")
+}
+```
 
-## How This Helps Your Capstone
+You do NOT need to check `ok` separately — accessing a missing key returns the zero value (`false` for bool), which is exactly what you want.
 
-This skill is used in:
-- **Budget Planner** - Combine unique categories
-- **Savings Calculator** - Merge account types
-- **Investment Tracker** - Combine ticker symbols
-- **Net Worth Tracker** - Merge account names
+### 3. Adding to a Map While Iterating
+
+```go
+seen := make(map[rune]bool)
+result := ""
+for _, c := range "aabbcc" {
+    if !seen[c] {
+        seen[c] = true  // mark as seen
+        result += string(c)  // add to output only once
+    }
+}
+fmt.Println(result)  // "abc"
+```
+
+### 4. String Concatenation for Two Strings
+
+You can concatenate two strings and iterate the combined result:
+
+```go
+s1 := "hello"
+s2 := "world"
+for _, c := range s1 + s2 {
+    fmt.Printf("%c ", c)
+}
+// h e l l o w o r l d
+```
+
+### 5. What "Union" Means
+
+Set union: all elements from both sets, no duplicates. If `s1 = "abc"` and `s2 = "bcd"`, the union is `"abcd"` — 'b' and 'c' appear in both but are listed once, in the order they first appear.
+
+## Review If Stuck
+
+- [100-countwords](../100-countwords/skills.md) — covers `for...range` iteration over strings
+- [107-thirdchar](../107-thirdchar/skills.md) — covers conditional character accumulation
+
+## You're Ready When You Can...
+
+- [ ] Create a `map[rune]bool` with `make`
+- [ ] Check if a rune is in the map with `if seen[c]`
+- [ ] Add a rune to the map with `seen[c] = true`
+- [ ] Iterate over the concatenation of two strings with `for _, c := range s1+s2`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [112-inter](../112-inter/README.md) - Inter
-- [113-stringbuilder](../113-stringbuilder/README.md) - Stringbuilder
+- [112-inter](../112-inter/README.md)

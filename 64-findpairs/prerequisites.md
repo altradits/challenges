@@ -1,48 +1,76 @@
-# Prerequisites for 64-findpairs
+# Prerequisites for findpairs
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `strings.Split` and `strings.TrimSpace`
+Split a comma-separated string into parts; trim whitespace from each part.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+import "strings"
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+parts := strings.Split("1, 2, 3", ",")
+// parts = ["1", " 2", " 3"]
 
-## Skills You'll Learn
+for _, p := range parts {
+    p = strings.TrimSpace(p)  // "1", "2", "3"
+}
+```
 
-After completing this exercise, you'll be able to:
+### 2. `strconv.Atoi` with Error Handling
+Parse each number string into an `int`. If it fails, report the invalid value.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+import "strconv"
 
-## How This Helps Your Capstone
+n, err := strconv.Atoi("42")
+if err != nil {
+    fmt.Println("invalid:", "42")
+    return
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 3. String Indexing for Bracket Validation
+Check the first and last characters of the array string.
+
+```go
+s := "[1, 2, 3]"
+if s[0] != '[' || s[len(s)-1] != ']' {
+    fmt.Println("Invalid input.")
+    return
+}
+inner := s[1 : len(s)-1]  // "1, 2, 3"
+```
+
+### 4. Map with Slice Values (`map[int][]int`)
+Store multiple indices per value to handle repeated numbers.
+
+```go
+seen := make(map[int][]int)
+seen[3] = append(seen[3], 0)  // value 3 was at index 0
+seen[3] = append(seen[3], 2)  // value 3 also at index 2
+```
+
+### 5. Printing Formatted Output
+Match the expected output format exactly using `fmt.Printf`.
+
+```go
+fmt.Printf("Pairs with sum %d: [[%d %d] [%d %d]]\n", target, i1, j1, i2, j2)
+```
+
+## Review If Stuck
+- [55-inter](../55-inter/skills.md) — covers using maps for set operations
+- [53-fprime](../53-fprime/skills.md) — covers `strconv.Atoi` and `os.Args` validation
+- [63-slice](../63-slice/skills.md) — covers string slicing with `s[1:len-1]`
+
+## You're Ready When You Can...
+- [ ] Use `strings.Split` to break a string by a delimiter
+- [ ] Use `strings.TrimSpace` to remove whitespace from a string
+- [ ] Check `s[0]` and `s[len(s)-1]` to validate bracket format
+- [ ] Use `strconv.Atoi` and print an error message on failure
+- [ ] Use `map[int][]int` to store multiple indices per value
+- [ ] Find pairs by looking up `target - v` in the map for each element
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [65-revwstr](../65-revwstr/README.md) - Revwstr
-- [66-rostring](../66-rostring/README.md) - Rostring
+- [65-revwstr](../65-revwstr/README.md)

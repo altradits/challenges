@@ -1,48 +1,66 @@
-# Prerequisites for 26-hashcode
+# Prerequisites for hashcode
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. ASCII Character Values
+Each character maps to an integer. `int(c)` gives you the number; `string(rune(n))` converts back.
+```go
+fmt.Println(int('A'))         // 65
+fmt.Println(int('a'))         // 97
+fmt.Println(int(' '))         // 32
+fmt.Println(string(rune(65))) // "A"
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. Modulo Arithmetic
+`%` gives the remainder and keeps values within a range.
+```go
+fmt.Println(130 % 127) // 3
+fmt.Println(65 % 127)  // 65
+fmt.Println(127 % 127) // 0
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 3. for/range Over a String
+Iterating with `range` gives you rune values, which is correct for character arithmetic.
+```go
+s := "ABC"
+for _, c := range s {
+    fmt.Println(int(c)) // 65, 66, 67
+}
+```
 
-## Skills You'll Learn
+### 4. Building a String in a Loop
+Append characters to a result string using `+=`.
+```go
+result := ""
+for _, c := range "ABC" {
+    result += string(rune(int(c) + 1))
+}
+// result == "BCD"
+```
 
-After completing this exercise, you'll be able to:
+### 5. Conditional Adjustment
+Check if a computed value falls in an undesirable range and correct it.
+```go
+hashed := someComputation()
+if hashed < 32 {
+    hashed += 33  // shift into printable ASCII range
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+## Review If Stuck
 
-## How This Helps Your Capstone
+- [../25-gcd/skills.md](../25-gcd/skills.md) — covers the modulo operator `%`
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## You're Ready When You Can...
+
+- [ ] Get the integer value of a character with `int(c)`
+- [ ] Use `%` to wrap a value into a range
+- [ ] Convert an integer back to a string character with `string(rune(val))`
+- [ ] Iterate over a string with `for _, c := range s`
+- [ ] Apply a conditional correction when the value falls below 32
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [27-lastword](../27-lastword/README.md) - Lastword
-- [28-longestword](../28-longestword/README.md) - Longestword
+- [Next challenge](../27-lastword/README.md)

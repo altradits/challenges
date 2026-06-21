@@ -2,69 +2,88 @@
 
 ## What You'll Learn
 
-**Previous:** [94-replacechar](../94-replacechar/skills.md)
+**Previous:** [94-replacechar](../94-replacechar/skills.md) | **Next:** [96-printifnot](../96-printifnot/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `PrintIf(str string) string` that returns `"G\n"` if the string length is 0 or >= 3, and `"Invalid Input\n"` otherwise.
 
-**Challenge:** Printif
+## Core Concept: Conditional Return Based on `len()` — The `||` Operator
 
-## New Concepts Explained
+### The Decision Rule
 
-### 1. String iteration and character access
+```
+length == 0  → "G\n"
+length == 1  → "Invalid Input\n"
+length == 2  → "Invalid Input\n"
+length >= 3  → "G\n"
+```
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+In other words, return `"G\n"` when `len(str) == 0 OR len(str) >= 3`.
+
+### The Implementation
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func PrintIf(str string) string {
+    if len(str) == 0 || len(str) >= 3 {
+        return "G\n"
+    }
+    return "Invalid Input\n"
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Or equivalently, check the invalid case first:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func PrintIf(str string) string {
+    if len(str) >= 1 && len(str) < 3 {
+        return "Invalid Input\n"
+    }
+    return "G\n"
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### `len()` Returns a Count You Can Compare
 
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+From [78-lastchar](../78-lastchar/skills.md) you know `len(s)` returns an integer. You can use that integer in any comparison:
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+len(str) == 0    // empty
+len(str) >= 3    // three or more characters
+len(str) < 3     // fewer than three characters
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### `||` (Logical OR)
 
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
+`condition1 || condition2` is `true` when at least one condition is true:
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+len(str) == 0 || len(str) >= 3
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+- Empty string (len=0): first condition true → result is true → return `"G\n"`
+- len=1 or len=2: both false → result is false → return `"Invalid Input\n"`
+- len=3 or more: second condition true → result is true → return `"G\n"`
+
+### The `\n` Newline
+
+The return values include `\n` (a newline character). This is part of the literal string — include it exactly as shown in the README. The caller uses `fmt.Print` (not `fmt.Println`) so the newline must be embedded in the returned string.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `len(str) > 3` instead of `>= 3` | Excludes length-3 strings | Use `>= 3` |
+| Forgetting `\n` in the return strings | Test output mismatches | Return `"G\n"` and `"Invalid Input\n"` |
+| `if len(str) == 0 && len(str) >= 3` | Impossible condition — always false | Use `||`, not `&&` |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. If `len(str) == 0 || len(str) >= 3`: return `"G\n"`
+2. Otherwise: return `"Invalid Input\n"`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [96-printifnot](../96-printifnot/skills.md) - Printifnot
+**Next:** [96-printifnot](../96-printifnot/skills.md)

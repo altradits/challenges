@@ -1,52 +1,52 @@
-# Prerequisites for StringIndex
+# Prerequisites for 120-stringindex
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. String slicing `s[i:j]`
 
-1. **How to iterate with index**
-   ```go
-   for i := 0; i < len(s); i++ {
-       // i is the byte index
-   }
-   ```
+Extracts bytes from index `i` up to (not including) `j`.
 
-2. **How to extract substrings**
-   ```go
-   if s[i:i+len(substr)] == substr {
-       // Found match at index i
-   }
-   ```
+```go
+s := "hello"
+s[0:2]  // "he"
+s[3:5]  // "lo"
+s[1:]   // "ello"
+```
 
-3. **How to handle edge cases**
-   ```go
-   if len(substr) == 0 {
-       return 0  // Empty substring found at start
-   }
-   if len(s) < len(substr) {
-       return -1  // Not found
-   }
-   ```
+Review: [89-retainfirsthalf](../89-retainfirsthalf/skills.md)
 
-## Skills You'll Learn
+### 2. `len()` on strings
 
-After completing this exercise, you'll be able to:
+```go
+len("hello")  // 5
+len("")        // 0
+```
 
-1. **Find substring positions**
-2. **Use sliding window technique**
-3. **Handle search boundaries**
-4. **Build search algorithms**
+### 3. A for loop with an index variable
 
-## How This Helps Your Capstone
+You need a numeric index to slide through positions:
 
-This skill is used in:
-- **Budget Planner** - Find category in input
-- **Savings Calculator** - Find goal keyword
-- **Investment Tracker** - Find ticker in text
-- **Net Worth Tracker** - Find account in list
+```go
+for i := 0; i <= limit; i++ {
+    // use i
+}
+```
+
+### 4. String comparison with `==`
+
+In Go, two strings are equal if they contain the same bytes:
+
+```go
+"hello" == "hello"  // true
+"hello" == "Hello"  // false
+```
+
+## You're Ready When You Can...
+
+- [ ] Slice a string to extract a window of N characters starting at position i
+- [ ] Write a loop that iterates i from 0 to a calculated upper bound
+- [ ] Return early from a function when a match is found
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [121-stringcount](../121-stringcount/README.md) - Stringcount
-- [122-stringprefix](../122-stringprefix/README.md) - Stringprefix
+- [121-stringcount](../121-stringcount/README.md)

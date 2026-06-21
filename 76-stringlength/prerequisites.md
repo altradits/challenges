@@ -1,48 +1,83 @@
-# Prerequisites for StringLength
+# Prerequisites for 76-stringlength
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+This is the **first function-based challenge** in the series. You do not need prior Go experience beyond the basics below.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. What a Go Function Is
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+A function is a reusable block of code with a name, inputs (parameters), and an output (return value). In Go, you define one like this:
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+```go
+func Add(a int, b int) int {
+    return a + b
+}
+```
 
-## Skills You'll Learn
+- `func` — keyword that starts every function definition
+- `Add` — the name (must start with a capital letter to be visible from tests)
+- `(a int, b int)` — two parameters, both of type `int`
+- `int` after the `)` — the return type
+- `return a + b` — sends the result back to whoever called the function
 
-After completing this exercise, you'll be able to:
+For this challenge the signature is already given:
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+func StringLength(s string) int {
+    // your code here
+}
+```
 
-## How This Helps Your Capstone
+### 2. Variable Declaration and Increment
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+You will need a counter variable:
+
+```go
+count := 0   // declare and initialise with :=
+count++      // add 1 (shorthand for count = count + 1)
+```
+
+### 3. The `for` Loop — Basic Form
+
+A counting loop in Go:
+
+```go
+for i := 0; i < 5; i++ {
+    fmt.Println(i)   // prints 0 1 2 3 4
+}
+```
+
+- Part 1 (`i := 0`) runs once at the start
+- Part 2 (`i < 5`) is checked before every iteration
+- Part 3 (`i++`) runs after every iteration
+
+### 4. Package and Import Basics
+
+Every Go file starts with a package declaration. For these challenges, that is `package main`. If you need `fmt.Println` you import it:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello")
+}
+```
+
+The function you write (`StringLength`) and the test file live in the same package, so you do not need to import anything for the function itself.
+
+## Review If Stuck
+
+- If basic Go syntax is new to you, the [Go Tour](https://go.dev/tour/) covers variables and loops in its first few lessons.
+
+## You're Ready When You Can...
+
+- [ ] Write a Go function that takes a `string` parameter and returns an `int`
+- [ ] Declare an integer variable and increment it inside a loop
+- [ ] Explain the difference between a byte and a character in a string
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [77-firstchar](../77-firstchar/README.md) - Firstchar
-- [78-lastchar](../78-lastchar/README.md) - Lastchar
+- [76-stringlength skills.md](skills.md) — teaches `for...range` on strings
+- [77-firstchar README](../77-firstchar/README.md) — next challenge

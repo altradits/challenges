@@ -1,77 +1,85 @@
-# Skills for 29-replaceall
+# Skills for replaceall
 
 ## What You'll Learn
 
-**Previous:** [28-longestword](../28-longestword/skills.md)
+**Previous:** [../28-longestword/skills.md](../28-longestword/skills.md) | **Next:** [../30-searchreplace/README.md](../30-searchreplace/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Manually replace all occurrences of a substring `old` in `text` with `new`, without using `strings.ReplaceAll`.
 
-**Challenge:** Replaceall
+## Core Concept: Manual Substring Search and String Building
 
-## New Concepts Explained
+### What Is It?
+To replace substrings manually, scan the input string looking for the start of `old`. When found, append `new` to the result and skip ahead by `len(old)`. When not found, copy the current character and advance by 1.
 
-### 1. String iteration and character access
+This teaches how substring replacement actually works internally.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String building and concatenation
-
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
+### How It Works
 
 ```go
-// Simple concatenation
-result := "Hello" + " " + "World"
-
-// Using strings.Builder for efficiency
-var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
-}
-result := b.String()
-```
-
-### 3. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
-
-```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
-```
-
-### 4. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func ReplaceAll(text, old, new string) string {
+    if old == "" {
+        return text
+    }
+    result := ""
+    i := 0
+    for i < len(text) {
+        // Check if old starts at position i
+        if i+len(old) <= len(text) && text[i:i+len(old)] == old {
+            result += new          // append the replacement
+            i += len(old)          // skip past the matched part
+        } else {
+            result += string(text[i]) // copy current character
+            i++
+        }
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Step-by-Step for `ReplaceAll("banana", "na", "NA")`
+- i=0: `text[0:2]="ba"` ≠ `"na"` → copy `'b'`, i=1
+- i=1: `text[1:3]="an"` ≠ `"na"` → copy `'a'`, i=2
+- i=2: `text[2:4]="na"` == `"na"` → append `"NA"`, i=4
+- i=4: `text[4:6]="na"` == `"na"` → append `"NA"`, i=6
+- i=6: loop ends
+- result: `"baNANA"`
+
+### String Slicing
+`text[i:j]` extracts bytes from index `i` up to (not including) `j`:
+```go
+s := "banana"
+fmt.Println(s[2:4]) // "na"
+fmt.Println(s[0:3]) // "ban"
+```
+
+### Checking String Equality
+Two string slices can be compared directly with `==`:
+```go
+if text[i:i+len(old)] == old {
+    // match found
+}
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not guarding `i+len(old) <= len(text)` | Slice out of bounds panic | Always check the slice bounds before slicing |
+| Not returning early when `old == ""` | Undefined behavior | Return `text` unchanged if `old` is empty |
+| Forgetting `i += len(old)` after a match | Re-scans the same match, infinite or wrong loop | Skip the length of `old` after each replacement |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `old == ""`, return `text` unchanged.
+2. Initialize `result := ""`, `i := 0`.
+3. While `i < len(text)`:
+   - If `text[i:i+len(old)] == old` (and bounds are safe): append `new`, advance `i` by `len(old)`.
+   - Else: append `string(text[i])`, advance `i` by 1.
+4. Return `result`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [30-searchreplace](../30-searchreplace/skills.md) - Searchreplace
+**Next:** [../30-searchreplace/README.md](../30-searchreplace/README.md)

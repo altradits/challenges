@@ -1,48 +1,56 @@
-# Prerequisites for 27-lastword
+# Prerequisites for lastword
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. strings.Fields
+Splits a string on any whitespace, ignoring leading/trailing spaces and runs of multiple spaces. Returns a slice of words.
+```go
+import "strings"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+words := strings.Fields("  hello   world  ")
+// words == []string{"hello", "world"}
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+words2 := strings.Fields("   ")
+// words2 == []string{}  (empty slice)
+```
 
-## Skills You'll Learn
+### 2. Slice Length and the Last-Element Pattern
+`len(slice)` gives the count of elements. Last element is always at `len(slice)-1`.
+```go
+words := []string{"one", "two", "three"}
+fmt.Println(len(words))             // 3
+fmt.Println(words[len(words)-1])    // "three"
+```
 
-After completing this exercise, you'll be able to:
+### 3. Empty Slice Guard
+Never index an empty slice — it panics. Check length before accessing.
+```go
+words := strings.Fields("   ")
+if len(words) == 0 {
+    return "\n"
+}
+// safe to use words[len(words)-1] now
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 4. Trailing Newline in Return Value
+The challenge requires `\n` at the end of the string you return.
+```go
+return words[len(words)-1] + "\n"
+```
 
-## How This Helps Your Capstone
+## Review If Stuck
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+- [../23-firstword/skills.md](../23-firstword/skills.md) — covers `strings.Fields` and safe slice indexing for `words[0]`; the same pattern applies to the last element
+
+## You're Ready When You Can...
+
+- [ ] Call `strings.Fields` and understand the slice it returns
+- [ ] Access the last element with `words[len(words)-1]`
+- [ ] Check for an empty slice before any indexing
+- [ ] Return a string with a trailing newline
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [28-longestword](../28-longestword/README.md) - Longestword
-- [29-replaceall](../29-replaceall/README.md) - Replaceall
+- [Next challenge](../28-longestword/README.md)

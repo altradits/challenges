@@ -1,48 +1,82 @@
 # Prerequisites for 17-reversestring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand rune slices, backwards iteration, and how to convert between strings and slices.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Rune slices: converting a string to `[]rune`
+A rune slice lets you index into a string by character position (not byte position). This is important for Unicode safety.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+s := "Hello"
+runes := []rune(s)   // [72 101 108 108 111]
+runes[0]             // 72 ('H')
+runes[4]             // 111 ('o')
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+Converting back:
+```go
+string(runes)  // "Hello"
+```
 
-## Skills You'll Learn
+### 2. Iterating backwards with a `for` loop
+Count down from the last index to 0:
 
-After completing this exercise, you'll be able to:
+```go
+runes := []rune("Hello")
+for i := len(runes) - 1; i >= 0; i-- {
+    // visits: runes[4], runes[3], runes[2], runes[1], runes[0]
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 3. `strings.Builder` for accumulating characters
 
-## How This Helps Your Capstone
+```go
+import "strings"
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+var b strings.Builder
+b.WriteRune('o')
+b.WriteRune('l')
+b.WriteRune('l')
+b.WriteRune('e')
+b.WriteRune('H')
+b.String()  // "olleH"
+```
+
+### 4. Multi-assignment swap (for the two-pointer approach)
+Go allows swapping two variables in one line:
+
+```go
+a, b := 1, 2
+a, b = b, a   // now a=2, b=1
+```
+
+Applied to a slice:
+```go
+runes[left], runes[right] = runes[right], runes[left]
+```
+
+### 5. `len()` on a slice returns the number of elements
+
+```go
+runes := []rune("Hello")
+len(runes)   // 5
+```
+
+## Review If Stuck
+
+- [15-removespaces](../15-removespaces/skills.md) — covers `strings.Builder` and building strings character by character
+- [16-retainfirsthalf](../16-retainfirsthalf/skills.md) — covers `len()` and working with string indices
+
+## You're Ready When You Can...
+
+- [ ] Convert a `string` to `[]rune` with `[]rune(s)`
+- [ ] Convert a `[]rune` back to `string` with `string(runes)`
+- [ ] Write a `for` loop that counts down from `len-1` to `0`
+- [ ] Use `strings.Builder` to build a string character by character
+- [ ] Swap two elements in a slice using multi-assignment
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [18-titlecase](../18-titlecase/README.md) - Titlecase
-- [19-wordcount](../19-wordcount/README.md) - Wordcount
+- [18-titlecase](../18-titlecase/README.md)

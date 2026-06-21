@@ -1,47 +1,50 @@
-# Prerequisites for StringPrefix
+# Prerequisites for 122-stringprefix
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. String slicing `s[:n]`
 
-1. **How to check string length**
-   ```go
-   if len(s) < len(prefix) {
-       return false
-   }
-   ```
+Get the first `n` bytes of a string:
 
-2. **How to extract substrings**
-   ```go
-   s[:len(prefix)]  // First N characters
-   ```
+```go
+s := "hello"
+s[:3]  // "hel"
+s[:0]  // ""
+```
 
-3. **How to compare strings**
-   ```go
-   if s[:len(prefix)] == prefix {
-       return true
-   }
-   ```
+Review: [89-retainfirsthalf](../89-retainfirsthalf/skills.md)
 
-## Skills You'll Learn
+### 2. `len()` comparisons
 
-After completing this exercise, you'll be able to:
+```go
+len("hello") < len("hello world")  // true
+len("hello") < len("hi")           // false
+```
 
-1. **Check string prefixes**
-2. **Handle edge cases**
-3. **Build validation functions**
-4. **Create pattern matchers**
+### 3. String equality with `==`
 
-## How This Helps Your Capstone
+```go
+"hello" == "hello"  // true
+"hello" == "Hello"  // false (case-sensitive)
+```
 
-This skill is used in:
-- **Budget Planner** - Validate "USD" or "EUR" prefix
-- **Savings Calculator** - Check for "$" prefix
-- **Investment Tracker** - Validate ticker format
-- **Net Worth Tracker** - Check account type prefix
+### 4. Boolean return from a function
+
+```go
+func check(s string) bool {
+    if condition {
+        return true
+    }
+    return false
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Slice a string to get its first N characters
+- [ ] Compare the lengths of two strings
+- [ ] Return a bool from a function based on a condition
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [123-stringsuffix](../123-stringsuffix/README.md) - Stringsuffix
-- [124-stringfield](../124-stringfield/README.md) - Stringfield
+- [123-stringsuffix](../123-stringsuffix/README.md)

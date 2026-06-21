@@ -1,49 +1,49 @@
-# Prerequisites for StringMap
+# Prerequisites for 125-stringmap
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.Builder` for efficient string construction
 
-1. **How to iterate over strings**
-   ```go
-   for i, char := range s {
-       // Process each character
-   }
-   ```
+```go
+var b strings.Builder
+b.WriteRune('H')
+b.WriteString("ello")
+result := b.String()  // "Hello"
+```
 
-2. **How to build strings**
-   ```go
-   var result strings.Builder
-   result.WriteString(string(char))
-   return result.String()
-   ```
+Review: [113-stringbuilder](../113-stringbuilder/skills.md)
 
-3. **How to use functions as parameters**
-   ```go
-   func transform(s string, f func(rune) rune) string {
-       // Apply f to each character
-   }
-   ```
+### 2. `for...range` on strings gives runes
 
-## Skills You'll Learn
+```go
+for _, r := range "hello" {
+    fmt.Printf("%c\n", r)  // prints each character
+}
+```
 
-After completing this exercise, you'll be able to:
+### 3. Functions are values in Go
 
-1. **Transform each character**
-2. **Build functional utilities**
-3. **Create mapping functions**
-4. **Process strings functionally**
+In Go, functions can be stored in variables and passed as arguments:
 
-## How This Helps Your Capstone
+```go
+f := unicode.ToUpper  // f is a variable holding a function
+fmt.Println(f('a'))   // 'A'
+```
 
-This skill is used in:
-- **Budget Planner** - Format currency symbols
-- **Savings Calculator** - Transform input formats
-- **Investment Tracker** - Normalize ticker symbols
-- **Net Worth Tracker** - Clean account names
+### 4. Function type syntax
+
+```go
+func(rune) rune  // type: "a function taking a rune, returning a rune"
+```
+
+This is the type of `unicode.ToUpper`, `unicode.ToLower`, and any function you write with that signature.
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Builder` to build a string rune by rune
+- [ ] Iterate over a string with `for...range`
+- [ ] Write a function that takes another function as a parameter
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [126-stringfilter](../126-stringfilter/README.md) - Stringfilter
-- [127-stringreduce](../127-stringreduce/README.md) - Stringreduce
+- [126-stringfilter](../126-stringfilter/README.md)

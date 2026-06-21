@@ -1,47 +1,41 @@
-# Prerequisites for StringSuffix
+# Prerequisites for 123-stringsuffix
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.HasPrefix` and string slicing from the front
 
-1. **How to check string length**
-   ```go
-   if len(s) < len(suffix) {
-       return false
-   }
-   ```
+```go
+s[:n]  // first n bytes
+```
 
-2. **How to extract substrings**
-   ```go
-   s[len(s)-len(suffix):]  // Last N characters
-   ```
+Review: [122-stringprefix](../122-stringprefix/skills.md) — HasSuffix is the mirror image.
 
-3. **How to compare strings**
-   ```go
-   if s[len(s)-len(suffix):] == suffix {
-       return true
-   }
-   ```
+### 2. Slicing from the end: `s[len(s)-n:]`
 
-## Skills You'll Learn
+```go
+s := "hello"
+s[len(s)-2:]  // "lo" — last 2 bytes
+s[len(s)-5:]  // "hello" — whole string
+```
 
-After completing this exercise, you'll be able to:
+Review: [78-lastchar](../78-lastchar/skills.md) — `s[len(s)-1]` is the same idea, one byte from the end.
 
-1. **Check string suffixes**
-2. **Handle edge cases**
-3. **Build validation functions**
-4. **Create file extension checkers**
+### 3. Length comparison before slicing
 
-## How This Helps Your Capstone
+You must ensure `len(s) >= len(suffix)` before taking `s[len(s)-len(suffix):]`, otherwise you get a negative index which panics.
 
-This skill is used in:
-- **Budget Planner** - Validate file extensions
-- **Savings Calculator** - Check for percentage suffix
-- **Investment Tracker** - Validate currency codes
-- **Net Worth Tracker** - Check for "USD" suffix
+```go
+if len(s) < len(suffix) {
+    return false
+}
+```
+
+## You're Ready When You Can...
+
+- [ ] Slice the last N characters from a string
+- [ ] Guard against negative indices with a length check
+- [ ] Compare a string slice to another string
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [124-stringfield](../124-stringfield/README.md) - Stringfield
-- [125-stringmap](../125-stringmap/README.md) - Stringmap
+- [124-stringfield](../124-stringfield/README.md)

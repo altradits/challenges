@@ -1,47 +1,54 @@
-# Prerequisites for SearchReplace
+# Prerequisites for 98-searchreplace
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. String slicing with `s[start:end]`
 
-1. **How to find substring index**
-   ```go
-   for i := 0; i <= len(text)-len(old); i++ {
-       if text[i:i+len(old)] == old {
-           // Found at position i
-       }
-   }
-   ```
+String slicing extracts a portion of a string by byte position.
 
-2. **How to combine string parts**
-   ```go
-   result := text[:index] + new + text[index+len(old):]
-   ```
+```go
+s := "Hello World"
+s[:5]   // "Hello"  — first 5 bytes
+s[6:]   // "World"  — from byte 6 to end
+s[1:4]  // "ell"    — bytes 1,2,3
+```
 
-3. **How to handle not found case**
-   ```go
-   // If not found, return original string
-   ```
+Review: [89-retainfirsthalf](../89-retainfirsthalf/skills.md)
 
-## Skills You'll Learn
+### 2. Finding a substring's position
 
-After completing this exercise, you'll be able to:
+You need to find WHERE `old` starts inside `text`. Either manually with a loop or via `strings.Index`:
 
-1. **Find and replace substrings**
-2. **Build string combinations**
-3. **Handle search edge cases**
-4. **Create text editing tools**
+```go
+import "strings"
+idx := strings.Index("Hello World", "World")  // 6
+idx  = strings.Index("Hello World", "xyz")    // -1 (not found)
+```
 
-## How This Helps Your Capstone
+Review: [101-findsubstring](../101-findsubstring/skills.md) for the manual approach.
 
-This skill is used in:
-- **Budget Planner** - Replace category names
-- **Savings Calculator** - Update goal values
-- **Investment Tracker** - Update tickers
-- **Net Worth Tracker** - Update account names
+### 3. String length with `len()`
+
+You need `len(old)` to know how many bytes to skip after the match.
+
+```go
+len("World")  // 5
+```
+
+### 4. String concatenation with `+`
+
+Joining three parts with `+`:
+
+```go
+before + replacement + after
+```
+
+## You're Ready When You Can...
+
+- [ ] Slice a string to get the part before a given index
+- [ ] Slice a string to get the part after a given range
+- [ ] Check if `strings.Index` returned -1 (not found)
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [99-cleanlist](../99-cleanlist/README.md) - Cleanlist
-- [100-countwords](../100-countwords/README.md) - Countwords
+- [99-cleanlist](../99-cleanlist/README.md)

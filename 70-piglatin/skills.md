@@ -1,74 +1,118 @@
-# Skills for 70-piglatin
+# Skills for piglatin
 
 ## What You'll Learn
 
-**Previous:** [69-options](../69-options/skills.md)
+**Previous:** [69-options](../69-options/skills.md) | **Next:** [71-romannumbers](../71-romannumbers/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Transform a single word into Pig Latin: vowel-start words get `"ay"` appended; consonant-start words move leading consonants to the end and append `"ay"`. No vowels → print `"No vowels"`.
 
-**Challenge:** Piglatin
+## Core Concept: String Prefix Transformation
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Pig Latin is a simple string transformation rule applied to a single word:
+1. If the word starts with a vowel (`a e i o u`): add `"ay"` to the end.
+2. If the word starts with consonant(s): move all leading consonants to the end, then add `"ay"`.
+3. If the word has no vowels: print `"No vowels"`.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
+
+**Step 1 — Check vowels exist:**
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func isVowel(c byte) bool {
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+           c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'
+}
+
+func pigLatin(word string) string {
+    // Check if any vowel exists
+    hasVowel := false
+    for i := 0; i < len(word); i++ {
+        if isVowel(word[i]) {
+            hasVowel = true
+            break
+        }
+    }
+    if !hasVowel {
+        return "No vowels"
+    }
+```
+
+**Step 2 — Find the first vowel position:**
+
+```go
+    firstVowel := 0
+    for firstVowel < len(word) && !isVowel(word[firstVowel]) {
+        firstVowel++
+    }
+```
+
+**Step 3 — Apply the transformation:**
+
+```go
+    if firstVowel == 0 {
+        // Starts with vowel: just add "ay"
+        return word + "ay"
+    }
+    // Starts with consonant(s): move prefix to end, add "ay"
+    return word[firstVowel:] + word[:firstVowel] + "ay"
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+**Main:**
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
-```
-
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+func main() {
+    if len(os.Args) != 2 {
+        return
+    }
+    fmt.Println(pigLatin(os.Args[1]))
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+**Trace `"pig"`:**
+- No leading vowel, has vowel `i` at index 1.
+- `firstVowel = 1`
+- `word[1:] + word[:1] + "ay"` = `"ig"` + `"p"` + `"ay"` = `"igpay"` ✓
 
-### 4. Formatted output with fmt package
+**Trace `"Is"` (capital vowel):**
+- `isVowel('I')` = true (if you handle uppercase) → `firstVowel = 0`
+- `word + "ay"` = `"Isay"` ✓
 
-The `fmt` package provides formatted I/O:
+**Trace `"crunch"`:**
+- Consonants: `c`, `r` → `firstVowel = 2`
+- `"unch"` + `"cr"` + `"ay"` = `"unchcray"` ✓
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+**Trace `"crnch"` (no vowels):**
+- `hasVowel = false` → return `"No vowels"` ✓
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+**Key insight — string slicing does the heavy lifting:**
+
+`word[firstVowel:]` — everything from the first vowel to end
+
+`word[:firstVowel]` — the leading consonants
+
+Together: `word[firstVowel:] + word[:firstVowel] + "ay"` is the full transformation.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Not checking for no-vowel case first | Words like `"crnch"` run forever or return wrong result | Check `hasVowel` before finding `firstVowel` |
+| Only checking lowercase vowels | `"Is"` → `"Isay"` fails if `'I'` not in vowel set | Include uppercase `A E I O U` in `isVowel` |
+| Off-by-one in consonant slice | `word[:firstVowel+1]` includes the first vowel | `word[:firstVowel]` stops before the vowel |
+
+## Solving This Challenge
+
+### Algorithm
+1. Validate exactly 1 argument.
+2. Check if any vowel (a/e/i/o/u, case-insensitive) exists → if not, print `"No vowels"`.
+3. Find `firstVowel` = index of the first vowel.
+4. If `firstVowel == 0`: print `word + "ay"`.
+5. Else: print `word[firstVowel:] + word[:firstVowel] + "ay"`.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [71-romannumbers](../71-romannumbers/skills.md) - Romannumbers
+**Next:** [71-romannumbers](../71-romannumbers/README.md)

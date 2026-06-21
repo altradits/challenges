@@ -2,79 +2,121 @@
 
 ## What You'll Learn
 
-**Previous:** [71-romannumbers](../71-romannumbers/skills.md)
+**Previous:** [71-romannumbers](../71-romannumbers/skills.md) | **Next:** [73-rpncalc](../73-rpncalc/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a program that takes multiple string arguments and prints `OK` or `Error` for each, depending on whether its brackets are correctly matched.
 
-**Challenge:** Brackets
+## Core Concept: Stack-Based Bracket Matching
 
-## New Concepts Explained
+### Why a Stack?
 
-### 1. String iteration and character access
+Brackets must close in LIFO (Last-In, First-Out) order. When you see `([{`, the `{` must close first, then `[`, then `(`. A stack naturally tracks this: push each opening bracket, pop and verify on each closing bracket.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### The Algorithm
+
+```
+Input: "{[(0 + 0)(1 + 1)](3*(-1)){()}}"
+
+Push {  → stack: ['{']
+Push [  → stack: ['{', '[']
+Push (  → stack: ['{', '[', '(']
+See )   → pop '(' — matches ')' ✓  stack: ['{', '[']
+Push (  → stack: ['{', '[', '(']
+See )   → pop '(' — matches ')' ✓  stack: ['{', '[']
+See ]   → pop '[' — matches ']' ✓  stack: ['{']
+...
+End: stack empty → OK
+```
+
+### Implementation
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+package main
+
+import (
+    "fmt"
+    "os"
+)
+
+func isOpen(r rune) bool {
+    return r == '(' || r == '[' || r == '{'
+}
+
+func matches(open, close rune) bool {
+    return (open == '(' && close == ')') ||
+        (open == '[' && close == ']') ||
+        (open == '{' && close == '}')
+}
+
+func checkBrackets(s string) bool {
+    stack := []rune{}
+    for _, r := range s {
+        switch r {
+        case '(', '[', '{':
+            stack = append(stack, r)
+        case ')', ']', '}':
+            if len(stack) == 0 || !matches(stack[len(stack)-1], r) {
+                return false
+            }
+            stack = stack[:len(stack)-1]  // pop
+        }
+    }
+    return len(stack) == 0  // valid only if stack is empty at end
+}
+
+func main() {
+    for _, arg := range os.Args[1:] {
+        if checkBrackets(arg) {
+            fmt.Println("OK")
+        } else {
+            fmt.Println("Error")
+        }
+    }
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### Key Go Techniques
 
-### 2. Stack data structure for LIFO operations
-
-A stack is a Last-In-First-Out (LIFO) data structure. In Go, you can implement a stack using a slice:
-
+**Slice as stack** — push with `append`, pop with `stack[:len-1]`:
 ```go
-// Push
-stack = append(stack, item)
-
-// Pop
-item := stack[len(stack)-1]
-stack = stack[:len(stack)-1]
-
-// Peek
-item := stack[len(stack)-1]
+stack = append(stack, r)           // push
+top := stack[len(stack)-1]         // peek
+stack = stack[:len(stack)-1]       // pop
 ```
 
-Stacks are useful for bracket matching, RPN evaluation, and backtracking algorithms.
-
-### 3. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
-
+**`os.Args[1:]`** — skip `os.Args[0]` (program name), iterate over all arguments:
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
+for _, arg := range os.Args[1:] { ... }
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
+**`switch` on rune** — clean multi-case branching:
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+switch r {
+case '(', '[', '{': // push
+case ')', ']', '}': // pop and verify
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Edge Cases
+
+| Input | Stack at end | Result |
+|-------|-------------|--------|
+| `""` (empty) | empty | OK — no brackets = valid |
+| `"hello"` | empty | OK — no brackets |
+| `"([)]"` | fails mid-way | Error |
+| `"(("` | `['(', '(']` | Error — unclosed |
+| `")"` | empty when closing arrives | Error — nothing to match |
+
+### Common Mistakes
+
+| Mistake | Fix |
+|---------|-----|
+| Checking `len(stack) == 0` AFTER popping | Check BEFORE popping — empty stack means nothing to match |
+| Using `stack[len(stack)]` (off by one) | Pop: `stack[:len(stack)-1]` — index `-1` is the last element |
+| Forgetting to check stack empty at end | `return len(stack) == 0` — unclosed brackets stay on the stack |
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [73-rpncalc](../73-rpncalc/skills.md) - Rpncalc
+**Next:** [73-rpncalc](../73-rpncalc/skills.md)

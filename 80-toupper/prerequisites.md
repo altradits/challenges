@@ -1,52 +1,83 @@
-# Prerequisites for ToUpper
+# Prerequisites for 80-toupper
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check for lowercase**
-   ```go
-   if c >= 'a' && c <= 'z' {
-       // Character is lowercase
-   }
-   ```
+### 1. The `for...range` Loop on Strings
 
-2. **How to convert to uppercase**
-   ```go
-   c - 32  // 'a' (97) - 32 = 'A' (65)
-   ```
+From [76-stringlength skills.md](../76-stringlength/skills.md): iterating character by character:
 
-3. **How to build strings**
-   ```go
-   result := ""
-   for _, c := range s {
-       if c >= 'a' && c <= 'z' {
-           result += string(c - 32)
-       } else {
-           result += string(c)
-       }
-   }
-   ```
+```go
+for _, c := range s {
+    // c is a rune (int32) — one character
+}
+```
 
-## Skills You'll Learn
+### 2. Building a New String by Accumulation
 
-After completing this exercise, you'll be able to:
+Go strings are immutable — you cannot change a character in place. Build a result by starting with `""` and appending:
 
-1. **Convert character cases**
-2. **Handle non-alphabetic characters**
-3. **Build transformation functions**
-4. **Create text normalization tools**
+```go
+result := ""
+for _, c := range s {
+    result += string(c)   // add each character
+}
+```
 
-## How This Helps Your Capstone
+You have seen this pattern in [77-firstchar](../77-firstchar/skills.md) and [78-lastchar](../78-lastchar/skills.md) (in a simpler form). Here you do it for every character.
 
-This skill is used in:
-- **Budget Planner** - Normalize category names
-- **Savings Calculator** - Clean input
-- **Investment Tracker** - Format ticker symbols
-- **Net Worth Tracker** - Standardize account names
+### 3. Runes Are Integers — Arithmetic Works
+
+A `rune` in Go is just `int32`. That means you can do arithmetic on it:
+
+```go
+var c rune = 'a'   // c = 97
+c + 1              // = 98, which is 'b'
+c - 1              // = 96, which is '`'
+```
+
+You will use this fact to convert between upper and lowercase.
+
+### 4. Range Comparisons on Runes
+
+To check whether a character falls in a range, compare directly:
+
+```go
+if c >= 'a' && c <= 'z' {
+    // c is a lowercase ASCII letter
+}
+
+if c >= 'A' && c <= 'Z' {
+    // c is an uppercase ASCII letter
+}
+```
+
+`&&` means "and" — both conditions must be true.
+
+### 5. Converting a Rune Back to String
+
+After doing arithmetic on a rune, wrap it in `string()` to produce a one-character string:
+
+```go
+string('A')        // "A"
+string(rune(65))   // "A"
+```
+
+## Review If Stuck
+
+- [76-stringlength skills.md](../76-stringlength/skills.md) — `for...range` loop
+- [77-firstchar skills.md](../77-firstchar/skills.md) — `string()` conversion
+- [79-isempty skills.md](../79-isempty/skills.md) — boolean conditions and `==`
+
+## You're Ready When You Can...
+
+- [ ] Loop over every character in a string using `for...range`
+- [ ] Check whether a rune falls in the range `'a'` to `'z'`
+- [ ] Do arithmetic on a rune (e.g., `c - 32`) and convert the result back to a string
+- [ ] Build a result string by appending inside a loop
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [81-tolower](../81-tolower/README.md) - Tolower
-- [82-countalpha](../82-countalpha/README.md) - Countalpha
+- [80-toupper skills.md](skills.md) — teaches ASCII case conversion
+- [81-tolower README](../81-tolower/README.md) — next challenge

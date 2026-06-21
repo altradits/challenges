@@ -1,48 +1,72 @@
-# Prerequisites for 30-searchreplace
+# Prerequisites for searchreplace
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. os.Args
+`os.Args` is a slice of strings. Index 0 is the program name. User-provided arguments start at index 1.
+```go
+import "os"
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+// Running: go run . "hello" "a" "o"
+// os.Args == ["./program", "hello", "a", "o"]
+fmt.Println(len(os.Args)) // 4
+fmt.Println(os.Args[1])   // "hello"
+fmt.Println(os.Args[2])   // "a"
+fmt.Println(os.Args[3])   // "o"
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Validating Argument Count
+Check `len(os.Args)` before accessing any argument. The program name counts as an element.
+```go
+if len(os.Args) != 4 {  // 1 program name + 3 user args
+    return  // exit without printing anything
+}
+```
 
-## Skills You'll Learn
+### 3. Character-by-Character Replacement
+Loop through a string and compare each character to find matches.
+```go
+result := ""
+for _, c := range text {
+    if string(c) == old {
+        result += newChar
+    } else {
+        result += string(c)
+    }
+}
+```
 
-After completing this exercise, you'll be able to:
+### 4. strings.ReplaceAll (allowed here)
+Since this challenge doesn't forbid built-in functions, you can use the standard library:
+```go
+import "strings"
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+result := strings.ReplaceAll(text, old, newChar)
+fmt.Println(result)
+```
 
-## How This Helps Your Capstone
+### 5. Printing Nothing on Bad Input
+A bare `return` in `main()` exits the program without printing anything.
+```go
+if len(os.Args) != 4 {
+    return  // no fmt.Println, no output
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+## Review If Stuck
+
+- [../29-replaceall/skills.md](../29-replaceall/skills.md) — covers manual string replacement logic
+- Prior challenges — cover `os.Args` for reading command-line arguments
+
+## You're Ready When You Can...
+
+- [ ] Access command-line arguments via `os.Args`
+- [ ] Check `len(os.Args)` and return silently if the count is wrong
+- [ ] Replace characters in a string either manually or with `strings.ReplaceAll`
+- [ ] Print the result (or nothing) depending on input validity
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [31-splitjoin](../31-splitjoin/README.md) - Splitjoin
-- [32-wordanatomy](../32-wordanatomy/README.md) - Wordanatomy
+- [Next challenge](../31-splitjoin/README.md)

@@ -1,48 +1,51 @@
 # Prerequisites for 04-onlyf
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand the basic Go program structure and how to print a string.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Basic Go program structure
+Three parts: `package main`, `import "fmt"`, `func main()`.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+package main
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+import "fmt"
 
-## Skills You'll Learn
+func main() {
+    fmt.Println("f")
+}
+```
 
-After completing this exercise, you'll be able to:
+### 2. `fmt.Println` adds a newline automatically
+You do not need to add `\n` yourself when using `Println`.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+fmt.Println("f")   // prints f and then a newline
+fmt.Print("f\n")   // same result, but manual newline
+```
 
-## How This Helps Your Capstone
+### 3. String values are case-sensitive
+The challenge asks for lowercase `f`. `"f"` and `"F"` are different.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+fmt.Println("f")   // correct output
+fmt.Println("F")   // wrong output
+```
+
+## Review If Stuck
+
+- [01-only1](../01-only1/skills.md) — covers the full three-part program structure
+- [02-onlya](../02-onlya/skills.md) — covers string literals
+- [03-onlyb](../03-onlyb/skills.md) — covers case sensitivity
+
+## You're Ready When You Can...
+
+- [ ] Write the three-part Go program structure without looking it up
+- [ ] Predict exactly what `fmt.Println("f")` will print
+- [ ] Know that `fmt.Println` automatically appends a newline
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [05-onlyz](../05-onlyz/README.md) - Onlyz
-- [06-checknumber](../06-checknumber/README.md) - Checknumber
+- [05-onlyz](../05-onlyz/README.md)

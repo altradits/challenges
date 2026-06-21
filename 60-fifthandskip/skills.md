@@ -1,79 +1,114 @@
-# Skills for 60-fifthandskip
+# Skills for fifthandskip
 
 ## What You'll Learn
 
-**Previous:** [59-wdmatch](../59-wdmatch/skills.md)
+**Previous:** [59-wdmatch](../59-wdmatch/skills.md) | **Next:** [61-notdecimal](../61-notdecimal/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Collect non-space characters from the string into groups of 5. Separate each complete group with a space, and skip (discard) the 6th character after every group of 5.
 
-**Challenge:** Fifthandskip
+## Core Concept: Grouping with Skip-Every-Nth
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+This challenge combines two ideas:
+1. **Ignore spaces** — strip spaces while counting real characters.
+2. **Group into 5, skip 1** — after collecting 5 non-space characters, discard the 6th, then start a new group.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+The output groups are separated by spaces (not the 6th character).
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+### How It Works
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String splitting and joining
-
-Go's `strings` package provides split and join functions:
-- `strings.Split(s, sep)` - split string into slice
-- `strings.Join(slice, sep)` - join slice into string
-- Manual implementation helps understand the logic
+**Step 1 — Handle edge cases:**
 
 ```go
-// Manual split example
-parts := []string{}
-current := ""
-for _, c := range s {
-    if c == sep {
-        parts = append(parts, current)
-        current = ""
-    } else {
-        current += string(c)
+func FifthAndSkip(str string) string {
+    if str == "" {
+        return "\n"
     }
-}
-```
-
-### 3. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+    // count non-space characters
+    nonSpace := 0
+    for _, c := range str {
+        if c != ' ' {
+            nonSpace++
+        }
     }
-}
+    if nonSpace < 5 {
+        return "Invalid Input\n"
+    }
 ```
 
-### 4. Go function definition and usage
+**Step 2 — Walk through non-space characters, collecting groups of 5:**
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Use a counter that tracks position within the current group of 6 (5 kept + 1 skipped).
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+    result := ""
+    count := 0      // position within group of 6
+
+    for _, c := range str {
+        if c == ' ' {
+            continue  // skip spaces entirely
+        }
+        pos := count % 6
+        if pos < 5 {
+            // positions 0-4: keep
+            if pos == 0 && count > 0 {
+                result += " "  // separate groups
+            }
+            result += string(c)
+        }
+        // position 5: discard (the 6th character)
+        count++
+    }
+    return result + "\n"
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+**Trace `"abcdefghijklmnopqrstuwxyz"` (25 chars, no spaces):**
+
+| count | pos | char | action |
+|-------|-----|------|--------|
+| 0 | 0 | a | keep (group 1 start) |
+| 1 | 1 | b | keep |
+| 2 | 2 | c | keep |
+| 3 | 3 | d | keep |
+| 4 | 4 | e | keep (group 1 end) |
+| 5 | 5 | f | SKIP |
+| 6 | 0 | g | keep (add space, group 2 start) |
+| 7 | 1 | h | keep |
+| 8 | 2 | i | keep |
+| 9 | 3 | j | keep |
+| 10 | 4 | k | keep |
+| 11 | 5 | l | SKIP |
+| ...
+
+Result: `abcde ghijk mnopq stuwx z`
+
+**Trace `"This is a short sentence"` (ignoring internal spaces):**
+
+Non-space chars: `T h i s i s a s h o r t s e n t e n c e` = 20 chars
+
+Groups: `Thisi` (skip `s`) `ashor` (skip `t`) `sente` (skip `n`) `ce`
+
+Result: `Thisi ashor sente ce`
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Counting spaces when forming groups | Groups become wrong length | Use `continue` to skip space chars before counting |
+| Adding a space before every group (including the first) | Output starts with a space | Only add a space when `count > 0` and `pos == 0` |
+| Off-by-one: skipping the 5th instead of 6th | Groups of 4 instead of 5 | Positions 0–4 (5 chars) are kept; position 5 (the 6th) is skipped |
+
+## Solving This Challenge
+
+### Algorithm
+1. If `str == ""`, return `"\n"`.
+2. Count non-space chars; if < 5, return `"Invalid Input\n"`.
+3. Walk non-space chars with counter `count`. `pos = count % 6`. If `pos < 5`: if `pos == 0 && count > 0` add space separator, then append char. If `pos == 5`: discard. Increment `count`.
+4. Return result + `"\n"`.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [61-notdecimal](../61-notdecimal/skills.md) - Notdecimal
+**Next:** [61-notdecimal](../61-notdecimal/README.md)

@@ -1,48 +1,86 @@
-# Prerequisites for 35-clean-the-list
+# Prerequisites for clean-the-list
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Iterating Over a Slice with Index
+Use `for i, item := range slice` to get both the position and value.
+```go
+lst := []string{"apples", "milk", "bread"}
+for i, item := range lst {
+    fmt.Printf("%d: %s\n", i, item)
+}
+// 0: apples
+// 1: milk
+// 2: bread
+```
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+### 2. strings.TrimSpace
+Removes all leading and trailing whitespace (spaces, tabs, newlines).
+```go
+import "strings"
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+fmt.Println(strings.TrimSpace("  hello  ")) // "hello"
+fmt.Println(strings.TrimSpace("  "))        // ""
+```
 
-## Skills You'll Learn
+### 3. Capitalizing Only the First Character
+Convert the string to a `[]rune`, uppercase `runes[0]`, then convert back.
+```go
+import "unicode"
 
-After completing this exercise, you'll be able to:
+s := "hello world"
+runes := []rune(s)
+runes[0] = unicode.ToUpper(runes[0])
+result := string(runes) // "Hello world"
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+### 4. fmt.Sprintf for Building Formatted Strings
+Build a string with a format verb without printing it immediately.
+```go
+import "fmt"
 
-## How This Helps Your Capstone
+item := fmt.Sprintf("%d/ %s", 3, "Bread")
+// item == "3/ Bread"
+```
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+### 5. append to Build the Result Slice
+Collect processed items into a new slice using `append`.
+```go
+result := []string{}
+result = append(result, "1/ Tomatoes")
+result = append(result, "2/ Milk")
+```
+
+### 6. Checking for a Specific Item
+Use a boolean flag to track whether a required item has been seen.
+```go
+hasMilk := false
+for _, item := range lst {
+    if strings.ToLower(strings.TrimSpace(item)) == "milk" {
+        hasMilk = true
+    }
+}
+if !hasMilk {
+    // add milk
+}
+```
+
+## Review If Stuck
+
+- [34-slicesintro](../34-slicesintro/skills.md) — comprehensive introduction to Go slices: make, append, range, and slice tricks
+- [../31-splitjoin/skills.md](../31-splitjoin/skills.md) — covers building a `[]string` slice with `append`
+- [../26-hashcode/skills.md](../26-hashcode/skills.md) — covers character-level operations using runes
+
+## You're Ready When You Can...
+
+- [ ] Iterate over a slice with both index and value using `for i, item := range`
+- [ ] Trim spaces with `strings.TrimSpace`
+- [ ] Capitalize only the first letter using `[]rune` and `unicode.ToUpper`
+- [ ] Format strings with `fmt.Sprintf` using `%d` and `%s`
+- [ ] Append items to a `[]string` result slice
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [36-cleanstr](../36-cleanstr/README.md) - Cleanstr
-- [37-expandstr](../37-expandstr/README.md) - Expandstr
+- [Next challenge](../36-cleanstr/README.md)

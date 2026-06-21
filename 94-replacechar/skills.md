@@ -2,53 +2,82 @@
 
 ## What You'll Learn
 
-**Previous:** [93-findlastchar](../93-findlastchar/skills.md)
+**Previous:** [93-findlastchar](../93-findlastchar/skills.md) | **Next:** [95-printif](../95-printif/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `ReplaceChar(s string, old, new rune) string` that replaces every occurrence of character `old` with character `new`.
 
-**Challenge:** Replacechar
+## Core Concept: Conditional String Building — Transform or Pass Through
 
-## New Concepts Explained
+### What Is Character Replacement?
 
-### 1. String iteration and character access
+Replacement combines the filter pattern (from [87-removespaces](../87-removespaces/skills.md)) with the transform pattern (from [80-toupper](../80-toupper/skills.md)). Instead of removing a character or changing its case, you substitute it with a different specific character.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### The Implementation
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func ReplaceChar(s string, old, new rune) string {
+    result := ""
+    for _, c := range s {
+        if c == old {
+            result += string(new)   // substitute
+        } else {
+            result += string(c)     // keep original
+        }
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+Every character is appended — either the replacement or the original. Nothing is dropped.
 
-### 3. Formatted output with fmt package
+### Three-Parameter Functions
 
-The `fmt` package provides formatted I/O:
+This challenge uses three parameters — the first multi-rune-parameter function in the series:
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+func ReplaceChar(s string, old, new rune) string
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+When two parameters share the same type, Go lets you write them together: `old, new rune` instead of `old rune, new rune`. Both mean the same thing.
+
+Called with:
+
+```go
+ReplaceChar("Hello", 'l', 'L')   // "HeLLo"
+```
+
+### `new` Is a Reserved Word in Some Contexts
+
+`new` is a built-in function in Go (it allocates memory). Using it as a parameter name shadows the built-in. This is legal and is done in the README's expected function signature, so follow the README. If you prefer to avoid the ambiguity, you can name it `replacement` locally.
+
+### Comparing with Earlier Challenges
+
+| Challenge | When match? | When no match? | Result |
+|-----------|------------|----------------|--------|
+| 87-removespaces | Drop the character | Keep | Filtered string |
+| 80-toupper | Change the character | Keep | Transformed string |
+| 94-replacechar | Substitute with `new` | Keep `old` value | Substituted string |
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `result += string(old)` in the else | Appends `old`, not the current char | Use `string(c)` in the else |
+| Only replacing the first occurrence | Early return or wrong logic | Loop over ALL characters; no return inside |
+| Dropping non-matching characters | Like RemoveSpaces behaviour | Use `else { result += string(c) }` |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `result := ""`
+2. For each rune `c` in `s`:
+   - If `c == old`: append `string(new)`
+   - Else: append `string(c)`
+3. Return `result`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [95-printif](../95-printif/skills.md) - Printif
+**Next:** [95-printif](../95-printif/skills.md)

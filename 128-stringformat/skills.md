@@ -4,68 +4,87 @@
 
 **Previous:** [127-stringreduce](../127-stringreduce/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement a `Format(template string, args ...interface{}) string` function using `fmt.Sprintf` format verbs.
 
-**Challenge:** Stringformat
+## Core Concept: `fmt.Sprintf` — Formatted String Construction
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+`fmt.Sprintf` (Sprintf = "string print formatted") builds a string by substituting format verbs (`%s`, `%d`, etc.) with argument values. It returns the result as a string instead of printing it.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+import "fmt"
+
+s := fmt.Sprintf("Hello %s, you are %d years old", "Alice", 30)
+// s = "Hello Alice, you are 30 years old"
+```
+
+### Format Verbs Reference
+
+| Verb | Type | Example | Output |
+|------|------|---------|--------|
+| `%s` | string | `fmt.Sprintf("%s", "go")` | `go` |
+| `%d` | integer | `fmt.Sprintf("%d", 42)` | `42` |
+| `%f` | float | `fmt.Sprintf("%f", 3.14)` | `3.140000` |
+| `%.2f` | float, 2 decimals | `fmt.Sprintf("%.2f", 3.14159)` | `3.14` |
+| `%v` | any value | `fmt.Sprintf("%v", true)` | `true` |
+| `%T` | type name | `fmt.Sprintf("%T", 42)` | `int` |
+| `%q` | quoted string | `fmt.Sprintf("%q", "hi")` | `"hi"` |
+| `%x` | hex | `fmt.Sprintf("%x", 255)` | `ff` |
+| `%X` | hex uppercase | `fmt.Sprintf("%X", 255)` | `FF` |
+| `%b` | binary | `fmt.Sprintf("%b", 10)` | `1010` |
+| `%%` | literal `%` | `fmt.Sprintf("100%%")` | `100%` |
+
+### Width and Padding
+
+```go
+fmt.Sprintf("%5d", 42)    // "   42"  — right-aligned, width 5
+fmt.Sprintf("%-5d", 42)   // "42   "  — left-aligned, width 5
+fmt.Sprintf("%05d", 42)   // "00042"  — zero-padded, width 5
+fmt.Sprintf("%8.2f", 3.14) // "    3.14"
+```
+
+### `fmt.Sprintf` vs `fmt.Printf` vs `fmt.Println`
+
+```go
+fmt.Sprintf("Hello %s", name)  // returns a string
+fmt.Printf("Hello %s\n", name) // prints to stdout, no newline added
+fmt.Println("Hello", name)     // prints to stdout, space-separated, newline added
+```
+
+### Variadic Arguments (`...interface{}`)
+
+The `...` means "zero or more arguments of any type":
+
+```go
+func Format(template string, args ...interface{}) string {
+    return fmt.Sprintf(template, args...)
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+The `args...` in the call to `Sprintf` "unpacks" the slice back into individual arguments.
 
-### 2. Go function definition and usage
+### Common Mistakes
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `fmt.Printf` instead of `Sprintf` | Prints, doesn't return | Use `fmt.Sprintf` to get a string |
+| Wrong number of args | Runtime panic or `%!(EXTRA ...)` | Match verb count to arg count |
+| `%d` for a float | `%!d(float64=3.14)` | Use `%f` for floats |
+| Forgetting `args...` when passing to Sprintf | Passes the slice as one arg | Use `args...` to unpack |
+
+## Algorithm
+
+Implementing `Format` is simple — it delegates to `fmt.Sprintf`:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+func Format(template string, args ...interface{}) string {
+    return fmt.Sprintf(template, args...)
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 3. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
-
-```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
-```
-
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
-
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
-
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+The learning goal here is knowing WHAT format verbs are available and WHEN to use each one.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [129-financial-freedom-api](../129-financial-freedom-api/skills.md) - Financial Freedom Api
+See [README.md](README.md) for full description and test cases.

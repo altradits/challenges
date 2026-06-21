@@ -2,73 +2,70 @@
 
 ## What You'll Learn
 
-**Previous:** [125-stringmap](../125-stringmap/skills.md)
+**Previous:** [125-stringmap](../125-stringmap/skills.md) | **Next:** [127-stringreduce](../127-stringreduce/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Implement `Filter(s string, f func(rune) bool) string` — keep only characters where `f` returns true.
 
-**Challenge:** Stringfilter
+## Core Concept: The Filter Pattern
 
-## New Concepts Explained
+### What Is Filter?
 
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+Filter is a higher-order function that **selects** elements from a collection based on a predicate (a function that returns true/false). It's the complement to Map — instead of transforming every element, you keep or discard elements.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+func Filter(s string, f func(rune) bool) string {
+    var b strings.Builder
+    for _, r := range s {
+        if f(r) {          // keep only if predicate is true
+            b.WriteRune(r)
+        }
     }
+    return b.String()
 }
 ```
 
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### Calling Filter with Different Predicates
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
+// Keep only digits
+Filter("abc123def456", unicode.IsDigit)  // "123456"
+
+// Keep only uppercase letters
+Filter("Hello World", unicode.IsUpper)  // "HW"
+
+// Remove spaces
+Filter("hello world", func(r rune) bool {
+    return r != ' '
+})
+// "helloworld"
 ```
 
-The `main()` function is special - it's where program execution begins.
-
-### 4. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+### Map vs Filter — Side by Side
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+// Map: transform EVERY element, output same length
+Map("hello", unicode.ToUpper)  // "HELLO"  (5 → 5)
+
+// Filter: KEEP some elements, output may be shorter
+Filter("hElLo", unicode.IsUpper)  // "EL"  (5 → 2)
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Writing `b.WriteRune(f(r))` | f returns bool, not rune | `if f(r) { b.WriteRune(r) }` |
+| Transforming `r` before writing | Filter shouldn't transform | Write original `r` unchanged |
+| Forgetting the condition | Writes all chars = no filtering | The `if f(r)` is the key line |
+
+## Algorithm
+
+1. Create a `strings.Builder`
+2. For each rune `r` in `s`: if `f(r)` is true, write `r`
+3. Return `builder.String()`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [127-stringreduce](../127-stringreduce/skills.md) - Stringreduce
+**Next:** [127-stringreduce](../127-stringreduce/skills.md)

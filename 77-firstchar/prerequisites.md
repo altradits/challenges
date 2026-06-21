@@ -1,48 +1,65 @@
-# Prerequisites for FirstChar
+# Prerequisites for 77-firstchar
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check for empty strings**
-   ```go
-   if len(s) == 0 {
-       return ""
-   }
-   ```
+### 1. Writing a Go Function
 
-2. **How to use for...range**
-   ```go
-   for i, c := range s {
-       // i is index, c is rune
-       return string(c)  // First character
-   }
-   ```
+A function takes an input and returns a result. This challenge needs a function that takes a `string` and returns a `string`:
 
-3. **How to convert rune to string**
-   ```go
-   string(r)  // Convert rune to string
-   ```
+```go
+func FirstChar(s string) string {
+    return ""   // placeholder
+}
+```
 
-## Skills You'll Learn
+If you haven't written a function yet, complete [76-stringlength](../76-stringlength/README.md) first.
 
-After completing this exercise, you'll be able to:
+### 2. The `for...range` Loop on Strings
 
-1. **Extract specific characters**
-2. **Handle empty string edge cases**
-3. **Use rune type correctly**
-4. **Build character extraction tools**
+From [76-stringlength](../76-stringlength/skills.md): `for...range` iterates over each character (rune) in a string:
 
-## How This Helps Your Capstone
+```go
+for _, c := range s {
+    // c is a rune — one character
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Get first letter of category
-- **Savings Calculator** - Check first character of input
-- **Investment Tracker** - Validate ticker first letter
-- **Net Worth Tracker** - Get account type
+For this challenge, you only need the **first** iteration, so you can `return` immediately inside the loop.
+
+### 3. Checking for an Empty String
+
+An empty string has no characters. Before accessing any index, confirm the string is not empty:
+
+```go
+if s == "" {
+    return ""
+}
+```
+
+### 4. Converting a `rune` to a `string`
+
+When `for...range` gives you a character, it is a `rune` (an integer representing the Unicode code point). To return it as a `string`, wrap it:
+
+```go
+var c rune = 'H'
+fmt.Println(c)          // 72  (the number)
+fmt.Println(string(c))  // "H" (the text)
+```
+
+## Review If Stuck
+
+- [76-stringlength skills.md](../76-stringlength/skills.md) — covers `for...range` on strings and the basics of returning from a function
+
+## You're Ready When You Can...
+
+- [ ] Write a Go function that takes a `string` and returns a `string`
+- [ ] Use `for...range` to iterate over a string and get runes
+- [ ] Convert a `rune` to a `string` using `string(c)`
+- [ ] Guard against an empty string before accessing characters
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [78-lastchar](../78-lastchar/README.md) - Lastchar
-- [79-isempty](../79-isempty/README.md) - Isempty
+- [77-firstchar skills.md](skills.md) — teaches byte indexing and type conversion
+- [78-lastchar README](../78-lastchar/README.md) — next challenge

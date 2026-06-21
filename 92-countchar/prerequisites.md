@@ -1,54 +1,57 @@
-# Prerequisites for CountChar
+# Prerequisites for 92-countchar
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to compare runes**
-   ```go
-   for _, r := range s {
-       if r == target {
-           // Found match
-       }
-   }
-   ```
+### 1. Functions with Two Parameters
 
-2. **How to count in a loop**
-   ```go
-   count := 0
-   for _, r := range s {
-       if r == target {
-           count++
-       }
-   }
-   ```
+From [91-findchar skills.md](../91-findchar/skills.md): a function can take more than one argument:
 
-3. **How to handle empty strings**
-   ```go
-   if len(s) == 0 {
-       return 0
-   }
-   ```
+```go
+func CountChar(s string, c rune) int {
+    // s is the string, c is the character to count
+}
+```
 
-## Skills You'll Learn
+### 2. The Accumulator Pattern
 
-After completing this exercise, you'll be able to:
+From [76-stringlength skills.md](../76-stringlength/skills.md) and [82-countalpha skills.md](../82-countalpha/skills.md): start at zero and increment when a condition is met:
 
-1. **Count specific characters**
-2. **Use rune comparison**
-3. **Build character frequency tools**
-4. **Create text analysis functions**
+```go
+count := 0
+for _, ch := range s {
+    if condition {
+        count++
+    }
+}
+return count
+```
 
-## How This Helps Your Capstone
+### 3. Comparing Runes for Equality
 
-This skill is used in:
-- **Budget Planner** - Count commas in expense list
-- **Savings Calculator** - Count decimal places
-- **Investment Tracker** - Count special characters
-- **Net Worth Tracker** - Count account separators
+From [84-countvowels skills.md](../84-countvowels/skills.md): use `==` to test if a rune matches a specific value:
+
+```go
+ch == c   // true when ch equals the target rune c
+```
+
+### 4. NOT Returning Early
+
+From [83-checknumber skills.md](../83-checknumber/skills.md), you know early return exists. For counting, you must NOT return early — you need every match. Do NOT put `return` inside the loop for this challenge.
+
+## Review If Stuck
+
+- [91-findchar skills.md](../91-findchar/skills.md) — two-parameter function, rune comparison
+- [82-countalpha skills.md](../82-countalpha/skills.md) — counting with a condition
+
+## You're Ready When You Can...
+
+- [ ] Write a function with two parameters (`string` and `rune`)
+- [ ] Loop over a string and count characters that equal a specific target
+- [ ] Explain why you should NOT return inside the loop for this challenge (unlike FindChar)
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [93-findlastchar](../93-findlastchar/README.md) - Findlastchar
-- [94-replacechar](../94-replacechar/README.md) - Replacechar
+- [92-countchar skills.md](skills.md) — teaches full-scan counting for a specific character
+- [93-findlastchar README](../93-findlastchar/README.md) — next challenge

@@ -1,42 +1,98 @@
 # Skills for 112-inter
 
-## What You'll Learn
+**Previous:** [111-union](../111-union/README.md) | **Next:** [113-stringbuilder](../113-stringbuilder/README.md)
 
-**Previous:** [111-union](../111-union/skills.md)
+**Challenge:** Return a string containing only the characters that appear in BOTH `s1` and `s2`, preserving the order they appear in `s1`, with no duplicates.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: Set Intersection Using Two Maps
 
-**Challenge:** Inter
+### What Is It?
 
-## New Concepts Explained
+**Intersection** is the opposite of union: instead of combining, you filter. Keep only the characters from s1 that also exist in s2. You need two maps:
 
-### 1. String iteration and character access
+1. A **membership set** built from s2: "which characters does s2 contain?"
+2. A **seen set**: "have I already added this character to the result?"
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### The Algorithm
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func Intersection(s1, s2 string) string {
+    // Step 1: build a set from s2
+    inS2 := make(map[rune]bool)
+    for _, c := range s2 {
+        inS2[c] = true
+    }
+
+    // Step 2: iterate s1, keep only chars that are in s2 and not yet added
+    seen := make(map[rune]bool)
+    result := ""
+    for _, c := range s1 {
+        if inS2[c] && !seen[c] {
+            seen[c] = true
+            result += string(c)
+        }
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Why Two Maps?
+
+- `inS2` answers: "does this character appear anywhere in s2?"
+- `seen` answers: "have I already added this character to the result?"
+
+Without `seen`, a character that appears multiple times in s1 would be added to the result multiple times (as long as it's in s2).
+
+### Contrast with Union
+
+| | Union (111) | Intersection (112) |
+|---|---|---|
+| Input | s1="abc", s2="bcd" | s1="abc", s2="bcd" |
+| Keep | chars in s1 OR s2 | chars in s1 AND s2 |
+| Result | "abcd" | "bc" |
+| Order | s1 first, then new from s2 | s1 order |
+
+### Tracing Through `Intersection("padinton", "paqefwtd...")`
+
+s2 = `"paqefwtdjetyiytjneytjoeyjnejeyj"` — build `inS2` from this.
+
+Then iterate s1 = `"padinton"`:
+
+| c | inS2[c]? | seen[c]? | Action | result |
+|---|---------|---------|--------|--------|
+| 'p' | yes | no | add | "p" |
+| 'a' | yes | no | add | "pa" |
+| 'd' | yes | no | add | "pad" |
+| 'i' | yes | no | add | "padi" |
+| 'n' | yes | no | add | "padin" |
+| 't' | yes | no | add | "padint" |
+| 'o' | yes | no | add | "padinto" |
+| 'n' | yes | yes | skip (already added) | "padinto" |
+
+Result: `"padinto"` — correct.
+
+### Alternative: Simpler with One Map
+
+If s2 has no duplicates, you only need one map. But using two is safer and works in all cases.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Iterating s2 instead of s1 | Wrong order (s2's order, not s1's) | Always iterate s1; use s2 only to build the lookup set |
+| No `seen` map | Duplicate characters in result | Track which characters have already been added |
+| Building set from s1 | Reversed logic | Set should be from s2; iteration should be over s1 |
+
+## Algorithm
+
+1. Build `inS2 = map[rune]bool` by iterating s2
+2. Create `seen = map[rune]bool{}`, `result = ""`
+3. For each rune `c` in s1:
+   - If `inS2[c]` and `!seen[c]`: set `seen[c] = true`, append `string(c)` to result
+4. Return `result`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [113-stringbuilder](../113-stringbuilder/skills.md) - Stringbuilder
+**Next:** [113-stringbuilder](../113-stringbuilder/README.md)

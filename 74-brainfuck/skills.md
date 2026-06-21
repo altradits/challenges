@@ -2,73 +2,156 @@
 
 ## What You'll Learn
 
-**Previous:** [73-rpncalc](../73-rpncalc/skills.md)
+**Previous:** [73-rpncalc](../73-rpncalc/skills.md) | **Next:** [75-grouping](../75-grouping/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a Brainfuck interpreter — a program that executes Brainfuck code passed as a command-line argument.
 
-**Challenge:** Brainfuck
+## Core Concept: Interpreter Design with Array-as-Memory
 
-## New Concepts Explained
+### What is a Brainfuck Interpreter?
 
-### 1. String iteration and character access
+An interpreter is a program that reads instructions in one language and executes them. Brainfuck has 8 commands operating on an array of bytes:
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+| Command | Meaning |
+|---------|---------|
+| `>` | Move pointer right (increment pointer) |
+| `<` | Move pointer left (decrement pointer) |
+| `+` | Increment byte at pointer |
+| `-` | Decrement byte at pointer |
+| `.` | Print byte at pointer as ASCII character |
+| `[` | If byte at pointer is 0, jump PAST matching `]` |
+| `]` | If byte at pointer is NOT 0, jump BACK to matching `[` |
+| anything else | Comment, ignore |
+
+### The Memory Model
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+memory := [2048]byte{}  // 2048 bytes, all initialized to 0
+ptr := 0                // data pointer, starts at byte 0
+```
+
+The data pointer `ptr` moves left/right. The `[` and `]` commands implement loops.
+
+### The Loop Mechanism (`[` and `]`)
+
+The tricky part is implementing jumps. When you hit `[` and the current byte is 0, you must skip forward past the MATCHING `]`. The approach: count nesting depth.
+
+```go
+// Skip forward past matching ]
+if code[ip] == '[' && memory[ptr] == 0 {
+    depth := 1
+    for depth > 0 {
+        ip++
+        if code[ip] == '[' { depth++ }
+        if code[ip] == ']' { depth-- }
+    }
+}
+
+// Jump back to matching [
+if code[ip] == ']' && memory[ptr] != 0 {
+    depth := 1
+    for depth > 0 {
+        ip--
+        if code[ip] == ']' { depth++ }
+        if code[ip] == '[' { depth-- }
+    }
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Looping constructs (for, range)
-
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+### Complete Implementation
 
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
+package main
 
-// While-style loop
-for condition { }
+import (
+    "fmt"
+    "os"
+)
 
-// Range loop (for collections)
-for index, value := range collection { }
-```
+func main() {
+    if len(os.Args) < 2 {
+        return
+    }
+    code := os.Args[1]
+    memory := [2048]byte{}
+    ptr := 0
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
-
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
+    for ip := 0; ip < len(code); ip++ {
+        switch code[ip] {
+        case '>':
+            ptr++
+        case '<':
+            ptr--
+        case '+':
+            memory[ptr]++
+        case '-':
+            memory[ptr]--
+        case '.':
+            fmt.Printf("%c", memory[ptr])
+        case '[':
+            if memory[ptr] == 0 {
+                depth := 1
+                for depth > 0 {
+                    ip++
+                    if code[ip] == '[' { depth++ }
+                    if code[ip] == ']' { depth-- }
+                }
+            }
+        case ']':
+            if memory[ptr] != 0 {
+                depth := 1
+                for depth > 0 {
+                    ip--
+                    if code[ip] == ']' { depth++ }
+                    if code[ip] == '[' { depth-- }
+                }
+            }
+        }
+    }
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Key Concepts
 
-### 4. Formatted output with fmt package
+**Array (`[2048]byte`)** — fixed-size memory model. Unlike slices, arrays have a fixed compile-time size and are value types.
 
-The `fmt` package provides formatted I/O:
+**Instruction pointer (`ip`)** — an index into the code string, moves through instructions one at a time. The `for` loop increments it, but the `[`/`]` handlers can jump it forward or backward.
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+**Depth counter for bracket matching** — the same technique used in bracket matching (72-brackets), but this time you're jumping the instruction pointer instead of validating.
+
+**`fmt.Printf("%c", byte)`** — prints a byte as its ASCII character representation.
+
+### Debugging Brainfuck
+
+```
+"++++++++++[>+++++++<-]>."
+
+Memory starts: [0, 0, 0, ...]
+ptr=0
+
+10 x '+': memory[0] = 10
+'[': memory[0]=10 != 0, enter loop
+  '>': ptr=1
+  7 x '+': memory[1] += 7
+  '<': ptr=0
+  '-': memory[0]--
+']': if memory[0] != 0, jump back to [
+... repeat 10 times total ...
+After loop: memory[0]=0, memory[1]=70 ('F' in ASCII)
+'>': ptr=1
+'.': print memory[1] = 70 = 'F'
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using slice instead of `[2048]byte` | Challenge requires array | Use `[2048]byte{}` |
+| Not initializing depth to 1 | Exits loop immediately | `depth := 1` before the inner loop |
+| Forgetting `ip--` before outer `ip++` | Skips one instruction | Use `ip--` at end of `]` handler so outer loop's `ip++` brings you to the right place — or restructure |
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [75-grouping](../75-grouping/skills.md) - Grouping
+**Next:** [75-grouping](../75-grouping/skills.md)

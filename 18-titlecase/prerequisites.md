@@ -1,48 +1,75 @@
 # Prerequisites for 18-titlecase
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand `strings.Fields`, `unicode.ToUpper`/`unicode.ToLower`, rune slices, and how to track state across a loop.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `strings.Fields` splits on any whitespace
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+import "strings"
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+strings.Fields("hello world")         // ["hello", "world"]
+strings.Fields("  extra   spaces  ")  // ["extra", "spaces"]
+strings.Fields("")                    // []
+```
 
-## Skills You'll Learn
+### 2. `unicode.ToUpper` and `unicode.ToLower`
 
-After completing this exercise, you'll be able to:
+```go
+import "unicode"
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+unicode.ToUpper('h')   // 'H'
+unicode.ToLower('H')   // 'h'
+unicode.ToLower('!')   // '!'  (non-letter unchanged)
+```
 
-## How This Helps Your Capstone
+### 3. Rune slices allow mutation
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+runes := []rune("hello")
+runes[0] = unicode.ToUpper(runes[0])   // runes[0] is now 'H'
+string(runes)  // "Hello"
+```
+
+### 4. Boolean flag to track state across iterations
+A flag variable that changes during the loop controls what happens next:
+
+```go
+capitalizeNext := true
+for _, r := range s {
+    if r == ' ' {
+        capitalizeNext = true
+    } else if capitalizeNext {
+        // do the capitalizing...
+        capitalizeNext = false
+    }
+}
+```
+
+### 5. `strings.Join` to reassemble words
+
+```go
+import "strings"
+
+words := []string{"Hello", "World"}
+strings.Join(words, " ")   // "Hello World"
+```
+
+## Review If Stuck
+
+- [15-removespaces](../15-removespaces/skills.md) — covers `strings.Builder` and character filtering
+- [17-reversestring](../17-reversestring/skills.md) — covers `[]rune` conversion and indexed mutation
+
+## You're Ready When You Can...
+
+- [ ] Use `strings.Fields` and explain what it does with multiple spaces
+- [ ] Convert a string to `[]rune`, modify an element, convert back with `string()`
+- [ ] Call `unicode.ToUpper(r)` and `unicode.ToLower(r)` on a rune
+- [ ] Use a boolean flag variable that gets set inside a loop
+- [ ] Use `strings.Join` to combine a `[]string` with a separator
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [19-wordcount](../19-wordcount/README.md) - Wordcount
-- [20-cameltosnakecase](../20-cameltosnakecase/README.md) - Cameltosnakecase
+- [19-wordcount](../19-wordcount/README.md)

@@ -1,48 +1,80 @@
 # Prerequisites for 10-findsubstring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand string slicing, `len()`, and how to write a loop that searches through a string.
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. `len(s)` returns the number of bytes in a string
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+len("Hello")   // 5
+len("banana")  // 6
+len("")         // 0
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. String slicing with `s[start:end]`
+You can extract a portion of a string using slice notation. The result is a new string from index `start` up to (but not including) `end`.
 
-## Skills You'll Learn
+```go
+s := "banana"
+s[0:3]   // "ban"
+s[1:4]   // "ana"
+s[3:]    // "ana"  (from index 3 to end)
+```
 
-After completing this exercise, you'll be able to:
+### 3. String equality with `==`
+You can compare two strings directly with `==`.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+"ana" == "ana"   // true
+"ana" == "ban"   // false
+```
 
-## How This Helps Your Capstone
+### 4. `for` loop with an index counter
+A traditional index-based loop (not `for...range`):
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+for i := 0; i < 10; i++ {
+    // i goes 0, 1, 2, ... 9
+}
+```
+
+### 5. Returning `-1` to signal "not found"
+The convention in Go (used by the standard library too) is to return `-1` from a search function when no result is found.
+
+```go
+func find(s, sub string) int {
+    // ... search ...
+    return -1  // not found
+}
+```
+
+### 6. Early-return pattern from a function
+Return as soon as you find the result:
+
+```go
+for i := 0; i < len(s); i++ {
+    if s[i:i+n] == target {
+        return i   // stop and return the position
+    }
+}
+return -1
+```
+
+## Review If Stuck
+
+- [06-checknumber](../06-checknumber/skills.md) — covers `for...range` and character comparisons
+- [08-count-character](../08-count-character/skills.md) — covers the counter pattern and rune iteration
+
+## You're Ready When You Can...
+
+- [ ] Use `len(s)` to get the length of a string
+- [ ] Slice a string with `s[i:j]` and predict the result
+- [ ] Write a `for` loop using an integer index (not `range`)
+- [ ] Compare two strings with `==`
+- [ ] Return a specific integer from a function, including `-1` for "not found"
 
 ## Next Steps
 
 After completing this exercise, move to:
-- [11-ispalindrome](../11-ispalindrome/README.md) - Ispalindrome
-- [12-printif](../12-printif/README.md) - Printif
+- [12-printif](../12-printif/README.md)

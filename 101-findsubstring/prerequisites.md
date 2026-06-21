@@ -1,58 +1,77 @@
-# Prerequisites for FindSubstring
+# Prerequisites for 101-findsubstring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. String Indexing with `s[i]`
 
-1. **How to use nested loops**
-   ```go
-   for i := 0; i <= len(text)-len(substring); i++ {
-       match := true
-       for j := 0; j < len(substring); j++ {
-           if text[i+j] != substring[j] {
-               match = false
-               break
-           }
-       }
-   }
-   ```
+In Go, `s[i]` accesses the **byte** at index `i`. For ASCII strings, one byte equals one character.
 
-2. **How to check substring match**
-   ```go
-   if text[i:i+len(substring)] == substring {
-       // Found match
-   }
-   ```
+```go
+s := "Hello"
+fmt.Println(s[0])         // 72 — byte value of 'H'
+fmt.Println(s[4])         // 111 — byte value of 'o'
+fmt.Println(s[0] == 'H')  // true
+```
 
-3. **How to handle edge cases**
-   ```go
-   if len(substring) == 0 {
-       return 0
-   }
-   if len(text) < len(substring) {
-       return -1
-   }
-   ```
+### 2. String Length with `len(s)`
 
-## Skills You'll Learn
+`len(s)` returns the number of bytes in the string (for ASCII, this equals character count).
 
-After completing this exercise, you'll be able to:
+```go
+fmt.Println(len("Hello"))  // 5
+fmt.Println(len(""))       // 0
+fmt.Println(len("Go!"))    // 3
+```
 
-1. **Search for substrings**
-2. **Use sliding window technique**
-3. **Handle pattern matching**
-4. **Build search algorithms**
+### 3. String Slicing `s[a:b]`
 
-## How This Helps Your Capstone
+Extract a substring from index `a` up to (but not including) `b`:
 
-This skill is used in:
-- **Budget Planner** - Find category in input
-- **Savings Calculator** - Find goal keyword
-- **Investment Tracker** - Find ticker in text
-- **Net Worth Tracker** - Find account in list
+```go
+s := "Hello World"
+fmt.Println(s[6:11])  // "World"
+fmt.Println(s[0:5])   // "Hello"
+fmt.Println(s[1:])    // "ello World" (from 1 to end)
+```
+
+### 4. Nested Loops
+
+Substring search uses an outer loop over start positions and an inner loop comparing characters:
+
+```go
+for i := 0; i < 5; i++ {
+    for j := 0; j < 3; j++ {
+        fmt.Printf("outer=%d inner=%d\n", i, j)
+    }
+}
+```
+
+### 5. `break` to Exit an Inner Loop
+
+When a mismatch is found, `break` exits the inner loop immediately to avoid wasted work:
+
+```go
+match := true
+for j := 0; j < len(pattern); j++ {
+    if text[i+j] != pattern[j] {
+        match = false
+        break  // no need to keep checking this window
+    }
+}
+```
+
+## Review If Stuck
+
+- [100-countwords](../100-countwords/skills.md) — covers character-by-character scanning
+
+## You're Ready When You Can...
+
+- [ ] Access the byte at index `i` in a string using `s[i]`
+- [ ] Get the length of a string with `len(s)`
+- [ ] Write a nested loop in Go
+- [ ] Use `break` to exit an inner loop early
+- [ ] Extract a substring with `s[a:b]`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [102-replaceall](../102-replaceall/README.md) - Replaceall
-- [103-split](../103-split/README.md) - Split
+- [102-replaceall](../102-replaceall/README.md)

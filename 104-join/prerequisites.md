@@ -1,52 +1,72 @@
-# Prerequisites for Join
+# Prerequisites for 104-join
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Slices and `len`
 
-1. **How to check for empty slice**
-   ```go
-   if len(elems) == 0 {
-       return ""
-   }
-   ```
+A `[]string` slice holds an ordered list of strings. `len(slice)` returns how many elements it has.
 
-2. **How to iterate over slice**
-   ```go
-   for i, s := range elems {
-       // i is index, s is string
-   }
-   ```
+```go
+words := []string{"hello", "world", "go"}
+fmt.Println(len(words))   // 3
+fmt.Println(words[0])     // "hello"
+fmt.Println(words[2])     // "go"
+```
 
-3. **How to use strings.Builder**
-   ```go
-   var b strings.Builder
-   b.WriteString(elems[0])
-   for i := 1; i < len(elems); i++ {
-       b.WriteString(sep)
-       b.WriteString(elems[i])
-   }
-   ```
+### 2. Iterating a Slice by Index
 
-## Skills You'll Learn
+When you need the index to start from 1, use a traditional `for` loop (not `range`):
 
-After completing this exercise, you'll be able to:
+```go
+words := []string{"a", "b", "c"}
+for i := 1; i < len(words); i++ {
+    fmt.Println(words[i])  // prints "b", then "c"
+}
+```
 
-1. **Combine strings with separator**
-2. **Handle empty inputs**
-3. **Build efficient concatenation**
-4. **Create list formatting tools**
+### 3. String Concatenation with `+=`
 
-## How This Helps Your Capstone
+Build a result string by appending:
 
-This skill is used in:
-- **Budget Planner** - Join expense list
-- **Savings Calculator** - Format output
-- **Investment Tracker** - Combine tickers
-- **Net Worth Tracker** - Build account list
+```go
+result := "start"
+result += "-middle"
+result += "-end"
+fmt.Println(result)  // "start-middle-end"
+```
+
+### 4. Accessing the First Element Safely
+
+Before accessing `slice[0]`, always verify the slice is not empty:
+
+```go
+if len(elems) == 0 {
+    return ""
+}
+first := elems[0]  // safe: we know len >= 1
+```
+
+### 5. Relationship to Split (from 103-split)
+
+Join is the reverse operation of Split. If you split `"a,b,c"` by `","`, you get `["a","b","c"]`. If you join `["a","b","c"]` with `","`, you get `"a,b,c"` again.
+
+```go
+parts := []string{"a", "b", "c"}
+sep := ","
+// Join should produce: "a,b,c"
+```
+
+## Review If Stuck
+
+- [103-split](../103-split/skills.md) — covers the inverse operation and slice fundamentals
+
+## You're Ready When You Can...
+
+- [ ] Access elements of a `[]string` by index
+- [ ] Check if a slice is empty with `len(slice) == 0`
+- [ ] Write a loop that starts at index 1 instead of 0
+- [ ] Explain why the separator goes between elements, not after them
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [105-cameltosnakecase](../105-cameltosnakecase/README.md) - Cameltosnakecase
-- [106-itoa](../106-itoa/README.md) - Itoa
+- [105-cameltosnakecase](../105-cameltosnakecase/README.md)

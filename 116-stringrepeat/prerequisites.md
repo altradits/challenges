@@ -1,51 +1,75 @@
-# Prerequisites for StringRepeat
+# Prerequisites for 116-stringrepeat
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. `strings.Builder` (from 113-stringbuilder)
 
-1. **How to use loops for repetition**
-   ```go
-   for i := 0; i < n; i++ {
-       // Repeat n times
-   }
-   ```
+The efficient string building tool:
 
-2. **How to use strings.Builder**
-   ```go
-   var b strings.Builder
-   for i := 0; i < n; i++ {
-       b.WriteString(s)
-   }
-   return b.String()
-   ```
+```go
+var b strings.Builder
+b.WriteString("abc")
+b.WriteString("abc")
+fmt.Println(b.String())  // "abcabc"
+```
 
-3. **How to handle edge cases**
-   ```go
-   if n <= 0 {
-       return ""
-   }
-   ```
+### 2. `b.Grow(n)` — Pre-Allocation
 
-## Skills You'll Learn
+When you know the exact output size, tell Builder to allocate it upfront:
 
-After completing this exercise, you'll be able to:
+```go
+var b strings.Builder
+b.Grow(9)  // allocate 9 bytes
+b.WriteString("abc")  // write 3
+b.WriteString("abc")  // write 3
+b.WriteString("abc")  // write 3
+// Total 9 bytes — no reallocation needed
+```
 
-1. **Repeat strings efficiently**
-2. **Use Builder for performance**
-3. **Handle repetition edge cases**
-4. **Build string generation tools**
+`b.Grow(len(s) * n)` pre-allocates the exact size for Repeat.
 
-## How This Helps Your Capstone
+### 3. A Simple Loop n Times
 
-This skill is used in:
-- **Budget Planner** - Repeat separator lines
-- **Savings Calculator** - Format output
-- **Investment Tracker** - Create charts
-- **Net Worth Tracker** - Build reports
+```go
+n := 4
+for i := 0; i < n; i++ {
+    fmt.Println("iteration", i)
+}
+// prints 4 lines
+```
+
+For Repeat, you write the same string in each iteration.
+
+### 4. Edge Cases: Zero and Negative n
+
+If `n <= 0`, return an empty string — you can't repeat something zero or negative times:
+
+```go
+if n <= 0 {
+    return ""
+}
+```
+
+### 5. Why Pre-Allocating is a Win Here
+
+For `Repeat("x", 1000)`:
+- Without Grow: Builder might reallocate at 8, 16, 32, 64, ..., 512, 1024 bytes (10 reallocations)
+- With `b.Grow(1000)`: single allocation, no reallocation
+
+You know the size exactly: `len(s) * n`. Use it.
+
+## Review If Stuck
+
+- [113-stringbuilder](../113-stringbuilder/skills.md) — covers `strings.Builder` and O(n) vs O(n²)
+- [115-stringjoin](../115-stringjoin/skills.md) — another example of Builder with Grow
+
+## You're Ready When You Can...
+
+- [ ] Use `var b strings.Builder` and `b.WriteString`
+- [ ] Call `b.Grow(len(s) * n)` to pre-allocate the right capacity
+- [ ] Write a `for i := 0; i < n; i++` loop
+- [ ] Return `""` when `n <= 0`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [117-stringreplace](../117-stringreplace/README.md) - Stringreplace
-- [118-stringtrim](../118-stringtrim/README.md) - Stringtrim
+- [117-stringreplace](../117-stringreplace/README.md)

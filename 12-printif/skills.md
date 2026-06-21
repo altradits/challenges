@@ -2,69 +2,129 @@
 
 ## What You'll Learn
 
-**Previous:** [10-findsubstring](../10-findsubstring/skills.md)
+**Previous:** [11-forloops](../11-forloops/skills.md) | **Next:** [13-printifnot](../13-printifnot/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write `PrintIf(str string) string` that returns `"G\n"` if `len(str) >= 3` or if `str` is empty, and `"Invalid Input\n"` otherwise.
 
-**Challenge:** Printif
+## Core Concept: `if/else` Branching and `len()` as a Condition
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+This is your first challenge that explicitly requires an `if/else` decision. The program must choose between two possible return values based on the length of the input string. The key tool is `len(s)` combined with a comparison operator.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
-```
-
-The `main()` function is special - it's where program execution begins.
-
-### 3. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+### How `if/else` Works in Go
 
 ```go
 if condition {
-    // do something
-} else if otherCondition {
-    // do something else
+    // runs when condition is true
 } else {
-    // default case
+    // runs when condition is false
 }
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
-
-### 4. Formatted output with fmt package
-
-The `fmt` package provides formatted I/O:
+There are no parentheses around the condition in Go. The braces `{}` are always required.
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+// Correct Go style
+if len(str) >= 3 {
+    return "G\n"
+}
+
+// Syntax error: condition needs no parens, but braces are mandatory
+if (len(str) >= 3)   // missing braces
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Using `len()` in a Condition
+
+`len(str)` returns an `int`. You can use it directly in a comparison:
+
+```go
+len("ab")    // 2
+len("abc")   // 3
+len("")       // 0
+
+len("abc") >= 3   // true
+len("ab") >= 3    // false
+len("") >= 3      // false — but the challenge has a special rule for empty
+```
+
+### Reading the Requirements Carefully
+
+The challenge says:
+- If `len(str) >= 3` -> return `"G\n"`
+- If the string is **empty** -> return `"G\n"` (special case)
+- Otherwise -> return `"Invalid Input\n"`
+
+This means you need to check for empty string OR length >= 3:
+
+```go
+func PrintIf(str string) string {
+    if str == "" || len(str) >= 3 {
+        return "G\n"
+    }
+    return "Invalid Input\n"
+}
+```
+
+The `||` operator means "or" — the condition is true if either side is true.
+
+### Alternative: Checking the Complement
+
+You can also think of it as: return `"Invalid Input\n"` only when the string is non-empty AND shorter than 3.
+
+```go
+func PrintIf(str string) string {
+    if len(str) > 0 && len(str) < 3 {
+        return "Invalid Input\n"
+    }
+    return "G\n"
+}
+```
+
+Both forms are correct.
+
+### Diagram: Decision Tree
+
+```
+Input str
+    |
+    v
+Is str == "" ?
+    |         \
+   YES         NO
+    |           |
+ return "G\n"   Is len(str) >= 3 ?
+                    |           \
+                   YES           NO
+                    |             |
+                return "G\n"  return "Invalid Input\n"
+```
+
+### Boolean Operators
+
+| Operator | Meaning | Example |
+|----------|---------|---------|
+| `&&` | AND — both must be true | `len(s) > 0 && len(s) < 3` |
+| `\|\|` | OR — at least one must be true | `s == "" \|\| len(s) >= 3` |
+| `!` | NOT — invert a boolean | `!isEmpty` |
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Forgetting the empty string special case | Empty string returns `"Invalid Input\n"` instead of `"G\n"` | Add `str == ""` to the condition |
+| `return "G"` without `\n` | Missing newline — tests will fail | Use `"G\n"` |
+| `if len(str) = 3` (single `=`) | Assignment, not comparison — syntax error | Use `>=` or `==` |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. If `str` is empty OR `len(str) >= 3`, return `"G\n"`
+2. Otherwise return `"Invalid Input\n"`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [13-printifnot](../13-printifnot/skills.md) - Printifnot
+**Next:** [13-printifnot](../13-printifnot/README.md)

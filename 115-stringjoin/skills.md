@@ -1,86 +1,118 @@
 # Skills for 115-stringjoin
 
-## What You'll Learn
+**Previous:** [114-stringsplit](../114-stringsplit/README.md) | **Next:** [116-stringrepeat](../116-stringrepeat/README.md)
 
-**Previous:** [114-stringsplit](../114-stringsplit/skills.md)
+**Challenge:** Implement `Join(words []string, sep string) string` that joins a slice of strings with a separator, using `strings.Builder` for efficiency, without using `strings.Join`.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: `strings.Builder` for Efficient Joining
 
-**Challenge:** Stringjoin
+### The Pattern
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+This challenge combines two skills from the 100-series:
+1. The "separator between, not after" pattern from [104-join](../104-join/skills.md)
+2. The `strings.Builder` efficiency from [113-stringbuilder](../113-stringbuilder/skills.md)
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func Join(words []string, sep string) string {
+    if len(words) == 0 {
+        return ""
+    }
+    var b strings.Builder
+    b.WriteString(words[0])           // first element, no separator
+    for i := 1; i < len(words); i++ {
+        b.WriteString(sep)            // separator before every element after the first
+        b.WriteString(words[i])
+    }
+    return b.String()
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### Why `strings.Builder` Over `+`?
 
-### 2. String building and concatenation
+For joining `n` words each of length `L`:
+- String `+` approach: copies words[0] (L bytes), then words[0]+sep+words[1] (2L+1 bytes), then 3L+2... Total: O(n²·L)
+- `strings.Builder` approach: each write appends to the buffer. Total: O(n·L)
 
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
+For large word lists, `strings.Builder` is dramatically faster.
+
+### With `b.Grow` Optimization
+
+If you know the approximate total size upfront, hint to `Builder` to pre-allocate:
 
 ```go
-// Simple concatenation
-result := "Hello" + " " + "World"
+func Join(words []string, sep string) string {
+    if len(words) == 0 {
+        return ""
+    }
+    // estimate total length
+    total := len(sep) * (len(words) - 1)
+    for _, w := range words {
+        total += len(w)
+    }
+    var b strings.Builder
+    b.Grow(total)  // pre-allocate to avoid buffer doublings
+    
+    b.WriteString(words[0])
+    for i := 1; i < len(words); i++ {
+        b.WriteString(sep)
+        b.WriteString(words[i])
+    }
+    return b.String()
+}
+```
 
-// Using strings.Builder for efficiency
+`b.Grow(n)` is optional but good practice when you know the size.
+
+### Testing All Edge Cases
+
+```go
+Join([]string{"a","b","c"}, "-")   // "a-b-c"
+Join([]string{"hello","world"}, " ") // "hello world"
+Join([]string{}, ",")               // ""
+Join([]string{"single"}, "|")       // "single"  (no sep added)
+Join([]string{"a","b"}, "")         // "ab"      (empty sep = direct concat)
+Join([]string{"a","b","c"}, ", ")   // "a, b, c" (multi-char sep)
+```
+
+### Comparison: Manual Join (104) vs Standard Join (115)
+
+The logic is identical; the difference is using `strings.Builder` instead of `+=`:
+
+```go
+// 104 approach (+=, fine for small inputs):
+result := words[0]
+for i := 1; i < len(words); i++ {
+    result += sep + words[i]
+}
+
+// 115 approach (Builder, efficient for large inputs):
 var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
+b.WriteString(words[0])
+for i := 1; i < len(words); i++ {
+    b.WriteString(sep)
+    b.WriteString(words[i])
 }
 result := b.String()
 ```
 
-### 3. String splitting and joining
+### Common Mistakes
 
-Go's `strings` package provides split and join functions:
-- `strings.Split(s, sep)` - split string into slice
-- `strings.Join(slice, sep)` - join slice into string
-- Manual implementation helps understand the logic
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Forgetting `len(words) == 0` check | `words[0]` panics on empty slice | Check length first |
+| Starting loop at `i=0` | Leading separator before first word | Start at `i=1`, seed with `words[0]` |
+| Using `+=` in the loop | O(n²) for large word lists | Use `b.WriteString` |
 
-```go
-// Manual split example
-parts := []string{}
-current := ""
-for _, c := range s {
-    if c == sep {
-        parts = append(parts, current)
-        current = ""
-    } else {
-        current += string(c)
-    }
-}
-```
+## Algorithm
 
-### 4. Slice manipulation and operations
-
-Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
-
-```go
-// Create a slice
-numbers := []int{1, 2, 3, 4, 5}
-
-// Slice an existing slice
-subset := numbers[1:4]  // [2, 3, 4]
-
-// Append to a slice
-numbers = append(numbers, 6)
-```
-
-Slices have length (current elements) and capacity (max elements without reallocation).
+1. If `len(words) == 0`, return `""`
+2. Declare `var b strings.Builder`
+3. `b.WriteString(words[0])`
+4. For `i` from `1` to `len(words)-1`: `b.WriteString(sep)`, `b.WriteString(words[i])`
+5. Return `b.String()`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [116-stringrepeat](../116-stringrepeat/skills.md) - Stringrepeat
+**Next:** [116-stringrepeat](../116-stringrepeat/README.md)

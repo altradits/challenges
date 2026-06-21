@@ -1,58 +1,114 @@
 # Skills for 110-reversestrcap
 
-## What You'll Learn
+**Previous:** [109-saveandmiss](../109-saveandmiss/README.md) | **Next:** [111-union](../111-union/README.md)
 
-**Previous:** [109-saveandmiss](../109-saveandmiss/skills.md)
+**Challenge:** For each word in the input string, lowercase all letters then uppercase the last letter. Return the transformed words joined by spaces.
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: Word-Level Transformation with Rune Slice Manipulation
 
-**Challenge:** Reversestrcap
+### What Is It?
 
-## New Concepts Explained
+This challenge combines two skills: **splitting into words** and **transforming each word**. The per-word transformation — lowercase everything, then uppercase the last character — requires treating each word as a `[]rune` so you can modify the last element by index.
 
-### 1. String iteration and character access
+### Step 1: Split into Words
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+`strings.Fields(s)` splits on any whitespace and handles multiple consecutive spaces:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+words := strings.Fields("First SMALL TesT")
+// ["First", "SMALL", "TesT"]
+```
+
+### Step 2: Transform Each Word
+
+For each word:
+1. Convert to `[]rune` (to enable index-based modification)
+2. Lowercase all characters with `unicode.ToLower`
+3. Uppercase the last character with `unicode.ToUpper`
+
+```go
+func transformWord(word string) string {
+    if len(word) == 0 {
+        return ""
+    }
+    runes := []rune(word)
+
+    // Step 1: lowercase everything
+    for i, c := range runes {
+        runes[i] = unicode.ToLower(c)
+    }
+
+    // Step 2: uppercase the last character
+    last := len(runes) - 1
+    runes[last] = unicode.ToUpper(runes[last])
+
+    return string(runes)
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### Step 3: Rejoin with Spaces
 
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+After transforming all words, join them back with a single space:
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
+func ReverseStrCap(s string) string {
+    words := strings.Fields(s)
+    for i, word := range words {
+        words[i] = transformWord(word)
+    }
+    return strings.Join(words, " ")
 }
 ```
 
-### 3. Go function definition and usage
+### Why `[]rune` Instead of Indexing the String?
 
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+Strings in Go are immutable. You cannot do `s[0] = 'x'`. You must convert to a mutable type first. `[]rune` lets you assign to individual positions:
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
-}
+runes := []rune("Hello")
+runes[0] = unicode.ToLower(runes[0])  // works!
+// string[0] = ... would be a compile error
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Tracing Through `"First SMALL TesT"`
+
+After `strings.Fields`: `["First", "SMALL", "TesT"]`
+
+| Word | After lowercase | After uppercase last | Result |
+|------|----------------|---------------------|--------|
+| "First" | "first" | "firsT" | "firsT" |
+| "SMALL" | "small" | "smalL" | "smalL" |
+| "TesT"  | "test"  | "tesT"  | "tesT" |
+
+Joined: `"firsT smalL tesT"` — correct.
+
+### Edge Cases
+
+- Empty string: `strings.Fields("")` returns `[]` (empty slice). `strings.Join([], " ")` returns `""`. Handled automatically.
+- Single-character word: lowercased then uppercased → uppercase. `"a"` → `"A"`.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Trying to modify `s[i]` directly | Compile error — strings are immutable | Convert to `[]rune` first |
+| Using `strings.Split(s, " ")` | Fails with multiple spaces | Use `strings.Fields` instead |
+| Uppercasing before lowercasing | First char gets lowercased then uppercased redundantly | Lowercase all first, then uppercase only last |
+
+## Algorithm
+
+1. If `s == ""`, return `""`
+2. Split `s` into words with `strings.Fields`
+3. For each word:
+   a. Convert to `[]rune`
+   b. Lowercase all runes
+   c. Uppercase last rune
+   d. Convert back to string
+4. Join transformed words with `" "`
+5. Return result
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [111-union](../111-union/skills.md) - Union
+**Next:** [111-union](../111-union/README.md)

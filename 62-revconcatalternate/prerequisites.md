@@ -1,48 +1,61 @@
-# Prerequisites for 62-revconcatalternate
+# Prerequisites for revconcatalternate
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Iterating a Slice in Reverse
+Use a `for` loop counting down from `len-1` to `0`.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+s := []int{1, 2, 3, 4, 5}
+for i := len(s) - 1; i >= 0; i-- {
+    fmt.Println(s[i])  // 5, 4, 3, 2, 1
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Minimum of Two Lengths
+Compute `minLen` to know the overlap portion.
 
-## Skills You'll Learn
+```go
+len1, len2 := len(slice1), len(slice2)
+minLen := len1
+if len2 < minLen {
+    minLen = len2
+}
+```
 
-After completing this exercise, you'll be able to:
+### 3. Computing the Surplus Range
+The surplus elements of the longer slice are the ones beyond index `minLen`, i.e., from index `minLen` to `len-1`.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+// Surplus of slice1 when len1 > len2, in reverse:
+for i := len1 - 1; i >= minLen; i-- {
+    result = append(result, slice1[i])
+}
+```
 
-## How This Helps Your Capstone
+### 4. `append` to Build the Result
+Always append to a `[]int{}` result slice.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+result := []int{}
+result = append(result, 42)
+```
+
+### 5. `ConcatAlternate` Pattern (Challenge 51)
+This challenge is the reverse-traversal version of `ConcatAlternate`. Review that solution first.
+
+## Review If Stuck
+- [51-concatalternate](../51-concatalternate/skills.md) — teaches the alternating merge pattern this challenge reverses
+- [52-concatslice](../52-concatslice/skills.md) — covers `append` and slice building
+
+## You're Ready When You Can...
+- [ ] Iterate a slice from last index down to 0
+- [ ] Compute `minLen = min(len1, len2)`
+- [ ] Identify the surplus elements of the longer slice (indices `minLen` to `len-1`)
+- [ ] Use `append` to build a result slice element by element
+- [ ] Interleave two slices in reverse by decrementing a shared index
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [63-slice](../63-slice/README.md) - Slice
-- [64-findpairs](../64-findpairs/README.md) - Findpairs
+- [63-slice](../63-slice/README.md)

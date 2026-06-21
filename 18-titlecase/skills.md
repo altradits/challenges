@@ -2,81 +2,155 @@
 
 ## What You'll Learn
 
-**Previous:** [17-reversestring](../17-reversestring/skills.md)
+**Previous:** [17-reversestring](../17-reversestring/skills.md) | **Next:** [19-wordcount](../19-wordcount/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write `TitleCase(s string) string` that capitalizes the first letter of each word and lowercases all other letters.
 
-**Challenge:** Titlecase
+## Core Concept: `strings.Fields` to Split on Whitespace + `unicode` for Case Conversion
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Title case requires two new tools:
+1. `strings.Fields(s)` — splits a string into words, handling multiple spaces and leading/trailing spaces automatically
+2. `unicode.ToUpper(r)` and `unicode.ToLower(r)` — convert individual runes to upper or lower case
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### New Tool: `strings.Fields`
+
+`strings.Fields(s)` splits `s` on any whitespace (spaces, tabs, etc.) and returns a `[]string`. It automatically handles:
+- Multiple spaces between words
+- Leading/trailing spaces
+- Empty string (returns an empty slice)
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+import "strings"
+
+strings.Fields("hello world")       // ["hello", "world"]
+strings.Fields("  multiple   spaces")  // ["multiple", "spaces"]
+strings.Fields("")                  // []  (empty slice)
+strings.Fields("single")            // ["single"]
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+### New Tool: `unicode.ToUpper` and `unicode.ToLower`
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
+import "unicode"
+
+unicode.ToUpper('h')   // 'H'
+unicode.ToLower('H')   // 'h'
+unicode.ToUpper('A')   // 'A'  (already upper, no change)
+unicode.ToLower('!')   // '!'  (non-letter, no change)
 ```
 
-### 3. String splitting and joining
+These work on any Unicode character, not just ASCII.
 
-Go's `strings` package provides split and join functions:
-- `strings.Split(s, sep)` - split string into slice
-- `strings.Join(slice, sep)` - join slice into string
-- Manual implementation helps understand the logic
+### The Algorithm
+
+For each word returned by `strings.Fields`:
+1. Convert the first character to uppercase
+2. Convert all remaining characters to lowercase
+3. Join the transformed words back together
 
 ```go
-// Manual split example
-parts := []string{}
-current := ""
-for _, c := range s {
-    if c == sep {
-        parts = append(parts, current)
-        current = ""
-    } else {
-        current += string(c)
+import (
+    "strings"
+    "unicode"
+)
+
+func TitleCase(s string) string {
+    words := strings.Fields(s)
+    for i, word := range words {
+        runes := []rune(word)
+        runes[0] = unicode.ToUpper(runes[0])
+        for j := 1; j < len(runes); j++ {
+            runes[j] = unicode.ToLower(runes[j])
+        }
+        words[i] = string(runes)
     }
+    return strings.Join(words, " ")
 }
 ```
 
-### 4. String filtering and cleaning
+### New Tool: `strings.Join`
 
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
+`strings.Join(slice, sep)` joins a string slice into a single string, placing `sep` between each element:
 
 ```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+strings.Join([]string{"Hello", "World"}, " ")   // "Hello World"
+strings.Join([]string{"a", "b", "c"}, "-")       // "a-b-c"
+strings.Join([]string{}, " ")                    // ""
+```
+
+### Important: Preserving Original Spacing
+
+The README says `"multiple   spaces   here"` should return `"Multiple   Spaces   Here"` — with the same spacing. But `strings.Fields` collapses multiple spaces to one. So if the original string has multiple spaces, a simple Fields + Join approach will change the spacing.
+
+One way to handle this: process character by character, tracking whether the previous character was a space.
+
+```go
+func TitleCase(s string) string {
+    runes := []rune(s)
+    capitalizeNext := true
+    for i, r := range runes {
+        if r == ' ' {
+            capitalizeNext = true
+        } else if capitalizeNext {
+            runes[i] = unicode.ToUpper(r)
+            capitalizeNext = false
+        } else {
+            runes[i] = unicode.ToLower(r)
+        }
     }
+    return string(runes)
 }
 ```
+
+This approach:
+- Sets a flag `capitalizeNext = true` at the start and after every space
+- Capitalizes the next non-space character it sees
+- Lowercases everything else
+- Preserves the original spacing exactly
+
+### Diagram: Processing "hello world"
+
+```
+Input runes: h  e  l  l  o     w  o  r  l  d
+capitalizeNext starts: true
+
+i=0 'h': capitalizeNext=true -> ToUpper('h')='H', capitalizeNext=false
+i=1 'e': capitalizeNext=false -> ToLower('e')='e'
+i=2 'l': -> ToLower('l')='l'
+i=3 'l': -> ToLower('l')='l'
+i=4 'o': -> ToLower('o')='o'
+i=5 ' ': capitalizeNext=true
+i=6 'w': capitalizeNext=true -> ToUpper('w')='W', capitalizeNext=false
+...
+
+Result: "Hello World"
+```
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `strings.Fields` + `strings.Join` | Collapses multiple spaces | Use the character-by-character approach if spacing must be preserved |
+| Capitalizing only the first letter without lowercasing the rest | `"ALL CAPS"` becomes `"All CAPS"` instead of `"All Caps"` | Also apply `ToLower` to all non-first characters |
+| Modifying `s[i]` directly | Strings are immutable | Convert to `[]rune` first |
+| `'A' + 32` to lowercase | Works for ASCII only; fails for non-ASCII | Use `unicode.ToLower` |
+
+## Solving This Challenge
+
+### Algorithm (character-by-character, preserves spacing)
+
+1. Convert `s` to `[]rune`
+2. Set `capitalizeNext = true`
+3. For each rune:
+   - If space: set `capitalizeNext = true`
+   - Else if `capitalizeNext`: apply `ToUpper`, set `capitalizeNext = false`
+   - Else: apply `ToLower`
+4. Return `string(runes)`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [19-wordcount](../19-wordcount/skills.md) - Wordcount
+**Next:** [19-wordcount](../19-wordcount/README.md)

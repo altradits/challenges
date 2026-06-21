@@ -2,69 +2,84 @@
 
 ## What You'll Learn
 
-**Previous:** [86-ispalindrome](../86-ispalindrome/skills.md)
+**Previous:** [86-ispalindrome](../86-ispalindrome/skills.md) | **Next:** [88-countrepeats](../88-countrepeats/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `RemoveSpaces(s string) string` that returns the string with all space characters (`' '`) removed.
 
-**Challenge:** Removespaces
+## Core Concept: The Filter Pattern — Keep Characters That Pass a Test
 
-## New Concepts Explained
+### What Is Filtering?
 
-### 1. String iteration and character access
+Filtering means scanning every element and keeping only those that satisfy a condition. It is the opposite of transformation (which keeps everything but changes values):
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+| Pattern | What it does | Example |
+|---------|-------------|---------|
+| Transform | Changes every character | `ToUpper`: `"hello"` → `"HELLO"` |
+| Filter | Keeps some, drops others | `RemoveSpaces`: `"a b"` → `"ab"` |
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
+### The Filter Pattern in Go
 
 ```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+func RemoveSpaces(s string) string {
+    result := ""
+    for _, c := range s {
+        if c != ' ' {          // condition: keep if NOT a space
+            result += string(c)
+        }
+        // if c IS a space: do nothing — it is dropped
     }
-}
-```
-
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+The key difference from previous challenges: there is **no `else` branch**. Characters that fail the condition are simply not added.
 
-### 4. Formatted output with fmt package
+### Only Space (`' '`), Not All Whitespace
 
-The `fmt` package provides formatted I/O:
+A space (`' '`) has ASCII value 32. Tabs (`'\t'`) and newlines (`'\n'`) are different characters. This challenge removes only the regular space:
 
 ```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
+c != ' '   // keeps everything except the space character
 ```
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `c != " "` (double quotes) | `" "` is a `string`; `' '` is a `rune` — type mismatch | Use single quotes: `c != ' '` |
+| Using `strings.Replace` or `strings.ReplaceAll` | Defeats the learning purpose | Manual iteration |
+| Removing `'\t'` and `'\n'` too | Over-filters; challenge says only spaces | Check `c != ' '` specifically |
+
+## Solving This Challenge
+
+### Algorithm
+
+1. `result := ""`
+2. For each rune `c` in `s`:
+   - If `c != ' '`: append `string(c)` to result
+3. Return `result`
+
+### Trace Through an Example
+
+Input: `"Go is fun!"`
+
+| Char | Keep? | result so far |
+|------|-------|--------------|
+| `G` | Yes | `"G"` |
+| `o` | Yes | `"Go"` |
+| ` ` | No | `"Go"` |
+| `i` | Yes | `"Goi"` |
+| `s` | Yes | `"Gois"` |
+| ` ` | No | `"Gois"` |
+| `f` | Yes | `"Goisf"` |
+| `u` | Yes | `"Goisfu"` |
+| `n` | Yes | `"Goisfun"` |
+| `!` | Yes | `"Goisfun!"` |
+
+Result: `"Goisfun!"`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [88-countrepeats](../88-countrepeats/skills.md) - Countrepeats
+**Next:** [88-countrepeats](../88-countrepeats/skills.md)

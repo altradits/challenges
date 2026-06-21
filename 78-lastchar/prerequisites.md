@@ -1,45 +1,68 @@
-# Prerequisites for LastChar
+# Prerequisites for 78-lastchar
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to check for empty strings**
-   ```go
-   if len(s) == 0 {
-       return ""
-   }
-   ```
+### 1. Writing a Go Function That Returns a `string`
 
-2. **How to calculate last index**
-   ```go
-   last := s[len(s)-1]  // Last byte
-   ```
+You need to write a function with this exact signature:
 
-3. **How to convert to string**
-   ```go
-   string(s[len(s)-1])  // Last character as string
-   ```
+```go
+func LastChar(s string) string {
+    // your code here
+}
+```
 
-## Skills You'll Learn
+If this looks unfamiliar, see [76-stringlength skills.md](../76-stringlength/skills.md).
 
-After completing this exercise, you'll be able to:
+### 2. Checking for an Empty String
 
-1. **Access string positions**
-2. **Calculate array indices**
-3. **Handle boundary conditions**
-4. **Build position-based tools**
+Before doing anything with a string's contents, confirm it is not empty:
 
-## How This Helps Your Capstone
+```go
+if s == "" {
+    return ""
+}
+```
 
-This skill is used in:
-- **Budget Planner** - Get last character of input
-- **Savings Calculator** - Check input ending
-- **Investment Tracker** - Validate ticker ending
-- **Net Worth Tracker** - Get last account
+Trying to access `s[0]` (or any index) on an empty string causes a runtime panic. This check prevents that.
+
+### 3. Converting a `byte` to a `string`
+
+`s[i]` gives you a `byte` (type `uint8`). To return it as human-readable text, convert it:
+
+```go
+b := s[0]            // b is a byte, e.g., 72
+fmt.Println(b)       // 72 (a number)
+fmt.Println(string(b))  // "H" (a character)
+```
+
+From [77-firstchar skills.md](../77-firstchar/skills.md).
+
+### 4. String Indexing
+
+You already used `s[0]` in the previous challenge. This challenge needs the **last** index instead. Review that any valid index is between `0` and `len(s)-1`:
+
+```go
+s := "Hello"
+s[0]  // 'H' — first
+s[4]  // 'o' — last (len=5, so last index is 4)
+```
+
+## Review If Stuck
+
+- [77-firstchar skills.md](../77-firstchar/skills.md) — covers string indexing and `byte`-to-`string` conversion
+- [76-stringlength skills.md](../76-stringlength/skills.md) — covers `for...range` as an alternative approach
+
+## You're Ready When You Can...
+
+- [ ] Write a Go function that takes a `string` and returns a `string`
+- [ ] Guard against an empty string before accessing any index
+- [ ] Explain why `s[len(s)]` panics but `s[len(s)-1]` is safe
+- [ ] Convert a `byte` to a `string` using `string(b)`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [79-isempty](../79-isempty/README.md) - Isempty
-- [80-toupper](../80-toupper/README.md) - Toupper
+- [78-lastchar skills.md](skills.md) — teaches `len(s)` and the last-index formula
+- [79-isempty README](../79-isempty/README.md) — next challenge

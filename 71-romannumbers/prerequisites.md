@@ -1,48 +1,85 @@
 # Prerequisites for 71-romannumbers
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Struct types — grouping related values
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+The Roman numeral table uses a struct to pair a value with its symbol:
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+type romanPair struct {
+    value  int
+    symbol string
+}
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+Review: [07-functions](../07-functions/skills.md) — function syntax; structs are the next natural step.
 
-## Skills You'll Learn
+### 2. Slice of structs — ordered table
 
-After completing this exercise, you'll be able to:
+```go
+table := []romanPair{
+    {1000, "M"},
+    {900, "CM"},
+    {500, "D"},
+    // ...
+    {1, "I"},
+}
+```
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+The table must be ordered largest to smallest for the greedy algorithm to work.
 
-## How This Helps Your Capstone
+### 3. The greedy loop pattern
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+Keep subtracting the largest fitting value until the remainder is zero:
+
+```go
+for n > 0 {
+    for _, pair := range table {
+        for n >= pair.value {
+            result += pair.symbol
+            n -= pair.value
+        }
+    }
+}
+```
+
+Review: [11-forloops](../11-forloops/skills.md) — nested for loops.
+
+### 4. `os.Args` — reading the input number
+
+```go
+import (
+    "fmt"
+    "os"
+    "strconv"
+)
+
+n, err := strconv.Atoi(os.Args[1])
+if err != nil { return }
+```
+
+Review: [22-digitlen](../22-digitlen/skills.md) — strconv.Atoi usage.
+
+### 5. `strings.Builder` — building the result string
+
+```go
+var b strings.Builder
+b.WriteString("M")
+b.WriteString("CM")
+result := b.String()
+```
+
+Review: [14-stringspackage](../14-stringspackage/skills.md) — strings.Builder.
+
+## You're Ready When You Can...
+
+- [ ] Define a struct type with two fields
+- [ ] Create a slice of structs as a lookup table, ordered largest to smallest
+- [ ] Use a nested for loop to greedily consume values
+- [ ] Convert a command-line argument string to int with `strconv.Atoi`
+- [ ] Build a result string with `strings.Builder`
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [72-brackets](../72-brackets/README.md) - Brackets
-- [73-rpncalc](../73-rpncalc/README.md) - Rpncalc
+- [72-brackets](../72-brackets/README.md)

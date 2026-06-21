@@ -1,80 +1,119 @@
-# Skills for 61-notdecimal
+# Skills for notdecimal
 
 ## What You'll Learn
 
-**Previous:** [60-fifthandskip](../60-fifthandskip/skills.md)
+**Previous:** [60-fifthandskip](../60-fifthandskip/skills.md) | **Next:** [62-revconcatalternate](../62-revconcatalternate/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Given a float string like `"174.2"`, multiply by 10^n to remove the decimal point and return the integer string `"1742"`. If not a valid decimal with non-zero fractional part, return the input as-is (with newline).
 
-**Challenge:** Notdecimal
+## Core Concept: String-Based Decimal Manipulation
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Instead of using floating-point arithmetic (which has precision issues), this challenge works directly on the string representation. Find the decimal point, count how many significant digits follow it, remove the dot, and trim trailing zeros.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String building and concatenation
-
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
+**Step 1 — Handle edge cases:**
 
 ```go
-// Simple concatenation
-result := "Hello" + " " + "World"
-
-// Using strings.Builder for efficiency
-var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
-}
-result := b.String()
-```
-
-### 3. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
-
-```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
-```
-
-### 4. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+func NotDecimal(dec string) string {
+    if dec == "" {
+        return "\n"
     }
+```
+
+**Step 2 — Find the decimal point:**
+
+```go
+    dotIdx := -1
+    for i, c := range dec {
+        if c == '.' {
+            dotIdx = i
+            break
+        }
+    }
+    // No dot, or not a valid number → return as-is
+    if dotIdx == -1 {
+        return dec + "\n"
+    }
+```
+
+**Step 3 — Validate the input is a number:**
+
+Check that all non-dot characters are digits (allowing a leading `-`).
+
+```go
+    for i, c := range dec {
+        if i == 0 && c == '-' {
+            continue
+        }
+        if c == '.' {
+            continue
+        }
+        if c < '0' || c > '9' {
+            return dec + "\n"  // contains non-digit, non-dot: not a number
+        }
+    }
+```
+
+**Step 4 — Build the integer string by removing the dot:**
+
+```go
+    // Integer part + fractional part without the dot
+    intPart := dec[:dotIdx]
+    fracPart := dec[dotIdx+1:]
+
+    // Trim trailing zeros from fracPart
+    end := len(fracPart)
+    for end > 0 && fracPart[end-1] == '0' {
+        end--
+    }
+    fracPart = fracPart[:end]
+
+    if fracPart == "" {
+        // Only zeros after dot (or no fractional part)
+        return intPart + "\n"
+    }
+    return intPart + fracPart + "\n"
 }
 ```
+
+**Examples:**
+
+| Input | dotIdx | intPart | fracPart (trimmed) | Output |
+|-------|--------|---------|-------------------|--------|
+| `"0.1"` | 1 | `"0"` | `"1"` | `"1\n"` |
+| `"174.2"` | 3 | `"174"` | `"2"` | `"1742\n"` |
+| `"0.1255"` | 1 | `"0"` | `"1255"` | `"1255\n"` |
+| `"-19.525856"` | 3 | `"-19"` | `"525856"` | `"-19525856\n"` |
+| `"1952"` | -1 | — | — | `"1952\n"` |
+| `"-0.0f00d00"` | 2 | — | invalid char 'f' | `"-0.0f00d00\n"` |
+
+**Why string manipulation instead of `strconv.ParseFloat`?**
+
+`strconv.ParseFloat("1.20525856", 64)` would give floating-point imprecision. String manipulation is exact.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `float64` arithmetic | Precision loss: `1.20525856 * 10^8` may not be exactly `120525856` | Work on the string directly |
+| Not trimming trailing zeros | `"174.20"` → `"174200"` instead of `"17420"` | Trim zeros from fracPart before concatenating |
+| Forgetting the leading `-` during validation | Rejects negative numbers | Allow `-` at index 0 |
+
+## Solving This Challenge
+
+### Algorithm
+1. Return `"\n"` for empty input.
+2. Validate: all chars must be digits, one optional leading `-`, one optional `.`.
+3. If no `.`, return `dec + "\n"`.
+4. Split at `.`: `intPart = dec[:dotIdx]`, `fracPart = dec[dotIdx+1:]`.
+5. Trim trailing zeros from `fracPart`.
+6. If `fracPart` is empty after trimming, return `intPart + "\n"`.
+7. Return `intPart + fracPart + "\n"`.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [62-revconcatalternate](../62-revconcatalternate/skills.md) - Revconcatalternate
+**Next:** [62-revconcatalternate](../62-revconcatalternate/README.md)

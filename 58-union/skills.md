@@ -1,45 +1,106 @@
-# Skills for 58-union
+# Skills for union
 
 ## What You'll Learn
 
-**Previous:** [57-saveandmiss](../57-saveandmiss/skills.md)
+**Previous:** [57-saveandmiss](../57-saveandmiss/skills.md) | **Next:** [59-wdmatch](../59-wdmatch/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Print all characters that appear in either of the two input strings, in the order they appear in the combined input (s1 first, then s2), with no duplicates.
 
-**Challenge:** Union
+## Core Concept: Set Union Using a Map
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+Set union combines two collections and keeps every element that appears in either one, with no duplicates. The efficient Go implementation uses a map to track which characters have already been output.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### How It Works
+
+This is simpler than intersection: just walk both strings in order, printing each character the first time you see it.
+
+**Step 1 — Create a "seen" set:**
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+seen := make(map[rune]bool)
+result := ""
+```
+
+**Step 2 — Walk s1, then s2 — output each new character once:**
+
+```go
+for _, c := range s1 {
+    if !seen[c] {
+        result += string(c)
+        seen[c] = true
+    }
+}
+for _, c := range s2 {
+    if !seen[c] {
+        result += string(c)
+        seen[c] = true
+    }
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Conditional logic and boolean returns
-
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+**Step 3 — Print:**
 
 ```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
+fmt.Println(result)
 ```
 
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+**Full example — `"zpadinton"` and `"paqefwtdjetyiytjneytjoeyjnejeyj"`:**
+
+Walk `s1 = "zpadinton"`:
+- `z` → new → output
+- `p` → new → output
+- `a` → new → output
+- `d` → new → output
+- `i` → new → output
+- `n` → new → output
+- `t` → new → output
+- `o` → new → output
+- `n` → already seen → skip
+
+Walk `s2`:
+- `p` → seen → skip
+- `a` → seen → skip
+- `q` → new → output
+- `e` → new → output
+- `f` → new → output
+- `w` → new → output
+- `t` → seen → skip
+- `d` → seen → skip
+- `j` → new → output
+- `e` → seen → skip
+- ... `y` → new → output
+
+Result: `zpadintoqefwjy` ✓
+
+**Comparison: Union vs. Intersection**
+
+| Operation | What you track | Walk order |
+|-----------|---------------|------------|
+| Intersection (55-inter) | "in s2" set + "printed" set | Walk s1, check both maps |
+| Union (this) | "seen" set | Walk s1 then s2, one map |
+
+Union is simpler: one map, two loops.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using two separate maps (one for s1, one for s2) | Outputs duplicates when the same char appears in both | One shared `seen` map covers both strings |
+| Walking s2 before s1 | Output order wrong — s1 chars should come first | Always walk s1 completely before s2 |
+| Printing `\n` when arg count is wrong | Check the requirement: print newline when wrong number of args | `fmt.Println()` with no args prints just a newline |
+
+## Solving This Challenge
+
+### Algorithm
+1. If arg count != 2, print newline and return.
+2. Create `seen := make(map[rune]bool)`.
+3. Walk `s1`: for each char not in `seen`, append to result, mark seen.
+4. Walk `s2`: same.
+5. Print result + newline.
 
 ## The Challenge
+See [README.md](README.md) for full description.
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
-
-**Next:** [59-wdmatch](../59-wdmatch/skills.md) - Wdmatch
+**Next:** [59-wdmatch](../59-wdmatch/README.md)

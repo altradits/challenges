@@ -1,48 +1,61 @@
-# Prerequisites for 52-concatslice
+# Prerequisites for concatslice
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. Slices — What They Are
+A slice is a dynamically sized list of elements of the same type. You can create one with a literal or `make`.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+a := []int{1, 2, 3}    // slice literal
+b := make([]int, 0)    // empty slice with make
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. `append` — Adding Elements to a Slice
+`append` returns a new slice with one or more elements added. Always assign the result back.
 
-## Skills You'll Learn
+```go
+s := []int{1, 2}
+s = append(s, 3)    // s is now [1 2 3]
+s = append(s, 4, 5) // s is now [1 2 3 4 5]
+```
 
-After completing this exercise, you'll be able to:
+### 3. The Spread Operator `...`
+The `...` after a slice unpacks it into individual arguments. This lets you append every element of one slice onto another in one call.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+a := []int{1, 2, 3}
+b := []int{4, 5, 6}
+c := append(a, b...)  // c is [1 2 3 4 5 6]
+```
 
-## How This Helps Your Capstone
+### 4. `for range` Over a Slice
+If you want to avoid `...`, you can loop over the second slice and append element by element.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+for _, v := range b {
+    a = append(a, v)
+}
+```
+
+### 5. Function Signatures with Slice Parameters
+Functions can take and return slices just like any other type.
+
+```go
+func ConcatSlice(slice1, slice2 []int) []int {
+    return append(slice1, slice2...)
+}
+```
+
+## Review If Stuck
+- [51-concatalternate](../51-concatalternate/skills.md) — covers `append` and slice indexing
+
+## You're Ready When You Can...
+- [ ] Create a `[]int` with a literal and with `make`
+- [ ] Use `append(s, value)` and always assign the result back
+- [ ] Use `append(a, b...)` to join two slices
+- [ ] Write a function that accepts two `[]int` parameters and returns `[]int`
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [53-fprime](../53-fprime/README.md) - Fprime
-- [54-hiddenp](../54-hiddenp/README.md) - Hiddenp
+- [53-fprime](../53-fprime/README.md)

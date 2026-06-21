@@ -2,71 +2,98 @@
 
 ## What You'll Learn
 
-**Previous:** [92-countchar](../92-countchar/skills.md)
+**Previous:** [92-countchar](../92-countchar/skills.md) | **Next:** [94-replacechar](../94-replacechar/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Write a function `FindLastChar(s string, c rune) int` that returns the byte index of the LAST occurrence of `c` in `s`, or `-1` if not found.
 
-**Challenge:** Findlastchar
+## Core Concept: Keep Updating Instead of Returning Early
 
-## New Concepts Explained
+### FindChar vs FindLastChar
 
-### 1. String iteration and character access
+| Function | Strategy | Stops when? |
+|----------|----------|-------------|
+| `FindChar` | Return on first match | First match found |
+| `FindLastChar` | Record every match, keep going | Always scans entire string |
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+The key insight: to find the **last** occurrence, you must scan **all** the way to the end — never stop early.
+
+### The "Keep Updating" Pattern
+
+Start with `lastIndex := -1`. Every time a match is found, overwrite `lastIndex`. When the loop ends, you automatically have the position of the final match:
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
+func FindLastChar(s string, c rune) int {
+    lastIndex := -1
+    for i, ch := range s {
+        if ch == c {
+            lastIndex = i   // update every time — ends with the last match
+        }
+    }
+    return lastIndex
 }
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+Because the loop runs to completion, the last update to `lastIndex` is from the rightmost occurrence.
 
-### 2. String searching and indexing
+### Why Start with `-1`?
 
-Go provides several ways to search within strings:
-- `strings.Index()` - find first occurrence
-- `strings.LastIndex()` - find last occurrence
-- Manual iteration with `for...range` for custom search logic
-- Compare runes or bytes directly
+If `c` never appears in `s`, `lastIndex` is never updated. Returning `-1` correctly signals "not found".
+
+### Contrast with `FindChar`
 
 ```go
-// Manual search example
-for i, c := range s {
-    if c == target {
-        return i
+// FindChar — stops at first match:
+for i, ch := range s {
+    if ch == c {
+        return i   // immediate return
     }
 }
 return -1
-```
 
-### 3. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
-
-```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
-    return result
+// FindLastChar — scans everything:
+lastIndex := -1
+for i, ch := range s {
+    if ch == c {
+        lastIndex = i   // update, but keep going
+    }
 }
+return lastIndex
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Common Mistakes
 
-### 4. Formatted output with fmt package
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| `return i` inside the loop | Returns first match, not last | Use `lastIndex = i` (update, not return) |
+| Initialising `lastIndex := 0` | Returns 0 when not found (ambiguous) | Use `-1` |
+| Forgetting `return lastIndex` | Compile error | Add the return after the loop |
 
-The `fmt` package provides formatted I/O:
+## Solving This Challenge
 
-```go
-fmt.Println("Hello")     // Print with newline
-fmt.Printf("Value: %d", x)  // Formatted print
-fmt.Scan(&x)             // Read input
-```
+### Algorithm
 
-Common verbs: `%d` (int), `%s` (string), `%v` (any value), `%T` (type)
+1. `lastIndex := -1`
+2. For each `i, ch` in `s`:
+   - If `ch == c`: `lastIndex = i`
+3. Return `lastIndex`
+
+### Trace Through an Example
+
+Input: `FindLastChar("banana", 'a')`
+
+| i | ch | ch=='a'? | lastIndex |
+|---|----|---------|-----------|
+| 0 | b | No | -1 |
+| 1 | a | Yes | 1 |
+| 2 | n | No | 1 |
+| 3 | a | Yes | 3 |
+| 4 | n | No | 3 |
+| 5 | a | Yes | 5 |
+
+Return `5` — the last `'a'`.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [94-replacechar](../94-replacechar/skills.md) - Replacechar
+**Next:** [94-replacechar](../94-replacechar/skills.md)

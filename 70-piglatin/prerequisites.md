@@ -1,48 +1,72 @@
-# Prerequisites for 70-piglatin
+# Prerequisites for piglatin
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand:
 
-1. **How to create a Go function**
-   ```go
-   func MyFunction(parameter string) int {
-       // Your code here
-       return 0
-   }
-   ```
+### 1. String Slicing — Splitting at a Found Index
+`word[n:]` gives everything from index `n` to the end; `word[:n]` gives the first `n` characters.
 
-2. **How to use for loops**
-   ```go
-   for i := 0; i < 10; i++ {
-       // Loop body
-   }
-   ```
+```go
+word := "crunch"
+firstVowel := 2  // 'u' is at index 2
+fmt.Println(word[firstVowel:])   // "unch"
+fmt.Println(word[:firstVowel])   // "cr"
+fmt.Println(word[firstVowel:] + word[:firstVowel] + "ay")  // "unchcray"
+```
 
-3. **How to return values**
-   ```go
-   return count
-   ```
+### 2. Checking if a Character Is a Vowel
+Write a helper function that checks both uppercase and lowercase vowels.
 
-## Skills You'll Learn
+```go
+func isVowel(c byte) bool {
+    return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' ||
+           c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U'
+}
+```
 
-After completing this exercise, you'll be able to:
+### 3. Finding the First Index Matching a Condition
+Use a `for` loop that stops when the condition is true.
 
-1. **Iterate over strings** using `for...range`
-2. **Count elements** without using built-in functions
-3. **Handle UTF-8 characters** correctly
-4. **Build logic from scratch**
+```go
+firstVowel := 0
+for firstVowel < len(word) && !isVowel(word[firstVowel]) {
+    firstVowel++
+}
+// firstVowel is now the index of the first vowel (or len(word) if none)
+```
 
-## How This Helps Your Capstone
+### 4. Scanning for Existence of a Condition
+Before transforming, check whether any vowel exists at all.
 
-This skill is used in:
-- **Budget Planner** - Count characters in expense descriptions
-- **Savings Calculator** - Validate input length
-- **Investment Tracker** - Validate ticker symbol length
-- **Currency Converter** - Validate amount format
+```go
+hasVowel := false
+for i := 0; i < len(word); i++ {
+    if isVowel(word[i]) {
+        hasVowel = true
+        break
+    }
+}
+```
+
+### 5. String Concatenation for Transformation
+Build the output by joining substrings.
+
+```go
+// Vowel-start: word + "ay"
+// Consonant-start: word[firstVowel:] + word[:firstVowel] + "ay"
+```
+
+## Review If Stuck
+- [61-notdecimal](../61-notdecimal/skills.md) — covers string scanning to find a specific character and slicing at that index
+- [56-reversestrcap](../56-reversestrcap/skills.md) — covers character-by-character string scanning with conditions
+
+## You're Ready When You Can...
+- [ ] Write an `isVowel(c byte) bool` helper covering both cases
+- [ ] Use a `for` loop to advance an index until a condition is true
+- [ ] Use `word[:n]` and `word[n:]` to split a string at position `n`
+- [ ] Concatenate the slices with `"ay"` to form the transformed word
+- [ ] Handle the "no vowels" case by scanning the whole word first
 
 ## Next Steps
-
-After completing this exercise, move to:
-- [71-romannumbers](../71-romannumbers/README.md) - Romannumbers
-- [72-brackets](../72-brackets/README.md) - Brackets
+- [71-romannumbers](../71-romannumbers/README.md)

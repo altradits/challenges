@@ -2,81 +2,80 @@
 
 ## What You'll Learn
 
-**Previous:** [98-searchreplace](../98-searchreplace/skills.md)
+**Previous:** [98-searchreplace](../98-searchreplace/skills.md) | **Next:** [100-countwords](../100-countwords/skills.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Remove duplicate strings from a slice while preserving order.
 
-**Challenge:** Cleanlist
+## Core Concept: Map as a Set for Deduplication
 
-## New Concepts Explained
+### What Is It?
 
-### 1. String iteration and character access
+A **set** is a collection where each element can appear only once. Go doesn't have a built-in set type, but `map[string]bool` works perfectly — the keys are the unique values.
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
-
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
-
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
+### How It Works
 
 ```go
-var result strings.Builder
-for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+func CleanList(inputs []string) []string {
+    seen := make(map[string]bool)
+    result := []string{}
+    for _, s := range inputs {
+        if !seen[s] {         // not seen yet?
+            seen[s] = true    // mark as seen
+            result = append(result, s)  // keep it
+        }
     }
+    return result
 }
 ```
 
-### 3. Slice manipulation and operations
+Walk-through with `["a", "b", "a", "c", "b"]`:
+- `"a"`: not seen → add, seen={"a"}
+- `"b"`: not seen → add, seen={"a","b"}
+- `"a"`: already seen → skip
+- `"c"`: not seen → add, seen={"a","b","c"}
+- `"b"`: already seen → skip
+- Result: `["a", "b", "c"]`
 
-Slices are dynamic, flexible views into arrays. They're the most common data structure in Go:
+### Why `map[string]bool` Works as a Set
+
+Accessing a missing key in a Go map returns the zero value (`false` for bool), so `!seen[s]` is `true` for any key that hasn't been added yet. No need to check `ok` separately.
 
 ```go
-// Create a slice
-numbers := []int{1, 2, 3, 4, 5}
-
-// Slice an existing slice
-subset := numbers[1:4]  // [2, 3, 4]
-
-// Append to a slice
-numbers = append(numbers, 6)
+seen := make(map[string]bool)
+seen["hello"]        // false (zero value, not found)
+seen["hello"] = true
+seen["hello"]        // true (now found)
 ```
 
-Slices have length (current elements) and capacity (max elements without reallocation).
+### Alternative: `map[string]struct{}`
 
-### 4. Map data structures for lookups
-
-Maps are Go's built-in associative data type (hash tables):
+Using `struct{}` instead of `bool` saves a tiny amount of memory (empty struct has zero size):
 
 ```go
-// Create a map
-seen := make(map[rune]bool)
-seen['a'] = true
-
-// Check if key exists
-if seen['b'] {
-    // key exists
+seen := make(map[string]struct{})
+if _, ok := seen[s]; !ok {
+    seen[s] = struct{}{}
+    result = append(result, s)
 }
-
-// Delete a key
-delete(seen, 'a')
 ```
 
-Maps are reference types - when you pass them to functions, modifications affect the original.
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Sorting instead of map | Changes order | Use map to preserve insertion order |
+| Not pre-allocating result | Minor — still correct | `make([]string, 0, len(inputs))` for efficiency |
+| Using `map[string]int` | Works but wasteful | `map[string]bool` is cleaner for sets |
+
+## Algorithm
+
+1. Create `seen := make(map[string]bool)` and `result := []string{}`
+2. For each string `s` in input:
+   - If `!seen[s]`: mark `seen[s] = true`, append `s` to result
+3. Return `result`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [100-countwords](../100-countwords/skills.md) - Countwords
+**Next:** [100-countwords](../100-countwords/skills.md)

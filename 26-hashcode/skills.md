@@ -1,75 +1,86 @@
-# Skills for 26-hashcode
+# Skills for hashcode
 
 ## What You'll Learn
 
-**Previous:** [25-gcd](../25-gcd/skills.md)
+**Previous:** [../25-gcd/skills.md](../25-gcd/skills.md) | **Next:** [../27-lastword/README.md](../27-lastword/README.md)
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+**Challenge:** Transform every character in a string using a hash formula: `(ASCII value + string length) % 127`, with an adjustment for unprintable results.
 
-**Challenge:** Hashcode
+## Core Concept: ASCII Arithmetic on Characters
 
-## New Concepts Explained
-
-### 1. String iteration and character access
-
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+### What Is ASCII?
+Every character has a numeric code. ASCII maps characters 0–127 to numbers. In Go, you can get this number with `int(c)` and convert back with `string(rune(val))`.
 
 ```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
+fmt.Println(int('A'))          // 65
+fmt.Println(int('B'))          // 66
+fmt.Println(string(rune(66)))  // "B"
 ```
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
-
-### 2. Go function definition and usage
-
-Functions in Go are defined using the `func` keyword. They can take parameters and return values:
+### The Hash Formula
+For each character `c` in a string of length `n`:
+1. `hashed = (int(c) + n) % 127`
+2. If `hashed < 32` (control/unprintable character), add 33 to shift it into the printable range.
+3. Append `string(rune(hashed))` to the result.
 
 ```go
-func FunctionName(param1 type1, param2 type2) returnType {
-    // function body
+func HashCode(dec string) string {
+    n := len(dec)
+    result := ""
+    for _, c := range dec {
+        hashed := (int(c) + n) % 127
+        if hashed < 32 {
+            hashed += 33
+        }
+        result += string(rune(hashed))
+    }
     return result
 }
 ```
 
-The `main()` function is special - it's where program execution begins.
+### Step-by-Step for `HashCode("A")`
+- `n = 1`, `c = 'A'` → `int('A') = 65`
+- `(65 + 1) % 127 = 66`
+- `66 >= 32` so no adjustment
+- `string(rune(66)) = "B"`
+- Output: `"B"`
 
-### 3. Looping constructs (for, range)
+### Step-by-Step for `HashCode("AB")`
+- `n = 2`
+- `'A'=65`: `(65+2)%127 = 67` → `"C"`
+- `'B'=66`: `(66+2)%127 = 68` → `"D"`
+- Output: `"CD"`
 
-Go has only one looping construct: the `for` loop. It can be used in several ways:
+### Why `% 127`?
+Keeps the value in the range `[0, 126]`. ASCII printable characters start at 32 (space) and go to 126 (`~`). Values below 32 are control characters (tab, newline, etc.), which is why we add 33 to push them into printable range (33 = `!`).
 
+### Converting Between rune, int, and string
 ```go
-// Traditional for loop
-for i := 0; i < 10; i++ { }
-
-// While-style loop
-for condition { }
-
-// Range loop (for collections)
-for index, value := range collection { }
+c := 'H'                  // rune — value 72
+val := int(c) + 5         // int  — value 77
+ch := string(rune(val))   // string — "M"
 ```
 
-For strings, `for...range` iterates over runes, making it safe for UTF-8.
+### Common Mistakes
 
-### 4. Conditional logic and boolean returns
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Forgetting `int(c)` before arithmetic | Rune arithmetic can overflow byte type | Cast explicitly: `int(c)` |
+| Not checking `hashed < 32` | Unprintable control characters appear in output | Add `if hashed < 32 { hashed += 33 }` |
+| Using string index `s[i]` instead of range | Gets bytes not runes | Use `for _, c := range dec` |
 
-Go uses `if/else` for conditional branching. The condition doesn't need parentheses:
+## Solving This Challenge
 
-```go
-if condition {
-    // do something
-} else if otherCondition {
-    // do something else
-} else {
-    // default case
-}
-```
-
-Boolean operators: `&&` (AND), `||` (OR), `!` (NOT).
+### Algorithm
+1. Get `n := len(dec)`.
+2. For each character `c` using `for _, c := range dec`:
+   a. `hashed := (int(c) + n) % 127`
+   b. If `hashed < 32`: `hashed += 33`
+   c. Append `string(rune(hashed))` to result.
+3. Return result.
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md) for full description and test cases.
 
-**Next:** [27-lastword](../27-lastword/skills.md) - Lastword
+**Next:** [../27-lastword/README.md](../27-lastword/README.md)

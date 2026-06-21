@@ -1,54 +1,92 @@
-# Prerequisites for ZipString
+# Prerequisites for 108-zipstring
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+### 1. Converting a String to a Rune Slice
 
-1. **How to track consecutive characters**
-   ```go
-   current := rune(0)
-   count := 0
-   for _, r := range s {
-       if r == current {
-           count++
-       } else {
-           // New character, output previous
-           current = r
-           count = 1
-       }
-   }
-   ```
+`[]rune(s)` converts a string into a slice of individual characters (runes). This lets you access any character by index safely:
 
-2. **How to convert numbers to strings**
-   ```go
-   result := fmt.Sprint(count) + string(r)
-   ```
+```go
+s := "Hello"
+runes := []rune(s)
+fmt.Println(runes[0])         // 72 (code point for 'H')
+fmt.Println(string(runes[0])) // "H"
+fmt.Println(len(runes))       // 5
+```
 
-3. **How to build strings**
-   ```go
-   var output string
-   output += fmt.Sprint(count) + string(r)
-   ```
+### 2. Comparing Runes
 
-## Skills You'll Learn
+Runes can be compared directly with `==`:
 
-After completing this exercise, you'll be able to:
+```go
+a := 'H'
+b := 'H'
+c := 'e'
+fmt.Println(a == b)  // true
+fmt.Println(a == c)  // false
+```
 
-1. **Detect consecutive patterns**
-2. **Build run-length encoding**
-3. **Track state across iterations**
-4. **Create compression tools**
+### 3. Tracking State Across Iterations
 
-## How This Helps Your Capstone
+Use variables declared before the loop to remember information from previous iterations:
 
-This skill is used in:
-- **Budget Planner** - Compress expense data
-- **Savings Calculator** - Format repeated values
-- **Investment Tracker** - Compress historical data
-- **Net Worth Tracker** - Summarize account history
+```go
+prev := rune(0)
+for _, c := range "aabbcc" {
+    if c == prev {
+        fmt.Println("same as previous")
+    } else {
+        fmt.Println("new character:", string(c))
+        prev = c
+    }
+}
+```
+
+### 4. `fmt.Sprintf` for Formatting
+
+`fmt.Sprintf` creates a string using format verbs — `%d` for integers, `%c` for rune characters:
+
+```go
+count := 3
+char := 'u'
+s := fmt.Sprintf("%d%c", count, char)
+fmt.Println(s)  // "3u"
+```
+
+Alternatively: `strconv.Itoa(count) + string(char)`.
+
+### 5. The "Flush After Loop" Pattern
+
+When you are processing runs of identical items, you always need to flush the last run after the loop, because the loop only flushes when it detects a change:
+
+```go
+current := runes[0]
+count := 1
+for i := 1; i < len(runes); i++ {
+    if runes[i] == current {
+        count++
+    } else {
+        fmt.Println(count, string(current))  // flush
+        current = runes[i]
+        count = 1
+    }
+}
+fmt.Println(count, string(current))  // flush LAST group here
+```
+
+## Review If Stuck
+
+- [106-itoa](../106-itoa/skills.md) — covers converting integers to strings
+- [107-thirdchar](../107-thirdchar/skills.md) — covers index-based character selection
+
+## You're Ready When You Can...
+
+- [ ] Convert a string to `[]rune` and index into it
+- [ ] Compare two runes with `==`
+- [ ] Track a "current" variable and count across loop iterations
+- [ ] Use `fmt.Sprintf("%d%c", count, char)` to format a count+character pair
+- [ ] Remember to flush the last group after the loop ends
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [109-saveandmiss](../109-saveandmiss/README.md) - Saveandmiss
-- [110-reversestrcap](../110-reversestrcap/README.md) - Reversestrcap
+- [109-saveandmiss](../109-saveandmiss/README.md)

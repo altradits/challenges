@@ -1,52 +1,65 @@
-# Prerequisites for ToLower
+# Prerequisites for 81-tolower
 
-## Basic Skills Needed
+## Before You Start
 
-Before starting this exercise, you should know:
+To solve this challenge you need to understand everything from [80-toupper](../80-toupper/README.md). This challenge is structurally identical — only the direction of the ASCII arithmetic changes.
 
-1. **How to check for uppercase**
-   ```go
-   if c >= 'A' && c <= 'Z' {
-       // Character is uppercase
-   }
-   ```
+### 1. ASCII Case Conversion
 
-2. **How to convert to lowercase**
-   ```go
-   c + 32  // 'A' (65) + 32 = 'a' (97)
-   ```
+From [80-toupper skills.md](../80-toupper/skills.md): uppercase and lowercase letters differ by 32 in ASCII:
 
-3. **How to build strings**
-   ```go
-   result := ""
-   for _, c := range s {
-       if c >= 'A' && c <= 'Z' {
-           result += string(c + 32)
-       } else {
-           result += string(c)
-       }
-   }
-   ```
+```
+'a' - 32 = 'A'   (toupper: subtract 32)
+'A' + 32 = 'a'   (tolower: add 32)
+```
 
-## Skills You'll Learn
+### 2. Detecting a Specific Character Range
 
-After completing this exercise, you'll be able to:
+You already know how to detect lowercase letters:
 
-1. **Convert character cases**
-2. **Handle non-alphabetic characters**
-3. **Build transformation functions**
-4. **Create text normalization tools**
+```go
+if c >= 'a' && c <= 'z' { /* lowercase */ }
+```
 
-## How This Helps Your Capstone
+For this challenge you need the uppercase range instead:
 
-This skill is used in:
-- **Budget Planner** - Normalize category names
-- **Savings Calculator** - Clean input
-- **Investment Tracker** - Format ticker symbols
-- **Net Worth Tracker** - Standardize account names
+```go
+if c >= 'A' && c <= 'Z' { /* uppercase */ }
+```
+
+### 3. Building a Result String in a Loop
+
+From [80-toupper skills.md](../80-toupper/skills.md):
+
+```go
+result := ""
+for _, c := range s {
+    result += string(c)   // accumulate
+}
+return result
+```
+
+### 4. Converting a Rune to a String
+
+After arithmetic on a rune, use `string()` to get text:
+
+```go
+var c rune = 'A'
+string(c + 32)   // "a"
+```
+
+## Review If Stuck
+
+- [80-toupper skills.md](../80-toupper/skills.md) — the identical structure for the opposite operation
+
+## You're Ready When You Can...
+
+- [ ] Write a `ToUpper`-style loop that processes every character
+- [ ] Switch the range check from `'a'`–`'z'` to `'A'`–`'Z'`
+- [ ] Change the arithmetic from `c - 32` to `c + 32`
+- [ ] Verify that non-letter characters pass through unchanged
 
 ## Next Steps
 
-After completing this exercise, move to:
-- [82-countalpha](../82-countalpha/README.md) - Countalpha
-- [83-checknumber](../83-checknumber/README.md) - Checknumber
+- [81-tolower skills.md](skills.md) — explains the ToLower formula
+- [82-countalpha README](../82-countalpha/README.md) — next challenge

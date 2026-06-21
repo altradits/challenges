@@ -1,80 +1,133 @@
 # Skills for 113-stringbuilder
 
-## What You'll Learn
+**Previous:** [112-inter](../112-inter/README.md) | **Next:** [114-stringsplit](../114-stringsplit/README.md)
 
-**Previous:** [112-inter](../112-inter/skills.md)
+**Challenge:** Remove all vowels from a string using `strings.Builder` for efficient string construction (without using `strings.ReplaceAll`).
 
-If you're stuck, review the previous exercise's skills.md to strengthen your foundation.
+## Core Concept: `strings.Builder` and Why String Concatenation is O(n²)
 
-**Challenge:** Stringbuilder
+### The Problem with `+=` in Loops
 
-## New Concepts Explained
+This is the single most important performance lesson for string manipulation in Go.
 
-### 1. String iteration and character access
+In Go, **strings are immutable**. Every time you write `result += string(c)`, Go:
+1. Allocates a new string in memory (size = old length + 1)
+2. Copies the entire old string into the new memory
+3. Appends the new character
 
-In Go, strings are immutable sequences of bytes encoded in UTF-8. You can iterate over them using `for...range` which gives you runes (Unicode code points) rather than bytes.
+For a loop over a 1000-character string:
+- Iteration 1: copy 0 chars → 1 allocation
+- Iteration 2: copy 1 char → 1 allocation
+- Iteration 3: copy 2 chars → 1 allocation
+- ...
+- Iteration 1000: copy 999 chars → 1 allocation
 
-```go
-for _, char := range myString {
-    // char is a rune (int32)
-}
-```
+**Total copying: 0+1+2+...+999 = ~500,000 operations.** This is O(n²).
 
-To access individual characters, you can also use indexing, but remember that `s[i]` returns a byte, not a rune. For UTF-8 safety, use `for...range`.
+### `strings.Builder` is O(n)
 
-### 2. String building and concatenation
-
-In Go, strings are immutable, so building strings character by character requires care. You can:
-- Use `+` for simple concatenation
-- Use `strings.Builder` for efficient string building in loops
-- Convert runes to strings with `string(rune)`
-
-```go
-// Simple concatenation
-result := "Hello" + " " + "World"
-
-// Using strings.Builder for efficiency
-var b strings.Builder
-for _, c := range input {
-    b.WriteRune(c)
-}
-result := b.String()
-```
-
-### 3. String transformation and case conversion
-
-Go's `unicode` package provides case conversion functions:
-- `unicode.ToUpper(r)` - convert rune to uppercase
-- `unicode.ToLower(r)` - convert rune to lowercase
-- `unicode.IsUpper(r)` / `unicode.IsLower(r)` - check case
-
-You can also use ASCII math: uppercase and lowercase letters differ by 32.
+`strings.Builder` uses an internal byte buffer that **grows by doubling** (like a slice). Characters are appended in place until the buffer needs to grow, at which point it doubles. The total number of copy operations across all doublings is O(n) — amortized constant time per character.
 
 ```go
-// ASCII conversion
-if c >= 'a' && c <= 'z' {
-    c = c - 32  // to uppercase
-}
-```
-
-### 4. String filtering and cleaning
-
-Filtering strings involves:
-- Iterating through characters
-- Checking conditions (is space? is digit? etc.)
-- Building a new string with only wanted characters
-
-```go
-var result strings.Builder
+// BAD — O(n²): creates a new string on every iteration
+result := ""
 for _, c := range s {
-    if condition(c) {
-        result.WriteRune(c)
+    result += string(c)  // allocates new string every time!
+}
+
+// GOOD — O(n): appends to internal buffer, rarely copies
+var b strings.Builder
+for _, c := range s {
+    b.WriteRune(c)       // appends in place
+}
+result := b.String()    // single final conversion
+```
+
+### The `strings.Builder` API
+
+```go
+import "strings"
+
+var b strings.Builder
+
+// Write methods:
+b.WriteRune('H')          // append a single rune
+b.WriteByte('e')          // append a single byte
+b.WriteString("llo")      // append a string
+
+// Get result:
+result := b.String()      // returns the accumulated string
+
+// Optional: pre-allocate capacity if you know the approximate size
+b.Grow(100)  // hint: we'll write ~100 bytes
+
+// Check current length:
+n := b.Len()
+```
+
+### Applying to This Challenge: Remove Vowels
+
+```go
+func RemoveVowels(s string) string {
+    var b strings.Builder
+    for _, c := range s {
+        switch c {
+        case 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U':
+            // skip vowel
+        default:
+            b.WriteRune(c)  // keep consonant
+        }
     }
+    return b.String()
 }
 ```
+
+Or using `strings.ContainsRune`:
+
+```go
+func isVowel(c rune) bool {
+    return strings.ContainsRune("aeiouAEIOU", c)
+}
+
+func RemoveVowels(s string) string {
+    var b strings.Builder
+    for _, c := range s {
+        if !isVowel(c) {
+            b.WriteRune(c)
+        }
+    }
+    return b.String()
+}
+```
+
+### When to Use `strings.Builder`
+
+| Situation | Use |
+|-----------|-----|
+| Building a string in a loop over many characters | `strings.Builder` |
+| One or two simple concatenations | `+` or `+=` is fine |
+| Joining a small fixed number of strings | `+` or `+=` is fine |
+| Joining many strings (like in Join/Repeat) | `strings.Builder` |
+
+The O(n²) cost only matters for large inputs or many iterations. For tiny strings, `+=` is fine.
+
+### Common Mistakes
+
+| Mistake | Problem | Fix |
+|---------|---------|-----|
+| Using `+=` in a long loop | O(n²) performance on large inputs | Use `strings.Builder` |
+| Forgetting `.String()` | `b` itself is not a string | Call `b.String()` to get the result |
+| Calling `b.Reset()` and expecting to reuse | Resets the builder (valid but rarely needed) | Just declare a new `var b strings.Builder` |
+
+## Algorithm (for RemoveVowels)
+
+1. Create `var b strings.Builder`
+2. For each rune `c` in `s`:
+   - If `c` is NOT a vowel: `b.WriteRune(c)`
+3. Return `b.String()`
 
 ## The Challenge
 
-See [README.md](README.md) for the full challenge description, expected function, and test cases.
+See [README.md](README.md).
 
-**Next:** [114-stringsplit](../114-stringsplit/skills.md) - Stringsplit
+**Next:** [114-stringsplit](../114-stringsplit/README.md)
