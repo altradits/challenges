@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("1")
+	z01.PrintRune('1')
 }
