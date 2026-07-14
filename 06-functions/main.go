@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
-	"piscine"
+	"06-functions/piscine"
 )
 
 func main() {
-	fmt.Println(piscine.TestHello("Full"))
+	fmt.Println(piscine.Greet("World"))
+	fmt.Println(piscine.Greet("Go"))
+	fmt.Println(piscine.Greet("Alice"))
 }
