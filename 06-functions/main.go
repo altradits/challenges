@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"06-functions/piscine"
+	"fmt"
 )
 
 func main() {
