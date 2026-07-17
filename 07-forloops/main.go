@@ -1,10 +1,15 @@
 package main
 
 import (
-	"07-forloops/piscine"
 	"fmt"
 )
 
+func Countdown(n int) {
+	for i := n; i >= 0; i-- {
+		fmt.Println(i)
+	}
+}
+
 func main() {
-	fmt.Println(piscine.Countdown(5))
+	Countdown(5)
 }
