@@ -1,11 +1,9 @@
 package piscine
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func Countdown(n int) {
-	for i := n; i >= 0; i-- {
+	for i := n; i > 0; i-- {
 		fmt.Println(i)
 	}
 }

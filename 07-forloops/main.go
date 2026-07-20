@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	piscine.Countdown(5)
+	piscine.Countdown(50)
 }
