@@ -82,7 +82,7 @@ In real code, you'd use `len()`, but understanding the manual process makes you 
 - Test with empty string: `""` should return 0
 - Test with single char: `"a"` should return 1
 
-## The Challenge
+## Task
 
 Write a function that takes a string and returns its length **without using `len()`**.
 
@@ -129,3 +129,36 @@ Before coding, make sure you can answer:
 After completing this, you'll be ready for:
 - [29-firstchar](../29-firstchar/README.md) - Firstchar
 - [30-lastchar](../30-lastchar/README.md) - Lastchar
+
+---
+
+## Time limit
+
+**10 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 28
+```
+
+or run the tests directly:
+
+```bash
+go test ./28-stringlength/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 28` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

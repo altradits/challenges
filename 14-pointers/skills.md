@@ -1,4 +1,4 @@
-# Skills for 29-pointers
+# Skills for 14-pointers
 
 ## What You'll Learn
 

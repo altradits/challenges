@@ -1,0 +1,2 @@
+# Local drill progress (see cmd/drill). Never commit: it is personal state.
+.drill/

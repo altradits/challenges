@@ -22,7 +22,7 @@ func main() {
 
 	// the byte
 	// text[index]
-	
+
 	// string(rune)
 
 	last := string(text[len(text)-1])
@@ -37,7 +37,7 @@ func main() {
 	fmt.Println(sample)
 
 	// length of the string
-	fmt.Println(len(sample)-1)
+	fmt.Println(len(sample) - 1)
 
 	// Byte value of the last character
 	fmt.Println(sample[len(sample)-1])

@@ -1,8 +1,8 @@
-# Prerequisites for 29-pointers
+# Prerequisites for 14-pointers
 
 ## Before You Start
 
-- [28-structs](../28-structs/skills.md) — struct definitions and field access
+- [13-structs](../13-structs/skills.md) — struct definitions and field access
 
 ## Key Concepts to Have Solid
 

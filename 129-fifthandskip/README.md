@@ -1,3 +1,5 @@
+# 129-fifthandskip
+
 ## fifthandskip
 
 ### Instructions
@@ -18,20 +20,19 @@ func FifthAndSkip(str string) string {
 
 ### Usage
 
-Here is a possible program to test your function:
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-	fmt.Print(piscine.FifthAndSkip("abcdefghijklmnopqrstuwxyz"))
-	fmt.Print(piscine.FifthAndSkip("This is a short sentence"))
-	fmt.Print(piscine.FifthAndSkip("1234"))
+	fmt.Print(FifthAndSkip("abcdefghijklmnopqrstuwxyz"))
+	fmt.Print(FifthAndSkip("This is a short sentence"))
+	fmt.Print(FifthAndSkip("1234"))
 }
 ```
 
@@ -43,3 +44,36 @@ abcde ghijk mnopq stuwx z$
 Thisi ashor sente ce$
 Invalid Input$
 ```
+
+---
+
+## Time limit
+
+**20 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 129
+```
+
+or run the tests directly:
+
+```bash
+go test ./129-fifthandskip/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 129` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

@@ -1,9 +1,9 @@
-# Prerequisites for 32-errorhandling
+# Prerequisites for 17-errorhandling
 
 ## Before You Start
 
 - [06-functions](../06-functions/skills.md) — multiple return values
-- [31-interfaces](../31-interfaces/skills.md) — interfaces (error is an interface)
+- [16-interfaces](../16-interfaces/skills.md) — interfaces (error is an interface)
 - [58-itoa](../58-itoa/skills.md) — strconv.Atoi (used in the challenge)
 
 ## You're Ready When You Can...

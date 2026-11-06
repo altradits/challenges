@@ -1,8 +1,8 @@
-# Prerequisites for 34-fileio
+# Prerequisites for 19-fileio
 
 ## Before You Start
 
-- [32-errorhandling](../32-errorhandling/skills.md) — always check file errors
+- [17-errorhandling](../17-errorhandling/skills.md) — always check file errors
 - [10-mapsintro](../10-mapsintro/skills.md) — map for WordCount
 - [09-slicesintro](../09-slicesintro/skills.md) — append to collect lines
 

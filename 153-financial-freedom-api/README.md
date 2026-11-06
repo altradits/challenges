@@ -98,3 +98,53 @@ https://financial-freedom-api.yourname.com
 After completing this, you'll be ready for:
 - [154-index-fund-tracker](../154-index-fund-tracker/README.md) - Index Fund Tracker
 - [155-savings-runway-calculator](../155-savings-runway-calculator/README.md) - Savings Runway Calculator
+
+---
+
+## Function contracts (what the tests pin)
+
+Implement in `package piscine`:
+
+- `CalculateRunway(data FinancialData) int` — whole months until
+  `TargetSavings` at `(MonthlyIncome - MonthlyExpenses)` per month, rounded
+  up; `0` if already at target; `-1` if expenses meet or exceed income.
+- `ValidateAccountNumber(s string) bool` — exactly 10 ASCII digits.
+- `NormalizeCurrency(s string) string` — strip `$`, commas and spaces:
+  `"$1,234.56"` → `"1234.56"`.
+- `GenerateReport(data FinancialData) string` —
+  `"Savings Runway: N months (Y years)"` with `Y = N/12`, or
+  `"Savings Runway: never (expenses exceed income)"` when the runway is `-1`.
+
+Those API, dashboard and deployment sections are stretch goals: build them
+after the function core passes its tests.
+
+## Time limit
+
+**120 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 153
+```
+
+or run the tests directly:
+
+```bash
+go test ./153-financial-freedom-api/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 153` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

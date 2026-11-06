@@ -1,4 +1,4 @@
-# Skills for 41-select-and-sync
+# Skills for 26-select-and-sync
 
 ## What You'll Learn
 

@@ -1,10 +1,10 @@
-# Prerequisites for 39-goroutines
+# Prerequisites for 24-goroutines
 
 ## Before You Start
 
 - [07-forloops](../07-forloops/skills.md) — iterating over slices
 - [09-slicesintro](../09-slicesintro/skills.md) — make, append
-- [38-testing-basics](../38-testing-basics/skills.md) — use `go test -race` to detect races
+- [23-testing-basics](../23-testing-basics/skills.md) — use `go test -race` to detect races
 
 ## You're Ready When You Can...
 

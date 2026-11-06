@@ -4,7 +4,7 @@
 
 **Previous:** [39-removespaces](../39-removespaces/skills.md) | **Next:** [41-retainfirsthalf](../41-retainfirsthalf/skills.md)
 
-**Challenge:** Write a function `CountRepeats(s string) int` that counts the number of groups of consecutive repeated characters. `"heelloo"` has two groups (`ee` and `oo`) so it returns `2`. `"aaa"` is one group, so it returns `1`.
+**Challenge:** Write a function `CountRepeats(s string) int` that counts the number of groups of consecutive repeated characters. `"heelloo"` has three groups (`ee`, `ll`, and `oo`) so it returns `3`. `"aaa"` is one group, so it returns `1`.
 
 ## Core Concept: State Tracking Across Iterations
 
@@ -63,7 +63,7 @@ Step by step:
 | o | l | No | true | reset | 2 | false |
 | o | o | Yes | false | count++, set | 3 | true |
 
-Wait — the example in the README says `"heelloo"` → 2. Let me re-check: `h-e-e-l-l-o-o`. That is `ee` and `ll` and `oo` = three groups... actually re-reading the README: `"heelloo"` → 2 groups (`ee`, `oo`). Let me check: h-e-e-l-l-o-o has `ee`, `ll`, `oo`. That is three. But the README says 2... The README shows `"heelloo"` → 2 but looking at the string: h, e, e, l, l, o, o — that is two `l`s and two `o`s and two `e`s. The README test case shows `"heelloo"` → 2. Let me re-check the README letters: h-e-e-l-l-o-o has THREE pairs. But wait — the README shows specifically `"heelloo"` with test expected `2`. Looking at the actual characters: h(1) e(2) e(3) l(4) l(5) o(6) o(7) — yes, `ee`, `ll`, `oo` = 3 groups. However the README says 2. This suggests the README example may count `ee` and `oo` only (perhaps `ll` is not consecutive in the intended string). The README trace says: "h(no prev) → e(no match) → e(match! count=1) → l(no match) → l(match! count=2) → o(no match) → o(match! already in repeat, skip)" — but that describes `"helloo"` (one `l`), not `"heelloo"`. So the README trace is for `"helloo"` (6 chars) but the table shows `"heelloo"` (7 chars). Use the algorithm as written; it is consistent.
+The trace ends at count 3: `ee`, `ll`, and `oo` are three separate groups. Any example that claims otherwise is wrong — trust the trace.
 
 ### Common Mistakes
 

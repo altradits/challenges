@@ -1,9 +1,9 @@
-# Prerequisites for 36-sort-and-math
+# Prerequisites for 21-sort-and-math
 
 ## Before You Start
 
 - [09-slicesintro](../09-slicesintro/skills.md) — slices (sort operates on slices)
-- [28-structs](../28-structs/skills.md) — sort.Slice uses structs
+- [13-structs](../13-structs/skills.md) — sort.Slice uses structs
 
 ## You're Ready When You Can...
 

@@ -301,7 +301,6 @@ package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
@@ -318,7 +317,7 @@ func main() {
 	}
 
 	for _, word := range tests {
-		prefix, root, suffix := piscine.WordAnatomy(word)
+		prefix, root, suffix := WordAnatomy(word)
 
 		fmt.Printf(
 			"%s -> Prefix:%q Root:%q Suffix:%q\n",
@@ -452,3 +451,36 @@ becomes:
 A good linguist can identify words.
 
 A great programmer can dissect them.
+
+---
+
+## Time limit
+
+**20 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 103
+```
+
+or run the tests directly:
+
+```bash
+go test ./103-wordanatomy/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 103` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

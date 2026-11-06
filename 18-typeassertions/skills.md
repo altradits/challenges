@@ -1,4 +1,4 @@
-# Skills for 33-typeassertions
+# Skills for 18-typeassertions
 
 ## What You'll Learn
 
