@@ -33,3 +33,30 @@ These concepts are the building blocks for every string algorithm that follows. 
 1. `hello/` — start here, it sets the frame
 2. `strlenindex/` — understand len() and index before going further
 3. `printlastchar/` — apply the index concept to get the last character
+
+---
+
+## Time limit
+
+**20 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+This is a manual challenge — there are no hidden tests. Run:
+
+```bash
+go run ./cmd/drill check 83
+```
+
+`drill check` walks a self-attestation checklist and records an honest
+pass. Be honest; you are only cheating your own memory.
+
+## Repeat schedule
+
+No 1/3/7/21-day repeats — this is reference material or terminal
+practice. Revisit whenever `prerequisites.md` of a later challenge points
+back here.
