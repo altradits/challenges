@@ -1,8 +1,8 @@
-# Prerequisites for 40-channels
+# Prerequisites for 25-channels
 
 ## Before You Start
 
-- [39-goroutines](../39-goroutines/skills.md) — goroutines and WaitGroup
+- [24-goroutines](../24-goroutines/skills.md) — goroutines and WaitGroup
 
 ## You're Ready When You Can...
 

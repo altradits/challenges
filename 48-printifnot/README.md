@@ -65,7 +65,7 @@ if len(s) < 3 {
 - Test with: `""` (len=0) → "G"
 - Test with: `"14"` (len=2) → "G"
 
-## The Challenge
+## Task
 
 Write a function that returns "G" if length < 3, else "Invalid Input".
 

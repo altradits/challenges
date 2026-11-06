@@ -1,6 +1,6 @@
 # 178-queue — Queue (FIFO)
 
-## Challenge
+## Task
 
 Implement a FIFO queue in `package piscine`:
 

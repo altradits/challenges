@@ -1,6 +1,6 @@
 # 169-testing-advanced — Table-Driven Tests and Benchmarks
 
-## Challenge
+## Task
 
 Write the **tests** (not just the implementation) for a `MathOps` package:
 

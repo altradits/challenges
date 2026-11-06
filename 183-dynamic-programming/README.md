@@ -1,6 +1,6 @@
 # 183-dynamic-programming — Dynamic Programming
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

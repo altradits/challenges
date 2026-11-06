@@ -35,7 +35,7 @@ The result should follow the order of the FIRST string:
 3. **If** char exists in second string AND not yet added: append
 4. **Return** result
 
-## The Challenge
+## Task
 
 Write a function that returns characters common to both strings.
 

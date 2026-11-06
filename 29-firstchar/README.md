@@ -67,7 +67,7 @@ char := string(c)   // char is "H" (a string)
 - To return a character as a string: `string(s[0])` or `string(rune)`
 - For UTF-8 safety, use `for...range` to get the first rune
 
-## The Challenge
+## Task
 
 Write a function that returns the **first character** of a string as a string.
 

@@ -1,6 +1,6 @@
 # 163-type-conversions — Type Conversions and Runes
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

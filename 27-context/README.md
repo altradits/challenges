@@ -1,6 +1,6 @@
-# 42-context — The context Package
+# 27-context — The context Package
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

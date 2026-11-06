@@ -1,6 +1,6 @@
-# 28-structs — Structs in Go
+# 13-structs — Structs in Go
 
-## Challenge
+## Task
 
 Implement the following in `package piscine`:
 

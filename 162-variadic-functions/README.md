@@ -1,6 +1,6 @@
 # 162-variadic-functions — Variadic Functions
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

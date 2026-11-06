@@ -1,6 +1,6 @@
-# 39-goroutines — Goroutines and WaitGroups
+# 24-goroutines — Goroutines and WaitGroups
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

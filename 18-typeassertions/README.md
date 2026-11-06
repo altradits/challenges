@@ -1,6 +1,6 @@
-# 33-typeassertions — Type Assertions and Type Switches
+# 18-typeassertions — Type Assertions and Type Switches
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

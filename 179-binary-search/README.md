@@ -1,6 +1,6 @@
 # 179-binary-search — Binary Search
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

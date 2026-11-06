@@ -1,6 +1,6 @@
 # 166-generics-intro — Generics (Type Parameters)
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

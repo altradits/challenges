@@ -1,6 +1,6 @@
 # 146-encoding-json — JSON Encoding and Decoding
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

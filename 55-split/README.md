@@ -52,7 +52,7 @@ func split(s, sep string) []string {
 | Forgetting last segment | Trailing text missed | Handle end of string |
 | Empty separator | Infinite loop | Check for empty sep |
 
-## The Challenge
+## Task
 
 Write a function that splits a string by a separator.
 

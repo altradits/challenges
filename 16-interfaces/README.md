@@ -1,6 +1,6 @@
-# 31-interfaces — Interfaces in Go
+# 16-interfaces — Interfaces in Go
 
-## Challenge
+## Task
 
 Define and implement in `package piscine`:
 
@@ -17,7 +17,7 @@ type Circle struct{ Radius float64 }
 
 func TotalArea(shapes []Shape) float64  // sum of all areas
 func Describe(s Shape) string           // "Rectangle: area=6.00, perimeter=10.00"
-                                        // "Circle: area=28.27, perimeter=12.57"
+                                        // "Circle: area=28.27, perimeter=18.85"
 ```
 
 Read `skills.md` before you start.

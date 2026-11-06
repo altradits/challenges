@@ -58,7 +58,7 @@ When separator is empty, elements are concatenated directly:
 | Forgetting empty slice | Might panic | Check `len(elems) == 0` |
 | Wrong loop start | Would duplicate first element | Start from index 1 |
 
-## The Challenge
+## Task
 
 Write a function that joins a slice of strings with a separator.
 

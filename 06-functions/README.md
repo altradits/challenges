@@ -17,11 +17,14 @@ func Greet(name string) string
 ## Examples
 
 ```go
-piscine.Greet("World")  // "Hello, World!"
-piscine.Greet("Go")     // "Hello, Go!"
-piscine.Greet("Alice")  // "Hello, Alice!"
-piscine.Greet("")       // "Hello, !"
+Greet("World")  // "Hello, World!"
+Greet("Go")     // "Hello, Go!"
+Greet("Alice")  // "Hello, Alice!"
+Greet("")       // "Hello, !"
 ```
+
+(The tests call `Greet` directly — your file lives in `package piscine`,
+so there is no `piscine.` prefix and nothing to import.)
 
 ## Constraints
 

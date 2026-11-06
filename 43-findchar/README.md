@@ -63,7 +63,7 @@ When a search fails, we need a way to indicate "not found":
 - Test with: `"Hello"`, find `'H'` → index 0
 - Remember: first occurrence only!
 
-## The Challenge
+## Task
 
 Write a function that finds the index of the first occurrence of a character.
 

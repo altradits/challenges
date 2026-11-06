@@ -60,7 +60,7 @@ if len(s) == 0 || len(s) >= 3 {
 - Test with: `"ab"` (len=2) → "Invalid Input"
 - Test with: `""` (len=0) → "G"
 
-## The Challenge
+## Task
 
 Write a function that returns "G" if length is 0 or >= 3, else "Invalid Input".
 

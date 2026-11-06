@@ -1,6 +1,6 @@
 # 185-sliding-window — Sliding Window Technique
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

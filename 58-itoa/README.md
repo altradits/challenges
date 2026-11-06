@@ -65,7 +65,7 @@ if n < 0 {
 | Wrong digit conversion | `'0' + 5` gives `'5'` | Use `'0' + digit` |
 | Not reversing | Digits come out backwards | Build reversed, then reverse |
 
-## The Challenge
+## Task
 
 Write a function that converts an integer to a string.
 

@@ -1,6 +1,6 @@
 # 147-http-basics — HTTP Server and Client
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

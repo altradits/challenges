@@ -1,6 +1,6 @@
 # 165-embedding — Struct Embedding and Composition
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

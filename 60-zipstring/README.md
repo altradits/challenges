@@ -47,7 +47,7 @@ For each group of identical characters:
 | Wrong count format | `"a"` not `"1a"` | Always output count |
 | Not resetting counter | Count accumulates wrong | Reset on change |
 
-## The Challenge
+## Task
 
 Write a function that compresses consecutive repeated characters.
 

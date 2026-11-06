@@ -62,7 +62,7 @@ return -1
 - Test with: `"Hello"`, find `'H'` → 0 (only occurrence)
 - Test with: `"Hello"`, find `'z'` → -1
 
-## The Challenge
+## Task
 
 Write a function that finds the index of the LAST occurrence of a character.
 

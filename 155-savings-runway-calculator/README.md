@@ -95,8 +95,8 @@ https://savings-runway-calculator.yourname.com
 ## Next Steps
 
 After completing this, you'll be ready for:
-- [133-portfolio-website](../133-portfolio-website/README.md) - Portfolio Website
-- [134-professional](../134-professional/README.md) - Professional
+- [156-api-lesson](../156-api-lesson/README.md) - Go API Development
+- [157-capstone](../157-capstone/README.md) - String Tools Analytics Dashboard
 
 ---
 

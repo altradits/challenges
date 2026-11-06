@@ -1,3 +1,5 @@
+# 95-firstword
+
 ## firstword
 
 ### Instructions
@@ -23,14 +25,12 @@ package main
 
 import (
     "fmt"
-
-    "piscine"
 )
 
 func main() {
-    fmt.Print(piscine.FirstWord("hello there"))
-    fmt.Print(piscine.FirstWord(""))
-    fmt.Print(piscine.FirstWord("hello   .........  bye"))
+    fmt.Print(FirstWord("hello there"))
+    fmt.Print(FirstWord(""))
+    fmt.Print(FirstWord("hello   .........  bye"))
 }
 ```
 

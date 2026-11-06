@@ -1,9 +1,9 @@
-# Prerequisites for 41-select-and-sync
+# Prerequisites for 26-select-and-sync
 
 ## Before You Start
 
-- [39-goroutines](../39-goroutines/skills.md) — goroutines, WaitGroup
-- [40-channels](../40-channels/skills.md) — channels, close, range
+- [24-goroutines](../24-goroutines/skills.md) — goroutines, WaitGroup
+- [25-channels](../25-channels/skills.md) — channels, close, range
 
 ## You're Ready When You Can...
 

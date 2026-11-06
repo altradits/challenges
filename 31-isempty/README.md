@@ -78,7 +78,7 @@ func Process(s string) string {
 - If `for...range` runs 0 times, the string is empty
 - If it runs 1+ times, the string is NOT empty
 
-## The Challenge
+## Task
 
 Write a function that returns `true` if a string is empty, `false` otherwise.
 

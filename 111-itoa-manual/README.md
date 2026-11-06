@@ -1,3 +1,5 @@
+# 111-itoa-manual
+
 ## itoa
 
 ### Instructions
@@ -16,21 +18,20 @@ func Itoa(n int) string {
 
 ### Usage
 
-Here is a possible program to test your function :
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-    fmt.Println(piscine.Itoa(12345))
-    fmt.Println(piscine.Itoa(0))
-    fmt.Println(piscine.Itoa(-1234))
-    fmt.Println(piscine.Itoa(987654321))
+    fmt.Println(Itoa(12345))
+    fmt.Println(Itoa(0))
+    fmt.Println(Itoa(-1234))
+    fmt.Println(Itoa(987654321))
 }
 ```
 

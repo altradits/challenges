@@ -59,7 +59,7 @@ This exercise builds your understanding of:
 - Test: `ToLower(ToUpper("Hello"))` should give `"hello"`
 - Remember: `'Z'` (90) + 32 = `'z'` (122) ✓
 
-## The Challenge
+## Task
 
 Write a function that converts all uppercase letters to lowercase.
 

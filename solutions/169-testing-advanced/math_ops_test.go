@@ -25,10 +25,10 @@ func TestAbs(t *testing.T) {
 
 func TestPow(t *testing.T) {
 	tests := []struct {
-		name     string
-		base     int
-		exp      int
-		want     int
+		name string
+		base int
+		exp  int
+		want int
 	}{
 		{"2^0", 2, 0, 1},
 		{"2^1", 2, 1, 2},

@@ -1,6 +1,6 @@
 # 164-constants-iota — Constants and Iota
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

@@ -202,7 +202,7 @@ func FizzBuzz(n int) string {
 ## Documentation
 
 - [A Tour of Go — Switch](https://go.dev/tour/flowcontrol/9)
-- [A Tour of of Go — Type switches](https://go.dev/tour/methods/16)
+- [A Tour of Go — Type switches](https://go.dev/tour/methods/16)
 - [Go Spec — Switch statements](https://go.dev/ref/spec#Switch_statements)
 
 **Next:** [162-variadic-functions](../162-variadic-functions/README.md)

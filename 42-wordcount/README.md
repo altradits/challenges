@@ -83,7 +83,7 @@ With bad logic: Might count the gap as a word → wrong!
 - Leading/trailing spaces should be ignored
 - Multiple spaces between words should be ignored
 
-## The Challenge
+## Task
 
 Write a function that counts words in a string (words = sequences of non-space characters).
 

@@ -1,6 +1,6 @@
-# 32-errorhandling — Error Handling in Go
+# 17-errorhandling — Error Handling in Go
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

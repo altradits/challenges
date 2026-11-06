@@ -1,6 +1,6 @@
 # 167-io-readers-writers — The io Package: Readers and Writers
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

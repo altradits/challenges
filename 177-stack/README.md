@@ -1,6 +1,6 @@
 # 177-stack — Stack (LIFO)
 
-## Challenge
+## Task
 
 Implement a generic integer stack in `package piscine`:
 

@@ -1,6 +1,6 @@
 # 181-binary-tree — Binary Search Tree
 
-## Challenge
+## Task
 
 Implement a Binary Search Tree (BST) in `package piscine`:
 

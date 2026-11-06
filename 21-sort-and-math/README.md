@@ -1,6 +1,6 @@
-# 36-sort-and-math — sort and math Packages
+# 21-sort-and-math — sort and math Packages
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

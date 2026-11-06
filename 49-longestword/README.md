@@ -54,7 +54,7 @@ len("") > len("a")          // 0 > 1 = false
 - Test with: `"Go is fun"` → `"fun"` (3 letters)
 - Test with: `""` → `""`
 
-## The Challenge
+## Task
 
 Write a function that returns the longest word in a string.
 

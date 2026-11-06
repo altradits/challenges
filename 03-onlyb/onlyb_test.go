@@ -31,8 +31,8 @@ func TestOnlyB(t *testing.T) {
 		if err := cmd.Run(); err != nil {
 			t.Fatalf("run %v: program exited with error: %v", args, err)
 		}
-		if got, want := stdout.String(), "B\n"; got != want {
-			t.Errorf("args %v: output = %q, want %q (exactly one 'B' plus newline)", args, got, want)
+		if got, want := stdout.String(), "b\n"; got != want {
+			t.Errorf("args %v: output = %q, want %q (exactly one 'b' plus newline)", args, got, want)
 		}
 	}
 }

@@ -1,6 +1,6 @@
 # 168-sync-mutex — Mutexes and Safe Concurrency
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

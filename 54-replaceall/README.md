@@ -59,7 +59,7 @@ func replaceAll(text, old, new string) string {
 - Test with: `"banana"`, replace `"na"` with `"NA"` → `"baNANA"`
 - Test with: `"abcabc"`, replace `"abc"` with `"xyz"` → `"xyzxyz"`
 
-## The Challenge
+## Task
 
 Write a function that replaces ALL occurrences of `old` with `new`.
 

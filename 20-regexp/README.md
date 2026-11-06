@@ -1,6 +1,6 @@
-# 35-regexp — Regular Expressions
+# 20-regexp — Regular Expressions
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

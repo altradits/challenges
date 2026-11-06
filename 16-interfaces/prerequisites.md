@@ -1,9 +1,9 @@
-# Prerequisites for 31-interfaces
+# Prerequisites for 16-interfaces
 
 ## Before You Start
 
-- [28-structs](../28-structs/skills.md)
-- [30-methods](../30-methods/skills.md)
+- [13-structs](../13-structs/skills.md)
+- [15-methods](../15-methods/skills.md)
 
 ## You're Ready When You Can...
 

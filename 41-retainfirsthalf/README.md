@@ -74,7 +74,7 @@ firstHalf := s[:halfIndex]
 - Test with 1 char: `"a"` → `"a"` (special case)
 - Test with empty: `""` → `""` (special case)
 
-## The Challenge
+## Task
 
 Write a function that returns the first half of a string.
 

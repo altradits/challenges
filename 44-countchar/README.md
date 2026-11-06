@@ -61,7 +61,7 @@ return count         // Return total
 - Test with: `""`, count `'a'` → 0
 - Remember: case-sensitive! `'A'` != `'a'`
 
-## The Challenge
+## Task
 
 Write a function that counts occurrences of a specific character.
 

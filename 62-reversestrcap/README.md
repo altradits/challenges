@@ -34,7 +34,7 @@ Words are separated by spaces. Use `strings.Fields` or manual splitting.
 3. **Join** words with spaces
 4. **Return** result
 
-## The Challenge
+## Task
 
 Write a function that uppercases the last letter of each word.
 

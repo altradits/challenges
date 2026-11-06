@@ -1,3 +1,5 @@
+# 07-forloops
+
 ## forloops
 
 ### Instructions
@@ -13,20 +15,19 @@ func CountDown(n int) {
 
 ### Usage
 
-Here is a possible program to test your function:
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-	piscine.CountDown(5)
+	CountDown(5)
 	fmt.Println("---")
-	piscine.CountDown(0)
+	CountDown(0)
 }
 ```
 

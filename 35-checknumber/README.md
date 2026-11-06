@@ -66,7 +66,7 @@ func hasMatch(s string) bool {
 - The function stops at the FIRST digit found
 - Empty string should return false
 
-## The Challenge
+## Task
 
 Write a function that returns `true` if the string contains any digit.
 

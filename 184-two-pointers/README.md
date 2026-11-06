@@ -1,6 +1,6 @@
 # 184-two-pointers — Two Pointer Technique
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

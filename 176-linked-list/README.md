@@ -1,6 +1,6 @@
 # 176-linked-list — Singly Linked List
 
-## Challenge
+## Task
 
 Implement a singly linked list in `package piscine`:
 

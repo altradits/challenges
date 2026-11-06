@@ -1,17 +1,19 @@
+# 03-onlyb
+
 ## onlyb
 
 ### Instructions
-Write a program that displays a `B` character on the standard output and nothing else.
+Write a program that displays a `b` character on the standard output and nothing else.
 
 ### Usage
 
 ```console
 $ go run .
-B
+b
 $ go run . "a" "b"
-B
+b
 $ go run . "a" "b" "c"
-B
+b
 ```
 
 ---

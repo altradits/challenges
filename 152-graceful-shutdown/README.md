@@ -1,6 +1,6 @@
 # 152-graceful-shutdown — Graceful HTTP Shutdown
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

@@ -1,6 +1,6 @@
-# 40-channels — Channels
+# 25-channels — Channels
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

@@ -1,6 +1,6 @@
-# 30-methods — Value vs Pointer Receivers
+# 15-methods — Value vs Pointer Receivers
 
-## Challenge
+## Task
 
 Given:
 ```go

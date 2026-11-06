@@ -1,6 +1,6 @@
 # 150-logging — Logging in Go
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

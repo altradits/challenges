@@ -69,7 +69,7 @@ for _, c := range s {
 - Remember: valid indices are `0` to `length-1`
 - Test edge cases: empty string, single character
 
-## The Challenge
+## Task
 
 Write a function that returns the **last character** of a string as a string.
 

@@ -1,3 +1,5 @@
+# 109-fromto
+
 ## fromto
 
 ### Instructions
@@ -19,21 +21,20 @@ func FromTo(from int, to int) string {
 
 ### Usage
 
-Here is a possible program to test your function:
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"psicine"
 )
 
 func main() {
-	fmt.Print(piscine.FromTo(1, 10))
-	fmt.Print(piscine.FromTo(10, 1))
-	fmt.Print(piscine.FromTo(10, 10))
-	fmt.Print(piscine.FromTo(100, 10))
+	fmt.Print(FromTo(1, 10))
+	fmt.Print(FromTo(10, 1))
+	fmt.Print(FromTo(10, 10))
+	fmt.Print(FromTo(100, 10))
 }
 ```
 

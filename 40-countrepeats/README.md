@@ -15,9 +15,9 @@ This exercise teaches you **pattern detection and consecutive character analysis
 A repeat is when the **same character appears consecutively**:
 
 ```
-"hello"     → no repeats (all different consecutively)
-"helloo"    → 1 repeat (the 'o' repeats)
-"heelloo"   → 2 repeats (e repeats, o repeats)
+"hello"     → 1 repeat (the 'll' group)
+"helloo"    → 2 repeats ('ll' and 'oo' groups)
+"heelloo"   → 3 repeats ('ee', 'll' and 'oo' groups)
 "aaa"       → 1 repeat (a repeats as a group)
 ```
 
@@ -25,9 +25,9 @@ A repeat is when the **same character appears consecutively**:
 
 | String | Groups of Repeats | Count |
 |--------|-------------------|-------|
-| `"hello"` | None | 0 |
-| `"helloo"` | `oo` | 1 |
-| `"heelloo"` | `ee`, `oo` | 2 |
+| `"hello"` | `ll` | 1 |
+| `"helloo"` | `ll`, `oo` | 2 |
+| `"heelloo"` | `ee`, `ll`, `oo` | 3 |
 | `"aaa"` | `aaa` (one group) | 1 |
 
 **Important:** We count GROUPS of consecutive repeats, not individual repeated characters!
@@ -74,10 +74,10 @@ for _, c := range s {
 
 ## Practice Tips
 
-- Trace through `"heelloo"`: h(no prev) → e(no match) → e(match! count=1) → l(no match) → l(match! count=2) → o(no match) → o(match! already in repeat, skip)
+- Trace through `"heelloo"`: h(no prev) → e(no match) → e(match! count=1) → l(no match) → l(match! count=2) → o(no match) → o(match! count=3)
 - The flag prevents counting `"aaa"` as 2 repeats
 
-## The Challenge
+## Task
 
 Write a function that counts groups of consecutive repeated characters.
 
@@ -93,9 +93,9 @@ func CountRepeats(s string) int {
 
 | Input | Expected Output | Why |
 |-------|-----------------|-----|
-| `"hello"` | `0` | No consecutive repeats |
-| `"helloo"` | `1` | One group: `oo` |
-| `"heelloo"` | `2` | Two groups: `ee`, `oo` |
+| `"hello"` | `1` | One group: `ll` |
+| `"helloo"` | `2` | Two groups: `ll`, `oo` |
+| `"heelloo"` | `3` | Three groups: `ee`, `ll`, `oo` |
 | `"abc"` | `0` | No repeats |
 | `""` | `0` | Empty string |
 | `"aaa"` | `1` | One group: `aaa` |
@@ -108,9 +108,9 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Println(CountRepeats("hello"))    // 0
-    fmt.Println(CountRepeats("helloo"))   // 1
-    fmt.Println(CountRepeats("heelloo"))  // 2
+    fmt.Println(CountRepeats("hello"))    // 1
+    fmt.Println(CountRepeats("helloo"))   // 2
+    fmt.Println(CountRepeats("heelloo"))  // 3
     fmt.Println(CountRepeats("abc"))      // 0
     fmt.Println(CountRepeats(""))         // 0
     fmt.Println(CountRepeats("aaa"))      // 1

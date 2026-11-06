@@ -1,6 +1,6 @@
 # 161-switch-statements — Switch Statements
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

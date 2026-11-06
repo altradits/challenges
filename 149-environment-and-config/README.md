@@ -1,6 +1,6 @@
 # 149-environment-and-config — Environment Variables and Configuration
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

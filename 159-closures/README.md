@@ -1,6 +1,6 @@
 # 159-closures — Closures and First-Class Functions
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

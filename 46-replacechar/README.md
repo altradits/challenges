@@ -66,7 +66,7 @@ func replaceAll(s string, old, new rune) string {
 - Test with: `"Hello"`, replace `'z'` with `'X'` → `"Hello"` (no change)
 - Test with: `""`, any replace → `""`
 
-## The Challenge
+## Task
 
 Write a function that replaces all occurrences of a character with another character.
 

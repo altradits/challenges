@@ -71,7 +71,7 @@ if c >= 'a' && c <= 'z' {
 - Draw the ASCII range: `[a][b][c]...[x][y][z]`
 - Test with mixed input: `"Hello World!"` → `"HELLO WORLD!"`
 
-## The Challenge
+## Task
 
 Write a function that converts all lowercase letters to uppercase.
 

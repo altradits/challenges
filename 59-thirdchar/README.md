@@ -45,7 +45,7 @@ for i, c := range s {
 | Forgetting newline | Output missing `\n` | Add `\n` at end |
 | Empty string handling | Should return just `\n` | Check length first |
 
-## The Challenge
+## Task
 
 Write a function that returns every 3rd character of a string.
 

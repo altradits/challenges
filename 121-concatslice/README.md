@@ -1,3 +1,5 @@
+# 121-concatslice
+
 ## concatslice
 
 ### Instructions
@@ -14,20 +16,19 @@ func ConcatSlice(slice1, slice2 []int) []int {
 
 ### Usage
 
-Here is a possible program to test your function:
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-	fmt.Println(piscine.ConcatSlice([]int{1, 2, 3}, []int{4, 5, 6}))
-	fmt.Println(piscine.ConcatSlice([]int{}, []int{4, 5, 6, 7, 8, 9}))
-	fmt.Println(piscine.ConcatSlice([]int{1, 2, 3}, []int{}))
+	fmt.Println(ConcatSlice([]int{1, 2, 3}, []int{4, 5, 6}))
+	fmt.Println(ConcatSlice([]int{}, []int{4, 5, 6, 7, 8, 9}))
+	fmt.Println(ConcatSlice([]int{1, 2, 3}, []int{}))
 }
 ```
 

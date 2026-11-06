@@ -170,8 +170,8 @@ func (a *Analytics) TrackToolUse(toolName, input, output string) {
 ## Next Steps
 
 After completing this, you'll be ready for:
-- [138-js-database](../138-js-database/README.md) - Js Database
-- [139-js-frontend](../139-js-frontend/README.md) - Js Frontend
+- [158-bitcoin-oss](../158-bitcoin-oss/README.md) - Your first Bitcoin open-source PR
+- [159-closures](../159-closures/README.md) - Closures and First-Class Functions
 
 ---
 

@@ -1,6 +1,6 @@
 # 160-defer-panic-recover — Defer, Panic, and Recover
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

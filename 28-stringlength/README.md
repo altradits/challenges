@@ -82,7 +82,7 @@ In real code, you'd use `len()`, but understanding the manual process makes you 
 - Test with empty string: `""` should return 0
 - Test with single char: `"a"` should return 1
 
-## The Challenge
+## Task
 
 Write a function that takes a string and returns its length **without using `len()`**.
 

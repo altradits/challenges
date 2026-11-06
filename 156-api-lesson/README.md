@@ -182,8 +182,8 @@ After completing all exercises, you will be able to:
 ## Next Steps
 
 After completing this, you'll be ready for:
-- [137-capstone](../137-capstone/README.md) - Capstone
-- [138-js-database](../138-js-database/README.md) - Js Database
+- [157-capstone](../157-capstone/README.md) - String Tools Analytics Dashboard
+- [158-bitcoin-oss](../158-bitcoin-oss/README.md) - Your first Bitcoin open-source PR
 
 ---
 

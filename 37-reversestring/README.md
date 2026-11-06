@@ -85,7 +85,7 @@ for i := 0; i < len(runes)/2; i++ {
 - Test with even length: `"abcd"` → `"dcba"`
 - Remember: `len([]rune(s))` gives character count
 
-## The Challenge
+## Task
 
 Write a function that reverses a string.
 

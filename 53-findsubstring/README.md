@@ -79,7 +79,7 @@ return -1
 - Test with: `"Hello World"`, find `"hello"` → -1 (case sensitive)
 - Test with: `"banana"`, find `"ana"` → 1
 
-## The Challenge
+## Task
 
 Write a function that finds the first occurrence of a substring.
 

@@ -1,6 +1,6 @@
 # 151-generics — Generics (Go 1.18+)
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

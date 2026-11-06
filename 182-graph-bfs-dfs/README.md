@@ -1,6 +1,6 @@
 # 182-graph-bfs-dfs — Graph Traversal
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

@@ -24,7 +24,7 @@ func (d Direction) String() string {
 type Permission uint
 
 const (
-	Read    Permission = 1 << iota
+	Read Permission = 1 << iota
 	Write
 	Execute
 )

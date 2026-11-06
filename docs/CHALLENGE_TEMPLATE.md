@@ -78,12 +78,12 @@ previous time. `go run ./cmd/drill due` tells you what is due today.
 | 156 | Phase 6 (API course: each sub-exercise) | 45 |
 | 157 | Phase 6 (analytics capstone) | 240 |
 | 158 | Phase 6 (first merged Bitcoin PR, manual) | — |
-| 159–169 | Phase 7 (language depth) | 20 |
-| 170–175 | Phase 9 (Bitcoin protocol I) | 25 |
+| 159–175 | Phase 7 (language depth) | 20 |
 | 176–185 | Phase 8 (data structures & algorithms) | 30 |
-| 186+ | Phase 9 (Bitcoin protocol II) | 30 |
+| 186–191 | Phase 9 (Bitcoin protocol) | 30 |
+| 192 | Phase 9 (tooling practice, manual) | 30 |
 
-Manual challenges (00, 22, 83, 158) replace “How to check” with a
+Manual challenges (00, 22, 83, 158, 192) replace “How to check” with a
 self-attestation checklist: `drill check NN` walks it and only records a pass
 on an honest yes.
 

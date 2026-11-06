@@ -1,6 +1,6 @@
-# 41-select-and-sync — select, Mutex, and sync Patterns
+# 26-select-and-sync — select, Mutex, and sync Patterns
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

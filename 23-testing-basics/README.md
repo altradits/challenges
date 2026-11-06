@@ -1,6 +1,6 @@
-# 38-testing-basics — Testing in Go
+# 23-testing-basics — Testing in Go
 
-## Challenge
+## Task
 
 Write a complete `solution_test.go` for the following functions (which you also implement):
 

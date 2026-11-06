@@ -1,3 +1,5 @@
+# 88-retainfirsthalf
+
 ## retainfirsthalf
 
 ### Instructions
@@ -18,21 +20,20 @@ func RetainFirstHalf(str string) string {
 
 ### Usage
 
-Here is a possible program to test your function:
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-	fmt.Println(piscine.RetainFirstHalf("This is the 1st halfThis is the 2nd half"))
-	fmt.Println(piscine.RetainFirstHalf("A"))
-	fmt.Println(piscine.RetainFirstHalf(""))
-	fmt.Println(piscine.RetainFirstHalf("Hello World"))
+	fmt.Println(RetainFirstHalf("This is the 1st halfThis is the 2nd half"))
+	fmt.Println(RetainFirstHalf("A"))
+	fmt.Println(RetainFirstHalf(""))
+	fmt.Println(RetainFirstHalf("Hello World"))
 }
 ```
 

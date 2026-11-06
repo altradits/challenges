@@ -67,7 +67,7 @@ return before + new + after
 - Test with: `"Hello World"`, replace `"xyz"` with `"Go"` → `"Hello World"` (no change)
 - Remember: `old` can be multiple characters!
 
-## The Challenge
+## Task
 
 Write a function that replaces the first occurrence of `old` with `new` in `text`.
 

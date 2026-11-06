@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [81-checknumber](../81-checknumber/skills.md) | **Next:** [83-missing-pieces](../83-missing-pieces/skills.md)
+**Previous:** [81-checknumber](../81-checknumber/skills.md) | **Next:** [83-missing-pieces](../83-missing-pieces/README.md)
 
 **Challenge:** Write `CountChar(str string, c rune) int` that returns how many times the rune `c` appears in `str`.
 

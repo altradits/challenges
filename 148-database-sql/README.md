@@ -1,6 +1,6 @@
 # 148-database-sql — database/sql and SQLite
 
-## Challenge
+## Task
 
 Using `database/sql` with `modernc.org/sqlite` (a pure-Go SQLite driver):
 

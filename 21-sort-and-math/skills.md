@@ -1,4 +1,4 @@
-# Skills for 36-sort-and-math
+# Skills for 21-sort-and-math
 
 ## What You'll Learn
 

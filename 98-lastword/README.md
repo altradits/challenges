@@ -1,3 +1,5 @@
+# 98-lastword
+
 ## lastword
 
 ### Instructions
@@ -16,20 +18,19 @@ func LastWord(s string) string{
 
 ### Usage
 
-Here is a possible program to test your function :
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-	fmt.Print(piscine.LastWord("this        ...       is sparta, then again, maybe    not"))
-	fmt.Print(piscine.LastWord(" lorem,ipsum "))
-	fmt.Print(piscine.LastWord(" "))
+	fmt.Print(LastWord("this        ...       is sparta, then again, maybe    not"))
+	fmt.Print(LastWord(" lorem,ipsum "))
+	fmt.Print(LastWord(" "))
 }
 ```
 

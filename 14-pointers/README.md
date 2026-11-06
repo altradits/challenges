@@ -1,6 +1,6 @@
-# 29-pointers — Pointers in Go
+# 14-pointers — Pointers in Go
 
-## Challenge
+## Task
 
 Implement in `package piscine`:
 

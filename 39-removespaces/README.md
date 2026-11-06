@@ -68,7 +68,7 @@ func filterSpaces(s string) string {
 - Test with multiple spaces: `"a  b   c"` → `"abc"`
 - Remember: tabs and newlines should stay
 
-## The Challenge
+## Task
 
 Write a function that removes all space characters from a string.
 

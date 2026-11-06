@@ -96,20 +96,21 @@ func Greet(name string) string {
     return "Hello, " + name + "!"
 }
 
-// Test file (main package):
-package main
+// Test file (same package — tests live alongside your code):
+package piscine
 
-import (
-    "fmt"
-    "piscine"
-)
+import "testing"
 
-func main() {
-    fmt.Println(piscine.Greet("World"))  // Hello, World!
+func TestGreet(t *testing.T) {
+    if got := Greet("World"); got != "Hello, World!" {
+        t.Errorf("got %q", got)
+    }
 }
 ```
 
-Notice that `piscine.Greet` uses the package name as a prefix. This is how Go calls an exported function from another package.
+The test calls `Greet` directly with no prefix, because it sits in the
+same package. (Calling across packages with a `pkg.Name` prefix is a
+later lesson — nothing here needs an import.)
 
 ### Exported vs Unexported Names
 

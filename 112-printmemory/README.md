@@ -1,3 +1,5 @@
+# 112-printmemory
+
 ## printmemory
 
 ### Instructions
@@ -18,15 +20,14 @@ func PrintMemory(arr [10]byte) {
 
 ### Usage
 
-Here is a possible program to test your function :
+Example calls (the hidden tests invoke your function directly, in-package):
 
 ```go
 package main
 
-import "piscine"
 
 func main() {
-	piscine.PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
+	PrintMemory([10]byte{'h', 'e', 'l', 'l', 'o', 16, 21, '*'})
 }
 ```
 

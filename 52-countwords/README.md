@@ -50,7 +50,7 @@ func isWordChar(c rune) bool {
 | Forgetting digits | "hello2world" is 1 word | Include digits as word chars |
 | State confusion | Multiple flags needed | Single in-word flag |
 
-## The Challenge
+## Task
 
 Write a function that counts words, where words are sequences of letters and digits.
 

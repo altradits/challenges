@@ -301,7 +301,6 @@ package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
@@ -318,7 +317,7 @@ func main() {
 	}
 
 	for _, word := range tests {
-		prefix, root, suffix := piscine.WordAnatomy(word)
+		prefix, root, suffix := WordAnatomy(word)
 
 		fmt.Printf(
 			"%s -> Prefix:%q Root:%q Suffix:%q\n",

@@ -1,3 +1,5 @@
+# 09-slicesintro
+
 ## slicesintro
 
 ### Instructions
@@ -19,13 +21,12 @@ package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
-	fmt.Println(piscine.Unique([]int{1, 2, 2, 3, 1, 4})) // [1 2 3 4]
-	fmt.Println(piscine.Unique([]int{}))                  // []
-	fmt.Println(piscine.Unique([]int{5}))                 // [5]
+	fmt.Println(Unique([]int{1, 2, 2, 3, 1, 4})) // [1 2 3 4]
+	fmt.Println(Unique([]int{}))                  // []
+	fmt.Println(Unique([]int{5}))                 // [5]
 }
 ```
 

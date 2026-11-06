@@ -1,4 +1,4 @@
-# Prerequisites for 28-structs
+# Prerequisites for 13-structs
 
 ## Before You Start
 

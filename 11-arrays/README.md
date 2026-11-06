@@ -1,3 +1,5 @@
+# 11-arrays
+
 ## arrays
 
 ### Instructions
@@ -19,18 +21,17 @@ package main
 
 import (
 	"fmt"
-	"piscine"
 )
 
 func main() {
 	arr := [5]int{1, 2, 3, 4, 5}
-	fmt.Println(piscine.SumArray(arr)) // 15
+	fmt.Println(SumArray(arr)) // 15
 
 	arr2 := [5]int{0, 0, 0, 0, 0}
-	fmt.Println(piscine.SumArray(arr2)) // 0
+	fmt.Println(SumArray(arr2)) // 0
 
 	arr3 := [5]int{-1, -2, 3, 4, 5}
-	fmt.Println(piscine.SumArray(arr3)) // 9
+	fmt.Println(SumArray(arr3)) // 9
 }
 ```
 

@@ -52,7 +52,7 @@ Common cleaning operations:
 - Test with: `["Hello", " World ", "Go"]` → `["Hello", "World", "Go"]`
 - Test with: `["", "a", "", "b"]` → `["a", "b"]`
 
-## The Challenge
+## Task
 
 Write a function that cleans a list of strings (trim spaces, remove empty).
 

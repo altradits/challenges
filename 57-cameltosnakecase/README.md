@@ -52,7 +52,7 @@ A valid camelCase string:
 | Adding `_` at start | First char shouldn't have `_` | Check `i > 0` |
 | Forgetting lowercase | Should be all lowercase | Convert each char |
 
-## The Challenge
+## Task
 
 Write a function that converts camelCase to snake_case.
 

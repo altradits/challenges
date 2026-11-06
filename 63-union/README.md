@@ -47,7 +47,7 @@ for _, c := s1 + s2 {
 3. **Iterate** through second string, add unique chars
 4. **Return** result
 
-## The Challenge
+## Task
 
 Write a function that returns the union of two strings.
 

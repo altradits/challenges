@@ -50,7 +50,7 @@ for _, c := range s {
 | Not resetting | Position keeps growing | Reset at `2*n` |
 | Forgetting edge case | n=0 causes issues | Return original if n <= 0 |
 
-## The Challenge
+## Task
 
 Write a function that saves every other chunk of n characters.
 

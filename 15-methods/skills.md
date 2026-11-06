@@ -1,4 +1,4 @@
-# Skills for 30-methods
+# Skills for 15-methods
 
 ## What You'll Learn
 

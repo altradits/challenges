@@ -1,6 +1,6 @@
 # 180-sorting-algorithms — Implement Classic Sorting Algorithms
 
-## Challenge
+## Task
 
 Implement in `package piscine` (do NOT use `sort.Slice` — implement from scratch):
 

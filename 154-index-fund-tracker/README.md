@@ -97,7 +97,7 @@ https://index-fund-tracker.yourname.com
 
 After completing this, you'll be ready for:
 - [155-savings-runway-calculator](../155-savings-runway-calculator/README.md) - Savings Runway Calculator
-- [133-portfolio-website](../133-portfolio-website/README.md) - Portfolio Website
+- [156-api-lesson](../156-api-lesson/README.md) - Go API Development
 
 ---
 

@@ -4,7 +4,7 @@
 
 This lesson teaches Go's built-in key-value data structure: the **map**.
 
-## The Challenge
+## Task
 
 Write `WordFrequency(s string) map[string]int` that returns a map showing how many times each word appears in the string.
 
