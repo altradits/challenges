@@ -1,4 +1,4 @@
-# Skills for 37-modules-and-tooling
+# Skills for 22-modules-and-tooling
 
 ## What You'll Learn
 
@@ -21,15 +21,18 @@ This creates `go.mod`:
 ```
 module github.com/yourusername/myapp
 
-go 1.22
+go 1.26.10
 ```
+
+(This course pins `go 1.26.10` to match LND — your own projects get
+whatever your toolchain writes.)
 
 ### `go.mod` Structure
 
 ```
 module github.com/yourusername/myapp   ← module path (matches GitHub URL)
 
-go 1.22                                 ← minimum Go version
+go 1.26.10                               ← minimum Go version
 
 require (
     github.com/stretchr/testify v1.8.4  ← direct dependency
@@ -96,7 +99,7 @@ go doc strings               # docs for a package
 go doc -all fmt              # all exported symbols
 ```
 
-### `go test` (preview — taught in depth in 38-testing-basics)
+### `go test` (preview — taught in depth in 23-testing-basics)
 
 ```bash
 go test ./...           # run all tests

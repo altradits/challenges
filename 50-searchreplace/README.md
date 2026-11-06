@@ -67,7 +67,7 @@ return before + new + after
 - Test with: `"Hello World"`, replace `"xyz"` with `"Go"` → `"Hello World"` (no change)
 - Remember: `old` can be multiple characters!
 
-## The Challenge
+## Task
 
 Write a function that replaces the first occurrence of `old` with `new` in `text`.
 
@@ -115,3 +115,36 @@ Before coding, make sure you can answer:
 After completing this, you'll be ready for:
 - [51-cleanlist](../51-cleanlist/README.md) - Cleanlist
 - [52-countwords](../52-countwords/README.md) - Countwords
+
+---
+
+## Time limit
+
+**10 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 50
+```
+
+or run the tests directly:
+
+```bash
+go test ./50-searchreplace/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 50` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

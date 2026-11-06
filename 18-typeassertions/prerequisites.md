@@ -1,9 +1,9 @@
-# Prerequisites for 33-typeassertions
+# Prerequisites for 18-typeassertions
 
 ## Before You Start
 
-- [31-interfaces](../31-interfaces/skills.md) — interface values
-- [32-errorhandling](../32-errorhandling/skills.md) — how the error interface is checked
+- [16-interfaces](../16-interfaces/skills.md) — interface values
+- [17-errorhandling](../17-errorhandling/skills.md) — how the error interface is checked
 
 ## You're Ready When You Can...
 

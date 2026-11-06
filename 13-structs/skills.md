@@ -1,4 +1,4 @@
-# Skills for 28-structs
+# Skills for 13-structs
 
 ## What You'll Learn
 

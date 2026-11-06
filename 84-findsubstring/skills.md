@@ -2,7 +2,7 @@
 
 ## What You'll Learn
 
-**Previous:** [83-missing-pieces](../83-missing-pieces/skills.md) | **Next:** [85-printif](../85-printif/skills.md)
+**Previous:** [83-missing-pieces](../83-missing-pieces/README.md) | **Next:** [85-printif](../85-printif/skills.md)
 
 **Challenge:** Write `FindSubstring(text, substring string) int` that returns the index of the first occurrence of `substring` in `text`, or `-1` if not found.
 

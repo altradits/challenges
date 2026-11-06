@@ -1,9 +1,9 @@
-# Prerequisites for 35-regexp
+# Prerequisites for 20-regexp
 
 ## Before You Start
 
 - [08-stringspackage](../08-stringspackage/skills.md) — strings.Contains, strings.Replace (manual alternatives)
-- [32-errorhandling](../32-errorhandling/skills.md) — Compile returns an error
+- [17-errorhandling](../17-errorhandling/skills.md) — Compile returns an error
 
 ## You're Ready When You Can...
 

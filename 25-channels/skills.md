@@ -1,4 +1,4 @@
-# Skills for 40-channels
+# Skills for 25-channels
 
 ## What You'll Learn
 

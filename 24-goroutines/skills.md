@@ -1,4 +1,4 @@
-# Skills for 39-goroutines
+# Skills for 24-goroutines
 
 ## What You'll Learn
 
@@ -90,7 +90,7 @@ go test -race ./...
 go run -race main.go
 ```
 
-Fix with a mutex or channel (see `41-select-and-sync`).
+Fix with a mutex or channel (see `26-select-and-sync`).
 
 ## GOMAXPROCS
 

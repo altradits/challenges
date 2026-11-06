@@ -170,5 +170,50 @@ func (a *Analytics) TrackToolUse(toolName, input, output string) {
 ## Next Steps
 
 After completing this, you'll be ready for:
-- [138-js-database](../138-js-database/README.md) - Js Database
-- [139-js-frontend](../139-js-frontend/README.md) - Js Frontend
+- [158-bitcoin-oss](../158-bitcoin-oss/README.md) - Your first Bitcoin open-source PR
+- [159-closures](../159-closures/README.md) - Closures and First-Class Functions
+
+---
+
+## Function contracts (what the tests pin)
+
+Implement in `package piscine` (the analytics core; the dashboard, API and
+deployment sections in this file are stretch goals after this passes):
+
+- The `Tool`, `Interaction` and `Analytics` structs exactly as defined above.
+- `func (a *Analytics) TrackToolUse(toolName, input, output string)` —
+  appends an `Interaction` (with `Timestamp` set), increments `TotalUses`,
+  and counts the tool in `PopularTools` (initializing the map when nil).
+- `func (a *Analytics) TopTool() string` — the most-used tool name, or `""`
+  when nothing is tracked.
+
+## Time limit
+
+**240 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 157
+```
+
+or run the tests directly:
+
+```bash
+go test ./157-capstone/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 157` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

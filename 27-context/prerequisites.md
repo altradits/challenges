@@ -1,9 +1,9 @@
-# Prerequisites for 42-context
+# Prerequisites for 27-context
 
 ## Before You Start
 
-- [40-channels](../40-channels/skills.md) — channel operations, select
-- [41-select-and-sync](../41-select-and-sync/skills.md) — select with timeout pattern
+- [25-channels](../25-channels/skills.md) — channel operations, select
+- [26-select-and-sync](../26-select-and-sync/skills.md) — select with timeout pattern
 
 ## You're Ready When You Can...
 

@@ -1,9 +1,9 @@
-# Prerequisites for 30-methods
+# Prerequisites for 15-methods
 
 ## Before You Start
 
-- [28-structs](../28-structs/skills.md)
-- [29-pointers](../29-pointers/skills.md)
+- [13-structs](../13-structs/skills.md)
+- [14-pointers](../14-pointers/skills.md)
 
 ## You're Ready When You Can...
 

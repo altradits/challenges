@@ -63,7 +63,7 @@ When a search fails, we need a way to indicate "not found":
 - Test with: `"Hello"`, find `'H'` → index 0
 - Remember: first occurrence only!
 
-## The Challenge
+## Task
 
 Write a function that finds the index of the first occurrence of a character.
 
@@ -112,3 +112,36 @@ Before coding, make sure you can answer:
 After completing this, you'll be ready for:
 - [44-countchar](../44-countchar/README.md) - Countchar
 - [45-findlastchar](../45-findlastchar/README.md) - Findlastchar
+
+---
+
+## Time limit
+
+**10 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 43
+```
+
+or run the tests directly:
+
+```bash
+go test ./43-findchar/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 43` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

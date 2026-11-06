@@ -1,4 +1,4 @@
-# Skills for 35-regexp
+# Skills for 20-regexp
 
 ## What You'll Learn
 

@@ -50,7 +50,7 @@ func isWordChar(c rune) bool {
 | Forgetting digits | "hello2world" is 1 word | Include digits as word chars |
 | State confusion | Multiple flags needed | Single in-word flag |
 
-## The Challenge
+## Task
 
 Write a function that counts words, where words are sequences of letters and digits.
 
@@ -83,3 +83,36 @@ Before coding, make sure you can answer:
 After completing this, you'll be ready for:
 - [53-findsubstring](../53-findsubstring/README.md) - Findsubstring
 - [54-replaceall](../54-replaceall/README.md) - Replaceall
+
+---
+
+## Time limit
+
+**10 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 52
+```
+
+or run the tests directly:
+
+```bash
+go test ./52-countwords/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 52` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

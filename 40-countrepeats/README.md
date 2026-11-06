@@ -15,9 +15,9 @@ This exercise teaches you **pattern detection and consecutive character analysis
 A repeat is when the **same character appears consecutively**:
 
 ```
-"hello"     → no repeats (all different consecutively)
-"helloo"    → 1 repeat (the 'o' repeats)
-"heelloo"   → 2 repeats (e repeats, o repeats)
+"hello"     → 1 repeat (the 'll' group)
+"helloo"    → 2 repeats ('ll' and 'oo' groups)
+"heelloo"   → 3 repeats ('ee', 'll' and 'oo' groups)
 "aaa"       → 1 repeat (a repeats as a group)
 ```
 
@@ -25,9 +25,9 @@ A repeat is when the **same character appears consecutively**:
 
 | String | Groups of Repeats | Count |
 |--------|-------------------|-------|
-| `"hello"` | None | 0 |
-| `"helloo"` | `oo` | 1 |
-| `"heelloo"` | `ee`, `oo` | 2 |
+| `"hello"` | `ll` | 1 |
+| `"helloo"` | `ll`, `oo` | 2 |
+| `"heelloo"` | `ee`, `ll`, `oo` | 3 |
 | `"aaa"` | `aaa` (one group) | 1 |
 
 **Important:** We count GROUPS of consecutive repeats, not individual repeated characters!
@@ -74,10 +74,10 @@ for _, c := range s {
 
 ## Practice Tips
 
-- Trace through `"heelloo"`: h(no prev) → e(no match) → e(match! count=1) → l(no match) → l(match! count=2) → o(no match) → o(match! already in repeat, skip)
+- Trace through `"heelloo"`: h(no prev) → e(no match) → e(match! count=1) → l(no match) → l(match! count=2) → o(no match) → o(match! count=3)
 - The flag prevents counting `"aaa"` as 2 repeats
 
-## The Challenge
+## Task
 
 Write a function that counts groups of consecutive repeated characters.
 
@@ -93,9 +93,9 @@ func CountRepeats(s string) int {
 
 | Input | Expected Output | Why |
 |-------|-----------------|-----|
-| `"hello"` | `0` | No consecutive repeats |
-| `"helloo"` | `1` | One group: `oo` |
-| `"heelloo"` | `2` | Two groups: `ee`, `oo` |
+| `"hello"` | `1` | One group: `ll` |
+| `"helloo"` | `2` | Two groups: `ll`, `oo` |
+| `"heelloo"` | `3` | Three groups: `ee`, `ll`, `oo` |
 | `"abc"` | `0` | No repeats |
 | `""` | `0` | Empty string |
 | `"aaa"` | `1` | One group: `aaa` |
@@ -108,9 +108,9 @@ package main
 import "fmt"
 
 func main() {
-    fmt.Println(CountRepeats("hello"))    // 0
-    fmt.Println(CountRepeats("helloo"))   // 1
-    fmt.Println(CountRepeats("heelloo"))  // 2
+    fmt.Println(CountRepeats("hello"))    // 1
+    fmt.Println(CountRepeats("helloo"))   // 2
+    fmt.Println(CountRepeats("heelloo"))  // 3
     fmt.Println(CountRepeats("abc"))      // 0
     fmt.Println(CountRepeats(""))         // 0
     fmt.Println(CountRepeats("aaa"))      // 1
@@ -129,3 +129,36 @@ Before coding, make sure you can answer:
 After completing this, you'll be ready for:
 - [41-retainfirsthalf](../41-retainfirsthalf/README.md) - Retainfirsthalf
 - [42-wordcount](../42-wordcount/README.md) - Wordcount
+
+---
+
+## Time limit
+
+**10 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 40
+```
+
+or run the tests directly:
+
+```bash
+go test ./40-countrepeats/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 40` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.
