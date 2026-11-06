@@ -1,3 +1,3 @@
 module rest-api
 
-go 1.21
+go 1.26.10

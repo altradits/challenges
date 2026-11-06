@@ -134,3 +134,32 @@ Before coding, make sure you can answer:
 After completing this, you'll be ready for:
 - **08-errors**: Advanced error handling
 - **09-testing**: Testing your authenticated endpoints
+---
+
+## Time limit
+
+**45 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close the exercise README, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 156
+```
+
+or run this exercise's tests directly:
+
+```bash
+(cd 156-api-lesson/07-auth && go test ./...)
+```
+
+Green means done. Red means read the failure message, fix from memory, check again.
+
+## Repeat schedule
+
+Redo this exercise from scratch after **1 day, 3 days, 7 days, 21 days**. `go run ./cmd/drill due` tells you what is due today.

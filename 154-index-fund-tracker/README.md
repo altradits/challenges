@@ -98,3 +98,52 @@ https://index-fund-tracker.yourname.com
 After completing this, you'll be ready for:
 - [155-savings-runway-calculator](../155-savings-runway-calculator/README.md) - Savings Runway Calculator
 - [133-portfolio-website](../133-portfolio-website/README.md) - Portfolio Website
+
+---
+
+## Function contracts (what the tests pin)
+
+Implement in `package piscine`:
+
+- `ParseTicker(s string) (Fund, error)` — parse `"VTI: $245.32 (+1.2%)"`;
+  error when the colon, price or change is missing or malformed.
+- `FormatChange(change float64) string` — `"+1.2%"`, `"-0.5%"` (one decimal).
+- `FormatComparison(f1, f2 Fund) string` — `"VTI outperforms VOO by 2.3%"`,
+  `"VOO underperforms VTI by 2.3%"`, or `"VTI matches X"` on a tie.
+- `GeneratePerformanceReport(funds []Fund) string` — starts with
+  `"Fund Performance Report\n"`, then one `"TICKER: CHANGE @ $PRICE"` line
+  per fund.
+
+Those API, dashboard and deployment sections are stretch goals: build them
+after the function core passes its tests.
+
+## Time limit
+
+**120 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
+
+## Blind rule
+
+No docs, no search, no AI, no copying. Close `skills.md`, close the reference solution, turn off autocomplete if you can. Write every line from memory — that is the whole point.
+
+## How to check
+
+From the repo root:
+
+```bash
+go run ./cmd/drill check 154
+```
+
+or run the tests directly:
+
+```bash
+go test ./154-index-fund-tracker/
+```
+
+Green means done. Red means read the failure message, fix from memory, check
+again.
+
+## Repeat schedule
+
+Redo this challenge from scratch after **1 day, 3 days, 7 days, 21 days**.
+Each round, start the timer with `go run ./cmd/drill start 154` and beat your
+previous time. `go run ./cmd/drill due` tells you what is due today.

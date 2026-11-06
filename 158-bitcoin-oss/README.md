@@ -1,52 +1,71 @@
 # 158-bitcoin-oss — Contributing to Bitcoin Open Source in Go
 
-## Objective
+## Task
 
-Make your first real open-source contribution to a production Go Bitcoin project.
+Make your first real open-source contribution to a production Go Bitcoin
+project: **btcd** first, then **LND**. This is a manual challenge — there are
+no hidden tests, only a merged PR.
 
-The Go Bitcoin ecosystem is built in Go. You already know the language.
-The only remaining step is learning the codebase, finding an issue, and shipping a PR.
+- btcd (Bitcoin full node in Go): https://github.com/btcsuite/btcd
+- LND (Lightning Network daemon in Go): https://github.com/lightningnetwork/lnd
 
-## The Target Projects
+The full step-by-step is in
+[opensource/go-bitcoin-path.md](opensource/go-bitcoin-path.md); the community
+map (developers, conferences, fellowships) is in
+[opensource/community.md](opensource/community.md).
 
-### btcd — Bitcoin Full Node in Go
+## Input / Output
 
-Repository: https://github.com/btcsuite/btcd
+- Input: a `good-first-issue` in btcd or LND that matches something you
+  learned in this course.
+- Output: a merged upstream PR — more credible than any course certificate.
 
-btcd is a complete Bitcoin node implemented in Go. It handles block validation, the peer-to-peer network, and the UTXO set. Reading btcd code is one of the best ways to see production-grade Go in practice.
+## Examples
 
-Start here. The issues are well-labelled and the codebase is approachable.
-
-### LND — Lightning Network Daemon
-
-Repository: https://github.com/lightningnetwork/lnd
-
-LND is the most widely-deployed Lightning Network implementation in production. It is written in Go. Running a node, reading the code, and fixing a bug in LND is how you become a Lightning developer.
-
-Start here after btcd.
-
-## How to Get Your First Merged PR
+How to get the first merged PR:
 
 1. Clone the repo and run the tests: `go build ./...` && `go test ./...`
 2. Read the contribution guide (`CONTRIBUTING.md`)
 3. Search issues labelled `good-first-issue`
-4. Pick one that matches something you have already learned in this course
+4. Pick one that matches something you have already learned here
 5. Ask a clarifying question on the issue before writing code
 6. Write the fix, write the test, submit the PR
 7. Respond to every review comment promptly
 
-The full step-by-step is in [opensource/go-bitcoin-path.md](opensource/go-bitcoin-path.md).
-The community map (where to find developers, conferences, fellowships) is in [opensource/community.md](opensource/community.md).
+Once you have one merged PR, look at African-developer fellowships: **Qala**
+(https://qala.dev) and **Btrust Builders** (https://bitcoindevs.xyz).
 
-## Why This Matters
+## Constraints
 
-A merged PR in btcd or LND is more credible than any course certificate.
-It proves you can read unfamiliar Go code, understand a real system, and ship production-quality changes.
+- The PR must be yours: your own code, your own tests, your own words in
+  review replies.
+- Follow the upstream project’s contribution guide exactly (commit style,
+  DCO sign-off if they require it, review etiquette).
+- One small, clean PR beats one big, noisy PR.
 
-## Fellowships for African Developers
+## Time limit
 
-Once you have one merged PR:
-- **Qala Fellowship** — https://qala.dev — paid 3-month program for African developers
-- **Btrust Builders** — https://bitcoindevs.xyz — mentorship program funded by Jack Dorsey
+No clock — upstream review sets the pace. Time-box your side: have a PR open
+within **14 days** of starting this challenge.
 
-Details in [opensource/community.md](opensource/community.md).
+## Blind rule
+
+This challenge is about working in public, so the blind rule bends: reading
+upstream code, docs, and review feedback is the job. The code you submit must
+still be written by you, from understanding — no pasted snippets you cannot
+explain line by line.
+
+## How to check
+
+```bash
+go run ./cmd/drill check 158
+```
+
+`drill check` walks a self-attestation checklist (PR link, merged status) and
+records an honest pass. Your real proof is the merged PR badge on your
+GitHub profile.
+
+## Repeat schedule
+
+No 1/3/7/21-day repeats — instead, keep contributing. Every further merged PR
+is a rep. `go run ./cmd/drill due` never lists 158 as overdue.

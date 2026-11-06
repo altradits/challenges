@@ -1,24 +1,92 @@
 package main
 
 import (
+	"encoding/json"
+	"errors"
+	"net/http/httptest"
+	"strings"
 	"testing"
 )
 
-// TestUserHandler tests the user handler
-func TestUserHandler(t *testing.T) {
-	// TODO: Implement this function
-	// 1. Create a MemoryStore
-	// 2. Create the handler with the store
-	// 3. Write table-driven tests for:
-	//    - GET /users returns 200
-	//    - POST /users with valid data returns 201
-	//    - POST /users with invalid data returns 400
-	//    - GET /users/999 returns 404
+type stubStore struct {
+	users  []User
+	nextID int
+	fail   bool
 }
 
-// Test cases to implement:
-// 1. GET /users - should return 200 and empty array
-// 2. POST /users - should return 201 and created user
-// 3. POST /users with invalid JSON - should return 400
-// 4. GET /users/1 - should return 200 and user
-// 5. GET /users/999 - should return 404
+func (s *stubStore) GetAll() ([]User, error) {
+	if s.fail {
+		return nil, errors.New("boom")
+	}
+	return s.users, nil
+}
+
+func (s *stubStore) Get(id int) (*User, error) {
+	if s.fail {
+		return nil, errors.New("boom")
+	}
+	for i := range s.users {
+		if s.users[i].ID == id {
+			return &s.users[i], nil
+		}
+	}
+	return nil, nil
+}
+
+func (s *stubStore) Create(user *User) error {
+	if s.fail {
+		return errors.New("boom")
+	}
+	user.ID = s.nextID
+	s.nextID++
+	s.users = append(s.users, *user)
+	return nil
+}
+
+func TestCreateUserHandler(t *testing.T) {
+	h := CreateUserHandler(&stubStore{})
+	if h == nil {
+		t.Fatal("CreateUserHandler returned nil")
+	}
+	serve := func(method, path, body string) (int, string) {
+		t.Helper()
+		req := httptest.NewRequest(method, path, strings.NewReader(body))
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, req)
+		return rec.Code, rec.Body.String()
+	}
+	code, body := serve("POST", "/users", `{"name":"Ada","email":"ada@x.io"}`)
+	if code != 201 {
+		t.Fatalf("POST = %d, want 201 (%s)", code, body)
+	}
+	var created User
+	if err := json.Unmarshal([]byte(body), &created); err != nil || created.Name != "Ada" {
+		t.Fatalf("POST created %q: %v", body, err)
+	}
+	code, body = serve("GET", "/users", "")
+	if code != 200 || !strings.Contains(body, "Ada") {
+		t.Errorf("GET list = %d %q", code, body)
+	}
+	code, body = serve("GET", "/users/0", "")
+	if code != 200 || !strings.Contains(body, "Ada") {
+		t.Errorf("GET one = %d %q", code, body)
+	}
+	if code, _ := serve("GET", "/users/99", ""); code != 404 {
+		t.Errorf("GET missing = %d, want 404", code)
+	}
+	if code, _ := serve("GET", "/users/abc", ""); code != 400 {
+		t.Errorf("GET bad id = %d, want 400", code)
+	}
+	if code, _ := serve("POST", "/users", `nope`); code != 400 {
+		t.Errorf("POST invalid = %d, want 400", code)
+	}
+}
+
+func TestCreateUserHandlerStoreError(t *testing.T) {
+	h := CreateUserHandler(&stubStore{fail: true})
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("GET", "/users", nil))
+	if rec.Code != 500 {
+		t.Errorf("store failure = %d, want 500", rec.Code)
+	}
+}
