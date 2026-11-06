@@ -115,3 +115,34 @@ func TestHasTests(t *testing.T) {
 		t.Fatal("want hasTests=false")
 	}
 }
+
+func TestNestedModules(t *testing.T) {
+	root := t.TempDir()
+	writeChallenge(t, root, "156-api-lesson", "# 156\n")
+	sub := filepath.Join(root, "156-api-lesson", "01-ex")
+	if err := os.MkdirAll(sub, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(sub, "go.mod"), []byte("module ex\n\ngo 1.26.10\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(sub, "main.go"), []byte("package main\n\nfunc main() {}\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(sub, "main_test.go"), []byte("package main\n\nimport \"testing\"\n\nfunc TestX(t *testing.T) {}\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if !hasTests(root, "156-api-lesson") {
+		t.Fatal("want hasTests=true via nested module")
+	}
+	if got := nestedModules(root, "156-api-lesson"); len(got) != 1 {
+		t.Fatalf("nestedModules = %v", got)
+	}
+	out, pass := runGoTest(root, "156-api-lesson")
+	if !pass {
+		t.Fatalf("nested run failed:\n%s", out)
+	}
+	if !strings.Contains(out, "=== 156-api-lesson/01-ex ===") {
+		t.Fatalf("nested output missing header:\n%s", out)
+	}
+}

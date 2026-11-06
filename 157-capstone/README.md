@@ -175,6 +175,18 @@ After completing this, you'll be ready for:
 
 ---
 
+## Function contracts (what the tests pin)
+
+Implement in `package piscine` (the analytics core; the dashboard, API and
+deployment sections in this file are stretch goals after this passes):
+
+- The `Tool`, `Interaction` and `Analytics` structs exactly as defined above.
+- `func (a *Analytics) TrackToolUse(toolName, input, output string)` —
+  appends an `Interaction` (with `Timestamp` set), increments `TotalUses`,
+  and counts the tool in `PopularTools` (initializing the map when nil).
+- `func (a *Analytics) TopTool() string` — the most-used tool name, or `""`
+  when nothing is tracked.
+
 ## Time limit
 
 **240 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.

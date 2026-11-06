@@ -100,6 +100,24 @@ After completing this, you'll be ready for:
 
 ---
 
+## Function contracts (what the tests pin)
+
+Implement in `package piscine`:
+
+- `ParseExpense(s string) (Expense, error)` — parse `"Groceries: $150.50"`;
+  error when the colon or amount is missing or malformed.
+- `CalculateRunway(savings, monthlyExpenses float64) (years, months int)` —
+  `int(savings/monthlyExpenses)` split into years and months (`30` →
+  `(2, 6)`); `(0, 0)` when expenses are not positive.
+- `FormatRunway(years, months int) string` — `"2 years 6 months"`
+  (singular "year"/"month" when the value is 1).
+- `GenerateMilestone(months int) string` — `"Milestone: 6 months of
+  savings!"` under a year, `"Milestone: 1 year of savings!"` /
+  `"Milestone: 2 years of savings!"` after.
+
+Those API, dashboard and deployment sections are stretch goals: build them
+after the function core passes its tests.
+
 ## Time limit
 
 **120 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.

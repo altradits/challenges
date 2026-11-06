@@ -72,16 +72,50 @@ func pendingElapsed(prog *Progress, num int, at time.Time) time.Duration {
 
 func hasTests(root, dir string) bool {
 	matches, _ := filepath.Glob(filepath.Join(root, dir, "*_test.go"))
-	return len(matches) > 0
+	if len(matches) > 0 {
+		return true
+	}
+	return len(nestedModules(root, dir)) > 0
+}
+
+// nestedModules lists challenge subdirectories that are their own Go modules
+// with tests (the 156-api-lesson sub-exercises).
+func nestedModules(root, dir string) []string {
+	var out []string
+	mods, _ := filepath.Glob(filepath.Join(root, dir, "*", "go.mod"))
+	for _, g := range mods {
+		sub := filepath.Dir(g)
+		if tests, _ := filepath.Glob(filepath.Join(sub, "*_test.go")); len(tests) > 0 {
+			out = append(out, sub)
+		}
+	}
+	return out
 }
 
 // runGoTest runs the hidden tests for one challenge and reports pass/fail.
 // The full test output is returned so failure messages reach the student.
+// Challenges with nested test modules (156) run each module in turn.
 func runGoTest(root, dir string) (string, bool) {
+	if subs := nestedModules(root, dir); len(subs) > 0 {
+		var sb strings.Builder
+		allPass := true
+		for _, sub := range subs {
+			rel, _ := filepath.Rel(root, sub)
+			out, pass := runGoTestIn(sub, "./...")
+			fmt.Fprintf(&sb, "=== %s ===\n%s", rel, out)
+			allPass = allPass && pass
+		}
+		return sb.String(), allPass
+	}
+	return runGoTestIn(root, "./"+dir+"/")
+}
+
+// runGoTestIn runs go test for pkg with workdir as the module root.
+func runGoTestIn(workdir, pkg string) (string, bool) {
 	ctx, cancel := context.WithTimeout(context.Background(), goTestTimeout)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, "go", "test", "-count=1", "./"+dir+"/")
-	cmd.Dir = root
+	cmd := exec.CommandContext(ctx, "go", "test", "-count=1", pkg)
+	cmd.Dir = workdir
 	var buf bytes.Buffer
 	cmd.Stdout = &buf
 	cmd.Stderr = &buf

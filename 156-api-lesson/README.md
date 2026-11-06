@@ -9,7 +9,15 @@ Each exercise has its own numbered folder containing:
 - `main.go` - Starter code with TODO function for you to implement
 - `go.mod` - Go module file (for exercises requiring dependencies)
 
-**Your task:** Open each `main.go`, study the README to learn the concepts, then implement the function. Run `go run .` to test your solution.
+**Your task:** Open each `main.go`, study the README to learn the concepts, then implement the function. Run `go run .` to try it live, and check your work blind with the hidden tests:
+
+```bash
+go run ./cmd/drill check 156   # runs all 10 sub-exercise test suites
+```
+
+Each exercise function returns its handler (tests call it directly with
+`httptest`); `main()` only starts the server. The two capstones are
+self-checked stretch projects with no hidden tests.
 
 ## Course Structure
 

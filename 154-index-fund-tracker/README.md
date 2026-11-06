@@ -101,6 +101,22 @@ After completing this, you'll be ready for:
 
 ---
 
+## Function contracts (what the tests pin)
+
+Implement in `package piscine`:
+
+- `ParseTicker(s string) (Fund, error)` — parse `"VTI: $245.32 (+1.2%)"`;
+  error when the colon, price or change is missing or malformed.
+- `FormatChange(change float64) string` — `"+1.2%"`, `"-0.5%"` (one decimal).
+- `FormatComparison(f1, f2 Fund) string` — `"VTI outperforms VOO by 2.3%"`,
+  `"VOO underperforms VTI by 2.3%"`, or `"VTI matches X"` on a tie.
+- `GeneratePerformanceReport(funds []Fund) string` — starts with
+  `"Fund Performance Report\n"`, then one `"TICKER: CHANGE @ $PRICE"` line
+  per fund.
+
+Those API, dashboard and deployment sections are stretch goals: build them
+after the function core passes its tests.
+
 ## Time limit
 
 **120 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.

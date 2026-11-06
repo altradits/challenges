@@ -101,6 +101,23 @@ After completing this, you'll be ready for:
 
 ---
 
+## Function contracts (what the tests pin)
+
+Implement in `package piscine`:
+
+- `CalculateRunway(data FinancialData) int` — whole months until
+  `TargetSavings` at `(MonthlyIncome - MonthlyExpenses)` per month, rounded
+  up; `0` if already at target; `-1` if expenses meet or exceed income.
+- `ValidateAccountNumber(s string) bool` — exactly 10 ASCII digits.
+- `NormalizeCurrency(s string) string` — strip `$`, commas and spaces:
+  `"$1,234.56"` → `"1234.56"`.
+- `GenerateReport(data FinancialData) string` —
+  `"Savings Runway: N months (Y years)"` with `Y = N/12`, or
+  `"Savings Runway: never (expenses exceed income)"` when the runway is `-1`.
+
+Those API, dashboard and deployment sections are stretch goals: build them
+after the function core passes its tests.
+
 ## Time limit
 
 **120 minutes** (round 1). Beat it on every repeat — each spaced round targets a shorter time as the solution moves into long-term memory.
