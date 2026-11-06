@@ -70,7 +70,7 @@ plain JSON).
 | `drill stats` | Streaks, best times, and your weak topics |
 | `drill solution NN` | Shows the reference solution — only after you have passed NN once |
 
-Manual challenges (00, 22, 83, 158) have no hidden tests: `drill check`
+Manual challenges (00, 22, 83, 158, 192) have no hidden tests: `drill check`
 walks a self-attestation checklist instead. Be honest; you are only cheating
 your own memory.
 
@@ -85,9 +85,9 @@ your own memory.
 | 4 | 52–80 | Strings package mastery — every `strings`/`fmt`/`strconv` function |
 | 5 | 81–144 | Challenge problems — piscine-style, multiple concepts combined |
 | 6 | 145–158 | Backend bridge (time, json, http, sql, config, logging, generics, graceful shutdown) + capstones + first Bitcoin PR |
-| 7 | 159–169 | Language depth — closures, defer/panic/recover, switch, variadic, conversions, iota, embedding, generics, io, mutexes, advanced testing |
+| 7 | 159–175 | Language depth — closures, defer/panic/recover, switch, variadic, conversions, iota, embedding, generics, io, mutexes, advanced testing, bytes/bufio, binary, hex, sha256, worker pools, atomics |
 | 8 | 176–185 | Data structures & algorithms — linked list, stack, queue, binary search, sorting, trees, graphs, DP, two pointers, sliding window |
-| 9 | 170–175, 186+ | Bitcoin protocol — byte order, varints, hex, SHA-256d, Merkle root, block headers, TCP message codec |
+| 9 | 186–192 | Bitcoin protocol + tooling — CompactSize varints, SHA-256d/txids, Merkle root, block headers, P2P message codec, P2PKH scripts, race/fuzz/pprof |
 
 See [LEARNING_PATH.md](LEARNING_PATH.md) for the full table with every
 directory listed, and [docs/CHALLENGE_TEMPLATE.md](docs/CHALLENGE_TEMPLATE.md)

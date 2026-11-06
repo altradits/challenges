@@ -1,6 +1,6 @@
 # Go Mastery: Complete Learning Path
 
-Follow the directories **in number order (01 → 150)**. Each number is exactly where you should be.
+Follow the directories **in number order (01 → 192)**. Each number is exactly where you should be.
 
 ```
 Phase 1  (01–05):  Hello World — the four-line Go skeleton
@@ -9,6 +9,8 @@ Phase 3  (28–51):  Beginner Practice — apply the basics one concept at a tim
 Phase 4  (52–80):  Strings Package Mastery — the full strings/fmt/strconv toolkit
 Phase 5  (81–144): Challenge Problems — combine everything, harder piscine-style problems
 Phase 6  (145–158): Backend Bridge + Capstone Projects — backend packages, then real-world Go apps
+Phase 7  (159–185): Language Depth + Algorithms — contributor-level Go, classic CS problems
+Phase 8  (186–192): Bitcoin Protocol + Tooling — consensus encodings, then race/fuzz/pprof
 ```
 
 ---
@@ -237,6 +239,68 @@ Apply everything in real Go projects. Each one builds on all prior phases.
 
 ---
 
+## Phase 7: Language Depth + Algorithms (159–185)
+
+Second pass over the language at contributor depth (159–175), then the
+classic data structures and algorithms (176–185) that whiteboards and
+codebase reading both assume.
+
+### Language Depth (159–175)
+
+| # | Directory | What You Learn |
+|---|-----------|----------------|
+| 159 | `159-closures` | Closures, function values, stateful counters |
+| 160 | `160-defer-panic-recover` | `defer` order, `panic`/`recover`, cleanup patterns |
+| 161 | `161-switch-statements` | Value/type switches, fallthrough, guards |
+| 162 | `162-variadic-functions` | Variadic args, spreading slices |
+| 163 | `163-type-conversions` | Numeric conversions, runes, `string()` pitfalls |
+| 164 | `164-constants-iota` | Typed constants, `iota` enumerations |
+| 165 | `165-embedding` | Struct embedding, method promotion, composition |
+| 166 | `166-generics-intro` | Type parameters, constraints, generic funcs |
+| 167 | `167-io-readers-writers` | `io.Reader`/`Writer`, `io.Copy`, streaming |
+| 168 | `168-sync-mutex` | `sync.Mutex`/`RWMutex`, race-free maps |
+| 169 | `169-testing-advanced` | Table-driven tests, subtests, benchmarks |
+| 170 | `170-bytes-bufio` | `bytes` toolkit, `bufio.Scanner`/`Writer` |
+| 171 | `171-encoding-binary` | LE/BE codecs with `encoding/binary` |
+| 172 | `172-encoding-hex` | Hex encode/decode, byte-order reversal |
+| 173 | `173-crypto-sha256` | `sha256.Sum256`, streaming `hash.Hash`, SHA-256d |
+| 174 | `174-worker-pool` | Fixed pools, ordered results, no leaks |
+| 175 | `175-sync-atomic` | `atomic.Int64`, compare-and-swap loops |
+
+### Algorithms (176–185)
+
+| # | Directory | What You Learn |
+|---|-----------|----------------|
+| 176 | `176-linked-list` | Singly linked list: push, reverse, remove |
+| 177 | `177-stack` | LIFO stack, balanced-bracket check |
+| 178 | `178-queue` | FIFO queue, BFS over adjacency lists |
+| 179 | `179-binary-search` | Binary search, insert position, first/last hit |
+| 180 | `180-sorting-algorithms` | Bubble/insertion/quick/merge/counting sort |
+| 181 | `181-binary-tree` | BST insert, traversals, height |
+| 182 | `182-graph-bfs-dfs` | BFS/DFS order, paths, components |
+| 183 | `183-dynamic-programming` | Climbing stairs, coin change, LCS, knapsack |
+| 184 | `184-two-pointers` | Two-sum, dedup, container with most water |
+| 185 | `185-sliding-window` | Max subarray, unique substring, anagrams |
+
+---
+
+## Phase 8: Bitcoin Protocol + Tooling (186–192)
+
+Real consensus and wire-protocol encodings with fixed mainnet test
+vectors, then the contributor toolchain. Do this phase right before 158.
+
+| # | Directory | What You Learn |
+|---|-----------|----------------|
+| 186 | `186-compactsize-varint` | CompactSize encode/decode, canonical rejection |
+| 187 | `187-sha256d-txid` | Double-SHA256, internal vs display byte order |
+| 188 | `188-merkle-root` | Merkle root, odd-leaf duplication |
+| 189 | `189-block-header` | 80-byte header parse/serialize/hash (genesis vector) |
+| 190 | `190-p2p-message-codec` | P2P framing: magic, command, length, checksum |
+| 191 | `191-p2pkh-script` | P2PKH template build/parse/recognize |
+| 192 | `192-tooling-practice` | `-race`, fuzzing, benchmarks + pprof, `go vet` (manual) |
+
+---
+
 ## Quick Reference
 
 ```
@@ -250,6 +314,9 @@ Apply everything in real Go projects. Each one builds on all prior phases.
 81-144  Challenge problems   →  Hard piscine-style challenges, combine multiple concepts
 145-152 Backend bridge       →  time, json, http, sql, config, logging, generics, graceful shutdown
 153-158 Capstone projects    →  Real Go applications and Bitcoin open source contribution
+159-175 Language depth       →  Closures, defer, switch, generics, io, sync, bytes, sha256, pools, atomics
+176-185 Algorithms           →  Lists, stacks, queues, search, sorts, trees, graphs, DP, pointers, windows
+186-192 Bitcoin + tooling    →  Varints, sha256d, merkle, headers, P2P codec, scripts, race/fuzz/pprof
 ```
 
 **Always read `skills.md` before you attempt the challenge in `README.md`.**
